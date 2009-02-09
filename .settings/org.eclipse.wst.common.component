@@ -8,8 +8,8 @@
 <dependent-module archiveName="Bookkeeper.jar" deploy-path="/" handle="module:/resource/Bookkeeper/Bookkeeper">
 <dependency-type>uses</dependency-type>
 </dependent-module>
-<dependent-module deploy-path="/" handle="module:/resource/TWA-JSF/TWA-JSF">
-<dependent-object>WebModule_1234183293814</dependent-object>
+<dependent-module deploy-path="/" handle="module:/resource/twa-bookkeeper-chargen/twa-bookkeeper-chargen">
+<dependent-object>WebModule_1234192245102</dependent-object>
 <dependency-type>uses</dependency-type>
 </dependent-module>
 </wb-module>

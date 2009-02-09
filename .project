@@ -5,7 +5,7 @@
 	<projects>
 		<project>HarperHallUtil</project>
 		<project>Bookkeeper</project>
-		<project>TWA-JSF</project>
+		<project>twa-bookkeeper-chargen</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
