@@ -1,0 +1,122 @@
+<div id="pers_info">
+   <h:panelGrid columns="8">
+     <h:outputText styleClass="portlet-font" value="Name:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.name}"/>
+
+     <h:outputText styleClass="portlet-font" value="Rasse:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.raceName}"/>
+
+     <h:outputText styleClass="portlet-font" value="Class:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.className}"/>
+
+     <h:outputText styleClass="portlet-font" value="Gender:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.gender}"/>
+
+     <h:outputText styleClass="portlet-font" value="Level:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.level}"/>
+
+     <h:outputText styleClass="portlet-font" value="EP:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.ep}"/>
+
+     <h:outputText styleClass="portlet-font" value="DevPts/Lvl:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.totalDevPts}"/>
+
+     <h:outputText styleClass="portlet-font" value="Free DevPts:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.freeDevPts}"/>
+
+     <h:outputText styleClass="portlet-font" value="Hit Dice:"/>
+     <h:outputText styleClass="portlet-font" value="1D#{statsbean.hitDice}"/>
+
+     <h:outputText styleClass="portlet-font" value="Base Hits:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.baseHits}"/>
+
+     <h:outputText styleClass="portlet-font" value="Total Hits:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.totalHits}"/>
+
+     <h:outputText styleClass="portlet-font" value="Age:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.age}"/>
+
+  </h:panelGrid>
+</div>
+<div id="resistance_mod">
+   <h:outputText styleClass="table-header" value="Resistance Rolls"/>
+   <h:panelGrid columns="8">
+     <h:outputText styleClass="portlet-font" value=" "/>
+     <h:outputText styleClass="portlet-font" value="Ess"/>
+     <h:outputText styleClass="portlet-font" value="Chan"/>
+     <h:outputText styleClass="portlet-font" value="Ment"/>
+     <h:outputText styleClass="portlet-font" value="Arcane"/>
+     <h:outputText styleClass="portlet-font" value="Elem"/>
+     <h:outputText styleClass="portlet-font" value="Poison"/>
+     <h:outputText styleClass="portlet-font" value="Disease"/>
+
+     <h:outputText styleClass="portlet-font" value="Race:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.raceResistAll.ess}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.raceResistAll.chan}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.raceResistAll.ment}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.raceResistAll.arcane}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.raceResistAll.elem}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.raceResistAll.poison}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.raceResistAll.disease}"/>
+
+     <h:outputText styleClass="portlet-font" value="Stat:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.statResistAll.ess}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.statResistAll.chan}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.statResistAll.ment}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.statResistAll.arcane}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.statResistAll.elem}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.statResistAll.poison}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.statResistAll.disease}"/>
+
+     <h:outputText styleClass="portlet-font" value="Total:"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.totalResistAll.ess}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.totalResistAll.chan}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.totalResistAll.ment}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.totalResistAll.arcane}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.totalResistAll.elem}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.totalResistAll.poison}"/>
+     <h:outputText styleClass="portlet-font" value="#{statsbean.totalResistAll.disease}"/>
+   </h:panelGrid>
+</div>
+<div id="sec_n_derived_info">
+	<h:panelGrid columns="2">
+		<h:outputText styleClass="portlet-font" value="Height"/>
+		<h:outputText styleClass="portlet-font" value="5'10\""/>
+
+		<h:outputText styleClass="portlet-font" value="Weight"/>
+		<h:outputText styleClass="portlet-font" value="150lbs"/>
+
+		<h:outputText styleClass="portlet-font" value="BTS"/>
+		<h:outputText styleClass="portlet-font" value="320"/>
+
+		<h:outputText styleClass="portlet-font" value="HES"/>
+		<h:outputText styleClass="portlet-font" value="320"/>
+
+		<h:outputText styleClass="portlet-font" value="HFS"/>
+		<h:outputText styleClass="portlet-font" value="320"/>
+
+		<h:outputText styleClass="portlet-font" value="Initiative"/>
+		<h:outputText styleClass="portlet-font" value="23"/>
+
+		<h:outputText styleClass="portlet-font" value="BMR"/>
+		<h:outputText styleClass="portlet-font" value="63"/>
+
+		<h:outputText styleClass="portlet-font" value="PP"/>
+		<h:outputText styleClass="portlet-font" value="8.5"/>
+
+		<h:outputText styleClass="portlet-font" value="PP Base"/>
+		<h:outputText styleClass="portlet-font" value="1.4"/>
+
+		<h:outputText styleClass="portlet-font" value="PP RMC IV"/>
+		<h:outputText styleClass="portlet-font" value="3"/>
+  </h:panelGrid>
+</div>
+<div id="specials_info">
+	<h:panelGrid columns="1">
+		<h:outputText styleClass="portlet-font" value="Specials:"/>
+		<h:outputText styleClass="portlet-font" value="Knighted"/>
+		<h:outputText styleClass="portlet-font" value="Sparkling Eyes"/>
+		<h:outputText styleClass="portlet-font" value="Conspiratorial Background"/>
+		<h:outputText styleClass="portlet-font" value="+10 mag Item Accessory"/>
+  	</h:panelGrid>
+</div>

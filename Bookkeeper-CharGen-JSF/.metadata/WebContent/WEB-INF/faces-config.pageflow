@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf12342735570070" configfile="/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="temp_stats" x="24" y="48" id="pf12342738046711" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf12342738046712" path="/temp_stats.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pot_stats" x="204" y="60" id="pf12342738046713" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf12342738046724 pf12342738046725" inlinks="pf12342738046712 pf12342738046724" path="/pot_stats.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="race_select" x="35" y="204" id="pf12342738046726" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf12342738046727" inlinks="pf12342738046725" path="/race_select.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="show_character" x="184" y="240" id="pf12342738046728" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf12342738046729" inlinks="pf12342738046727 pf12342738046729" path="/show_character.jsp"/>
+  <links id="pf12342738046712" target="pf12342738046713" source="pf12342738046711"/>
+  <links id="pf12342738046724" target="pf12342738046713" source="pf12342738046713">
+    <bendPoints d1Width="-2" d1Height="69" d2Width="-2" d2Height="69"/>
+    <bendPoints d1Width="60" d1Height="69" d2Width="60" d2Height="69"/>
+    <bendPoints d1Width="61" d1Height="19" d2Width="61" d2Height="19"/>
+  </links>
+  <links id="pf12342738046725" target="pf12342738046726" source="pf12342738046713"/>
+  <links id="pf12342738046727" target="pf12342738046728" source="pf12342738046726"/>
+  <links id="pf12342738046729" target="pf12342738046728" source="pf12342738046728">
+    <bendPoints d1Width="3" d1Height="72" d2Width="3" d2Height="72"/>
+    <bendPoints d1Width="51" d1Height="73" d2Width="51" d2Height="73"/>
+    <bendPoints d1Width="46" d1Height="4" d2Width="46" d2Height="4"/>
+  </links>
+</pageflow:Pageflow>

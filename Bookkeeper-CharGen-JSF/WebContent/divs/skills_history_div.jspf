@@ -1,0 +1,3 @@
+<div id="skills_history">
+ <h:outputText value="this will show the skill history"/>
+</div>
