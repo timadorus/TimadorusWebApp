@@ -1,0 +1,13 @@
+<!DOCTYPE jboss-app PUBLIC "-//JBoss//DTD J2EE Application 1.4//EN"
+          "http://www.jboss.org/j2ee/dtd/jboss-app_4_0.dtd">
+<jboss-app>
+  <loader-repository>
+    keeper:app=ejb3
+  </loader-repository>
+  
+  <!-- The service element specifies a service archive (SAR) to deploy. -->
+   <module>
+      <service>Bookkeeper-StaticDataService.jar</service>
+   </module>
+
+</jboss-app>

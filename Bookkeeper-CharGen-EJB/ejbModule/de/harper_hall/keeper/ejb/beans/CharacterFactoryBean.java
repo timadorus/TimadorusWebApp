@@ -1,6 +1,6 @@
 package de.harper_hall.keeper.ejb.beans;
 
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -10,13 +10,14 @@ import org.jboss.logging.Logger;
 
 import de.harper_hall.keeper.character.CharCreator;
 import de.harper_hall.keeper.character.entities.CharacterEntity;
+import de.harper_hall.keeper.character.entities.CharacterEntityImpl;
 
 /**
  * Session Bean implementation class CharacterFactoryBean
  */
-@Stateless
-@LocalBinding(jndiBinding = "BookKeeper/CharacterFactory/local")
-@RemoteBinding(jndiBinding = "BookKeeper/CharacterFactory/remote")
+@Stateful
+@LocalBinding(jndiBinding = "Bookkeeper/CharacterFactory/local")
+@RemoteBinding(jndiBinding = "Bookkeeper/CharacterFactory/remote")
 public class CharacterFactoryBean implements CharacterFactoryRemote, CharacterFactory {
     
     @PersistenceContext(unitName = "keeper")
@@ -42,7 +43,7 @@ public class CharacterFactoryBean implements CharacterFactoryRemote, CharacterFa
         return null;
       }
 
-      CharacterEntity ce = new CharacterEntity();
+      CharacterEntity ce = new CharacterEntityImpl();
 
       em.persist(ce);
 

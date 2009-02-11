@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+	<!-- Bind the KeeperDataContext  -->
+	<mbean code="org.jboss.naming.ExternalContext" 
+	       name="jboss.jndi:service=ExternalContext,jndiName=keeperStaticData">
+	    <attribute name="JndiName">keeperStaticData</attribute>
+	    <attribute name="Properties">
+	       java.naming.factory.initial=de.harper_hall.keeper.naming.KeeperDataCtxFactory
+	       java.naming.provider.url=/home/sage/src/eclipse/Bookkeeper/bin/resources/
+	    </attribute>
+	</mbean>
+	<mbean code="org.jboss.varia.property.SystemPropertiesService"
+	        name="jboss.util:type=Service,name=SystemProperties">
+	    <!-- Set properties using the properties file style. -->
+	    <attribute name="Properties">
+	       keeperStaticDataName=keeperStaticData
+	       java.naming.provider.url=/home/sage/src/eclipse/Bookkeeper/bin/resources/
+	    </attribute>
+	</mbean>
+</server>

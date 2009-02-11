@@ -34,7 +34,7 @@ import de.harper_hall.util.collections.EnumByStringMap;
  * 
  */
 public class StatsBean {
-  private static Logger log = Logger.getLogger(GenericWeapon.class);
+  private static Logger log = Logger.getLogger(StatsBean.class);
   
   private EnumMap<Stat, Integer> tempStatMap = new EnumMap<Stat, Integer>(Stat.class);
 
@@ -162,13 +162,9 @@ public class StatsBean {
     }
 
     try {
-      factory = (CharacterFactory) ctx
-          .lookup("BookKeeper/CharacterFactory/local");
+      factory = (CharacterFactory) ctx.lookup("Bookkeeper/CharacterFactory/local");
     } catch (NamingException e) {
-      log
-          .error(
-                 "could not retrieve 'BookKeeper/CharacterFactory/local' from context.",
-                 e);
+      log.error("could not retrieve 'Bookkeeper/CharacterFactory/local' from context.", e);
       return;
     }
 

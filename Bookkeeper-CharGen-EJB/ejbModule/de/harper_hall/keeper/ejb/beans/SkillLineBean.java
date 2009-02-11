@@ -1,11 +1,12 @@
 package de.harper_hall.keeper.ejb.beans;
 
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
+
 
 /**
  * Session Bean implementation class SkillLineBean
  */
-@Stateless
+@Stateful
 public class SkillLineBean implements SkillLineRemote, SkillLine {
 
     private static final long serialVersionUID = 5208404319016975416L;

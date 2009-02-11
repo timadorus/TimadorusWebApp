@@ -35,8 +35,8 @@ import de.harper_hall.keeper.tables.Stat;
  * Session Bean implementation class CharCreatorFacadeBean
  */
 @Stateful
-@LocalBinding(jndiBinding = "BookKeeper/CharCreatorFacade/local")
-@RemoteBinding(jndiBinding = "BookKeeper/CharCreatorFacade/remote")
+@LocalBinding(jndiBinding = "Bookkeeper/CharCreatorFacade/local")
+@RemoteBinding(jndiBinding = "Bookkeeper/CharCreatorFacade/remote")
 public class CharCreatorFacadeBean implements CharCreatorFacadeRemote, CharCreatorFacade {
   
   private static Logger log = Logger.getLogger(CharCreatorFacadeBean.class);

@@ -8,8 +8,16 @@
 <dependent-module archiveName="Bookkeeper.jar" deploy-path="/" handle="module:/resource/Bookkeeper/Bookkeeper">
 <dependency-type>uses</dependency-type>
 </dependent-module>
-<dependent-module deploy-path="/" handle="module:/resource/twa-bookkeeper-chargen/twa-bookkeeper-chargen">
-<dependent-object>WebModule_1234192245102</dependent-object>
+<dependent-module deploy-path="/" handle="module:/resource/Bookkeeper-CharGen-EJB/Bookkeeper-CharGen-EJB">
+<dependent-object>EjbModule_1234276342794</dependent-object>
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/" handle="module:/resource/Bookkeeper-CharGen-JSF/Bookkeeper-CharGen-JSF">
+<dependent-object>WebModule_1234276404801</dependent-object>
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/" handle="module:/resource/Bookkeeper-StaticDataService/Bookkeeper-StaticDataService">
+<dependent-object>EjbModule_1234347589837</dependent-object>
 <dependency-type>uses</dependency-type>
 </dependent-module>
 </wb-module>
