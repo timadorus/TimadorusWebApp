@@ -3,6 +3,8 @@
 	<name>Bookkeeper-CharGen-EJB</name>
 	<comment></comment>
 	<projects>
+		<project>Bookkeeper</project>
+		<project>HarperHallUtil</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
