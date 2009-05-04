@@ -18,7 +18,6 @@ import org.apache.log4j.Logger;
 
 import de.harper_hall.keeper.RandomSource;
 import de.harper_hall.keeper.SystemPseudoRandomSource;
-import de.harper_hall.keeper.acid.weapons.GenericWeapon;
 import de.harper_hall.keeper.classes.InvalidSkillNameException;
 import de.harper_hall.keeper.classes.SkillDefinition;
 import de.harper_hall.keeper.ejb.beans.CharCreationException;
