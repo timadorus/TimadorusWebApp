@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="ejbModule"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_04"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_12"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.generic.runtimeTarget/JBoss v5.0"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-annotations-ejb3.jar"/>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-ejb3x.jar"/>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-annotations-ejb3-4.2.0.GA.jar"/>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="src" path="/Bookkeeper"/>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/ejb3-persistence.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

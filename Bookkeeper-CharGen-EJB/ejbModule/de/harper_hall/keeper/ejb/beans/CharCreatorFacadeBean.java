@@ -8,8 +8,8 @@ import java.util.Map;
 import javax.ejb.Stateful;
 
 import org.apache.log4j.Logger;
-import org.jboss.ejb3.annotation.LocalBinding;
-import org.jboss.ejb3.annotation.RemoteBinding;
+import org.jboss.annotation.ejb.LocalBinding;
+import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.harper_hall.keeper.ExternalDataException;
 import de.harper_hall.keeper.applications.GUIHelper;
