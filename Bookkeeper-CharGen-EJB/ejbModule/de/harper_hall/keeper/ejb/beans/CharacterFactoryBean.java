@@ -5,8 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.LocalBinding;
-import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.harper_hall.keeper.character.CharCreator;
 import de.harper_hall.keeper.character.entities.CharacterEntity;
@@ -16,8 +14,8 @@ import de.harper_hall.keeper.character.entities.CharacterEntityImpl;
  * Session Bean implementation class CharacterFactoryBean
  */
 @Stateful
-@LocalBinding(jndiBinding = "Bookkeeper/CharacterFactory/local")
-@RemoteBinding(jndiBinding = "Bookkeeper/CharacterFactory/remote")
+//@LocalBinding(jndiBinding = "Bookkeeper/CharacterFactory/local")
+//@RemoteBinding(jndiBinding = "Bookkeeper/CharacterFactory/remote")
 public class CharacterFactoryBean implements CharacterFactoryRemote, CharacterFactory {
     
     @PersistenceContext(unitName = "keeper")

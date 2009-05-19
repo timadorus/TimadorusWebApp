@@ -1,69 +1,275 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="ejbModule"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_12"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-annotations-ejb3.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-ejb3x.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-annotations-ejb3-4.2.0.GA.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/log4j-1.2.13.jar"/>
-	<classpathentry kind="src" path="/Bookkeeper"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/ejb3-persistence.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/ant-junit.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/antlr-2.7.2.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/asm-2.2.1.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/asm-tree-2.2.1.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/checkstyle-all-5.0-beta01.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/cobertura-1.9.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/common.runner-4.2.3.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-beanutils-1.7.0.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-cli-1.1.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-codec-1.3.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-collections-3.2.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-configuration-1.4-javadoc.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-configuration-1.4-sources.jar"/>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-annotations-ejb3.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-ejb3x.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-annotations-ejb3-4.2.0.GA.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/log4j-1.2.13.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="src" path="/Bookkeeper"/>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/ejb3-persistence.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/ant-junit.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/antlr-2.7.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/asm-2.2.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/asm-tree-2.2.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/checkstyle-all-5.0-beta01.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/cobertura-1.9.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/common.runner-4.2.3.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-beanutils-1.7.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-cli-1.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-codec-1.3.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-collections-3.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-configuration-1.4-javadoc.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-configuration-1.4-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-configuration-1.4.jar" sourcepath="/Bookkeeper/lib/commons-configuration-1.4-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/home/sage/src/eclipse/Bookkeeper/lib/commons-configuration-1.4-javadoc.jar!/"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-digester-1.8.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-discovery-0.4.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-el-1.0.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-jxpath-1.2.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-lang-2.3-javadoc.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-lang-2.3-sources.jar"/>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-digester-1.8.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-discovery-0.4.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-el-1.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-jxpath-1.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-lang-2.3-javadoc.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-lang-2.3-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-lang-2.3.jar" sourcepath="/Bookkeeper/lib/commons-lang-2.3-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/home/sage/src/eclipse/Bookkeeper/lib/commons-lang-2.3-javadoc.jar!/"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/dom4j.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/formsrt.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/fscontext.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/harperHallUtil.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/hibernate-annotations.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/hibernate-commons-annotations.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/hibernate-tools.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/hibernate3.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/hsqldb.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/jakarta-oro-2.0.8.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/java.runner-4.2.3.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-common.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/jgoodies-forms-1.2.0.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/jsf-api.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/jsf-impl.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/jstl-1.1.0.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/jta.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/junit-3.8.2.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/myfaces-api-1.2.6.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/myfaces-impl-1.2.6.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/postgresql-8.0-311.jdbc3.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/providerutil.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/standard.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/richfaces-api-3.3.0.GA.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/richfaces-impl-3.3.0.GA.jar"/>
-	<classpathentry kind="lib" path="/Bookkeeper/lib/richfaces-ui-3.3.0.GA.jar"/>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/commons-logging-1.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/dom4j.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/formsrt.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/fscontext.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/harperHallUtil.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/hibernate-annotations.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/hibernate-commons-annotations.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/hibernate-tools.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/hibernate3.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/hsqldb.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jakarta-oro-2.0.8.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/java.runner-4.2.3.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jboss-common.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jgoodies-forms-1.2.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jsf-api.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jsf-impl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jstl-1.1.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/jta.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/junit-3.8.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/myfaces-api-1.2.6.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/myfaces-impl-1.2.6.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/postgresql-8.0-311.jdbc3.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/providerutil.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/standard.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/richfaces-api-3.3.0.GA.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/richfaces-impl-3.3.0.GA.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Bookkeeper/lib/richfaces-ui-3.3.0.GA.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_07"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
