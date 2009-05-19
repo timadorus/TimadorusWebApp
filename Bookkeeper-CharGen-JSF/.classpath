@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="src" path="/Bookkeeper"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.6.0_12"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/Bookkeeper-CharGen-EJB"/>
-	<classpathentry kind="con" path="org.eclipse.jst.jsf.core.internal.jsflibrarycontainer/jsf"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v6.0"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.jsf.core.internal.jsflibrarycontainer/JSF"/>
 	<classpathentry exported="true" kind="lib" path="lib/harperHallUtil.jar"/>
-	<classpathentry kind="src" path="/Bookkeeper"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6"/>
+	<classpathentry exported="true" kind="lib" path="/Bookkeeper/lib/log4j-1.2.13.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ajax4jsf-1.1.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
