@@ -3,8 +3,8 @@
 	<name>Bookkeeper-CharGen-JSF</name>
 	<comment></comment>
 	<projects>
-		<project>Bookkeeper-CharGen-EJB</project>
 		<project>Bookkeeper</project>
+		<project>Bookkeeper-CharGen-EJB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
