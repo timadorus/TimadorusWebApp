@@ -8,8 +8,8 @@ import java.util.Map;
 import javax.ejb.Stateful;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.LocalBinding;
-import org.jboss.annotation.ejb.RemoteBinding;
+//import org.jboss.annotation.ejb.LocalBinding;
+//import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.harper_hall.keeper.ExternalDataException;
 import de.harper_hall.keeper.applications.GUIHelper;
@@ -35,8 +35,8 @@ import de.harper_hall.keeper.tables.Stat;
  * Session Bean implementation class CharCreatorFacadeBean
  */
 @Stateful
-@LocalBinding(jndiBinding = "Bookkeeper/CharCreatorFacade/local")
-@RemoteBinding(jndiBinding = "Bookkeeper/CharCreatorFacade/remote")
+//@LocalBinding(jndiBinding = "Bookkeeper/CharCreatorFacade/local")
+//@RemoteBinding(jndiBinding = "Bookkeeper/CharCreatorFacade/remote")
 public class CharCreatorFacadeBean implements CharCreatorFacadeRemote, CharCreatorFacade {
   
   private static Logger log = Logger.getLogger(CharCreatorFacadeBean.class);
