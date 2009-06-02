@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf12342735570070" configfile="/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="temp_stats" x="97" y="48" id="pf12342738046711" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" outlinks="pf12342738046712 pf12343561619490" inlinks="pf12343561619490" path="/temp_stats.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="pot_stats" x="360" y="60" id="pf12342738046713" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf12342738046724 pf12342738046725" inlinks="pf12342738046712 pf12342738046724" path="/pot_stats.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="race_select" x="84" y="288" id="pf12342738046726" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf12342738046727" inlinks="pf12342738046725" path="/race_select.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="show_character" x="340" y="228" id="pf12342738046728" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf12342738046729" inlinks="pf12342738046727 pf12342738046729" path="/show_character.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="temp_stats" x="72" y="72" id="pf12342738046711" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" outlinks="pf12342738046712 pf12343561619490" inlinks="pf12343561619490" path="/temp_stats.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pot_stats" x="372" y="120" id="pf12342738046713" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf12342738046724 pf12342738046725" inlinks="pf12342738046712 pf12342738046724" path="/pot_stats.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="race_select" x="108" y="300" id="pf12342738046726" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf12342738046727" inlinks="pf12342738046725" path="/race_select.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="show_character" x="492" y="276" id="pf12342738046728" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf12342738046729" inlinks="pf12342738046727 pf12342738046729" path="/show_character.jsp"/>
   <links id="pf12342738046712" target="pf12342738046713" source="pf12342738046711" outcome="temp_stats_resolved"/>
   <links id="pf12342738046724" target="pf12342738046713" source="pf12342738046713" outcome="pot_stats_rolled">
     <bendPoints d1Width="-2" d1Height="69" d2Width="-2" d2Height="69"/>
