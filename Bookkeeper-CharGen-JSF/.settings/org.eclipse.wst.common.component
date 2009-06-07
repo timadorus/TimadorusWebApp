@@ -2,7 +2,7 @@
 <project-modules id="moduleCoreId" project-version="1.5.0">
 <wb-module deploy-name="Bookkeeper-CharGen-JSF">
 <wb-resource deploy-path="/" source-path="/WebContent"/>
-        <wb-resource deploy-path="/" source-path="/src"/>
+<wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <dependent-module archiveName="Bookkeeper-CharGen-EJB.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Bookkeeper-CharGen-EJB/Bookkeeper-CharGen-EJB">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -69,10 +69,13 @@
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/struts.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/ajax4jsf-1.1.1.jar">
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/log4j-1.2.13.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/common.runner.jar">
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/myfaces-api-1.2.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/myfaces-impl-1.2.6.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
 <property name="java-output-path"/>
