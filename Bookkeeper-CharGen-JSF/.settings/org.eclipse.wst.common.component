@@ -69,10 +69,10 @@
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/struts.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/myfaces-api-1.1.6.jar">
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/ajax4jsf-1.1.1.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/myfaces-impl-1.1.6.jar">
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Bookkeeper-CharGen-JSF/WebContent/WEB-INF/lib/common.runner.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
 <property name="java-output-path"/>
