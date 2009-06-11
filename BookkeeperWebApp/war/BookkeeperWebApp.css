@@ -1,0 +1,8 @@
+.gwt-TextBox,
+.gwt-PasswordTextBox {
+	width:150px;
+}
+.formPanel {
+	border:1px solid #000;
+	margin:5px;
+}
