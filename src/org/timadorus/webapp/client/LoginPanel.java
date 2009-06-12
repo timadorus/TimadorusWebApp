@@ -6,12 +6,14 @@ import org.timadorus.webapp.client.rpc.service.LoginService;
 import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -85,21 +87,27 @@ public class LoginPanel extends FormPanel {
 				AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
 					public void onSuccess(String result) {
 						if(result != null){
-							RootPanel.get("content").clear();
-							RootPanel.get("content").add(new Label("Eingeloggt"));
-							Cookies.setCookie("session", result, new Date(System.currentTimeMillis() + TWO_MIN));
-							sessionId.setSessionId(result);
-							System.out.println("login session => "+result);
-						}else{
-							loginInvalid("Username und/oder Passwort falsch!");
-							submit.setEnabled(true);
-						}//end else
-					}//end onSuccess(String result) {
+							if(result.equals(User.USER_INACTIVE)){
+								loginInvalid("User ist deaktiviert!");
+								RootPanel.get("content").add(new HTML("<div id=\"info\" class=\"info\">Der angegebene User ist deaktiviert. Das kann mehrere Gründe haben<br />(Anmerkung vom Programmierer: Welche denn? Gesperrt durch Admin oder sowas ? Oder ist damit gemeint 'Registriert, aber Mail noch nicht verifiziert' ? Oder beides ?)</div>"));
+								submit.setEnabled(true);
+							} else if(result.equals(User.USER_INVALID)){
+								loginInvalid("Username und/oder Passwort falsch!");
+								submit.setEnabled(true);
+							} else {
+								RootPanel.get("content").clear();
+								RootPanel.get("content").add(new Label("Eingeloggt"));
+								Cookies.setCookie("session", result, new Date(System.currentTimeMillis() + TWO_MIN));
+								sessionId.setSessionId(result);
+								System.out.println("login session => "+result);
+							}
+						}
+					}
 					public void onFailure(Throwable caught) {
 						loginInvalid("Fehler bei der Anmeldung!");
 						System.out.println(caught);
-					}//end onFailure(Throwable caught) {
-				};//end asyncCallback
+					}
+				};
 
 				loginServiceAsync.login(user, asyncCallback);
 			}
@@ -124,5 +132,9 @@ public class LoginPanel extends FormPanel {
     
     private void clearError() {
    		errorHTML.setHTML("");
+   		Element info = DOM.getElementById("info");
+   		if(info != null) {
+   			info.getParentElement().removeChild(info);
+   		}
     }
 }
