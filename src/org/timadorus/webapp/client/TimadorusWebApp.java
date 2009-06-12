@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class BookkeeperWebApp implements EntryPoint {
+public class TimadorusWebApp implements EntryPoint {
 	
 	private static final long serialVersionUID = -5138823406762920058L;
 
