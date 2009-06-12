@@ -14,6 +14,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class RegisterServiceImpl extends RemoteServiceServlet implements RegisterService {
 
 	private static final long serialVersionUID = 270628040929463623L;
+	// Mindestalter für User; "0" wenn keine Einschränkung
+	private static final int MIN_AGE_USER = 18;
 	private User data;
 	
 	public String register(User data) {
@@ -61,7 +63,7 @@ public class RegisterServiceImpl extends RemoteServiceServlet implements Registe
 			try {
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 				Date date = dateFormat.parse(data.getGeburtstag());
-				if(age(date) < 18) {
+				if(age(date) < MIN_AGE_USER) {
 					return User.GEBURTSTAG_AGE;
 				}
 			} catch (ParseException e) {
