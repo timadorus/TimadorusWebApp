@@ -9,18 +9,18 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 public class RegisterPanel extends FormPanel {
-	Grid grid = new Grid(9, 2);
+	Grid grid = new Grid(9, 3);
     Button submit = new Button("Registrieren");
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
@@ -30,6 +30,14 @@ public class RegisterPanel extends FormPanel {
 	private TextBox usernameTextBox = new TextBox();
 	private PasswordTextBox passwordTextBox = new PasswordTextBox();
 	private PasswordTextBox passwordRepeatTextBox = new PasswordTextBox();
+	private HTML vornameHTML = new HTML();
+	private HTML nachnameHTML = new HTML();
+	private HTML geburtstagHTML = new HTML();
+	private HTML emailHTML = new HTML();
+	private HTML emailRepeatHTML = new HTML();
+	private HTML usernameHTML = new HTML();
+	private HTML passwordHTML = new HTML();
+	private HTML passwordRepeatHTML = new HTML();
 
     public RegisterPanel() {
         super();
@@ -51,6 +59,15 @@ public class RegisterPanel extends FormPanel {
     	grid.setWidget(5, 1, usernameTextBox);
     	grid.setWidget(6, 1, passwordTextBox);
     	grid.setWidget(7, 1, passwordRepeatTextBox);
+    	
+    	grid.setWidget(0, 2, vornameHTML);
+    	grid.setWidget(1, 2, nachnameHTML);
+    	grid.setWidget(2, 2, geburtstagHTML);
+    	grid.setWidget(3, 2, emailHTML);
+    	grid.setWidget(4, 2, emailRepeatHTML);
+    	grid.setWidget(5, 2, usernameHTML);
+    	grid.setWidget(6, 2, passwordHTML);
+    	grid.setWidget(7, 2, passwordRepeatHTML);
     	
     	grid.setWidget(8, 1, submit);
 
@@ -83,6 +100,14 @@ public class RegisterPanel extends FormPanel {
 
 			private void handleEvent() {
 				submit.setEnabled(false);
+				setText(vornameHTML,"");
+				setText(nachnameHTML,"");
+				setText(geburtstagHTML,"");
+				setText(emailHTML,"");
+				setText(emailRepeatHTML,"");
+				setText(usernameHTML,"");
+				setText(passwordHTML,"");
+				setText(passwordRepeatHTML,"");
 				User register = new User(
 											vornameTextBox.getText(),
 											nachnameTextBox.getText(),
@@ -93,11 +118,38 @@ public class RegisterPanel extends FormPanel {
 										);
 
 				if(!register.isValid()) {
-					registerInvalid("Bitte alle Felder ausfüllen");
+					if(passwordRepeatTextBox.getText().length() == 0) {
+						registerInvalid(User.PASSWORDREPEAT_EMPTY);
+						passwordRepeatTextBox.setFocus(true);
+					}
+					if(register.getPassword().length() == 0) {
+						registerInvalid(User.PASSWORD_EMPTY);
+						passwordTextBox.setFocus(true);
+					}
+					if(register.getUsername().length() == 0) {
+						registerInvalid(User.USERNAME_EMPTY);
+						usernameTextBox.setFocus(true);
+					}
+					if(emailRepeatTextBox.getText().length() == 0) {
+						registerInvalid(User.EMAILREPEAT_EMPTY);
+						emailRepeatTextBox.setFocus(true);
+					}
+					if(register.getEmail().length() == 0) {
+						registerInvalid(User.EMAIL_EMPTY);
+						emailTextBox.setFocus(true);
+					}
+					if(register.getGeburtstag().length() == 0) {
+						registerInvalid(User.GEBURTSTAG_EMPTY);
+						geburtstagTextBox.setFocus(true);
+					}
+					if(register.getVorname().length() == 0 && register.getNachname().length() == 0) {
+						registerInvalid(User.VORNAME_NACHNAME_EMPTY);
+						vornameTextBox.setFocus(true);
+					}
 				} else if(!emailTextBox.getText().equals(emailRepeatTextBox.getText())) {
-					registerInvalid("Email-Adresse und Wiederholung stimmen nicht überein");
+					registerInvalid(User.EMAIL_FAULT);
 				} else if(!passwordTextBox.getText().equals(passwordRepeatTextBox.getText())) {
-					registerInvalid("Passwort und Wiederholung stimmen nicht überein");
+					registerInvalid(User.PASSWORD_FAULT);
 				} else {
 					sendToServer(register);
 				}
@@ -121,23 +173,26 @@ public class RegisterPanel extends FormPanel {
 									value-=User.PASSWORD_FAULT;
 									// Derzeit nicht genutzt; darf nicht vorkommen
 									//registerInvalid("");
-								} else if(value >= User.USERNAME_FAULT) {
+								}
+								if(value >= User.USERNAME_FAULT) {
 									value-=User.USERNAME_FAULT;
-									registerInvalid("Der Username ist bereits vergeben");
-								} else if(value >= User.EMAIL_FAULT) {
-									value-=User.EMAIL_FAULT;
-									// Derzeit nicht genutzt; darf nicht vorkommen
-									// TODO: Wohlgeformtheit der Email-Adresse feststellen
-									//registerInvalid("");
-								} else if(value >= User.GEBURTSTAG_AGE) {
+									registerInvalid(User.USERNAME_FAULT);
+								}
+								if(value >= User.EMAIL_FORMAT) {
+									value-=User.EMAIL_FORMAT;
+									registerInvalid(User.EMAIL_FORMAT);
+								}
+								if(value >= User.GEBURTSTAG_AGE) {
 									value-=User.GEBURTSTAG_AGE;
-									registerInvalid("Du bist zu jung! Mindestalter 18 Jahre");
-								} else if(value >= User.GEBURTSTAG_FORMAT) {
+									registerInvalid(User.GEBURTSTAG_AGE);
+								}
+								if(value >= User.GEBURTSTAG_FORMAT) {
 									value-=User.GEBURTSTAG_FORMAT;
-									registerInvalid("Format des Geburtstags ungültig: 'dd.mm.jjjj' erwartet");
-								} else if(value >= User.GEBURTSTAG_FAULT) {
+									registerInvalid(User.GEBURTSTAG_FORMAT);
+								}
+								if(value >= User.GEBURTSTAG_FAULT) {
 									value-=User.GEBURTSTAG_FAULT;
-									registerInvalid("Fehler beim ermitteln des Geburtstags.");
+									registerInvalid(User.GEBURTSTAG_FAULT);
 								}
 								submit.setEnabled(true);
 							}
@@ -146,7 +201,7 @@ public class RegisterPanel extends FormPanel {
 						}
 					}
 					public void onFailure(Throwable caught) {
-						Window.alert(caught.toString());
+						registerInvalid(0);
 						System.out.println(caught);
 					}
 				};
@@ -156,6 +211,14 @@ public class RegisterPanel extends FormPanel {
 
 		MyHandler handler = new MyHandler();
 		submit.addClickHandler(handler);
+		vornameTextBox.addKeyUpHandler(handler);
+		nachnameTextBox.addKeyUpHandler(handler);
+		geburtstagTextBox.addKeyUpHandler(handler);
+		emailTextBox.addKeyUpHandler(handler);
+		emailRepeatTextBox.addKeyUpHandler(handler);
+		usernameTextBox.addKeyUpHandler(handler);
+		passwordTextBox.addKeyUpHandler(handler);
+		passwordRepeatTextBox.addKeyUpHandler(handler);
         
         setWidget(grid);
         setStyleName("formPanel");
@@ -164,7 +227,45 @@ public class RegisterPanel extends FormPanel {
     /**
      * In dieser Methode wird das Ereignis "Registrierung ungültig" verarbeitet.
      */
-    public void registerInvalid(String error) {
-    	Window.alert(error);
+    public void registerInvalid(int error) {
+    	switch(error) {
+			case User.VORNAME_NACHNAME_EMPTY:	setText(vornameHTML,"Bitte ausfüllen!");
+												setText(nachnameHTML,"Bitte ausfüllen!");
+												break;
+			case User.GEBURTSTAG_EMPTY		:	setText(geburtstagHTML,"Bitte ausfüllen!");
+												break;
+			case User.GEBURTSTAG_AGE		:	setText(geburtstagHTML,"Du bist leider zu jung!");
+												break;
+	    	case User.GEBURTSTAG_FORMAT		:	setText(geburtstagHTML,"Das Format ist ungültig!");
+	    										break;
+	    	case User.GEBURTSTAG_FAULT		:	setText(geburtstagHTML,"Das Datum ist ungültig");
+												break;
+	    	case User.EMAIL_EMPTY			:	setText(emailHTML,"Bitte ausfüllen!");
+												break;
+	    	case User.EMAILREPEAT_EMPTY		:	setText(emailRepeatHTML,"Bitte ausfüllen!");
+	    										break;
+	    	case User.EMAIL_FAULT			:	setText(emailHTML,"Stimmen nicht überein!");
+	    										setText(emailRepeatHTML,"Stimmen nicht überein!");
+												break;
+	    	case User.EMAIL_FORMAT			:	setText(emailHTML,"Das Format ist ungültig!");
+	    										setText(emailRepeatHTML,"Das Format ist ungültig!");
+	    										break;
+	    	case User.USERNAME_EMPTY		:	setText(usernameHTML,"Bitte ausfüllen!");
+	    										break;
+	    	case User.USERNAME_FAULT		:	setText(usernameHTML,"Benutzername bereits vergeben!");
+	    										break;
+	    	case User.PASSWORD_EMPTY		:	setText(passwordHTML,"Bitte ausfüllen!");
+												break;
+	    	case User.PASSWORDREPEAT_EMPTY	:	setText(passwordRepeatHTML,"Bitte ausfüllen!");
+												break;
+	    	case User.PASSWORD_FAULT		:	setText(passwordHTML,"Stimmen nicht überein!");
+	    										setText(passwordRepeatHTML,"Stimmen nicht überein!");
+												break;
+	    	default: break;
+    	}
+    }
+    
+    private void setText(HTML label, String message) {
+    	label.setHTML("<span class=\"error\">" + message + "</span>");
     }
 }

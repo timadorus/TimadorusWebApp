@@ -12,11 +12,11 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -24,11 +24,12 @@ import com.google.gwt.user.client.ui.TextBox;
 
 public class LoginPanel extends FormPanel {
 	
-	private Grid grid = new Grid(3, 2);
+	private Grid grid = new Grid(4, 2);
 	private TextBox userBox = new TextBox();
     private PasswordTextBox passBox = new PasswordTextBox();
     private Label userLabel = new Label("Benutzername");;
     private Label passLabel = new Label("Passwort");
+    private HTML errorHTML = new HTML();
     private Button submit = new Button("Einloggen");
     private User user = new User();
     private SessionId sessionId;
@@ -43,7 +44,8 @@ public class LoginPanel extends FormPanel {
         grid.setWidget(0, 1, userBox);
         grid.setWidget(1, 0, passLabel);
         grid.setWidget(1, 1, passBox);
-        grid.setWidget(2, 1, submit);
+        grid.setWidget(2, 1, errorHTML);
+        grid.setWidget(3, 1, submit);
 
         // Create a handler for the sendButton and nameField
 		class MyHandler implements ClickHandler, KeyUpHandler {
@@ -64,10 +66,11 @@ public class LoginPanel extends FormPanel {
 			}
 
 			private void handleEvent() {
+				clearError();
 				user.setUsername(userBox.getText());
 				user.setPassword(passBox.getText());
 				if(user.getUsername().equals("") || user.getPassword().equals("")) {
-					loginInvalid();
+					loginInvalid("Bitte Felder ausfüllen!");
 				} else {
 					sendToServer();
 				}
@@ -88,12 +91,12 @@ public class LoginPanel extends FormPanel {
 							sessionId.setSessionId(result);
 							System.out.println("login session => "+result);
 						}else{
-							loginInvalid();
+							loginInvalid("Username und/oder Passwort falsch!");
 							submit.setEnabled(true);
 						}//end else
 					}//end onSuccess(String result) {
 					public void onFailure(Throwable caught) {
-						Window.alert(caught.toString());
+						loginInvalid("Fehler bei der Anmeldung!");
 						System.out.println(caught);
 					}//end onFailure(Throwable caught) {
 				};//end asyncCallback
@@ -105,6 +108,7 @@ public class LoginPanel extends FormPanel {
 		// Add a handler to send the name to the server
 		MyHandler handler = new MyHandler();
 		submit.addClickHandler(handler);
+		userBox.addKeyUpHandler(handler);
 		passBox.addKeyUpHandler(handler);
         
         setWidget(grid);
@@ -114,7 +118,11 @@ public class LoginPanel extends FormPanel {
     /**
      * In dieser Methode wird das Ereignis "Login ungültig" verarbeitet.
      */
-    public void loginInvalid() {
-    	Window.alert("Login Invalid !");
+    private void loginInvalid(String message) {
+    	errorHTML.setHTML("<span class=\"error\">" + message + "</span>");
+    }
+    
+    private void clearError() {
+   		errorHTML.setHTML("");
     }
 }

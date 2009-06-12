@@ -34,9 +34,17 @@ public class RegisterServiceImpl extends RemoteServiceServlet implements Registe
 		int out = User.OK;
 		out += checkBirthday();
 		out += checkUsernameFree();
+		out += checkEmailAdresse();
 		return out;
 	}
 	
+	private int checkEmailAdresse() {
+		if(data.getEmail().startsWith("www.") || !data.getEmail().matches(".+@.+\\.[a-z]+")) {
+			return User.EMAIL_FORMAT;
+		}
+		return 0;
+	}
+
 	private int checkUsernameFree() {
 		RegisteredUserList userList = RegisteredUserList.getInstance();
 		if(!userList.usernameAvailable(data.getUsername())) {

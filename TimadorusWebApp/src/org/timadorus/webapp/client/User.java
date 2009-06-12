@@ -14,12 +14,21 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 2126117484936404051L;
 
 	public final static int OK = 0;
-	public static int GEBURTSTAG_FAULT = 1;
-	public static int GEBURTSTAG_FORMAT = 2;
-	public static int GEBURTSTAG_AGE = 4;
-	public static int EMAIL_FAULT = 8;
-	public static int USERNAME_FAULT = 16;
-	public static int PASSWORD_FAULT = 32;
+	public final static int GEBURTSTAG_FAULT = 1;
+	public final static int GEBURTSTAG_FORMAT = 2;
+	public final static int GEBURTSTAG_AGE = 4;
+	public final static int EMAIL_FAULT = 8;
+	public static final int EMAIL_FORMAT = 16;
+	public final static int USERNAME_FAULT = 32;
+	public final static int PASSWORD_FAULT = 64;
+	
+	public static final int VORNAME_NACHNAME_EMPTY = 128;
+	public static final int GEBURTSTAG_EMPTY = 256;
+	public static final int EMAIL_EMPTY = 512;
+	public static final int EMAILREPEAT_EMPTY = 1024;
+	public static final int USERNAME_EMPTY = 2048;
+	public static final int PASSWORD_EMPTY = 4096;
+	public static final int PASSWORDREPEAT_EMPTY = 8192;
 	
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -39,6 +48,8 @@ public class User implements Serializable {
 	private String displayname = "";
 	@Persistent
 	private String password = "";
+	@Persistent
+	private Boolean aktive = false;
 	
 	public Long getId() {
 		return id;
@@ -113,6 +124,14 @@ public class User implements Serializable {
 		return password;
 	}
 	
+	public void setAktive(Boolean aktive) {
+		this.aktive = aktive;
+	}
+
+	public Boolean getAktive() {
+		return aktive;
+	}
+
 	public Boolean isValid() {
 		if(vorname.length() == 0 && nachname.length() == 0) {
 			return false;

@@ -47,9 +47,11 @@ public class TimadorusWebApp implements EntryPoint {
 					// Assemble Main panel.
 					loginPanel.add(new Label("Bestehenden Account einloggen:"));
 					loginPanel.add(new LoginPanel(sessionId));
+					loginPanel.setStylePrimaryName("loginpanel");
 					mainPanel.add(loginPanel);
 					registerPanel.add(new Label("Einen Account anlegen:"));
 					registerPanel.add(new RegisterPanel());
+					registerPanel.setStylePrimaryName("registerpanel");
 					mainPanel.add(registerPanel);
 					
 					// Associate the Main panel with the HTML host page.
