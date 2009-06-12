@@ -2,6 +2,14 @@ package org.timadorus.webapp.client;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Unique;
+
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class User implements Serializable {
 	private static final long serialVersionUID = 2126117484936404051L;
 
@@ -13,12 +21,28 @@ public class User implements Serializable {
 	public static int USERNAME_FAULT = 16;
 	public static int PASSWORD_FAULT = 32;
 	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Long id;
+	@Persistent
 	private String vorname = "";
+	@Persistent
 	private String nachname = "";
+	@Persistent
 	private String geburtstag = "";
+	@Persistent
 	private String email = "";
+	@Persistent
+	@Unique
 	private String username = "";
+	@Persistent
+	private String displayname = "";
+	@Persistent
 	private String password = "";
+	
+	public Long getId() {
+		return id;
+	}
 	
 	public User() {
 		super();
@@ -31,7 +55,8 @@ public class User implements Serializable {
 		this.nachname = nachname;
 		this.geburtstag = geburtstag;
 		this.email = email;
-		this.username = username;
+		this.username = username.toLowerCase();
+		this.displayname = username;
 		this.password = password;
 	}
 
@@ -56,7 +81,8 @@ public class User implements Serializable {
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.username = username.toLowerCase();
+		this.displayname = username;
 	}
 
 	public void setPassword(String password) {
@@ -79,14 +105,16 @@ public class User implements Serializable {
 		return username;
 	}
 
+	public String getDisplayname() {
+		return displayname;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 	
 	public Boolean isValid() {
-		if(vorname.length() == 0) {
-			return false;
-		} else if(nachname.length() == 0) {
+		if(vorname.length() == 0 && nachname.length() == 0) {
 			return false;
 		} else if(geburtstag.length() == 0) {
 			return false;
