@@ -30,6 +30,9 @@ public class User implements Serializable {
 	public static final int PASSWORD_EMPTY = 4096;
 	public static final int PASSWORDREPEAT_EMPTY = 8192;
 	
+	public static final String USER_INVALID = "INVALID";
+	public static final String USER_INACTIVE = "INACTIVE";
+	
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Long id;
@@ -49,7 +52,7 @@ public class User implements Serializable {
 	@Persistent
 	private String password = "";
 	@Persistent
-	private Boolean aktive = false;
+	private Boolean active = false;
 	
 	public Long getId() {
 		return id;
@@ -124,12 +127,12 @@ public class User implements Serializable {
 		return password;
 	}
 	
-	public void setAktive(Boolean aktive) {
-		this.aktive = aktive;
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
-	public Boolean getAktive() {
-		return aktive;
+	public Boolean getActive() {
+		return active;
 	}
 
 	public Boolean isValid() {

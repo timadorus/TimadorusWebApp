@@ -14,13 +14,19 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 
 	private static RegisteredUserList userList = RegisteredUserList.getInstance();
 	
-	public String login(User user) {
+	public String login(User tmpUser) {
 		System.out.println("Login aufgerufen");
-		if(user != null && userList.isValid(user)){
-			HttpSession httpSession = getThreadLocalRequest().getSession();
-			httpSession.setMaxInactiveInterval(1000 * 60 * 2);
-			return httpSession.getId();
+		if(tmpUser == null) {
+			return null;
 		}
-		return null;
+		if(userList.isValid(tmpUser)) {
+			if(userList.isActive(tmpUser)) {
+				HttpSession httpSession = getThreadLocalRequest().getSession();
+				httpSession.setMaxInactiveInterval(1000 * 60 * 2);
+				return httpSession.getId();
+			}
+			return User.USER_INACTIVE;
+		}
+		return User.USER_INVALID;
 	}
 }

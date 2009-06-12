@@ -23,7 +23,12 @@ public class RegisteredUserList {
 	/**
 	 * Konstruktor muss PRIVATE bleiben -> Singelton-Pattern
 	 */
-	private RegisteredUserList() {}
+	private RegisteredUserList() {
+//		addUser(new User("test","test","test","test","test","test"));
+//		User test2 = new User("test2","test2","test2","test2","test2","test2");
+//		test2.setActive(true);
+//		addUser(test2);
+	}
 
 	/**
 	 * Singelton-Pattern
@@ -38,23 +43,46 @@ public class RegisteredUserList {
 	}
 	
 	/**
-	 * Diese Methode überprüft Username und Passwort des übergebenen Users.
+	 * Diese Methode überprüft, ob der User aktiviert ist oder nicht.
 	 * 
-	 * @param user
-	 * @return true, wenn Username und Passwort gültig, false sonst
+	 * @param tmpUser
+	 * @return true, wenn der User aktiviert ist, false sonst
 	 */
-	public Boolean isValid(User user) {
-		if(!users.containsKey(user.getUsername())) {
+	public boolean isActive(User tmpUser) {
+		if(!users.containsKey(tmpUser.getUsername())) {
 			// User im Datastore suchen
-			User found = getUser(user.getUsername());
+			User found = getUser(tmpUser.getUsername());
 			if(found.isValid()) {
 				users.put(found.getUsername(), found);
 			} else {
-				System.out.println("Datastore: keine Treffer für '" + user.getDisplayname() + "'");
+				System.out.println("Datastore: keine Treffer für '" + tmpUser.getDisplayname() + "'");
 				return false;
 			}
 		}
-		if(users.get(user.getUsername()).getPassword().equals(user.getPassword())) {
+		if(users.get(tmpUser.getUsername()).getActive()) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Diese Methode überprüft Username und Passwort des übergebenen Users.
+	 * 
+	 * @param tmpUser
+	 * @return true, wenn Username und Passwort gültig, false sonst
+	 */
+	public Boolean isValid(User tmpUser) {
+		if(!users.containsKey(tmpUser.getUsername())) {
+			// User im Datastore suchen
+			User found = getUser(tmpUser.getUsername());
+			if(found.isValid()) {
+				users.put(found.getUsername(), found);
+			} else {
+				System.out.println("Datastore: keine Treffer für '" + tmpUser.getDisplayname() + "'");
+				return false;
+			}
+		}
+		if(users.get(tmpUser.getUsername()).getPassword().equals(tmpUser.getPassword())) {
 			return true;
 		}
 		return false;
