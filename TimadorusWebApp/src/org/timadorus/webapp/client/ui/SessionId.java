@@ -1,4 +1,4 @@
-package org.timadorus.webapp.client;
+package org.timadorus.webapp.client.ui;
 
 import java.io.Serializable;
 

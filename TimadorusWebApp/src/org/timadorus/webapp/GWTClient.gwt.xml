@@ -1,0 +1,5 @@
+<module rename-to='timadoruswebapp'>
+	<inherits name="com.google.gwt.user.User"/>
+	<inherits name='com.google.gwt.user.theme.dark.Dark'/>
+	<entry-point class="org.timadorus.webapp.client.TimadorusWebApp"/>
+</module>

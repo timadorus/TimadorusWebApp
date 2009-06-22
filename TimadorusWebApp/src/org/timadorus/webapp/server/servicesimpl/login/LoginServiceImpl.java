@@ -1,12 +1,14 @@
-package org.timadorus.webapp.server.rpc.service;
+package org.timadorus.webapp.server.servicesimpl.login;
 
 import javax.servlet.http.HttpSession;
 
-import org.timadorus.webapp.client.User;
-import org.timadorus.webapp.client.rpc.service.LoginService;
-import org.timadorus.webapp.server.RegisteredUserList;
+import org.timadorus.webapp.client.services.login.LoginService;
+import org.timadorus.webapp.entities.User;
+import org.timadorus.webapp.server.userList.RegisteredUserList;
+
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
 
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
 
@@ -15,7 +17,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 	private static RegisteredUserList userList = RegisteredUserList.getInstance();
 	
 	public String login(User tmpUser) {
-		System.out.println("Login aufgerufen");
+		
 		if(tmpUser == null) {
 			return null;
 		}

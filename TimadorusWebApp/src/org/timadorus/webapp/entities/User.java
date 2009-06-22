@@ -1,4 +1,4 @@
-package org.timadorus.webapp.client;
+package org.timadorus.webapp.entities;
 
 import java.io.Serializable;
 
@@ -148,5 +148,16 @@ public class User implements Serializable {
 			return false;
 		} 
 		return true;
+	}
+	
+	public String toString(){
+		StringBuffer sb = new StringBuffer();
+		sb.append("Displayname : ").append(this.getDisplayname()).
+			append("\nVorname    : ").append(this.getVorname()).
+			append("\nNachname   : ").append(this.getNachname()).
+			append("\nEmail      : ").append(this.getEmail()).
+			append("\nActive     : ").append(this.getActive());
+		
+		return sb.toString();
 	}
 }
