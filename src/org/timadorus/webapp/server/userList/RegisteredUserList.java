@@ -1,4 +1,4 @@
-package org.timadorus.webapp.server;
+package org.timadorus.webapp.server.userList;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,7 +10,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
-import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.entities.User;
+
 
 public class RegisteredUserList {
 
@@ -77,6 +78,7 @@ public class RegisteredUserList {
 			User found = getUser(tmpUser.getUsername());
 			if(found.isValid()) {
 				users.put(found.getUsername(), found);
+				System.out.println(tmpUser.getId());
 			} else {
 				System.out.println("Datastore: keine Treffer für '" + tmpUser.getDisplayname() + "'");
 				return false;
@@ -87,6 +89,8 @@ public class RegisteredUserList {
 		}
 		return false;
 	}
+	
+	
 	
 	/**
 	 * Diese Methode prüft, ob ein Username bereits vergeben ist.

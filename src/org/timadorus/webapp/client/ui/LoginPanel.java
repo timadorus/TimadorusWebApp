@@ -1,9 +1,11 @@
-package org.timadorus.webapp.client;
+package org.timadorus.webapp.client.ui;
 
 import java.util.Date;
 
-import org.timadorus.webapp.client.rpc.service.LoginService;
-import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
+import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.services.login.LoginService;
+import org.timadorus.webapp.client.services.login.LoginServiceAsync;
+import org.timadorus.webapp.entities.User;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -14,6 +16,8 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -24,7 +28,14 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-public class LoginPanel extends FormPanel {
+
+@SuppressWarnings("deprecation")
+public class LoginPanel extends FormPanel implements HistoryListener{
+	
+	public static final String LOGIN_STATE = "login";
+	public static final String WELCOME_STATE = "welcome";
+	public static final String CREATE_STATE = "create";
+	public static final String REGISTER_STATE = "register";
 	
 	private Grid grid = new Grid(4, 2);
 	private TextBox userBox = new TextBox();
@@ -35,13 +46,17 @@ public class LoginPanel extends FormPanel {
     private Button submit = new Button("Einloggen");
     private User user = new User();
     private SessionId sessionId;
+	private TimadorusWebApp entry;
 	private final static long TWO_MIN = 1000 * 60 * 2; 
 
     public LoginPanel(SessionId session) {
         super();
         
+       setupHistory();
+       
+      
         this.sessionId = session;
-        
+        //RootPanel.get("context").add(new Label("Benutzer login"));
         grid.setWidget(0, 0, userLabel);
         grid.setWidget(0, 1, userBox);
         grid.setWidget(1, 0, passLabel);
@@ -73,8 +88,10 @@ public class LoginPanel extends FormPanel {
 				user.setPassword(passBox.getText());
 				if(user.getUsername().equals("") || user.getPassword().equals("")) {
 					loginInvalid("Bitte Felder ausfüllen!");
+					History.newItem("login");
 				} else {
 					sendToServer();
+					
 				}
 			}
 			
@@ -90,13 +107,20 @@ public class LoginPanel extends FormPanel {
 							if(result.equals(User.USER_INACTIVE)){
 								loginInvalid("User ist deaktiviert!");
 								RootPanel.get("content").add(new HTML("<div id=\"info\" class=\"info\">Der angegebene User ist deaktiviert. Das kann mehrere Gründe haben<br />(Anmerkung vom Programmierer: Welche denn? Gesperrt durch Admin oder sowas ? Oder ist damit gemeint 'Registriert, aber Mail noch nicht verifiziert' ? Oder beides ?)</div>"));
+								
 								submit.setEnabled(true);
+								getEntry().setLoggedin(false);
+								History.newItem("welcome");
 							} else if(result.equals(User.USER_INVALID)){
 								loginInvalid("Username und/oder Passwort falsch!");
 								submit.setEnabled(true);
+								History.newItem("welcome");
+								getEntry().setLoggedin(false);
 							} else {
-								RootPanel.get("content").clear();
-								RootPanel.get("content").add(new Label("Eingeloggt"));
+//								RootPanel.get("content").clear();
+//								RootPanel.get("content").add(new Label("Eingeloggt"));
+								History.newItem("create");
+								getEntry().setLoggedin(true);
 								Cookies.setCookie("session", result, new Date(System.currentTimeMillis() + TWO_MIN));
 								sessionId.setSessionId(result);
 								System.out.println("login session => "+result);
@@ -105,6 +129,7 @@ public class LoginPanel extends FormPanel {
 					}
 					public void onFailure(Throwable caught) {
 						loginInvalid("Fehler bei der Anmeldung!");
+						History.newItem("login");
 						System.out.println(caught);
 					}
 				};
@@ -123,6 +148,16 @@ public class LoginPanel extends FormPanel {
         setStyleName("formPanel");
     }
     
+    
+    private void setupHistory() {
+		History.addHistoryListener(this);
+		//History.onHistoryChanged("login");
+	}
+    
+    public void setTimadorusWebApp(TimadorusWebApp webapp){
+    	this.entry  = webapp;
+    }
+    
     /**
      * In dieser Methode wird das Ereignis "Login ungültig" verarbeitet.
      */
@@ -137,4 +172,25 @@ public class LoginPanel extends FormPanel {
    			info.getParentElement().removeChild(info);
    		}
     }
+
+	@Override
+	public void onHistoryChanged(String historyToken) {
+		if (LOGIN_STATE.equals(historyToken)) {
+			getEntry().loadLoginPanel();
+		} 
+		else if (WELCOME_STATE.equals(historyToken)) {
+			getEntry().loadWelcomePanel();
+			
+		} 
+		else if (CREATE_STATE.equals(historyToken)) {
+			getEntry().loadCreateCharacter();
+		} 
+		else if(REGISTER_STATE.equals(historyToken)){
+			getEntry().loadRegisterPanel();
+		}
+	}
+
+	private TimadorusWebApp getEntry() {
+		return entry;
+	}
 }

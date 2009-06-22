@@ -1,6 +1,7 @@
-package org.timadorus.webapp.client.rpc.service;
+package org.timadorus.webapp.client.services.registerUser;
 
-import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.entities.User;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface RegisterServiceAsync {

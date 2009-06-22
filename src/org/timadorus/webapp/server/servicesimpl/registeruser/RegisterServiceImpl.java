@@ -1,13 +1,15 @@
-package org.timadorus.webapp.server.rpc.service;
+package org.timadorus.webapp.server.servicesimpl.registeruser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.timadorus.webapp.client.User;
-import org.timadorus.webapp.client.rpc.service.RegisterService;
-import org.timadorus.webapp.server.RegisteredUserList;
+import org.timadorus.webapp.client.services.registerUser.RegisterService;
+import org.timadorus.webapp.entities.User;
+import org.timadorus.webapp.server.userList.RegisteredUserList;
+
+
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -18,12 +20,14 @@ public class RegisterServiceImpl extends RemoteServiceServlet implements Registe
 	private static final int MIN_AGE_USER = 18;
 	private User data;
 	
-	public String register(User data) {
+	public String register(User userdata) {
 		System.out.println("Register aufgerufen");
-		this.data = data;
+		this.data = userdata;
 		int value = isValid();
 		if(value == User.OK) {
 			RegisteredUserList userList = RegisteredUserList.getInstance();
+			
+			data.setActive(true);
 			Boolean added = userList.addUser(data);
 			if(!added) {
 				value = User.USERNAME_FAULT;
@@ -59,16 +63,15 @@ public class RegisterServiceImpl extends RemoteServiceServlet implements Registe
 		// Format "dd.mm.jjjj" erlaubt
 		if(!data.getGeburtstag().matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
 			return User.GEBURTSTAG_FORMAT;
-		} else {
-			try {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-				Date date = dateFormat.parse(data.getGeburtstag());
-				if(age(date) < MIN_AGE_USER) {
-					return User.GEBURTSTAG_AGE;
-				}
-			} catch (ParseException e) {
-				return User.GEBURTSTAG_FAULT;
+		}
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+			Date date = dateFormat.parse(data.getGeburtstag());
+			if(age(date) < MIN_AGE_USER) {
+				return User.GEBURTSTAG_AGE;
 			}
+		} catch (ParseException e) {
+			return User.GEBURTSTAG_FAULT;
 		}
 		return 0;
 	}
