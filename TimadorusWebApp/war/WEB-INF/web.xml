@@ -13,17 +13,17 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>session</servlet-name>
-    <servlet-class>org.timadorus.webapp.server.rpc.service.SessionServiceImpl</servlet-class>
+    <servlet-class>org.timadorus.webapp.server.servicesimpl.session</servlet-class>
   </servlet>
   
   <servlet>
     <servlet-name>login</servlet-name>
-    <servlet-class>org.timadorus.webapp.server.rpc.service.LoginServiceImpl</servlet-class>
+    <servlet-class>org.timadorus.webapp.server.servicesimpl.login</servlet-class>
   </servlet>
   
   <servlet>
     <servlet-name>register</servlet-name>
-    <servlet-class>org.timadorus.webapp.server.rpc.service.RegisterServiceImpl</servlet-class>
+    <servlet-class>org.timadorus.webapp.server.servicesimpl.registeruser.RegisterServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>
