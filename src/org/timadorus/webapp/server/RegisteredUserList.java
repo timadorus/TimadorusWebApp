@@ -142,6 +142,7 @@ public class RegisteredUserList {
 	public Boolean addUser(User user) {
 		if(usernameAvailable(user.getUsername())) {
 			PersistenceManager pm = PMF.getPersistenceManager();
+			user.setActive(true);
 			pm.makePersistent(user);
 			System.out.println("Datastore: '" + user.getDisplayname() + "' hinzugefügt...");
 			users.put(user.getUsername(), user);
