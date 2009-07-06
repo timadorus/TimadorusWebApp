@@ -9,6 +9,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -19,7 +21,15 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-public class RegisterPanel extends FormPanel {
+@SuppressWarnings("deprecation")
+public class RegisterPanel extends FormPanel implements HistoryListener{
+	
+	
+	public static final String LOGIN_STATE = "login";
+	public static final String WELCOME_STATE = "welcome";
+	public static final String CREATE_STATE = "create";
+	public static final String REGISTER_STATE = "register";
+	
 	Grid grid = new Grid(9, 3);
     Button submit = new Button("Registrieren");
 	private TextBox vornameTextBox = new TextBox();
@@ -38,10 +48,27 @@ public class RegisterPanel extends FormPanel {
 	private HTML usernameHTML = new HTML();
 	private HTML passwordHTML = new HTML();
 	private HTML passwordRepeatHTML = new HTML();
+	
+	private TimadorusWebApp entry;
+	
 
-    public RegisterPanel() {
+    public TimadorusWebApp getEntry() {
+		return entry;
+		
+	}
+    
+    private void setupHistory() {
+		History.addHistoryListener(this);
+		//History.onHistoryChanged("register");
+	}
+    
+	public RegisterPanel(TimadorusWebApp timadorusWebApp) {
         super();
-
+        this.entry = timadorusWebApp;
+        setupHistory();
+        
+        
+        
     	grid.setWidget(0, 0, new Label("Vorname"));
     	grid.setWidget(1, 0, new Label("Nachname"));
     	grid.setWidget(2, 0, new Label("Geburtstag (dd.mm.jjjj)"));
@@ -50,7 +77,7 @@ public class RegisterPanel extends FormPanel {
     	grid.setWidget(5, 0, new Label("Benutzername"));
     	grid.setWidget(6, 0, new Label("Passwort"));
     	grid.setWidget(7, 0, new Label("Passwort (Wiederholung)"));
-
+    	
     	grid.setWidget(0, 1, vornameTextBox);
     	grid.setWidget(1, 1, nachnameTextBox);
     	grid.setWidget(2, 1, geburtstagTextBox);
@@ -86,6 +113,7 @@ public class RegisterPanel extends FormPanel {
 			 * Wird ausgelöst, wenn Button gedrückt wurde
 			 */
 			public void onClick(ClickEvent event) {
+				System.out.println("Submit Button geklickt");
 				handleEvent();
 			}
 
@@ -99,6 +127,7 @@ public class RegisterPanel extends FormPanel {
 			}
 
 			private void handleEvent() {
+				System.out.println("handle Event");
 				submit.setEnabled(false);
 				setText(vornameHTML,"");
 				setText(nachnameHTML,"");
@@ -146,11 +175,14 @@ public class RegisterPanel extends FormPanel {
 						registerInvalid(User.VORNAME_NACHNAME_EMPTY);
 						vornameTextBox.setFocus(true);
 					}
+					History.newItem("register");
+					
 				} else if(!emailTextBox.getText().equals(emailRepeatTextBox.getText())) {
 					registerInvalid(User.EMAIL_FAULT);
 				} else if(!passwordTextBox.getText().equals(passwordRepeatTextBox.getText())) {
 					registerInvalid(User.PASSWORD_FAULT);
 				} else {
+					
 					sendToServer(register);
 				}
 				submit.setEnabled(true);
@@ -167,7 +199,8 @@ public class RegisterPanel extends FormPanel {
 							int value = Integer.parseInt(result);
 							if(value == User.OK) {
 								RootPanel.get("content").clear();
-								RootPanel.get("content").add(new Label("Registriert..."));
+								//RootPanel.get("content").add(new Label("Registriert..."));
+								History.newItem("welcome");
 							} else {
 								if(value >= User.PASSWORD_FAULT) {
 									value-=User.PASSWORD_FAULT;
@@ -268,4 +301,21 @@ public class RegisterPanel extends FormPanel {
     private void setText(HTML label, String message) {
     	label.setHTML("<span class=\"error\">" + message + "</span>");
     }
+
+	@Override
+	public void onHistoryChanged(String historyToken) {
+		if (LOGIN_STATE.equals(historyToken)) {
+			getEntry().loadLoginPanel();
+		} 
+		else if (WELCOME_STATE.equals(historyToken)) {
+			getEntry().loadWelcomePanel();
+			
+		} 
+		else if (CREATE_STATE.equals(historyToken)) {
+			getEntry().loadCreateCharacter();
+		} 
+		else if(REGISTER_STATE.equals(historyToken)){
+			getEntry().loadRegisterPanel();
+		}
+	}
 }
