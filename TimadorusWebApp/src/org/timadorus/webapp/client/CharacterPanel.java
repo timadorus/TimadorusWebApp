@@ -131,7 +131,7 @@ public class CharacterPanel extends FormPanel implements HistoryListener {
 				if (lb.getValue(lb.getSelectedIndex()).toLowerCase().equals(
 						"fraction 1")) {
 
-					System.out.println("gewähltes Element: "
+					System.out.println("gewï¿½hltes Element: "
 							+ lb.getValue(lb.getSelectedIndex()));
 
 					for (String races : listeRace_1) {
@@ -140,7 +140,7 @@ public class CharacterPanel extends FormPanel implements HistoryListener {
 					}
 				} else if (lb.getValue(lb.getSelectedIndex()).toLowerCase()
 						.equals("fraction 2")) {
-					System.out.println("gewähltes Element: "
+					System.out.println("gewï¿½hltes Element: "
 							+ lb.getValue(lb.getSelectedIndex()));
 					for (String races : listeRace_2) {
 						// System.out.println(races);
@@ -184,7 +184,7 @@ public class CharacterPanel extends FormPanel implements HistoryListener {
 				if (lb.getValue(lb.getSelectedIndex()).toLowerCase().equals(
 						"race 1")) {
 
-					System.out.println("gewähltes Element: "
+					System.out.println("gewï¿½hltes Element: "
 							+ lb.getValue(lb.getSelectedIndex()));
 
 					for (String profession : listeProfession_1) {
@@ -193,7 +193,7 @@ public class CharacterPanel extends FormPanel implements HistoryListener {
 					}
 				} else if (lb.getValue(lb.getSelectedIndex()).toLowerCase()
 						.equals("race 2")) {
-					System.out.println("gewähltes Element: "
+					System.out.println("gewï¿½hltes Element: "
 							+ lb.getValue(lb.getSelectedIndex()));
 					for (String profession : listeProfession_2) {
 						// System.out.println(races);
@@ -307,7 +307,7 @@ public class CharacterPanel extends FormPanel implements HistoryListener {
 		//	sendToServer();
 			System.out.println("onClick Event saveButton");
 			// System.out.println("Name korrekt" +
-			// prüfeNamen(tb_charname.getText()));
+			// prï¿½feNamen(tb_charname.getText()));
 			History.newItem("welcome");
 		}
 
@@ -322,14 +322,14 @@ public class CharacterPanel extends FormPanel implements HistoryListener {
 	}
 
 	/**
-	 * Namen auf Gültigkeit prüfen Name des Characters. Zulässig sind die große
+	 * Namen auf GÃ¼ltigkeit prÃ¼fen Name des Characters. ZulÃ¤ssig sind die groÃŸe
 	 * und kleine Buchstaben, sowie Bindestrich, Leerzeichen und Single-Quote
 	 * (')
 	 * 
 	 * @param namen
 	 * @return
 	 */
-//	 private boolean prüfeNamen(String namen){
+//	 private boolean prÃ¼feNamen(String namen){
 //		 return namen.matches("[\\s\\d\\W']+");
 //	 }
 	 
