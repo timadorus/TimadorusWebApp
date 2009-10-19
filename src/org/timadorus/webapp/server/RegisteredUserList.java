@@ -24,10 +24,10 @@ public class RegisteredUserList {
 	 * Konstruktor muss PRIVATE bleiben -> Singelton-Pattern
 	 */
 	private RegisteredUserList() {
-//		addUser(new User("test","test","test","test","test","test"));
-//		User test2 = new User("test2","test2","test2","test2","test2","test2");
-//		test2.setActive(true);
-//		addUser(test2);
+		addUser(new User("test","test","test","test","test","test"));
+		User test2 = new User("test2","test2","test2","test2","test2","test2");
+		test2.setActive(true);
+		addUser(test2);
 	}
 
 	/**

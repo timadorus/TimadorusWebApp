@@ -23,36 +23,38 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
 	private static final long serialVersionUID = -5138823406762920058L;
-	
-	// Status für nachste Seite
+
+	// Status fï¿½r nachste Seite
 	public static final String LOGIN_STATE = "login";
 	public static final String WELCOME_STATE = "welcome";
 	public static final String CREATE_STATE = "create";
 	public static final String REGISTER_STATE = "register";
+	public static final String CREATE_CAMP_STATE = "campaign_state";
 
 	// SessionID
 	private SessionId sessionId = new SessionId();
 
-	// Hyperlinks für die Startseite
+	// Hyperlinks fï¿½r die Startseite
 	private Hyperlink logoutlink;
 	private Hyperlink createCharacterlink;
 	private Hyperlink registerlink;
+	private Hyperlink createCampaignLink;
+	private Hyperlink loginlink;
 
 	private LoginPanel loginPanel;
-
 	private CharacterPanel cpanel;
-
 	private RegisterPanel registerPanel;
+	private CampaignPanel campaignPanel;
 
 	private boolean loggedin = false;
-	
+
 	public void setRegisterPanel(RegisterPanel registerPanel) {
 		this.registerPanel = registerPanel;
 	}
 
 	private void setupHistory() {
 		History.addHistoryListener(this);
-		
+
 	}
 
 	public void onModuleLoad() {
@@ -61,7 +63,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		System.out.println("Session " + sessionId.getSessionId());
 		validateSession();
 		setupHistory();
-		
+
 	}
 
 	private void validateSession() {
@@ -93,6 +95,8 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		} else if (WELCOME_STATE.equals(historyToken)) {
 			loadWelcomePanel();
 
+		} else if (CREATE_CAMP_STATE.equals(historyToken)) {
+			loadCreateCampaign();
 		} else if (CREATE_STATE.equals(historyToken)) {
 			if (isLoggedin()) {
 				loadCreateCharacter();
@@ -121,6 +125,14 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		return cpanel;
 	}
 
+	public CampaignPanel getCampaignPanel() {
+		if (campaignPanel == null) {
+			campaignPanel = new CampaignPanel(this);
+		}
+
+		return campaignPanel;
+	}
+
 	/**
 	 * loadRegisterPanel
 	 */
@@ -129,6 +141,13 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		RootPanel.get("content").add(
 				new Label("Charakter erstellen / bearbeiten"));
 		RootPanel.get("content").add(getcharacterPanel());
+	}
+
+	public void loadCreateCampaign() {
+		RootPanel.get("content").clear();
+		RootPanel.get("content").add(
+				new Label("Kampagne erstellen / bearbeiten"));
+		RootPanel.get("content").add(getCampaignPanel());
 	}
 
 	/**
@@ -156,19 +175,28 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		RootPanel.get("content").add(new Label("Startseite Timadorus"));
 
 		if (isLoggedin()) {
-		
+
 			System.out.println("Login status " + isLoggedin());
-			RootPanel.get("content").add(new Label("Du bist als " + getLoginPanel().getUser().getDisplayname() + " angemeldet" ));
-			if(!getLoginPanel().getUser().getActive()){
-				RootPanel.get("content").add(new Label("Dein Account wurde noch nicht aktiviert"));
+			RootPanel.get("content").add(
+					new Label("Du bist als "
+							+ getLoginPanel().getUser().getDisplayname()
+							+ " angemeldet"));
+			if (!getLoginPanel().getUser().getActive()) {
+				RootPanel.get("content").add(
+						new Label("Dein Account wurde noch nicht aktiviert"));
 			}
 			RootPanel.get("content").add(getLogoutlink());
 			RootPanel.get("content").add(getCreateCharacterlink());
 			RootPanel.get("content").add(getRegisterlink());
+			RootPanel.get("content").add(getCreateCampaignLink());
 		} else {
 			System.out.println("Login status " + isLoggedin());
-			RootPanel.get("content").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));
-			RootPanel.get("content").add(getLogoutlink());
+			RootPanel
+					.get("content")
+					.add(
+							new Label(
+									"Logg dich ein, um deinen Account zu bearbeiten"));
+			RootPanel.get("content").add(getLoginlink());
 			RootPanel.get("content").add(getCreateCharacterlink());
 			RootPanel.get("content").add(getRegisterlink());
 		}
@@ -185,9 +213,25 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
 	public Hyperlink getLogoutlink() {
 		if (logoutlink == null) {
-			logoutlink = new Hyperlink("login", LOGIN_STATE);
+			logoutlink = new Hyperlink("logout", LOGIN_STATE);
 		}
 		return logoutlink;
+	}
+
+	public Hyperlink getLoginlink() {
+		if (loginlink == null) {
+			loginlink = new Hyperlink("login", LOGIN_STATE);
+		}
+		return loginlink;
+	}
+
+	public Hyperlink getCreateCampaignLink() {
+		if (createCampaignLink == null) {
+			createCampaignLink = new Hyperlink("create new campaign",
+					CREATE_CAMP_STATE);
+		}
+
+		return createCampaignLink;
 	}
 
 	public Hyperlink getCreateCharacterlink() {
