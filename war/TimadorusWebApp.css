@@ -13,3 +13,10 @@
 	border:1px solid #6AF;
 	background:#CEF;
 }
+
+div#content {
+    wigth: 100%;
+    height: 100%;
+    background: #EEE8CD;
+    align: center;
+}
