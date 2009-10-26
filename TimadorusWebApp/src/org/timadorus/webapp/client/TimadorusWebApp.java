@@ -24,16 +24,22 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
 	private static final long serialVersionUID = -5138823406762920058L;
 	
-	// Status f�r nachste Seite
+	/**
+	 * State declaration for following sites
+	 */
 	public static final String LOGIN_STATE = "login";
 	public static final String WELCOME_STATE = "welcome";
 	public static final String CREATE_STATE = "create";
 	public static final String REGISTER_STATE = "register";
 
-	// SessionID
+	/**
+	 * Session ID
+	 */
 	private SessionId sessionId = new SessionId();
 
-	// Hyperlinks f�r die Startseite
+	/**
+	 * Hyperlink declaration for mainpage
+	 */
 	private Hyperlink logoutlink;
 	private Hyperlink createCharacterlink;
 	private Hyperlink registerlink;

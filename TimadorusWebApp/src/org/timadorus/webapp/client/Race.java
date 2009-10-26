@@ -13,7 +13,7 @@ import javax.jdo.annotations.PrimaryKey;
  * @author maddin
  *
  */
-public class Rasse implements Serializable{
+public class Race implements Serializable{
 
 	/**
 	 * 
@@ -31,7 +31,7 @@ public class Rasse implements Serializable{
 	String Beschreibung;
 	
 
-	public Rasse() {
+	public Race() {
 		super();
 	}
 	

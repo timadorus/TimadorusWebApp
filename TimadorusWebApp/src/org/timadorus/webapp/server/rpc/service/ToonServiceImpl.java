@@ -1,11 +1,11 @@
 package org.timadorus.webapp.server.rpc.service;
 
 import org.timadorus.webapp.client.Toon;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
+import org.timadorus.webapp.client.rpc.service.ToonService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class CreateCharacterServiceImpl extends RemoteServiceServlet implements CreateCharacterService{
+public class ToonServiceImpl extends RemoteServiceServlet implements ToonService{
 
 	/**
 	 * character ff charakter 
