@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 @SuppressWarnings("deprecation")
-public class CharacterPanel extends FormPanel implements HistoryListener {
+public class ToonPanel extends FormPanel implements HistoryListener {
 	
 	public static final String LOGIN_STATE = "login";
 	public static final String WELCOME_STATE = "welcome";
@@ -73,7 +73,7 @@ public class CharacterPanel extends FormPanel implements HistoryListener {
 	
 	TimadorusWebApp entry ;
 	
-	public CharacterPanel(TimadorusWebApp _entry) {
+	public ToonPanel(TimadorusWebApp _entry) {
 		super();
 		this.entry = _entry;
 		

@@ -24,7 +24,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
 	private static final long serialVersionUID = -5138823406762920058L;
 	
-	// Status für nachste Seite
+	// Status fï¿½r nachste Seite
 	public static final String LOGIN_STATE = "login";
 	public static final String WELCOME_STATE = "welcome";
 	public static final String CREATE_STATE = "create";
@@ -33,14 +33,14 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	// SessionID
 	private SessionId sessionId = new SessionId();
 
-	// Hyperlinks für die Startseite
+	// Hyperlinks fï¿½r die Startseite
 	private Hyperlink logoutlink;
 	private Hyperlink createCharacterlink;
 	private Hyperlink registerlink;
 
 	private LoginPanel loginPanel;
 
-	private CharacterPanel cpanel;
+	private ToonPanel cpanel;
 
 	private RegisterPanel registerPanel;
 
@@ -114,9 +114,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		return registerPanel;
 	}
 
-	private CharacterPanel getcharacterPanel() {
+	private ToonPanel getcharacterPanel() {
 		if (cpanel == null) {
-			cpanel = new CharacterPanel(this);
+			cpanel = new ToonPanel(this);
 		}
 		return cpanel;
 	}

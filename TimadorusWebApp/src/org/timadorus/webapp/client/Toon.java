@@ -16,7 +16,7 @@ import javax.jdo.annotations.PrimaryKey;
  *
  */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Charakter implements Serializable{
+public class Toon implements Serializable{
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public class Charakter implements Serializable{
 	@Persistent
 	boolean complete;
 	
-	public Charakter() {
+	public Toon() {
 		super();
 	}
 	

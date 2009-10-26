@@ -1,6 +1,6 @@
 package org.timadorus.webapp.server.rpc.service;
 
-import org.timadorus.webapp.client.Charakter;
+import org.timadorus.webapp.client.Toon;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
