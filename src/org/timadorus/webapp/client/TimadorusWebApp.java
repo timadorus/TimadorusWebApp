@@ -18,13 +18,15 @@ import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.DockPanel;
+
 
 @SuppressWarnings("deprecation")
 public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
 	private static final long serialVersionUID = -5138823406762920058L;
 	
-	// Status für nachste Seite
+	// Status fÃ¼r nachste Seite
 	public static final String LOGIN_STATE = "login";
 	public static final String WELCOME_STATE = "welcome";
 	public static final String CREATE_STATE = "create";
@@ -33,18 +35,48 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	// SessionID
 	private SessionId sessionId = new SessionId();
 
-	// Hyperlinks für die Startseite
+	// Hyperlinks fÃ¼r die Startseite
 	private Hyperlink logoutlink;
 	private Hyperlink createCharacterlink;
 	private Hyperlink registerlink;
 
 	private LoginPanel loginPanel;
-
 	private CharacterPanel cpanel;
-
 	private RegisterPanel registerPanel;
 
 	private boolean loggedin = false;
+
+	// Panels	
+	DockPanel dp = new DockPanel();
+	
+	
+	
+	public void loadWelcomePanel() {
+		String test = "blablubb";
+		RootPanel.get("content").clear();
+		RootPanel.get("content").add(new Label("Startseite Timadorus"));
+		dp.add(new Label(test), DockPanel.EAST);
+		RootPanel.get("information").add(dp);
+
+		if (isLoggedin()) {
+		
+			System.out.println("Login status " + isLoggedin());
+			RootPanel.get("content").add(new Label("Du bist als " + getLoginPanel().getUser().getDisplayname() + " angemeldet" ));
+			if(!getLoginPanel().getUser().getActive()){
+				RootPanel.get("content").add(new Label("Dein Account wurde noch nicht aktiviert"));
+			}
+			RootPanel.get("content").add(getLogoutlink());
+			RootPanel.get("content").add(getCreateCharacterlink());
+			RootPanel.get("content").add(getRegisterlink());
+		} else {
+			System.out.println("Login status " + isLoggedin());
+			RootPanel.get("content").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));
+			RootPanel.get("content").add(getLogoutlink());
+			RootPanel.get("content").add(getCreateCharacterlink());
+			RootPanel.get("content").add(getRegisterlink());
+		}
+	}
+	
 	
 	public void setRegisterPanel(RegisterPanel registerPanel) {
 		this.registerPanel = registerPanel;
@@ -56,12 +88,12 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	}
 
 	public void onModuleLoad() {
+			
 		sessionId.setSessionId(Cookies.getCookie("session"));
 		History.onHistoryChanged("welcome");
 		System.out.println("Session " + sessionId.getSessionId());
 		validateSession();
-		setupHistory();
-		
+		setupHistory();		
 	}
 
 	private void validateSession() {
@@ -150,29 +182,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		RootPanel.get("content").add(getLoginPanel());
 	}
 
-	public void loadWelcomePanel() {
-
-		RootPanel.get("content").clear();
-		RootPanel.get("content").add(new Label("Startseite Timadorus"));
-
-		if (isLoggedin()) {
-		
-			System.out.println("Login status " + isLoggedin());
-			RootPanel.get("content").add(new Label("Du bist als " + getLoginPanel().getUser().getDisplayname() + " angemeldet" ));
-			if(!getLoginPanel().getUser().getActive()){
-				RootPanel.get("content").add(new Label("Dein Account wurde noch nicht aktiviert"));
-			}
-			RootPanel.get("content").add(getLogoutlink());
-			RootPanel.get("content").add(getCreateCharacterlink());
-			RootPanel.get("content").add(getRegisterlink());
-		} else {
-			System.out.println("Login status " + isLoggedin());
-			RootPanel.get("content").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));
-			RootPanel.get("content").add(getLogoutlink());
-			RootPanel.get("content").add(getCreateCharacterlink());
-			RootPanel.get("content").add(getRegisterlink());
-		}
-	}
+	
 
 	private LoginPanel getLoginPanel() {
 		if (loginPanel == null) {

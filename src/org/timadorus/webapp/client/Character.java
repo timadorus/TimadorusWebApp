@@ -16,7 +16,7 @@ import javax.jdo.annotations.PrimaryKey;
  *
  */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Charakter implements Serializable{
+public class Character implements Serializable{
 
 	/**
 	 * 
@@ -34,13 +34,13 @@ public class Charakter implements Serializable{
 	String name;
 	
 	@Persistent
-	String geschlecht;
+	String gender;
 	
 	@Persistent
-	String fraktion;
+	String fraction;
 	
 	@Persistent
-	String rasse;
+	String race;
 	
 	@Persistent
 	String profession;
@@ -48,7 +48,7 @@ public class Charakter implements Serializable{
 	@Persistent
 	boolean complete;
 	
-	public Charakter() {
+	public Character() {
 		super();
 	}
 	
@@ -60,28 +60,28 @@ public class Charakter implements Serializable{
 		this.name = name;
 	}
 
-	public String getGeschlecht() {
-		return geschlecht;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setGeschlecht(String geschlecht) {
-		this.geschlecht = geschlecht;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public String getFraktion() {
-		return fraktion;
+	public String getFraction() {
+		return fraction;
 	}
 
-	public void setFraktion(String fraktion) {
-		this.fraktion = fraktion;
+	public void setFraction(String fraction) {
+		this.fraction = fraction;
 	}
 
-	public String getRasse() {
-		return rasse;
+	public String getRace() {
+		return race;
 	}
 
-	public void setRasse(String rasse) {
-		this.rasse = rasse;
+	public void setRace(String race) {
+		this.race = race;
 	}
 
 	public String getProfession() {

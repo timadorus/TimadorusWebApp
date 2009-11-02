@@ -13,7 +13,7 @@ import javax.jdo.annotations.PrimaryKey;
  * @author maddin
  *
  */
-public class Rasse implements Serializable{
+public class Race implements Serializable{
 
 	/**
 	 * 
@@ -22,47 +22,47 @@ public class Rasse implements Serializable{
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	Long rasseID;
+	Long raceID;
 	
 	@Persistent
-	String namen;
+	String name;
 	
 	@Persistent
-	String Beschreibung;
+	String description;
 	
 
-	public Rasse() {
+	public Race() {
 		super();
 	}
 	
 	
-	public Long getRasseID() {
-		return rasseID;
+	public Long getRaceID() {
+		return raceID;
 	}
 
 
-	public void setRasseID(Long rasseID) {
-		this.rasseID = rasseID;
+	public void setRaceID(Long raceID) {
+		this.raceID = raceID;
 	}
 
 
-	public String getNamen() {
-		return namen;
+	public String getName() {
+		return name;
 	}
 
 
-	public void setNamen(String namen) {
-		this.namen = namen;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
-	public String getBeschreibung() {
-		return Beschreibung;
+	public String getDescription() {
+		return description;
 	}
 
 
-	public void setBeschreibung(String beschreibung) {
-		Beschreibung = beschreibung;
+	public void setdescription(String description) {
+		this.description = description;
 	}
 
 

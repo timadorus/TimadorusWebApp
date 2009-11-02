@@ -13,3 +13,20 @@
 	border:1px solid #6AF;
 	background:#CEF;
 }
+
+#menu {
+    background: black;
+    float: left;
+}
+
+#content {
+    float: left;
+}
+
+#information {
+	float: right;
+    background: blue;
+    color: white;
+    width: 200px;
+    height: 600px;
+}
