@@ -1,8 +1,72 @@
 <?xml version="1.0" encoding="ASCII"?>
 <uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_QzvZYcIOEd6tu8BqhPEroQ" name="TimadorusWebApp">
+  <eAnnotations xmi:id="_4opHEMeOEd6N57URbG1IJw" source="TimadorusWebApp/documentation/uml/umlStateDiagram_webApp_createCharacter.utd" references="_j4iVMMeOEd6N57URbG1IJw _AOqdQMePEd6N57URbG1IJw _Ks1FQMePEd6N57URbG1IJw _VnNvMMePEd6N57URbG1IJw _w6XXUMePEd6N57URbG1IJw _z9a4oMePEd6N57URbG1IJw"/>
   <packageImport xmi:id="_Q3IEkMIOEd6tu8BqhPEroQ">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
   </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_hXYnEMeOEd6N57URbG1IJw" name="umlStateDiagram_webApp_createCharacter">
+    <region xmi:id="_hXZOIMeOEd6N57URbG1IJw" name="Region">
+      <subvertex xmi:type="uml:State" xmi:id="_j4iVMMeOEd6N57URbG1IJw" name="select_race_and_gender">
+        <eAnnotations xmi:id="_4opHEceOEd6N57URbG1IJw" source="TimadorusWebApp/documentation/uml/umlStateDiagram_webApp_createCharacter.utd"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_El01UMeQEd6N57URbG1IJw" name="select_gender_and_race">
+          <node xmi:type="uml:ValueSpecificationAction" xmi:id="_El1cYMeQEd6N57URbG1IJw" name=""/>
+        </doActivity>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_AOqdQMePEd6N57URbG1IJw" name="select_class">
+        <eAnnotations xmi:id="_Ht0WcMePEd6N57URbG1IJw" source="TimadorusWebApp/documentation/uml/umlStateDiagram_webApp_createCharacter.utd"/>
+        <exit xmi:type="uml:Activity" xmi:id="_7B2kscePEd6N57URbG1IJw" name="previous_page">
+          <node xmi:type="uml:ValueSpecificationAction" xmi:id="_7B3LwMePEd6N57URbG1IJw" name=""/>
+        </exit>
+        <doActivity xmi:type="uml:Activity" xmi:id="_7B19oMePEd6N57URbG1IJw" name="select_class">
+          <node xmi:type="uml:ValueSpecificationAction" xmi:id="_7B2ksMePEd6N57URbG1IJw" name=""/>
+        </doActivity>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_Ks1FQMePEd6N57URbG1IJw" name="select_fractions">
+        <eAnnotations xmi:id="_R6fl0MePEd6N57URbG1IJw" source="TimadorusWebApp/documentation/uml/umlStateDiagram_webApp_createCharacter.utd"/>
+        <exit xmi:type="uml:Activity" xmi:id="_7bB5sMePEd6N57URbG1IJw" name="previous_page">
+          <node xmi:type="uml:ValueSpecificationAction" xmi:id="_7bCgwMePEd6N57URbG1IJw" name=""/>
+        </exit>
+        <doActivity xmi:type="uml:Activity" xmi:id="_7bBSoMePEd6N57URbG1IJw" name="select_fractions">
+          <node xmi:type="uml:ValueSpecificationAction" xmi:id="_7bBSocePEd6N57URbG1IJw" name=""/>
+        </doActivity>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_VnNvMMePEd6N57URbG1IJw" name="select_skills_lvl0">
+        <eAnnotations xmi:id="_YWVn4MePEd6N57URbG1IJw" source="TimadorusWebApp/documentation/uml/umlStateDiagram_webApp_createCharacter.utd"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_O336oMeVEd6ws8HgMFkV5w" name="select_skills_lvl0">
+          <node xmi:type="uml:ValueSpecificationAction" xmi:id="_O34hsMeVEd6ws8HgMFkV5w" name=""/>
+        </doActivity>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_w6XXUMePEd6N57URbG1IJw" name="select_skills_lvl1">
+        <eAnnotations xmi:id="_xztaIMePEd6N57URbG1IJw" source="TimadorusWebApp/documentation/uml/umlStateDiagram_webApp_createCharacter.utd"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_QBJP0MeVEd6ws8HgMFkV5w" name="select_skills_lvl1">
+          <node xmi:type="uml:ValueSpecificationAction" xmi:id="_QBJ24MeVEd6ws8HgMFkV5w" name=""/>
+        </doActivity>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_z9a4oMePEd6N57URbG1IJw" name="congratulation">
+        <eAnnotations xmi:id="_2QWkkMePEd6N57URbG1IJw" source="TimadorusWebApp/documentation/uml/umlStateDiagram_webApp_createCharacter.utd"/>
+      </subvertex>
+      <transition xmi:id="_HOSFUMeQEd6N57URbG1IJw" name="next_page" source="_j4iVMMeOEd6N57URbG1IJw" target="_AOqdQMePEd6N57URbG1IJw">
+        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_JzX4QMeQEd6N57URbG1IJw" name="save_data"/>
+      </transition>
+      <transition xmi:id="_LpxZMMeQEd6N57URbG1IJw" name="next_page" source="_AOqdQMePEd6N57URbG1IJw" target="_Ks1FQMePEd6N57URbG1IJw">
+        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_M3hlwMeQEd6N57URbG1IJw" name="save_data"/>
+      </transition>
+      <transition xmi:id="_OTaU8MeQEd6N57URbG1IJw" name="next_page" source="_Ks1FQMePEd6N57URbG1IJw" target="_VnNvMMePEd6N57URbG1IJw">
+        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_PrrvcMeQEd6N57URbG1IJw" name="save_data"/>
+      </transition>
+      <transition xmi:id="_VSaucMeQEd6N57URbG1IJw" name="next_page" source="_VnNvMMePEd6N57URbG1IJw" target="_w6XXUMePEd6N57URbG1IJw">
+        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_WWR_MMeQEd6N57URbG1IJw" name="save_data"/>
+      </transition>
+      <transition xmi:id="_a5MJsMeQEd6N57URbG1IJw" name="next_page" source="_w6XXUMePEd6N57URbG1IJw" target="_z9a4oMePEd6N57URbG1IJw">
+        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_cIUPQMeQEd6N57URbG1IJw" name="save_data"/>
+      </transition>
+      <transition xmi:id="_pnvo0MeQEd6N57URbG1IJw" name="previous_page" source="_AOqdQMePEd6N57URbG1IJw" target="_j4iVMMeOEd6N57URbG1IJw"/>
+      <transition xmi:id="_50tC0MeUEd6ws8HgMFkV5w" name="previous_page" source="_Ks1FQMePEd6N57URbG1IJw" target="_AOqdQMePEd6N57URbG1IJw"/>
+      <transition xmi:id="_9zqLsMeUEd6ws8HgMFkV5w" name="previous_page" source="_VnNvMMePEd6N57URbG1IJw" target="_Ks1FQMePEd6N57URbG1IJw"/>
+      <transition xmi:id="_ETadYMeVEd6ws8HgMFkV5w" name="previous_page" source="_w6XXUMePEd6N57URbG1IJw" target="_VnNvMMePEd6N57URbG1IJw"/>
+      <transition xmi:id="_I57VgMeVEd6ws8HgMFkV5w" name="previous_page" source="_z9a4oMePEd6N57URbG1IJw" target="_w6XXUMePEd6N57URbG1IJw"/>
+    </region>
+  </packagedElement>
   <profileApplication xmi:id="_RCx68MIOEd6tu8BqhPEroQ">
     <eAnnotations xmi:id="_RCzwIMIOEd6tu8BqhPEroQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Webservice_3.2_SN.profile.uml#_6jgWRSK5EdujMN-Mf6X4Bw"/>
@@ -89,8 +153,8 @@
   </profileApplication>
   <profileApplication xmi:id="_RDDAsMIOEd6tu8BqhPEroQ">
     <eAnnotations xmi:id="_RDDnwMIOEd6tu8BqhPEroQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-      <references xmi:type="ecore:EPackage" href="platform:/plugin/org.eclipse.uml2.uml.resources/profiles/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
     </eAnnotations>
-    <appliedProfile href="platform:/plugin/org.eclipse.uml2.uml.resources/profiles/Standard.profile.uml#_0"/>
+    <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
   </profileApplication>
 </uml:Model>
