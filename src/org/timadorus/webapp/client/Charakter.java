@@ -10,13 +10,14 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import java.util.ArrayList;
 
 /**
  * @author maddin
  *
  */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Character implements Serializable{
+public class Charakter implements Serializable{
 
 	/**
 	 * 
@@ -37,18 +38,18 @@ public class Character implements Serializable{
 	String gender;
 	
 	@Persistent
-	String fraction;
+	ArrayList<Fraction> fraction_list;
 	
 	@Persistent
 	String race;
 	
-	@Persistent
-	String profession;
+	/*@Persistent
+	String profession;*/
 
 	@Persistent
 	boolean complete;
 	
-	public Character() {
+	public Charakter() {
 		super();
 	}
 	
@@ -68,14 +69,14 @@ public class Character implements Serializable{
 		this.gender = gender;
 	}
 
-	public String getFraction() {
-		return fraction;
+	public ArrayList<Fraction> getFraction() {
+		return fraction_list;
 	}
 
-	public void setFraction(String fraction) {
-		this.fraction = fraction;
+	public void addFraction(Fraction fraction) {
+		this.fraction_list.add(fraction);
 	}
-
+	
 	public String getRace() {
 		return race;
 	}
@@ -84,13 +85,13 @@ public class Character implements Serializable{
 		this.race = race;
 	}
 
-	public String getProfession() {
+	/*public String getProfession() {
 		return profession;
 	}
 
 	public void setProfession(String profession) {
 		this.profession = profession;
-	}
+	}*/
 
 	public Long getCharacterID() {
 		return characterID;

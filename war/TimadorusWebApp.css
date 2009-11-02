@@ -14,19 +14,26 @@
 	background:#CEF;
 }
 
-#menu {
-    background: black;
+body {
+    background: beige;
+}
+
+#menu {  
+	width: 200px;
+	height: 100%;
     float: left;
 }
 
 #content {
+	margin-left: 200px;
+	width: 500px;
+	height: 100%;
     float: left;
+    align: center;
 }
 
 #information {
 	float: right;
-    background: blue;
-    color: white;
     width: 200px;
-    height: 600px;
+    height: 100%;
 }

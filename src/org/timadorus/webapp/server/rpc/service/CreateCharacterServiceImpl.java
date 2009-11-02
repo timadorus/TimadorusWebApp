@@ -13,8 +13,7 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public Character createCharacter(String name) {
+	public Charakter createCharacter(String name) {
 		return null;
 	}
 }
-

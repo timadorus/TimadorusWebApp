@@ -25,9 +25,9 @@ public class RegisteredUserList {
 	 */
 	private RegisteredUserList() {
 		addUser(new User("test","test","test","test","test","test"));
-//		User test2 = new User("test2","test2","test2","test2","test2","test2");
-//		test2.setActive(true);
-//		addUser(test2);
+		User test2 = new User("test2","test2","test2","test2","test2","test2");
+		test2.setActive(true);
+		addUser(test2);
 	}
 
 	/**
