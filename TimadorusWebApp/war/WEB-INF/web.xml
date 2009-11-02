@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+  
+  <!-- USER SERVICE-->
+  <servlet>
+    <servlet-name>userServlet</servlet-name>
+    <servlet-class>org.timadorus.webapp.server.UserServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>userServlet</servlet-name>
+    <url-pattern>/TimadorusWebApp/user</url-pattern>
+  </servlet-mapping>
+  
+  <!-- TOON SERVICE-->
+  <servlet>
+    <servlet-name>toonServlet</servlet-name>
+    <servlet-class>org.timadorus.webapp.server.ToonServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>toonServlet</servlet-name>
+    <url-pattern>/TimadorusWebApp/toon</url-pattern>
+  </servlet-mapping>
+  
+  <!-- START PAGE -->
+  <welcome-file-list>
+    <welcome-file>TimadorusWebApp.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>
