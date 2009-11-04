@@ -8,49 +8,47 @@ import javax.jdo.annotations.PrimaryKey;
 
 public class Fraction implements Serializable {
 
-	/**
+  /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	Long  fractionID;
-		
-	@Persistent
-	String names;
-	
-	@Persistent
-	String description;
-	
-	Fraction(){
-		super();
-	}
-	
-	
-	public Long getFractionID() {
-		return fractionID;
-	}
+  @PrimaryKey
+  @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+  Long fractionID;
 
-	public void setFractionID(Long fractionID) {
-		this.fractionID = fractionID;
-	}
+  @Persistent
+  String names;
 
-	public String getNames() {
-		return names;
-	}
+  @Persistent
+  String description;
 
-	public void setNames(String name) {
-		this.names = name;
-	}
+  Fraction() {
+    super();
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  public Long getFractionID() {
+    return fractionID;
+  }
 
-	public void setdescription(String description) {
-		this.description = description;
-	}
+  public void setFractionID(Long fractionID) {
+    this.fractionID = fractionID;
+  }
 
+  public String getNames() {
+    return names;
+  }
+
+  public void setNames(String name) {
+    this.names = name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setdescription(String description) {
+    this.description = description;
+  }
 
 }

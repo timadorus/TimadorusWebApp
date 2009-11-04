@@ -11,27 +11,27 @@ import javax.jdo.annotations.PrimaryKey;
 
 /**
  * @author maddin
- *
+ * 
  */
-public class Profession implements Serializable{
+public class Profession implements Serializable {
 
-	/**
+  /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	Long rasseID;
-	
-	@Persistent
-	String namen;
-	
-	@Persistent
-	String Beschreibung;
-	
-	public Profession() {
-		super();
-	}
+  @PrimaryKey
+  @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+  Long rasseID;
+
+  @Persistent
+  String namen;
+
+  @Persistent
+  String Beschreibung;
+
+  public Profession() {
+    super();
+  }
 
 }

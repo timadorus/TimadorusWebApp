@@ -18,252 +18,244 @@ import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.DockPanel;
-
 
 @SuppressWarnings("deprecation")
 public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
-	private static final long serialVersionUID = -5138823406762920058L;
-	
-	// Status für nachste Seite
-	public static final String LOGIN_STATE = "login";
-	public static final String WELCOME_STATE = "welcome";
-	public static final String CREATE_STATE = "create";
-	public static final String REGISTER_STATE = "register";
+  private static final long serialVersionUID = -5138823406762920058L;
 
-	// SessionID
-	private SessionId sessionId = new SessionId();
+  // Status für nachste Seite
+  public static final String LOGIN_STATE = "login";
 
-	// Hyperlinks für die Startseite
-	private Hyperlink logoutlink;
-	private Hyperlink createCharacterlink;
-	private Hyperlink registerlink;
+  public static final String WELCOME_STATE = "welcome";
 
-	private LoginPanel loginPanel;
-	private CharacterPanel cpanel;
-	private RegisterPanel registerPanel;
+  public static final String CREATE_STATE = "create";
 
-	private boolean loggedin = false;
+  public static final String REGISTER_STATE = "register";
 
-		
-	public void onModuleLoad() {
-		
-		RootPanel.get("menu").clear();
-		RootPanel.get("menu").add(new Label("Startseite Timadorus"));
-		VerticalPanel vp = new VerticalPanel();
-		vp.setWidth("150");
-		RootPanel.get("menu").add(vp);
-		RootPanel.get("content").add(new VerticalPanel());
-		RootPanel.get("information").add(new VerticalPanel());
-		
-		sessionId.setSessionId(Cookies.getCookie("session"));
-		History.onHistoryChanged("welcome");
-		System.out.println("Session " + sessionId.getSessionId());
-		validateSession();
-		setupHistory();		
-	}
-	
-	
-	public void loadWelcomePanel() {
-		RootPanel.get("menu").clear();
-		RootPanel.get("content").clear();
-		RootPanel.get("information").clear();
-		
-		if (isLoggedin()) {
-		
-			System.out.println("Login status " + isLoggedin());
-			RootPanel.get("menu").add(new Label("Du bist als " + getLoginPanel().getUser().getDisplayname() + " angemeldet" ));
-			if(!getLoginPanel().getUser().getActive()){
-				RootPanel.get("menu").add(new Label("Dein Account wurde noch nicht aktiviert"));
-			}
-			RootPanel.get("menu").add(getLogoutlink());
-			RootPanel.get("menu").add(getCreateCharacterlink());
-			RootPanel.get("menu").add(getRegisterlink());
-		} else {
-			System.out.println("Login status " + isLoggedin());
-			RootPanel.get("menu").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));
-			RootPanel.get("menu").add(getLogoutlink());
-			RootPanel.get("menu").add(getCreateCharacterlink());
-			RootPanel.get("menu").add(getRegisterlink());
-		}
-	}
-	
-	
-	public void setRegisterPanel(RegisterPanel registerPanel) {
-		this.registerPanel = registerPanel;
-	}
+  // SessionID
+  private SessionId sessionId = new SessionId();
 
-	private void setupHistory() {
-		History.addHistoryListener(this);
-		
-	}
+  // Hyperlinks für die Startseite
+  private Hyperlink logoutlink;
 
+  private Hyperlink createCharacterlink;
 
+  private Hyperlink registerlink;
 
-	private void validateSession() {
+  private LoginPanel loginPanel;
 
-		SessionServiceAsync myServiceAsync = GWT.create(SessionService.class);
+  private CharakterPanel cpanel;
 
-		AsyncCallback<SessionId> asyncCallback = new AsyncCallback<SessionId>() {
-			public void onFailure(Throwable caught) {
-				System.out.println(caught);
-			}
+  private RegisterPanel registerPanel;
 
-			public void onSuccess(SessionId result) {
-				// if(result != null &&
-				// sessionId.getSessionId().equals(result.getSessionId())){
-				System.out.println("Result " + result + " SessionID "
-						+ sessionId.getSessionId());
-				loadWelcomePanel();
+  private boolean loggedin = false;
 
-			}
-		};
-		myServiceAsync.session(sessionId, asyncCallback);
-	}
+  public void onModuleLoad() {
 
-	@Override
-	public void onHistoryChanged(String historyToken) {
+    RootPanel.get("menu").clear();
+    RootPanel.get("menu").add(new Label("Startseite Timadorus"));
+    VerticalPanel vp = new VerticalPanel();
+    vp.setWidth("150");
+    RootPanel.get("menu").add(vp);
+    RootPanel.get("content").add(new VerticalPanel());
+    RootPanel.get("information").add(new VerticalPanel());
 
-		if (LOGIN_STATE.equals(historyToken)) {
-			loadLoginPanel();
-		} else if (WELCOME_STATE.equals(historyToken)) {
-			loadWelcomePanel();
+    sessionId.setSessionId(Cookies.getCookie("session"));
+    History.onHistoryChanged("welcome");
+    System.out.println("Session " + sessionId.getSessionId());
+    validateSession();
+    setupHistory();
+  }
 
-		} else if (CREATE_STATE.equals(historyToken)) {
-			if (isLoggedin()) {
-				loadCreateCharacter();
-			} else {
-				loadWelcomePanel();
-				showDialogBox("Fehlermeldung",
-						"Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
-				History.newItem("welcome");
-			}
-		} else if (REGISTER_STATE.equals(historyToken)) {
-			loadRegisterPanel();
-		} 
-	}
+  public void loadWelcomePanel() {
+    RootPanel.get("menu").clear();
+    RootPanel.get("content").clear();
+    RootPanel.get("information").clear();
 
-	public RegisterPanel getRegisterPanel() {
-		if (registerPanel == null) {
-			registerPanel = new RegisterPanel(this);
-		}
-		return registerPanel;
-	}
+    if (isLoggedin()) {
 
-	private CharacterPanel getcharacterPanel() {
-		if (cpanel == null) {
-			cpanel = new CharacterPanel(this);
-		}
-		return cpanel;
-	}
+      System.out.println("Login status " + isLoggedin());
+      RootPanel.get("menu").add(new Label("Du bist als " + getLoginPanel().getUser().getDisplayname() + " angemeldet"));
+      if (!getLoginPanel().getUser().getActive()) {
+        RootPanel.get("menu").add(new Label("Dein Account wurde noch nicht aktiviert"));
+      }
+      RootPanel.get("menu").add(getLogoutlink());
+      RootPanel.get("menu").add(getCreateCharacterlink());
+      RootPanel.get("menu").add(getRegisterlink());
+    } else {
+      System.out.println("Login status " + isLoggedin());
+      RootPanel.get("menu").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));
+      RootPanel.get("menu").add(getLogoutlink());
+      RootPanel.get("menu").add(getCreateCharacterlink());
+      RootPanel.get("menu").add(getRegisterlink());
+    }
+  }
 
-	/**
-	 * loadRegisterPanel
-	 */
-	public void loadCreateCharacter() {
-		RootPanel.get("content").clear();
-		RootPanel.get("content").add(
-				new Label("Charakter erstellen / bearbeiten"));
-		RootPanel.get("content").add(getcharacterPanel());
-	}
+  public void setRegisterPanel(RegisterPanel registerPanel) {
+    this.registerPanel = registerPanel;
+  }
 
-	/**
-	 * loadRegisterPanel
-	 */
-	public void loadRegisterPanel() {
-		RootPanel.get("content").clear();
-		RootPanel.get("content").add(new Label("Benutzregistrierung"));
-		RootPanel.get("content").add(getRegisterPanel());
-	}
+  private void setupHistory() {
+    History.addHistoryListener(this);
 
-	public void loadLoginPanel() {
-		RootPanel.get("content").clear();
+  }
 
-		RootPanel.get("content").add(
-				new Label("Bestehenden Account einloggen:"));
+  private void validateSession() {
 
-		getLoginPanel().setStylePrimaryName("loginpanel");
-		RootPanel.get("content").add(getLoginPanel());
-	}
+    SessionServiceAsync myServiceAsync = GWT.create(SessionService.class);
 
-	
+    AsyncCallback<SessionId> asyncCallback = new AsyncCallback<SessionId>() {
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
 
-	private LoginPanel getLoginPanel() {
-		if (loginPanel == null) {
+      public void onSuccess(SessionId result) {
+        // if(result != null &&
+        // sessionId.getSessionId().equals(result.getSessionId())){
+        System.out.println("Result " + result + " SessionID " + sessionId.getSessionId());
+        loadWelcomePanel();
 
-			loginPanel = new LoginPanel(sessionId);
-			loginPanel.setTimadorusWebApp(this);
-		}
-		return loginPanel;
-	}
+      }
+    };
+    myServiceAsync.session(sessionId, asyncCallback);
+  }
 
-	public Hyperlink getLogoutlink() {
-		if (logoutlink == null) {
-			logoutlink = new Hyperlink("login", LOGIN_STATE);
-		}
-		return logoutlink;
-	}
+  @Override
+  public void onHistoryChanged(String historyToken) {
 
-	public Hyperlink getCreateCharacterlink() {
-		if (createCharacterlink == null) {
-			createCharacterlink = new Hyperlink("create Character",
-					CREATE_STATE);
+    if (LOGIN_STATE.equals(historyToken)) {
+      loadLoginPanel();
+    } else if (WELCOME_STATE.equals(historyToken)) {
+      loadWelcomePanel();
 
-		}
+    } else if (CREATE_STATE.equals(historyToken)) {
+      if (isLoggedin()) {
+        loadCreateCharacter();
+      } else {
+        loadWelcomePanel();
+        showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
+        History.newItem("welcome");
+      }
+    } else if (REGISTER_STATE.equals(historyToken)) {
+      loadRegisterPanel();
+    }
+  }
 
-		return createCharacterlink;
-	}
+  public RegisterPanel getRegisterPanel() {
+    if (registerPanel == null) {
+      registerPanel = new RegisterPanel(this);
+    }
+    return registerPanel;
+  }
 
-	public Hyperlink getRegisterlink() {
-		if (registerlink == null) {
-			registerlink = new Hyperlink("register", REGISTER_STATE);
-		}
-		return registerlink;
-	}
+  private CharakterPanel getcharacterPanel() {
+    if (cpanel == null) {
+      cpanel = new CharakterPanel(this);
+    }
+    return cpanel;
+  }
 
-	/**
-	 * @param loggedin
-	 *            the loggedin to set
-	 */
-	public void setLoggedin(boolean _loggedin) {
-		this.loggedin = _loggedin;
-	}
+  /**
+   * loadRegisterPanel
+   */
+  public void loadCreateCharacter() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Charakter erstellen / bearbeiten"));
+    RootPanel.get("content").add(getcharacterPanel());
+  }
 
-	/**
-	 * @return the loggedin
-	 */
-	public boolean isLoggedin() {
-		return loggedin;
-	}
+  /**
+   * loadRegisterPanel
+   */
+  public void loadRegisterPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Benutzregistrierung"));
+    RootPanel.get("content").add(getRegisterPanel());
+  }
 
-	public void showDialogBox(String title, String message) {
-		// Create the popup dialog box
-		final DialogBox dialogBox = new DialogBox();
+  public void loadLoginPanel() {
+    RootPanel.get("content").clear();
 
-		dialogBox.setText(title);
-		dialogBox.setAnimationEnabled(true);
-		final Button closeButton = new Button("Close");
+    RootPanel.get("content").add(new Label("Bestehenden Account einloggen:"));
 
-		// We can set the id of a widget by accessing its Element
-		closeButton.getElement().setId("closeButton");
+    getLoginPanel().setStylePrimaryName("loginpanel");
+    RootPanel.get("content").add(getLoginPanel());
+  }
 
-		VerticalPanel dialogVPanel = new VerticalPanel();
-		dialogVPanel.addStyleName("dialogVPanel");
+  private LoginPanel getLoginPanel() {
+    if (loginPanel == null) {
 
-		dialogVPanel.add(new HTML((new StringBuffer().append("<b>").append(
-				message).append("</b>")).toString()));
-		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
-		dialogVPanel.add(closeButton);
-		dialogBox.setWidget(dialogVPanel);
+      loginPanel = new LoginPanel(sessionId);
+      loginPanel.setTimadorusWebApp(this);
+    }
+    return loginPanel;
+  }
 
-		dialogBox.center();
+  public Hyperlink getLogoutlink() {
+    if (logoutlink == null) {
+      logoutlink = new Hyperlink("login", LOGIN_STATE);
+    }
+    return logoutlink;
+  }
 
-		// Add a handler to close the DialogBox
-		closeButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				dialogBox.hide();
-			}
-		});
-	}
+  public Hyperlink getCreateCharacterlink() {
+    if (createCharacterlink == null) {
+      createCharacterlink = new Hyperlink("create Character", CREATE_STATE);
+
+    }
+
+    return createCharacterlink;
+  }
+
+  public Hyperlink getRegisterlink() {
+    if (registerlink == null) {
+      registerlink = new Hyperlink("register", REGISTER_STATE);
+    }
+    return registerlink;
+  }
+
+  /**
+   * @param loggedin
+   *          the loggedin to set
+   */
+  public void setLoggedin(boolean _loggedin) {
+    this.loggedin = _loggedin;
+  }
+
+  /**
+   * @return the loggedin
+   */
+  public boolean isLoggedin() {
+    return loggedin;
+  }
+
+  public void showDialogBox(String title, String message) {
+    // Create the popup dialog box
+    final DialogBox dialogBox = new DialogBox();
+
+    dialogBox.setText(title);
+    dialogBox.setAnimationEnabled(true);
+    final Button closeButton = new Button("Close");
+
+    // We can set the id of a widget by accessing its Element
+    closeButton.getElement().setId("closeButton");
+
+    VerticalPanel dialogVPanel = new VerticalPanel();
+    dialogVPanel.addStyleName("dialogVPanel");
+
+    dialogVPanel.add(new HTML((new StringBuffer().append("<b>").append(message).append("</b>")).toString()));
+    dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
+    dialogVPanel.add(closeButton);
+    dialogBox.setWidget(dialogVPanel);
+
+    dialogBox.center();
+
+    // Add a handler to close the DialogBox
+    closeButton.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
+        dialogBox.hide();
+      }
+    });
+  }
 }
