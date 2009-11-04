@@ -15,25 +15,29 @@
 }
 
 body {
-    background: beige;
+    background: red;
 }
 
 #menu {  
-	width: 200px;
-	height: 100%;
+	background: white;
+	width: 15%;
+	height: 100%;	
     float: left;
+    
 }
 
 #content {
-	margin-left: 200px;
-	width: 500px;
-	height: 100%;
-    float: left;
+	background: blue;
+	width: 70%;
+	heigth: 100%;
+	
     align: center;
+    float: left;
 }
 
 #information {
-	float: right;
-    width: 200px;
-    height: 100%;
+	background: orange;
+    width: 15%;
+    heigth: 100%;    
+    float: right;    
 }

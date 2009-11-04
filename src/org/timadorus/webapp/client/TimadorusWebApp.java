@@ -52,14 +52,15 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
   private boolean loggedin = false;
 
   public void onModuleLoad() {
-
-    RootPanel.get("menu").clear();
-    RootPanel.get("menu").add(new Label("Startseite Timadorus"));
+   
     VerticalPanel vp = new VerticalPanel();
-    vp.setWidth("150");
     RootPanel.get("menu").add(vp);
-    RootPanel.get("content").add(new VerticalPanel());
-    RootPanel.get("information").add(new VerticalPanel());
+    
+    VerticalPanel vp1 = new VerticalPanel();
+    RootPanel.get("content").add(vp1);
+    
+    VerticalPanel vp2 = new VerticalPanel();
+    RootPanel.get("information").add(vp2);
 
     sessionId.setSessionId(Cookies.getCookie("session"));
     History.onHistoryChanged("welcome");
@@ -72,9 +73,11 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
     RootPanel.get("menu").clear();
     RootPanel.get("content").clear();
     RootPanel.get("information").clear();
+    
+    RootPanel.get("information").add(new Label("information panel"));
+    RootPanel.get("content").add(new Label("Willkommen auf der WebApplikation des Projektes Timadoros"));
 
     if (isLoggedin()) {
-
       System.out.println("Login status " + isLoggedin());
       RootPanel.get("menu").add(new Label("Du bist als " + getLoginPanel().getUser().getDisplayname() + " angemeldet"));
       if (!getLoginPanel().getUser().getActive()) {
@@ -176,18 +179,15 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
   public void loadLoginPanel() {
     RootPanel.get("content").clear();
-
     RootPanel.get("content").add(new Label("Bestehenden Account einloggen:"));
-
-    getLoginPanel().setStylePrimaryName("loginpanel");
+    /* getLoginPanel().setStylePrimaryName("loginpanel"); */
     RootPanel.get("content").add(getLoginPanel());
   }
 
   private LoginPanel getLoginPanel() {
     if (loginPanel == null) {
-
       loginPanel = new LoginPanel(sessionId);
-      loginPanel.setTimadorusWebApp(this);
+      /*loginPanel.setTimadorusWebApp(this);*/
     }
     return loginPanel;
   }
