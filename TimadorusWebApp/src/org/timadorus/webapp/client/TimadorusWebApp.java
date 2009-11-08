@@ -20,6 +20,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	private final SessionId sessionId = new SessionId();
 	
 	private boolean userLoggedIn = false;
+	private boolean toonCreateIn = false;
 	
 	private final UserServiceAsync userService	= GWT.create(UserService.class);
 	private final ToonServiceAsync toonService	= GWT.create(ToonService.class);
@@ -131,5 +132,27 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 			}
 		};
 		this.userService.registerUser(_userObj, callback);
+	}
+	
+	
+	public void createToon( Toon _toonObj){
+		
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			public void onFailure(Throwable caught) {
+				showError(caught.toString());
+			}
+			public void onSuccess(Boolean result) {
+//				Login success
+				if (result) {
+					toonCreateIn= true;
+					onModuleLoad();
+//				Login failed
+				} else {
+					showError("Could not create new Toon");
+				}
+			}
+		};
+		
+		this.toonService.createToon(_toonObj, callback);
 	}
 }
