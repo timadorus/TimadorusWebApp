@@ -33,10 +33,10 @@ public class Toon implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	 private Long _toonID= null;
-	 private Long _userIF =null;
+	 private Long _userIF =null; //????
 	 private String _name = null;
 	 private String _gender =null;
-	 private String fraktion=null; 
+	 private String _fraktion=null; 
 	 private String _race=null;
 	 private String _profession=null;
 	 private Integer _constitution=null;
@@ -52,24 +52,40 @@ public class Toon implements Serializable {
 	 private Integer _presence=null;
 	 private  boolean isCommitFlag = false;
 		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	public Toon(String name){
 		this._name= name;
-		setCommitFlag(false);
+		setCommitFlag(true);
+	}
+
+	
+	public Toon(Long id, Long userIf, String name, String gender,String fraktion
+			 , String race,  String profession , Integer constitution,  int agility
+			 , Integer selDiscipline, Integer  memory, Integer  reasoning ,  Integer luck
+			 , Integer strength,Integer quickness, Integer empathy, Integer intution
+			 , Integer presence)
+	{
+		this._toonID=id;
+		this._userIF= userIf;
+		this._name= name;
+		this._gender= gender;
+		this._fraktion= fraktion;
+		this._race= race;
+		this._profession= profession;
+		this._constitution= constitution;
+		this._agility= agility;
+		this._selfDiscipline= selDiscipline;
+		this._memory=memory;
+		this._reasoning=reasoning;
+		this._luck= luck;
+		this._strength= strength;
+		this._quickness= quickness;
+		this._empathy= empathy;
+		this._intution= intution;
+		this._presence= presence;
+		setCommitFlag(true);
+		
+		
+		
 	}
 
 	
@@ -157,13 +173,13 @@ public class Toon implements Serializable {
 	public String getFraktion()
 	{ 
 
-		return fraktion;
+		return _fraktion;
 	}
 
 	public void setFraktion(String fraktion)
 	{ 
 
-		this.fraktion = fraktion;
+		this._fraktion = fraktion;
 	}
 
 	public String getRace() {

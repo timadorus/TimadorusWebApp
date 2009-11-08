@@ -20,7 +20,7 @@ public class ShowUserProfilePanel extends VerticalPanel {
 	}
 	
 	private void initialize() {
-		if (this.appReference.getUserLoggedIn()) {
+		if(this.appReference.getUserLoggedIn()){
 			final Grid showUserProfileGrid					= new Grid(5, 2);
 			final TextBox firstnameTextBox					= new TextBox();
 			final TextBox surnameTextBox					= new TextBox();

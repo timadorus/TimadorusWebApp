@@ -135,13 +135,14 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	}
 	
 	
-	public void createToon( Toon _toonObj){
+	public void createToon(  Toon _toonObj){
 		
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 			public void onFailure(Throwable caught) {
 				showError(caught.toString());
 			}
 			public void onSuccess(Boolean result) {
+			
 //				Login success
 				if (result) {
 					toonCreateIn= true;

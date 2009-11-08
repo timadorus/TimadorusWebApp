@@ -21,27 +21,20 @@ public class Race implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@PrimaryKey
+	
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	Long _raceID;
+	private Long _raceID= null;
+	private String _toonNamen= null;
+    private String _description= null;
 	
-	@Persistent
-	String _toonNamen;
-	
-	@Persistent
-	String description;
-	
-
 	public Race() {
 		super();
 	}
-	
 	
 	public Long getRaceID() {
 
 		return _raceID;
 	}
-
 
 	public void setRaceID(Long _raceID) {
 		this._raceID = _raceID;
@@ -59,12 +52,12 @@ public class Race implements Serializable{
 
 
 	public String getDescription() {
-		return description;
+		return _description;
 	}
 
 
-	public void setDescription(String _description) {
-	this.description = _description;
+	public void setDescription(String description) {
+	this._description = description;
 	}
 
 
