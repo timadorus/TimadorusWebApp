@@ -14,6 +14,8 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 	/**
 	 *	Reference to DataBase in which Userinformations are stored. 
 	 */
+	
+	
 	private final I_UserDataBaseSource dataBaseSource = new UserDataBaseSource();
 		
 	public Boolean loginUserWithPassword(String _username, String _password) {
