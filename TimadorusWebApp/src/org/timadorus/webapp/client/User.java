@@ -13,12 +13,12 @@ public class User implements IsSerializable {
 	 */
 	private static final long serialVersionUID = -5316339072058393508L;
 	
-	private String firstname	= null;
-	private String surname		= null;
-	private String userName		= null;
-	private String birthday		= null;
-	private String email		= null;
-	private String password		= null;
+	private transient String firstname		= null;
+	private transient String surname		= null;
+	private transient String userName		= null;
+	private transient String birthday		= null;
+	private transient String email			= null;
+	private transient String password		= null;
 	
 	@Override
 	public int hashCode() {

@@ -31,8 +31,7 @@ public class CreateToonPanel extends VerticalPanel {
 	
 
 	private void initialize(){
-
-		final Grid 	  toonCreateGrid					= new Grid(4, 2);
+		final Grid 	  toonCreateGrid					= new Grid(19, 2);
 		final TextBox nameTextBox						= new TextBox();
 		//final TextBox iDTextBox							= new TextBox();
 		//final TextBox userIfTextBox						= new TextBox();
