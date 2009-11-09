@@ -60,7 +60,7 @@ public class Toon implements IsSerializable {
 		return gender;
 	}
 
-	public String getFraktion() {
+	public String getFraction() {
 		return fraction;
 	}
 
@@ -132,7 +132,7 @@ public class Toon implements IsSerializable {
 		this.gender = gender;
 	}
 
-	public void setFraktion(String fraktion) {
+	public void setFraction(String fraktion) {
 		this.fraction = fraktion;
 	}
 
@@ -140,7 +140,7 @@ public class Toon implements IsSerializable {
 		this.race = race;
 	}
 
-	public void setProfession(String profession) {
+	public void setProffesion(String profession) {
 		this.proffesion = profession;
 	}
 
