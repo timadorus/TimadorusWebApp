@@ -44,39 +44,47 @@ public class Toon implements IsSerializable {
 		throw new Exception("no argument given"); 
 	 }
 	 
-	public Toon(String name){
-		_name= name;
+	public  Toon(String name){
+		 _name= name;
+	 }
+	 
+	public Toon(String name, String gender, String Fraktion, String race, String profession){
+		 _name= name;
+		 _gender=gender;
+		 _fraktion=Fraktion;
+		 _race=race;
+		 _profession= profession;
 		setCommitFlag(true);
 	}
 
 	
-	public Toon(Long id, Long userIf, String name, String gender,String fraktion
-			 , String race,  String profession , Integer constitution,  int agility
-			 , Integer selDiscipline, Integer  memory, Integer  reasoning ,  Integer luck
-			 , Integer strength,Integer quickness, Integer empathy, Integer intution
-			 , Integer presence)
-	{
-		
-		_toonID=id;
-		_userIF= userIf;
-		_name= name;
-		_gender= gender;
-		_fraktion= fraktion;
-		_race= race;
-		_profession= profession;
-		_constitution= constitution;
-		_agility= agility;
-		_selfDiscipline= selDiscipline;
-		_memory=memory;
-		_reasoning=reasoning;
-		_luck= luck;
-		_strength= strength;
-		_quickness= quickness;
-		_empathy= empathy;
-		_intution= intution;
-		_presence= presence;
-		setCommitFlag(true);
-	}
+//	public Toon(Long id, Long userIf, String name, String gender,String fraktion
+//			 , String race,  String profession , Integer constitution,  int agility
+//			 , Integer selDiscipline, Integer  memory, Integer  reasoning ,  Integer luck
+//			 , Integer strength,Integer quickness, Integer empathy, Integer intution
+//			 , Integer presence)
+//	{
+//		
+//		_toonID=id;
+//		_userIF= userIf;
+//		_name= name;
+//		_gender= gender;
+//		_fraktion= fraktion;
+//		_race= race;
+//		_profession= profession;
+//		_constitution= constitution;
+//		_agility= agility;
+//		_selfDiscipline= selDiscipline;
+//		_memory=memory;
+//		_reasoning=reasoning;
+//		_luck= luck;
+//		_strength= strength;
+//		_quickness= quickness;
+//		_empathy= empathy;
+//		_intution= intution;
+//		_presence= presence;
+//		setCommitFlag(true);
+//	}
 
 	
 	public static long getSerialversionuid()
