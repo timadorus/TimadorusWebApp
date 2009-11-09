@@ -37,11 +37,11 @@ public class CreateToonPanel extends VerticalPanel {
 		final TextBox nameTextBox						= new TextBox();
 
 		final TextBox GenderTextBox						= new TextBox();
-		final TextBox fraktionBox						= new TextBox();
+		final TextBox fractionBox						= new TextBox();
 
 
 		final TextBox RaceTextBox						= new TextBox();
-		final TextBox professionTextBox					= new TextBox();
+		final TextBox proffesionTextBox					= new TextBox();
     
 
 		final Button submitButton						= new Button("Toon create");
@@ -57,10 +57,10 @@ public class CreateToonPanel extends VerticalPanel {
 
 					toonObj.setGender(GenderTextBox.getText());
 
-					toonObj.setFraction(fraktionBox.getText());
+					toonObj.setFraction(fractionBox.getText());
 					toonObj.setRace(RaceTextBox.getText());
 
-					toonObj.setProffesion(professionTextBox.getText());
+					toonObj.setProffesion(proffesionTextBox.getText());
 
 					toonObj.setCommitFlag(true);
 
@@ -75,16 +75,16 @@ public class CreateToonPanel extends VerticalPanel {
 				toonCreateGrid.setWidget(1, 0, new Label("Gender"));
 				toonCreateGrid.setWidget(1, 1, GenderTextBox);
 				
-				toonCreateGrid.setWidget(2, 0, new Label("Fraktion"));
-				toonCreateGrid.setWidget(2, 1, fraktionBox);
+				toonCreateGrid.setWidget(2, 0, new Label("Fraction"));
+				toonCreateGrid.setWidget(2, 1, fractionBox);
 			
 				toonCreateGrid.setWidget(3, 0, new Label("Race"));
 		     	toonCreateGrid.setWidget(3, 1, RaceTextBox);
 			
-		     	toonCreateGrid.setWidget(4, 0, new Label("Profession"));
-		     	toonCreateGrid.setWidget(4, 1, professionTextBox);
+		     	toonCreateGrid.setWidget(4, 0, new Label("Proffesion"));
+		     	toonCreateGrid.setWidget(4, 1, proffesionTextBox);
 
-		toonCreateGrid.setWidget(1, 1, submitButton);
+		toonCreateGrid.setWidget(5, 1, submitButton);
 		this.add(new HTML("<h2>Toon create </h2>"));
 		this.add(toonCreateGrid);
 

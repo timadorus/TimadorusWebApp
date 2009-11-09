@@ -16,7 +16,141 @@ public class Toon implements IsSerializable {
 	private static final long serialVersionUID = -4167661698740143894L;
 	
 	private String name = null;
-	 private String gender =null;
+	 @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((agility == null) ? 0 : agility.hashCode());
+		result = prime * result
+				+ ((constitution == null) ? 0 : constitution.hashCode());
+		result = prime * result + ((empathy == null) ? 0 : empathy.hashCode());
+		result = prime * result
+				+ ((fraction == null) ? 0 : fraction.hashCode());
+		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+		result = prime * result
+				+ ((intution == null) ? 0 : intution.hashCode());
+		result = prime * result + (isCommitFlag ? 1231 : 1237);
+		result = prime * result + ((luck == null) ? 0 : luck.hashCode());
+		result = prime * result + ((memory == null) ? 0 : memory.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((presence == null) ? 0 : presence.hashCode());
+		result = prime * result
+				+ ((proffesion == null) ? 0 : proffesion.hashCode());
+		result = prime * result
+				+ ((quickness == null) ? 0 : quickness.hashCode());
+		result = prime * result + ((race == null) ? 0 : race.hashCode());
+		result = prime * result
+				+ ((reasoning == null) ? 0 : reasoning.hashCode());
+		result = prime * result
+				+ ((selfDiscipline == null) ? 0 : selfDiscipline.hashCode());
+		result = prime * result
+				+ ((strength == null) ? 0 : strength.hashCode());
+		result = prime * result
+				+ ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Toon other = (Toon) obj;
+		if (agility == null) {
+			if (other.agility != null)
+				return false;
+		} else if (!agility.equals(other.agility))
+			return false;
+		if (constitution == null) {
+			if (other.constitution != null)
+				return false;
+		} else if (!constitution.equals(other.constitution))
+			return false;
+		if (empathy == null) {
+			if (other.empathy != null)
+				return false;
+		} else if (!empathy.equals(other.empathy))
+			return false;
+		if (fraction == null) {
+			if (other.fraction != null)
+				return false;
+		} else if (!fraction.equals(other.fraction))
+			return false;
+		if (gender == null) {
+			if (other.gender != null)
+				return false;
+		} else if (!gender.equals(other.gender))
+			return false;
+		if (intution == null) {
+			if (other.intution != null)
+				return false;
+		} else if (!intution.equals(other.intution))
+			return false;
+		if (isCommitFlag != other.isCommitFlag)
+			return false;
+		if (luck == null) {
+			if (other.luck != null)
+				return false;
+		} else if (!luck.equals(other.luck))
+			return false;
+		if (memory == null) {
+			if (other.memory != null)
+				return false;
+		} else if (!memory.equals(other.memory))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (presence == null) {
+			if (other.presence != null)
+				return false;
+		} else if (!presence.equals(other.presence))
+			return false;
+		if (proffesion == null) {
+			if (other.proffesion != null)
+				return false;
+		} else if (!proffesion.equals(other.proffesion))
+			return false;
+		if (quickness == null) {
+			if (other.quickness != null)
+				return false;
+		} else if (!quickness.equals(other.quickness))
+			return false;
+		if (race == null) {
+			if (other.race != null)
+				return false;
+		} else if (!race.equals(other.race))
+			return false;
+		if (reasoning == null) {
+			if (other.reasoning != null)
+				return false;
+		} else if (!reasoning.equals(other.reasoning))
+			return false;
+		if (selfDiscipline == null) {
+			if (other.selfDiscipline != null)
+				return false;
+		} else if (!selfDiscipline.equals(other.selfDiscipline))
+			return false;
+		if (strength == null) {
+			if (other.strength != null)
+				return false;
+		} else if (!strength.equals(other.strength))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+
+	private String gender =null;
 	 private String fraction=null; 
 	 private String race=null;
 	 private String proffesion=null;

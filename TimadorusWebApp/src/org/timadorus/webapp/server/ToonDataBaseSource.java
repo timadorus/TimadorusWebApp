@@ -18,10 +18,10 @@ private Set<Toon> toonSet = null;
 		toonForTest_1.setProffesion("black smith");
 		
 		Toon toonForTest_2 = new Toon("test", "fallen_angel"); 
-		toonForTest_1.setGender("female");
-		toonForTest_1.setRace("angel");
-		toonForTest_1.setFraction("evil");
-		toonForTest_1.setProffesion("warrior");
+		toonForTest_2.setGender("female");
+		toonForTest_2.setRace("angel");
+		toonForTest_2.setFraction("evil");
+		toonForTest_2.setProffesion("warrior");
 		
 		toonSet.add(toonForTest_1);
 		toonSet.add(toonForTest_2);
@@ -34,7 +34,7 @@ private Set<Toon> toonSet = null;
 			if (toonOfUser.getUsername().equals(_userName))
 				toonsOfUser.add(toonOfUser);
 		
-		return toonSet;	
+		return toonsOfUser;	
 	}
 	
 	public boolean createToon(Toon _toonOb)	{
