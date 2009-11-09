@@ -4,35 +4,19 @@ package org.timadorus.webapp.client;
  * @author Manto Mireille
  *
  */
-/**
-
- * 
- */
 
 
 import java.io.Serializable;
-
-
-
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-
-
-import com.google.appengine.repackaged.com.google.common.base.Flag.Long;
-
-import java.lang.String;
-
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 
 public class Toon implements Serializable {
  
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	 private Long _toonID= null;
+	private static final long serialVersionUID = -4167661698740143894L;
+	
+	private Long _toonID= null;
 	 private Long _userIF =null; //????
 	 private String _name = null;
 	 private String _gender =null;
@@ -53,7 +37,7 @@ public class Toon implements Serializable {
 	 private  boolean isCommitFlag = false;
 		
 	public Toon(String name){
-		this._name= name;
+		_name= name;
 		setCommitFlag(true);
 	}
 
@@ -64,28 +48,25 @@ public class Toon implements Serializable {
 			 , Integer strength,Integer quickness, Integer empathy, Integer intution
 			 , Integer presence)
 	{
-		this._toonID=id;
-		this._userIF= userIf;
-		this._name= name;
-		this._gender= gender;
-		this._fraktion= fraktion;
-		this._race= race;
-		this._profession= profession;
-		this._constitution= constitution;
-		this._agility= agility;
-		this._selfDiscipline= selDiscipline;
-		this._memory=memory;
-		this._reasoning=reasoning;
-		this._luck= luck;
-		this._strength= strength;
-		this._quickness= quickness;
-		this._empathy= empathy;
-		this._intution= intution;
-		this._presence= presence;
+		_toonID=id;
+		_userIF= userIf;
+		_name= name;
+		_gender= gender;
+		_fraktion= fraktion;
+		_race= race;
+		_profession= profession;
+		_constitution= constitution;
+		_agility= agility;
+		_selfDiscipline= selDiscipline;
+		_memory=memory;
+		_reasoning=reasoning;
+		_luck= luck;
+		_strength= strength;
+		_quickness= quickness;
+		_empathy= empathy;
+		_intution= intution;
+		_presence= presence;
 		setCommitFlag(true);
-		
-		
-		
 	}
 
 	

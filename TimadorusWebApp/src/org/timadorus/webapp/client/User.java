@@ -1,7 +1,10 @@
 package org.timadorus.webapp.client;
 
 import java.io.Serializable;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
 
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class User implements Serializable {
 	
 	/**
@@ -37,12 +40,6 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
-
-	
-	
-	
-	
-	
 	
 	public User() throws Exception {
 		throw new Exception("No Username specified");
