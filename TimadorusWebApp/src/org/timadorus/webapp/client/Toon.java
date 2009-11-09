@@ -5,6 +5,7 @@ package org.timadorus.webapp.client;
  *
  */
 
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 
