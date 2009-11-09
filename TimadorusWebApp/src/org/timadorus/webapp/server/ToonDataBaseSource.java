@@ -11,13 +11,32 @@ private Set<Toon> toonSet = null;
 	public ToonDataBaseSource() {
 		toonSet = new HashSet<Toon>();
 		
-		Toon toonForTest_1 = new Toon("test", "norsk_priest", "male", "evil", "titans", "black smith"); 
-		Toon toonForTest_2 = new Toon("test", "fallen_angel", "female", "evil", "angel", "warrior"); 
+		Toon toonForTest_1 = new Toon("test", "norsk_priest");
+		toonForTest_1.setGender("male");
+		toonForTest_1.setRace("titan");
+		toonForTest_1.setFraction("evil");
+		toonForTest_1.setProffesion("black smith");
+		
+		Toon toonForTest_2 = new Toon("test", "fallen_angel"); 
+		toonForTest_1.setGender("female");
+		toonForTest_1.setRace("angel");
+		toonForTest_1.setFraction("evil");
+		toonForTest_1.setProffesion("warrior");
 		
 		toonSet.add(toonForTest_1);
 		toonSet.add(toonForTest_2);
 	}
 
+	public Set<Toon> getToonsOfUser(String _userName) {
+		Set<Toon> toonsOfUser = new HashSet<Toon>();
+		
+		for (Toon toonOfUser : this.toonSet)
+			if (toonOfUser.getUserName().equals(_userName))
+				toonsOfUser.add(toonOfUser);
+		
+		return toonSet;	
+	}
+	
 	public boolean createToon(Toon _toonOb)	{
 		if (this.toonSet.contains(_toonOb))
 			return false;
@@ -30,7 +49,7 @@ private Set<Toon> toonSet = null;
 
 	public Toon getToonByName(String _toonName)	{
 		for (Toon tmptoon : this.toonSet)
-		if (tmptoon.getName().equals(_toonName))
+		if (tmptoon.getToonName().equals(_toonName))
 			return tmptoon;
 	
 		return null;
@@ -45,25 +64,4 @@ private Set<Toon> toonSet = null;
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void setToonFraction(String fraction) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setToonGender(String gender) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setToonProffesion(String profesion) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setToonRace(String race) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }
