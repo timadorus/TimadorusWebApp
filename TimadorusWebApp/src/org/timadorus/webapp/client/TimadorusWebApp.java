@@ -1,5 +1,7 @@
 package org.timadorus.webapp.client;
 
+import java.util.Set;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.History;
@@ -145,6 +147,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		};
 		this.userService.registerUser(_userObj, callback);
 	}
+	
 	/**
 	 * 
 	 * @param _toonObj
@@ -152,13 +155,11 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	public void createToon(final Toon _toonObj) {
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>(){
 			
-			public void onFailure(Throwable caught)
-			{
+			public void onFailure(Throwable caught) {
 				showError(caught.toString());
 				System.out.println(caught.toString());
 			}
-			public void onSuccess(Boolean result){
-			
+			public void onSuccess(Boolean result) {			
 //				Login success
 				if (result){
 					toonCreateIn= true;
@@ -190,9 +191,25 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 				loggedInUserObject.setFirstname(result.getFirstname());
 				loggedInUserObject.setSurname(result.getSurname());
 				onModuleLoad();
-				
 			}
 		};
 		this.userService.getUserInformation(_userName, callback);
+	}
+	
+	/**
+	 * 
+	 * @param _userName
+	 */
+	public void getToonsOfUser(final String _userName) {
+		AsyncCallback<Set<Toon>> callback = new AsyncCallback<Set<Toon>>() {
+			public void onFailure(Throwable caught) {
+				caught.printStackTrace();
+				showError(caught.getLocalizedMessage());
+			}
+			public void onSuccess(Set<Toon> result) {
+				onModuleLoad();
+			}
+		};
+		this.toonService.getToonsOfUser(_userName, callback);
 	}
 }
