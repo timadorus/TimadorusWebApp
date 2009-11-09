@@ -15,7 +15,7 @@ public class ShowUserToonsPanel extends FormPanel {
 		initialize();
 	}
 	
-	private void initialize() {
+	private void initialize(){
 	}
 
 }

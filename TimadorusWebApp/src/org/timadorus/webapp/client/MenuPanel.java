@@ -1,6 +1,7 @@
 package org.timadorus.webapp.client;
 
 import com.google.gwt.user.client.ui.Hyperlink;
+
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MenuPanel extends VerticalPanel {

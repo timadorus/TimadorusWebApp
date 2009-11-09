@@ -27,9 +27,11 @@ public class Race implements Serializable{
 	private String _toonNamen= null;
     private String _description= null;
 	
-	public Race() {
-		super();
-	}
+    
+	 public Race() throws Exception {
+		throw new Exception("no argument given"); 
+	 }
+	 
 	
 	public Long getRaceID() {
 

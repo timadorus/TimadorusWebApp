@@ -14,8 +14,11 @@ import javax.jdo.annotations.PersistenceCapable;
 
 public class Toon implements Serializable {
  
-	private static final long serialVersionUID = -4167661698740143894L;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4167661698740143894L;
 	private Long _toonID= null;
 	 private Long _userIF =null; //????
 	 private String _name = null;
@@ -53,6 +56,7 @@ public class Toon implements Serializable {
 			 , Integer strength,Integer quickness, Integer empathy, Integer intution
 			 , Integer presence)
 	{
+		
 		_toonID=id;
 		_userIF= userIf;
 		_name= name;

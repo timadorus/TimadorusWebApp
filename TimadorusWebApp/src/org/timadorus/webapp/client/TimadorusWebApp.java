@@ -55,7 +55,8 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		return "";
 	}
 	
-	public void onModuleLoad() {
+	public void onModuleLoad()
+	{
 		History.addHistoryListener(this);
 		
 		History.onHistoryChanged(startState);
@@ -68,7 +69,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		RootPanel.get("menu").add(new MenuPanel(this));
 	}
 	
-	public void onHistoryChanged(String historyToken) {
+	public void onHistoryChanged(String historyToken){
 		RootPanel.get("content").clear();
 		RootPanel.get("error").clear();
 		
@@ -96,8 +97,10 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		}
 	}
 	
-	public void isValidUserPasswordPair(String _userName, String _userPassword) {
-		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+	public void isValidUserPasswordPair(String _userName, String _userPassword){
+		
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>(){
+			
 			public void onFailure(Throwable caught) {
 				showError(caught.getCause().toString());
 			}
@@ -134,17 +137,20 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		this.userService.registerUser(_userObj, callback);
 	}
 	
-	
-	public void createToon(  Toon _toonObj){
+	//TODO
+	public void createToon(Toon _toonObj){
 		
-		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
-			public void onFailure(Throwable caught) {
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>(){
+			
+			public void onFailure(Throwable caught)
+			{
 				showError(caught.toString());
+				System.out.println(caught.toString());
 			}
-			public void onSuccess(Boolean result) {
+			public void onSuccess(Boolean result){
 			
 //				Login success
-				if (result) {
+				if (result){
 					toonCreateIn= true;
 					onModuleLoad();
 //				Login failed
