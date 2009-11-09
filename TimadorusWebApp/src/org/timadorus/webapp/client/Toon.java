@@ -5,7 +5,6 @@ package org.timadorus.webapp.client;
  *
  */
 
-
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 
@@ -17,6 +16,7 @@ public class Toon implements IsSerializable {
 	/**
 	 * 
 	 */
+	private User user;
 	private static final long serialVersionUID = -4167661698740143894L;
 	 private String _name = null;
 	 private String _gender =null;
@@ -27,7 +27,76 @@ public class Toon implements IsSerializable {
 	 private Integer _agility=null;
 	 private Integer _selfDiscipline=null;
 	 private Integer _memory=null;
-	 private Integer _reasoning=null;
+	 public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void set_name(String name) {
+		_name = name;
+	}
+
+	public void set_fraktion(String fraktion) {
+		_fraktion = fraktion;
+	}
+
+	public void set_race(String race) {
+		_race = race;
+	}
+
+	public void set_profession(String profession) {
+		_profession = profession;
+	}
+
+	public void set_constitution(Integer constitution) {
+		_constitution = constitution;
+	}
+
+	public void set_agility(Integer agility) {
+		_agility = agility;
+	}
+
+	public void set_selfDiscipline(Integer selfDiscipline) {
+		_selfDiscipline = selfDiscipline;
+	}
+
+	public void set_memory(Integer memory) {
+		_memory = memory;
+	}
+
+	public void set_reasoning(Integer reasoning) {
+		_reasoning = reasoning;
+	}
+
+	public void set_luck(Integer luck) {
+		_luck = luck;
+	}
+
+	public void set_strength(Integer strength) {
+		_strength = strength;
+	}
+
+	public void set_quickness(Integer quickness) {
+		_quickness = quickness;
+	}
+
+	public void set_empathy(Integer empathy) {
+		_empathy = empathy;
+	}
+
+	public void set_intution(Integer intution) {
+		_intution = intution;
+	}
+
+	public void set_presence(Integer presence) {
+		_presence = presence;
+	}
+
+	public void set_username(String username) {
+		_username = username;
+	}
+
+
+	private Integer _reasoning=null;
 	 private Integer _luck=null;
 	 private Integer _strength=null;
 	 private Integer _quickness=null;
@@ -35,23 +104,28 @@ public class Toon implements IsSerializable {
 	 private Integer _intution=null;
 	 private Integer _presence=null;
 	 private  boolean isCommitFlag = false;
-		
+	 private String _username="";
+	 
+	 
 	 
 	 public Toon() throws Exception {
 		throw new Exception("no argument given"); 
 	 }
 	 
-	public  Toon(String name){
+	public  Toon(String username, String name){
+        _username= username;
 		 _name= name;
+		 setCommitFlag(false);
 	 }
 	 
-	public Toon(String name, String gender, String Fraktion, String race, String profession){
-		 _name= name;
+	public Toon( String name, String gender, String Fraktion, String race, String profession){
+	
+		_name= name;
 		 _gender=gender;
 		 _fraktion=Fraktion;
 		 _race=race;
 		 _profession= profession;
-		setCommitFlag(true);
+		setCommitFlag(false);
 	}
 
 	
