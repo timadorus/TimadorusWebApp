@@ -36,6 +36,11 @@ public class Toon implements Serializable {
 	 private Integer _presence=null;
 	 private  boolean isCommitFlag = false;
 		
+	 
+	 public Toon() throws Exception {
+		throw new Exception("no argument given"); 
+	 }
+	 
 	public Toon(String name){
 		_name= name;
 		setCommitFlag(true);
