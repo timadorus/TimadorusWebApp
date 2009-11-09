@@ -42,7 +42,7 @@ public class User implements IsSerializable {
 	}
 	
 	public User() throws Exception {
-		throw new Exception("No Username specified");
+	//	throw new Exception("No Username specified");
 	}
 	
 	public User(String _userName) {
@@ -102,4 +102,9 @@ public class User implements IsSerializable {
 		this.password = password;
 	}
 
+	public String toString() {
+		String result = this.firstname+" "+this.surname+" ("+this.userName+")";
+		
+		return result;
+	}
 }
