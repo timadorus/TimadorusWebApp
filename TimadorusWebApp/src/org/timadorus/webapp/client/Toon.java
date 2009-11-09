@@ -16,119 +16,47 @@ public class Toon implements IsSerializable {
 	/**
 	 * 
 	 */
-	private User user;
+
+
+
+
 	private static final long serialVersionUID = -4167661698740143894L;
-	 private String _name = null;
-	 private String _gender =null;
-	 private String _fraktion=null; 
-	 private String _race=null;
-	 private String _profession=null;
-	 private Integer _constitution=null;
-	 private Integer _agility=null;
-	 private Integer _selfDiscipline=null;
-	 private Integer _memory=null;
+	 private String name = null;
+	 private String gender =null;
+	 private String fraktion=null; 
+	 private String race=null;
+	 private String profession=null;
+	 private Integer constitution=null;
+	 private Integer agility=null;
+	 private Integer selfDiscipline=null;
+	 private Integer memory=null;
 	 
 
-		private Integer _reasoning=null;
-		 private Integer _luck=null;
-		 private Integer _strength=null;
-		 private Integer _quickness=null;
-		 private Integer _empathy=null;
-		 private Integer _intution=null;
-		 private Integer _presence=null;
+		 private Integer reasoning=null;
+		 private Integer luck=null;
+		 private Integer strength=null;
+		 private Integer quickness=null;
+		 private Integer empathy=null;
+		 private Integer intution=null;
+		 private Integer presence=null;
 		 private  boolean isCommitFlag = false;
-		 private String _username="";
+		 private String username="";
 		 
 		 
-	 
-	 
-	 public void setUser(User user) {
-		this.user = user;
-	}
-
-	public void set_name(String name) {
-		_name = name;
-	}
-
-	public void set_fraktion(String fraktion) {
-		_fraktion = fraktion;
-	}
-
-	public void set_race(String race) {
-		_race = race;
-	}
-
-	public void set_profession(String profession) {
-		_profession = profession;
-	}
-
-	public void set_constitution(Integer constitution) {
-		_constitution = constitution;
-	}
-
-	public void set_agility(Integer agility) {
-		_agility = agility;
-	}
-
-	public void set_selfDiscipline(Integer selfDiscipline) {
-		_selfDiscipline = selfDiscipline;
-	}
-
-	public void set_memory(Integer memory) {
-		_memory = memory;
-	}
-
-	public void set_reasoning(Integer reasoning) {
-		_reasoning = reasoning;
-	}
-
-	public void set_luck(Integer luck) {
-		_luck = luck;
-	}
-
-	public void set_strength(Integer strength) {
-		_strength = strength;
-	}
-
-	public void set_quickness(Integer quickness) {
-		_quickness = quickness;
-	}
-
-	public void set_empathy(Integer empathy) {
-		_empathy = empathy;
-	}
-
-	public void set_intution(Integer intution) {
-		_intution = intution;
-	}
-
-	public void set_presence(Integer presence) {
-		_presence = presence;
-	}
-
-	public void set_username(String username) {
-		_username = username;
-	}
-
-
-	 
-	 public Toon() throws Exception {
-		throw new Exception("no argument given"); 
+	 public Toon( String userName, String toonName){
+		 username= userName;
+		 name= toonName;
+		  isCommitFlag=false;
+		 
 	 }
-	 
-	public  Toon(String username, String name){
-        _username= username;
-		 _name= name;
-		 setCommitFlag(false);
-	 }
-	 
-	public Toon( String name, String gender, String Fraktion, String race, String profession){
+
+	public Toon( String toonName, String toonGender, String  toonFraktion, String toonRace, String toonProfession){
 	
-		_name= name;
-		 _gender=gender;
-		 _fraktion=Fraktion;
-		 _race=race;
-		 _profession= profession;
+		name= toonName;
+		 gender=toonGender;
+		 fraktion=toonFraktion;
+		 race=toonRace;
+		 profession=toonProfession;
 		setCommitFlag(false);
 	}
 
@@ -161,121 +89,129 @@ public class Toon implements IsSerializable {
 //		setCommitFlag(true);
 //	}
 
-	
-	public static long getSerialversionuid()
-	{
-		return serialVersionUID;
-	}
 
-	public Integer getConstitution()
-	{
-		return _constitution;
-	}
 
-	public Integer getAgility()
-	{
-		return _agility;
-	}
 
-	public Integer getSelfDiscipline()
-	{
-		return _selfDiscipline;
-	}
 
-	public Integer getMemory()
-	{
-		return _memory;
-	}
 
-	public Integer getReasoning()
-	{
-		return _reasoning;
-	}
 
-	public Integer getLuck()
-	{
-		return _luck;
-	}
-
-	public Integer getStrength()
-	{
-		return _strength;
-	}
-
-	public Integer getQuickness()
-	{
-		return _quickness;
-	}
-
-	public Integer getEmpathy()
-	{
-		return _empathy;
-	}
-
-	public Integer getIntution()
-	{
-		return _intution;
-	}
-
-	public Integer getPresence()
-	{
-		return _presence;
-	}
-
-	public String getName()
-	{
-		return _name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
-	public String getGender()
-	{
-		return _gender;
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public void set_gender(String gender)
-	{
-		this._gender = gender;
+
+
+
+	public void setFraktion(String fraktion) {
+		this.fraktion = fraktion;
 	}
 
-	public String getFraktion()
-	{ 
 
-		return _fraktion;
+
+
+	public void setRace(String race) {
+		this.race = race;
 	}
 
-	public void setFraktion(String fraktion)
-	{ 
 
-		this._fraktion = fraktion;
+
+
+	public void setProfession(String profession) {
+		this.profession = profession;
 	}
 
-	public String getRace() {
-		return _race;
+
+
+
+	public void setConstitution(Integer constitution) {
+		this.constitution = constitution;
 	}
 
-	public void setRace(String race)
-	{
-		this._race = race;
+
+
+
+	public void setAgility(Integer agility) {
+		this.agility = agility;
 	}
 
-	public String getProfession()
-	{
-		return _profession;
+
+
+
+	public void setSelfDiscipline(Integer selfDiscipline) {
+		this.selfDiscipline = selfDiscipline;
 	}
 
-	public void setProfession(String profession)
-	{
-		this._profession = profession;
+
+
+
+	public void setMemory(Integer memory) {
+		this.memory = memory;
 	}
+
+
+
+
+	public void setReasoning(Integer reasoning) {
+		this.reasoning = reasoning;
+	}
+
+
+
+
+	public void setLuck(Integer luck) {
+		this.luck = luck;
+	}
+
+
+
+
+	public void setStrength(Integer strength) {
+		this.strength = strength;
+	}
+
+
+
+
+	public void setQuickness(Integer quickness) {
+		this.quickness = quickness;
+	}
+
+
+
+
+	public void setEmpathy(Integer empathy) {
+		this.empathy = empathy;
+	}
+
+
+
+
+	public void setIntution(Integer intution) {
+		this.intution = intution;
+	}
+
+
+
+
+	public void setPresence(Integer presence) {
+		this.presence = presence;
+	}
+
+
+
 
 	public void setCommitFlag(boolean isCommitFlag) {
 		this.isCommitFlag = isCommitFlag;
 	}
 
 
-	public boolean isCommitFlag() {
-		return isCommitFlag;
-	}
+
 
 }
