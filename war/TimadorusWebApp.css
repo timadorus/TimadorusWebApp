@@ -20,24 +20,23 @@ body {
 
 #menu {  
 	background: #EEE8CD;
-	width: 15%;
-	height: 100%;	
+	width: 15%;		
     float: left;
-    
+    text-align: center;
 }
 
 #content {
 	background: #FFEFD5;
-	width: 70%;
-	heigth: 100%;
-	
+	width: 70%;	
     align: center;
     float: left;
+    text-align: center;
 }
 
 #information {
 	background: #EEE8CD;
     width: 15%;
     heigth: 100%;    
-    float: right;    
+    float: right;
+    text-align: justify;
 }

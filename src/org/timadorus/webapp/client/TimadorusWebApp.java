@@ -75,9 +75,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
     RootPanel.get("menu").clear();
     RootPanel.get("content").clear();
     RootPanel.get("information").clear();
-
-    RootPanel.get("information").add(new Label("information panel"));
-    RootPanel.get("content").add(new Label("Willkommen auf der WebApplikation des Projektes Timadoros"));
+    RootPanel.get("information").add(new HTML("</br>information panel"));
+    RootPanel.get("content").add(new HTML("Willkommen auf der WebApplikation des Projektes Timadoros"));
+    
 
     if (isLoggedin()) {
       System.out.println("Login status " + isLoggedin());
