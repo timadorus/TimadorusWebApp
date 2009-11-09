@@ -13,7 +13,7 @@ private Set<Toon> toonSet = null;
 	
 	public ToonDataBaseSource() {
 		toonSet = new HashSet<Toon>();	
-		createToon(new Toon("test"));// TODO
+		createToon(new Toon("test", "test", "test", " test ", " test "));// TODO
 		createToon(new Toon("test"));
 		
 	}
