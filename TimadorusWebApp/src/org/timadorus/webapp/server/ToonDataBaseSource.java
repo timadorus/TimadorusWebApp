@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.timadorus.webapp.client.Toon;
-import org.timadorus.webapp.client.User;
 
 
 import com.google.appengine.repackaged.com.google.common.base.Flag.String;
