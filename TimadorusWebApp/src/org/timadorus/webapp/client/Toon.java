@@ -12,9 +12,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 
-public class Toon implements IsSerializable {
- 
-	
+public class Toon implements IsSerializable {	
 	/**
 	 * 
 	 */
