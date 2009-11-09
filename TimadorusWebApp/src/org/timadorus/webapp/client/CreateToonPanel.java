@@ -53,7 +53,7 @@ public class CreateToonPanel extends VerticalPanel {
 			{
 
 				Toon toonObj = new Toon( user.getSurname(),nameTextBox.getText());
-				if(appReference.isToonCreateIn()){
+				//if(appReference.isToonCreateIn()){
 
 					toonObj.setGender(GenderTextBox.getText());
 
@@ -64,7 +64,7 @@ public class CreateToonPanel extends VerticalPanel {
 
 					toonObj.setCommitFlag(true);
 
-				}
+				//}
 				appReference.createToon(toonObj);
 			}
 		});
