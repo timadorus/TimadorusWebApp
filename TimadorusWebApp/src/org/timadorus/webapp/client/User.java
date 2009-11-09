@@ -2,7 +2,6 @@ package org.timadorus.webapp.client;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
@@ -13,12 +12,12 @@ public class User implements IsSerializable {
 	 */
 	private static final long serialVersionUID = -5316339072058393508L;
 	
-	private transient String firstname		= null;
-	private transient String surname		= null;
-	private transient String userName		= null;
-	private transient String birthday		= null;
-	private transient String email			= null;
-	private transient String password		= null;
+	private String firstname	= null;
+	private String surname		= null;
+	private String userName		= null;
+	private String birthday		= null;
+	private String email		= null;
+	private String password		= null;
 	
 	@Override
 	public int hashCode() {
