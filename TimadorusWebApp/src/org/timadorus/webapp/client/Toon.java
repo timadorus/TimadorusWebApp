@@ -19,8 +19,6 @@ public class Toon implements IsSerializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4167661698740143894L;
-	private Long _toonID= null;
-	 private Long _userIF =null; //????
 	 private String _name = null;
 	 private String _gender =null;
 	 private String _fraktion=null; 
@@ -90,11 +88,6 @@ public class Toon implements IsSerializable {
 	public static long getSerialversionuid()
 	{
 		return serialVersionUID;
-	}
-
-	public Long getUserIF()
-	{
-		return _userIF;
 	}
 
 	public Integer getConstitution()
@@ -198,17 +191,6 @@ public class Toon implements IsSerializable {
 	{
 		this._profession = profession;
 	}
-
-	public Long getToonID()
-	{
-		return _toonID;
-	}
-
-	public void setToonID(Long toonID)
-	{
-		this._toonID = toonID;
-	}
-
 
 	public void setCommitFlag(boolean isCommitFlag) {
 		this.isCommitFlag = isCommitFlag;
