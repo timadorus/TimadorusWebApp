@@ -156,6 +156,10 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 //				Login success
 				if (result){
 					toonCreateIn= true;
+					
+					
+					
+					
 					onModuleLoad();
 //				Login failed
 				} else {
