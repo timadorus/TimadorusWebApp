@@ -25,7 +25,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	private final UserServiceAsync userService	= GWT.create(UserService.class);
 	private final ToonServiceAsync toonService	= GWT.create(ToonService.class);
 	
-	private String loggedInUsername = null;
+	private User loggedInUserObject = null;
 	
 	/**
 	 * Returns if the user is logged in
@@ -36,6 +36,12 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		return this.userLoggedIn;
 	}
 	
+	/**
+	 * 
+	 */
+	public User getLoggedInUserObject() {
+		return this.loggedInUserObject;
+	}
 	/**
 	 * Displays an _errMessage on the Webapplication
 	 * @param _errMessage The Message to be displayed on the Webapplication
@@ -51,7 +57,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	 * @return Username of logged in User or NULL 
 	 */
 	public String getLoggedInUsername() {
-		return this.loggedInUsername;
+		return this.loggedInUserObject.getUserName();
 	}
 	
 	public void onModuleLoad()
@@ -105,11 +111,11 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 //				Login success
 				if (result) {
 					userLoggedIn = true;
-					loggedInUsername = _userName;
+					getUserInformation(_userName);
 					onModuleLoad();
 //				Login failed
 				} else {
-					loggedInUsername = null;
+					loggedInUserObject = null;
 					showError("Login failed");
 				}
 			}
@@ -156,10 +162,6 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 //				Login success
 				if (result){
 					toonCreateIn= true;
-					
-					
-					
-					
 					onModuleLoad();
 //				Login failed
 				} else {
@@ -175,24 +177,22 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	 * 
 	 * @param _userName
 	 */
-	public User getUserInformation(final String _userName) {
-		System.out.println(_userName);
-		
-		final User	tmpUser = new User(_userName);
-		
+	public void getUserInformation(final String _userName) {
 		AsyncCallback<User> callback = new AsyncCallback<User>() {
 			public void onFailure(Throwable caught) {
 				caught.printStackTrace();
 				showError(caught.getLocalizedMessage());
 			}
 			public void onSuccess(User result) {
-				tmpUser.setBirthday(result.getBirthday());
-				tmpUser.setEmail(result.getEmail());
-				tmpUser.setFirstname(result.getFirstname());
-				tmpUser.setSurname(result.getSurname());
+				loggedInUserObject = new User(_userName);
+				loggedInUserObject.setBirthday(result.getBirthday());
+				loggedInUserObject.setEmail(result.getEmail());
+				loggedInUserObject.setFirstname(result.getFirstname());
+				loggedInUserObject.setSurname(result.getSurname());
+				onModuleLoad();
+				
 			}
 		};
 		this.userService.getUserInformation(_userName, callback);
-		return tmpUser;
 	}
 }
