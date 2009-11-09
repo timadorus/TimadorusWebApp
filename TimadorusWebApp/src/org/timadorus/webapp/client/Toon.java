@@ -33,7 +33,86 @@ public class Toon implements IsSerializable {
 	 
 
 		 private Integer reasoning=null;
-		 private Integer luck=null;
+		 public static long getSerialversionuid() {
+			return serialVersionUID;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getGender() {
+			return gender;
+		}
+
+		public String getFraktion() {
+			return fraktion;
+		}
+
+		public String getRace() {
+			return race;
+		}
+
+		public String getProfession() {
+			return profession;
+		}
+
+		public Integer getConstitution() {
+			return constitution;
+		}
+
+		public Integer getAgility() {
+			return agility;
+		}
+
+		public Integer getSelfDiscipline() {
+			return selfDiscipline;
+		}
+
+		public Integer getMemory() {
+			return memory;
+		}
+
+		public Integer getReasoning() {
+			return reasoning;
+		}
+
+		public Integer getLuck() {
+			return luck;
+		}
+
+		public Integer getStrength() {
+			return strength;
+		}
+
+		public Integer getQuickness() {
+			return quickness;
+		}
+
+		public Integer getEmpathy() {
+			return empathy;
+		}
+
+		public Integer getIntution() {
+			return intution;
+		}
+
+		public Integer getPresence() {
+			return presence;
+		}
+
+		public boolean isCommitFlag() {
+			return isCommitFlag;
+		}
+
+		public String getUsername() {
+			return username;
+		}
+
+
+
+
+		private Integer luck=null;
 		 private Integer strength=null;
 		 private Integer quickness=null;
 		 private Integer empathy=null;
