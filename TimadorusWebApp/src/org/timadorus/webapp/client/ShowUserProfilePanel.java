@@ -28,12 +28,10 @@ public class ShowUserProfilePanel extends VerticalPanel {
 			final TextBox emailTextBox						= new TextBox();
 			final TextBox userNameTextBox					= new TextBox();
 			
-			User tmpUser = this.appReference.getUserInformation(this.appReference.getLoggedInUsername());
-			
-			firstnameTextBox.setText(tmpUser.getFirstname());
-			surnameTextBox.setText(tmpUser.getSurname());
-			birthdayTextBox.setText(tmpUser.getBirthday());
-			emailTextBox.setText(tmpUser.getEmail());
+			firstnameTextBox.setText(this.appReference.getLoggedInUserObject().getFirstname());
+			surnameTextBox.setText(this.appReference.getLoggedInUserObject().getSurname());
+			birthdayTextBox.setText(this.appReference.getLoggedInUserObject().getBirthday());
+			emailTextBox.setText(this.appReference.getLoggedInUserObject().getEmail());
 			userNameTextBox.setText(this.appReference.getLoggedInUsername());
 			
 			showUserProfileGrid.setWidget(0, 0, new Label("Firstname"));
