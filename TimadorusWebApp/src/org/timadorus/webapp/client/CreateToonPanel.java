@@ -15,71 +15,76 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class CreateToonPanel extends VerticalPanel {
 	private final TimadorusWebApp appReference;
+	private final User user = new User("");
 
-	
-	
+
 	public CreateToonPanel() throws Exception {
 		throw new Exception("No parameter set");
 	}
 
 	public CreateToonPanel(TimadorusWebApp _appReference) {
 		super();
-	    appReference = _appReference;
+		appReference = _appReference;
 		initialize();
 	}
 
-	
+
 
 	private void initialize(){
-		final Grid 	  toonCreateGrid					= new Grid(19, 2);
+   // if(appReference.getUserLoggedIn())
+
+		final Grid 	  toonCreateGrid					= new Grid(6, 2);
 		final TextBox nameTextBox						= new TextBox();
-		
+
 		final TextBox GenderTextBox						= new TextBox();
 		final TextBox fraktionBox						= new TextBox();
 
 
 		final TextBox RaceTextBox						= new TextBox();
 		final TextBox professionTextBox					= new TextBox();
-
+    
 
 		final Button submitButton						= new Button("Toon create");
-
+    
+    
 		submitButton.addClickHandler(new ClickHandler() {
-			//TODO
+
 			public void onClick(ClickEvent event)
 			{
-				
-				Toon toonObj = new Toon(nameTextBox.getText());
-				toonObj.set_gender(GenderTextBox.getText());
-				
-				toonObj.setFraktion(fraktionBox.getText());
-				toonObj.setRace(RaceTextBox.getText());
-				
-				toonObj.setProfession(professionTextBox.getText());
-				
-				toonObj.setCommitFlag(true);
 
+				Toon toonObj = new Toon( user.getSurname(),nameTextBox.getText());
+				if(appReference.isToonCreateIn()){
 
-			appReference.createToon(toonObj);
+					toonObj.setGender(GenderTextBox.getText());
+
+					toonObj.setFraction(fraktionBox.getText());
+					toonObj.setRace(RaceTextBox.getText());
+
+					toonObj.setProffesion(professionTextBox.getText());
+
+					toonObj.setCommitFlag(true);
+
+				}
+				appReference.createToon(toonObj);
 			}
 		});
 
-		toonCreateGrid.setWidget(0, 0, new Label("Name"));
-		toonCreateGrid.setWidget(0, 1, nameTextBox);
-		
-		toonCreateGrid.setWidget(1, 0, new Label("Gender"));
-		toonCreateGrid.setWidget(1, 1, GenderTextBox);
-		
-		toonCreateGrid.setWidget(2, 0, new Label("Fraktion"));
-		toonCreateGrid.setWidget(2, 1, fraktionBox);
-	
-		toonCreateGrid.setWidget(3, 0, new Label("Race"));
-     	toonCreateGrid.setWidget(3, 1, RaceTextBox);
-	
-     	toonCreateGrid.setWidget(4, 0, new Label("Profession"));
-     	toonCreateGrid.setWidget(4, 1, professionTextBox);
+				toonCreateGrid.setWidget(0, 0, new Label("Name"));
+				toonCreateGrid.setWidget(0, 1, nameTextBox);
+				
+				toonCreateGrid.setWidget(1, 0, new Label("Gender"));
+				toonCreateGrid.setWidget(1, 1, GenderTextBox);
+				
+				toonCreateGrid.setWidget(2, 0, new Label("Fraktion"));
+				toonCreateGrid.setWidget(2, 1, fraktionBox);
+			
+				toonCreateGrid.setWidget(3, 0, new Label("Race"));
+		     	toonCreateGrid.setWidget(3, 1, RaceTextBox);
+			
+		     	toonCreateGrid.setWidget(4, 0, new Label("Profession"));
+		     	toonCreateGrid.setWidget(4, 1, professionTextBox);
 
-     	toonCreateGrid.setWidget(5, 1, submitButton);
+		toonCreateGrid.setWidget(1, 1, submitButton);
 		this.add(new HTML("<h2>Toon create </h2>"));
 		this.add(toonCreateGrid);
 
