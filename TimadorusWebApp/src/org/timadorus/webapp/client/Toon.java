@@ -27,6 +27,21 @@ public class Toon implements IsSerializable {
 	 private Integer _agility=null;
 	 private Integer _selfDiscipline=null;
 	 private Integer _memory=null;
+	 
+
+		private Integer _reasoning=null;
+		 private Integer _luck=null;
+		 private Integer _strength=null;
+		 private Integer _quickness=null;
+		 private Integer _empathy=null;
+		 private Integer _intution=null;
+		 private Integer _presence=null;
+		 private  boolean isCommitFlag = false;
+		 private String _username="";
+		 
+		 
+	 
+	 
 	 public void setUser(User user) {
 		this.user = user;
 	}
@@ -96,17 +111,6 @@ public class Toon implements IsSerializable {
 	}
 
 
-	private Integer _reasoning=null;
-	 private Integer _luck=null;
-	 private Integer _strength=null;
-	 private Integer _quickness=null;
-	 private Integer _empathy=null;
-	 private Integer _intution=null;
-	 private Integer _presence=null;
-	 private  boolean isCommitFlag = false;
-	 private String _username="";
-	 
-	 
 	 
 	 public Toon() throws Exception {
 		throw new Exception("no argument given"); 
