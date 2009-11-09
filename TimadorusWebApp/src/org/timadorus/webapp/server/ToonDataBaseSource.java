@@ -57,6 +57,21 @@ private Set<Toon> toonSet = null;
 		
 	}
 
+	public Toon getToonByName(java.lang.String toonName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setToonRace(java.lang.String race) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void toonInitialize(java.lang.String toonName) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 	

@@ -3,8 +3,6 @@ package org.timadorus.webapp.server;
 
 import org.timadorus.webapp.client.Toon;
 
-import com.google.appengine.repackaged.com.google.common.base.Flag.String;
-
 public interface I_ToonDataBaseSource {
 
 	boolean createToon( Toon _toonOb);

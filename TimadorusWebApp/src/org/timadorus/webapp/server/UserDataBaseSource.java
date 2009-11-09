@@ -12,7 +12,7 @@ public class UserDataBaseSource implements I_UserDataBaseSource {
 	public UserDataBaseSource() {
 		userSet = new HashSet<User>();	
 		registerUser(new User("test", "Michael", "Pawlik", "05.09.1985", "dachund@gmail.com", "123"));
-		registerUser(new User("test", "Hans", "Jockel", "06.06.1966", "schmied@ruuth.de", "321"));
+//		registerUser(new User("test", "Hans", "Jockel", "06.06.1966", "schmied@ruuth.de", "321"));
 		
 	}
 	
