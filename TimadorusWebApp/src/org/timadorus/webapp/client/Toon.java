@@ -7,8 +7,6 @@ package org.timadorus.webapp.client;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-
-import com.google.appengine.repackaged.com.google.common.labs.misc.ToStringBuilder;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)

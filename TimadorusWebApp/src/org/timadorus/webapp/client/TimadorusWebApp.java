@@ -207,7 +207,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 				showError(caught.getLocalizedMessage());
 			}
 			public void onSuccess(Set<Toon> result) {
-				onModuleLoad();
+				for (Toon tmp : result)
+					System.out.println(tmp.toString());
+				//onModuleLoad();
 			}
 		};
 		this.toonService.getToonsOfUser(_userName, callback);
