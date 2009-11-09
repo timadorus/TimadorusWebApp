@@ -31,7 +31,7 @@ private Set<Toon> toonSet = null;
 		Set<Toon> toonsOfUser = new HashSet<Toon>();
 		
 		for (Toon toonOfUser : this.toonSet)
-			if (toonOfUser.getUserName().equals(_userName))
+			if (toonOfUser.getUsername().equals(_userName))
 				toonsOfUser.add(toonOfUser);
 		
 		return toonSet;	
@@ -49,7 +49,7 @@ private Set<Toon> toonSet = null;
 
 	public Toon getToonByName(String _toonName)	{
 		for (Toon tmptoon : this.toonSet)
-		if (tmptoon.getToonName().equals(_toonName))
+		if (tmptoon.getName().equals(_toonName))
 			return tmptoon;
 	
 		return null;
