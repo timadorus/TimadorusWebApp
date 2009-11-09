@@ -5,14 +5,14 @@ package org.timadorus.webapp.client;
  *
  */
 
-
-import java.io.Serializable;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 
-public class Toon implements Serializable {
+public class Toon implements IsSerializable {
  
 	
 	/**
