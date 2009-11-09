@@ -25,6 +25,8 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	private final UserServiceAsync userService	= GWT.create(UserService.class);
 	private final ToonServiceAsync toonService	= GWT.create(ToonService.class);
 	
+	private String loggedInUsername = null;
+	
 	/**
 	 * Returns if the user is logged in
 	 * 
@@ -49,10 +51,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	 * @return Username of logged in User or NULL 
 	 */
 	public String getLoggedInUsername() {
-		if (!this.getUserLoggedIn())
-			return null;
-		
-		return "";
+		return this.loggedInUsername;
 	}
 	
 	public void onModuleLoad()
@@ -69,7 +68,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		RootPanel.get("menu").add(new MenuPanel(this));
 	}
 	
-	public void onHistoryChanged(String historyToken){
+	public void onHistoryChanged(String historyToken) {
 		RootPanel.get("content").clear();
 		RootPanel.get("error").clear();
 		
@@ -97,10 +96,8 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		}
 	}
 	
-	public void isValidUserPasswordPair(String _userName, String _userPassword){
-		
-		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>(){
-			
+	public void isValidUserPasswordPair(final String _userName, final String _userPassword) {
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 			public void onFailure(Throwable caught) {
 				showError(caught.getCause().toString());
 			}
@@ -108,9 +105,11 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 //				Login success
 				if (result) {
 					userLoggedIn = true;
+					loggedInUsername = _userName;
 					onModuleLoad();
 //				Login failed
 				} else {
+					loggedInUsername = null;
 					showError("Login failed");
 				}
 			}
@@ -118,7 +117,11 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		this.userService.loginUserWithPassword(_userName, _userPassword, callback);
 	}
 	
-	public void registerUser(User _userObj) {
+	/**
+	 * 
+	 * @param _userObj
+	 */
+	public void registerUser(final User _userObj) {
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 			public void onFailure(Throwable caught) {
 				showError(caught.toString());
@@ -136,10 +139,11 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		};
 		this.userService.registerUser(_userObj, callback);
 	}
-	
-	//TODO
-	public void createToon(Toon _toonObj){
-		
+	/**
+	 * 
+	 * @param _toonObj
+	 */
+	public void createToon(final Toon _toonObj) {
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>(){
 			
 			public void onFailure(Throwable caught)
@@ -161,5 +165,30 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		};
 		
 		this.toonService.createToon(_toonObj, callback);
+	}
+	
+	/**
+	 * 
+	 * @param _userName
+	 */
+	public User getUserInformation(final String _userName) {
+		System.out.println(_userName);
+		
+		final User	tmpUser = new User(_userName);
+		
+		AsyncCallback<User> callback = new AsyncCallback<User>() {
+			public void onFailure(Throwable caught) {
+				caught.printStackTrace();
+				showError(caught.getLocalizedMessage());
+			}
+			public void onSuccess(User result) {
+				tmpUser.setBirthday(result.getBirthday());
+				tmpUser.setEmail(result.getEmail());
+				tmpUser.setFirstname(result.getFirstname());
+				tmpUser.setSurname(result.getSurname());
+			}
+		};
+		this.userService.getUserInformation(_userName, callback);
+		return tmpUser;
 	}
 }
