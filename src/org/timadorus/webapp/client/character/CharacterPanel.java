@@ -1,9 +1,10 @@
-package org.timadorus.webapp.client;
+package org.timadorus.webapp.client.character;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.register.RegisterPanel;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -25,7 +26,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 @SuppressWarnings("deprecation")
-public class CharakterPanel extends FormPanel implements HistoryListener {
+public class CharacterPanel extends FormPanel implements HistoryListener {
 
   public static final String LOGIN_STATE = "login";
 
@@ -34,6 +35,8 @@ public class CharakterPanel extends FormPanel implements HistoryListener {
   public static final String CREATE_STATE = "create";
 
   public static final String REGISTER_STATE = "register";
+  
+  private static CharacterPanel cpanel;
 
   Grid grid = new Grid(9, 6);
 
@@ -88,13 +91,20 @@ public class CharakterPanel extends FormPanel implements HistoryListener {
 
   TimadorusWebApp entry;
 
-  public CharakterPanel(TimadorusWebApp _entry) {
+  public CharacterPanel(TimadorusWebApp _entry) {
     super();
     this.entry = _entry;
 
     createUI();
     setupHistory();
     setWidget(grid);
+  }
+
+  public static final CharacterPanel getcharacterPanel(TimadorusWebApp entry) {
+    if (cpanel == null) {
+      cpanel = new CharacterPanel(entry);
+    }
+    return cpanel;
   }
 
   private void setupHistory() {

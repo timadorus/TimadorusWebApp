@@ -1,8 +1,10 @@
-package org.timadorus.webapp.client;
+package org.timadorus.webapp.client.login;
 
 import java.util.Date;
 
+import org.timadorus.webapp.client.SessionId;
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.LoginService;
 import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
 
@@ -64,9 +66,12 @@ public class LoginPanel extends FormPanel implements HistoryListener {
 
   private int logincounter;
 
-  public LoginPanel(SessionId session) {
+  private static LoginPanel loginPanel;
+
+  public LoginPanel(SessionId session, TimadorusWebApp entry) {
     super();
 
+    this.entry = entry;
     setUser(new User());
     logincounter = 0;
     setupHistory();
@@ -164,9 +169,6 @@ public class LoginPanel extends FormPanel implements HistoryListener {
                   History.newItem("welcome");
                 }
               } else {
-                // RootPanel.get("content").clear();
-                // RootPanel.get("content").add(new Label("Eingeloggt"));
-
                 gettimadorus().setLoggedin(true);
 
                 Cookies.setCookie("session", result, new Date(System.currentTimeMillis() + TWO_MIN));
@@ -199,6 +201,13 @@ public class LoginPanel extends FormPanel implements HistoryListener {
     setStyleName("formPanel");
   }
 
+  public static final LoginPanel getLoginPanel(SessionId sessionId, TimadorusWebApp entry) {
+    if (LoginPanel.loginPanel == null) {
+      LoginPanel.loginPanel = new LoginPanel(sessionId, entry);
+    }
+    return LoginPanel.loginPanel;
+  }
+
   private void setupHistory() {
     History.addHistoryListener(this);
     // History.onHistoryChanged("login");
@@ -229,7 +238,6 @@ public class LoginPanel extends FormPanel implements HistoryListener {
       gettimadorus().loadLoginPanel();
     } else if (WELCOME_STATE.equals(historyToken)) {
       gettimadorus().loadWelcomePanel();
-
     } else if (CREATE_STATE.equals(historyToken)) {
       gettimadorus().loadCreateCharacter();
     } else if (REGISTER_STATE.equals(historyToken)) {

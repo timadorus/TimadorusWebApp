@@ -1,5 +1,8 @@
 package org.timadorus.webapp.client;
 
+import org.timadorus.webapp.client.character.CharacterPanel;
+import org.timadorus.webapp.client.login.LoginPanel;
+import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.rpc.service.SessionService;
 import org.timadorus.webapp.client.rpc.service.SessionServiceAsync;
 
@@ -39,26 +42,24 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
   // Hyperlinks für die Startseite
   private Hyperlink logoutlink;
 
+  private Hyperlink loginlink;
+
   private Hyperlink createCharacterlink;
 
   private Hyperlink registerlink;
 
-  private LoginPanel loginPanel;
-
-  private CharakterPanel cpanel;
-
-  private RegisterPanel registerPanel;
+  private CharacterPanel cpanel;
 
   private boolean loggedin = false;
 
   public void onModuleLoad() {
-   
+
     VerticalPanel vp = new VerticalPanel();
     RootPanel.get("menu").add(vp);
-    
+
     VerticalPanel vp1 = new VerticalPanel();
     RootPanel.get("content").add(vp1);
-    
+
     VerticalPanel vp2 = new VerticalPanel();
     RootPanel.get("information").add(vp2);
 
@@ -67,20 +68,23 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
     System.out.println("Session " + sessionId.getSessionId());
     validateSession();
     setupHistory();
+    loadWelcomePanel();
   }
 
   public void loadWelcomePanel() {
     RootPanel.get("menu").clear();
     RootPanel.get("content").clear();
     RootPanel.get("information").clear();
-    
+
     RootPanel.get("information").add(new Label("information panel"));
     RootPanel.get("content").add(new Label("Willkommen auf der WebApplikation des Projektes Timadoros"));
 
     if (isLoggedin()) {
       System.out.println("Login status " + isLoggedin());
-      RootPanel.get("menu").add(new Label("Du bist als " + getLoginPanel().getUser().getDisplayname() + " angemeldet"));
-      if (!getLoginPanel().getUser().getActive()) {
+      RootPanel.get("menu").add(
+                                new Label("Du bist als "
+                                    + LoginPanel.getLoginPanel(sessionId, this).getUser().getDisplayname() + " angemeldet"));
+      if (!LoginPanel.getLoginPanel(sessionId, this).getUser().getActive()) {
         RootPanel.get("menu").add(new Label("Dein Account wurde noch nicht aktiviert"));
       }
       RootPanel.get("menu").add(getLogoutlink());
@@ -89,14 +93,14 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
     } else {
       System.out.println("Login status " + isLoggedin());
       RootPanel.get("menu").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));
-      RootPanel.get("menu").add(getLogoutlink());
+      RootPanel.get("menu").add(getLoginlink());
       RootPanel.get("menu").add(getCreateCharacterlink());
       RootPanel.get("menu").add(getRegisterlink());
     }
   }
 
-  public void setRegisterPanel(RegisterPanel registerPanel) {
-    this.registerPanel = registerPanel;
+  public TimadorusWebApp getTimadorusWebApp() {
+    return this;
   }
 
   private void setupHistory() {
@@ -145,27 +149,13 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
     }
   }
 
-  public RegisterPanel getRegisterPanel() {
-    if (registerPanel == null) {
-      registerPanel = new RegisterPanel(this);
-    }
-    return registerPanel;
-  }
-
-  private CharakterPanel getcharacterPanel() {
-    if (cpanel == null) {
-      cpanel = new CharakterPanel(this);
-    }
-    return cpanel;
-  }
-
   /**
    * loadRegisterPanel
    */
   public void loadCreateCharacter() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Charakter erstellen / bearbeiten"));
-    RootPanel.get("content").add(getcharacterPanel());
+    RootPanel.get("content").add(CharacterPanel.getcharacterPanel(this));
   }
 
   /**
@@ -174,29 +164,28 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
   public void loadRegisterPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Benutzregistrierung"));
-    RootPanel.get("content").add(getRegisterPanel());
+    RootPanel.get("content").add(RegisterPanel.getRegisterPanel(this));
   }
 
   public void loadLoginPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Bestehenden Account einloggen:"));
+    RootPanel.get("content").add(new Label("In bestehenden Account einloggen:"));
     /* getLoginPanel().setStylePrimaryName("loginpanel"); */
-    RootPanel.get("content").add(getLoginPanel());
-  }
-
-  private LoginPanel getLoginPanel() {
-    if (loginPanel == null) {
-      loginPanel = new LoginPanel(sessionId);
-      /*loginPanel.setTimadorusWebApp(this);*/
-    }
-    return loginPanel;
+    RootPanel.get("content").add(LoginPanel.getLoginPanel(sessionId, this));
   }
 
   public Hyperlink getLogoutlink() {
     if (logoutlink == null) {
-      logoutlink = new Hyperlink("login", LOGIN_STATE);
+      logoutlink = new Hyperlink("logout", LOGIN_STATE);
     }
     return logoutlink;
+  }
+
+  public Hyperlink getLoginlink() {
+    if (loginlink == null) {
+      loginlink = new Hyperlink("login", LOGIN_STATE);
+    }
+    return loginlink;
   }
 
   public Hyperlink getCreateCharacterlink() {

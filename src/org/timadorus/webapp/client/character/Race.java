@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.timadorus.webapp.client;
+package org.timadorus.webapp.client.character;
 
 import java.io.Serializable;
 
