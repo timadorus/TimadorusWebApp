@@ -1,7 +1,8 @@
 package org.timadorus.webapp.client;
 
 //States of the Browsing history
-public interface HistorySates {
+// Status für nächste Seite
+public interface HistoryStates {
   public static final String LOGIN_STATE = "login";
 
   public static final String WELCOME_STATE = "welcome";

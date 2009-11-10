@@ -3,6 +3,7 @@ package org.timadorus.webapp.client.character;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.register.RegisterPanel;
 
@@ -26,16 +27,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 @SuppressWarnings("deprecation")
-public class CharacterPanel extends FormPanel implements HistoryListener {
+public class CharacterPanel extends FormPanel implements HistoryListener, HistoryStates {
 
-  public static final String LOGIN_STATE = "login";
-
-  public static final String WELCOME_STATE = "welcome";
-
-  public static final String CREATE_STATE = "create";
-
-  public static final String REGISTER_STATE = "register";
-  
   private static CharacterPanel cpanel;
 
   Grid grid = new Grid(9, 6);

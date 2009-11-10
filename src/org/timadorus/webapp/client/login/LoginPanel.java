@@ -2,6 +2,7 @@ package org.timadorus.webapp.client.login;
 
 import java.util.Date;
 
+import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.SessionId;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.User;
@@ -32,15 +33,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 @SuppressWarnings("deprecation")
-public class LoginPanel extends FormPanel implements HistoryListener {
+public class LoginPanel extends FormPanel implements HistoryListener, HistoryStates {
 
-  public static final String LOGIN_STATE = "login";
-
-  public static final String WELCOME_STATE = "welcome";
-
-  public static final String CREATE_STATE = "create";
-
-  public static final String REGISTER_STATE = "register";
 
   private Grid grid = new Grid(4, 2);
 

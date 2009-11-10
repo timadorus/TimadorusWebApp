@@ -23,18 +23,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 @SuppressWarnings("deprecation")
-public class TimadorusWebApp implements EntryPoint, HistoryListener {
+public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStates  {
 
   private static final long serialVersionUID = -5138823406762920058L;
-
-  // Status für nachste Seite
-  public static final String LOGIN_STATE = "login";
-
-  public static final String WELCOME_STATE = "welcome";
-
-  public static final String CREATE_STATE = "create";
-
-  public static final String REGISTER_STATE = "register";
 
   // SessionID
   private SessionId sessionId = new SessionId();
