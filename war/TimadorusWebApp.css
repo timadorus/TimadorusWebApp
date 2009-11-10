@@ -3,7 +3,6 @@
 	width:150px;
 }
 .formPanel {
-	border:1px solid #000;
 	margin:5px;
 }
 .error {
@@ -25,6 +24,14 @@ body {
     text-align: center;
 }
 
+.prevButton {
+	width: 200px;
+}
+
+.nextButton {
+	text-align: right;
+}
+
 #content {
 	background: #FFEFD5;
 	width: 70%;	
@@ -32,7 +39,6 @@ body {
     float: left;
     text-align: center;
 }
-
 #information {
 	background: #EEE8CD;
     width: 15%;

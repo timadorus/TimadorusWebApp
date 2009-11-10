@@ -146,7 +146,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
   public void loadCreateCharacter() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Charakter erstellen / bearbeiten"));
-    RootPanel.get("content").add(CharacterPanel.getcharacterPanel(this));
+    RootPanel.get("content").add(CharacterPanel.getCharacterPanel(this));
   }
 
   /**
