@@ -30,6 +30,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.RadioButton;
+import com.google.gwt.user.client.ui.Image;
 
 @SuppressWarnings("deprecation")
 public class CharacterPanel extends FormPanel implements HistoryListener, HistoryStates {
@@ -45,6 +47,16 @@ public class CharacterPanel extends FormPanel implements HistoryListener, Histor
   VerticalPanel contentPanel = new VerticalPanel();
 
   FlexTable buttonGrid = new FlexTable();
+  
+  FlexTable selectGrid = new FlexTable();
+  
+  RadioButton selectCustom = new RadioButton("selectCharacter","eigenen Charakter erstellen");
+  
+  RadioButton selectPremade = new RadioButton("selectCharacter", "vorgefertigten Charakter wählen");
+  
+  Image selectCustomImage = new Image("media/images/characterCustom.png");
+  Image selectPremadeImage = new Image("media/images/characterPremade.png");
+  
 
   private static CharacterPanel characterPanel;
 
@@ -65,14 +77,27 @@ public class CharacterPanel extends FormPanel implements HistoryListener, Histor
 
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
-
+    
+    selectGrid.setBorderWidth(0);    
+    selectGrid.setStylePrimaryName("selectGrid");
+    
+    selectGrid.setWidget(0, 0, selectCustomImage);
+    selectGrid.setWidget(0, 1, selectPremadeImage);
+    
+    selectGrid.setWidget(1, 0, selectCustom);
+    selectGrid.setWidget(1, 1, selectPremade);
+    
+    
+    
     contentPanel
         .add(new Label(
                        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,"));
     contentPanel.setStylePrimaryName("contentPanel");
 
+    
     panel.setStyleName("panel");
     panel.add(contentPanel);
+    panel.add(selectGrid);
     panel.add(buttonGrid);
 
     setWidget(panel);
