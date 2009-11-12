@@ -7,7 +7,7 @@ public interface HistoryStates {
 
   public static final String WELCOME_STATE = "welcome";
 
-  public static final String CREATE_STATE = "create";
+  public static final String CREATE_CHARACTER_STATE = "createCharacter";
 
   public static final String REGISTER_STATE = "register";
   

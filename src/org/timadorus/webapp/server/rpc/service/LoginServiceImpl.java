@@ -20,21 +20,20 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
     if (userList.isValid(tmpUser)) {
       if (userList.isActive(tmpUser)) {
         HttpSession httpSession = getThreadLocalRequest().getSession();
-//        httpSession.setMaxInactiveInterval(0);
+        // httpSession.setMaxInactiveInterval(1000*60*2);
         return httpSession.getId();
       }
       return User.USER_INACTIVE;
     }
     return User.USER_INVALID;
   }
-  
-  public String logout(User tmpUser){
 
-    System.out.println("Logout aufgerufen für Session ==> "+tmpUser.getId());
+  public String logout(User tmpUser) {
+
     if (tmpUser == null) { return null; }
-      
+    System.out.println("Logout aufgerufen für Session ==> " + tmpUser.getId());
+
     return "logout";
-  
-    
+
   }
 }

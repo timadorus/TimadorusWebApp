@@ -5,7 +5,7 @@ import org.timadorus.webapp.client.character.Character;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("greet")
+@RemoteServiceRelativePath("createCharacter")
 public interface CreateCharacterService extends RemoteService {
-  Character createCharacter(String name);
+  Character createCharacter(Character name);
 }

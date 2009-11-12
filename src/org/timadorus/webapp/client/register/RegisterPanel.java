@@ -345,7 +345,7 @@ public class RegisterPanel extends FormPanel implements HistoryListener, History
     } else if (WELCOME_STATE.equals(historyToken)) {
       getEntry().loadWelcomePanel();
 
-    } else if (CREATE_STATE.equals(historyToken)) {
+    } else if (CREATE_CHARACTER_STATE.equals(historyToken)) {
       getEntry().loadCreateCharacter();
     } else if (REGISTER_STATE.equals(historyToken)) {
       getEntry().loadRegisterPanel();

@@ -51,7 +51,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
 
     this.logoutlink=new Hyperlink("logout", LOGOUT_STATE);
 
-    this.createCharacterlink=new Hyperlink("create Character", CREATE_STATE);
+    this.createCharacterlink=new Hyperlink("create Character", CREATE_CHARACTER_STATE);
 
     this.registerlink=new Hyperlink("register", REGISTER_STATE);
 
@@ -146,7 +146,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
     } else if (WELCOME_STATE.equals(historyToken)) {
       loadWelcomePanel();
 
-    } else if (CREATE_STATE.equals(historyToken)) {
+    } else if (CREATE_CHARACTER_STATE.equals(historyToken)) {
       if (isLoggedin()) {
         loadCreateCharacter();
       } else {
@@ -217,7 +217,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
 
   public Hyperlink getCreateCharacterlink() {
     if (createCharacterlink == null) {
-      createCharacterlink = new Hyperlink("create Character", CREATE_STATE);
+      createCharacterlink = new Hyperlink("create Character", CREATE_CHARACTER_STATE);
 
     }
 

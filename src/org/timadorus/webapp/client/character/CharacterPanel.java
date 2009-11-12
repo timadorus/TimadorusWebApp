@@ -128,7 +128,7 @@ public class CharacterPanel extends FormPanel implements HistoryListener, Histor
     } else if (WELCOME_STATE.equals(historyToken)) {
       getEntry().loadWelcomePanel();
 
-    } else if (CREATE_STATE.equals(historyToken)) {
+    } else if (CREATE_CHARACTER_STATE.equals(historyToken)) {
       getEntry().loadCreateCharacter();
     } else if (REGISTER_STATE.equals(historyToken)) {
       getEntry().loadRegisterPanel();
