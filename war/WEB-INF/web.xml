@@ -40,4 +40,14 @@
     <servlet-name>register</servlet-name>
     <url-pattern>/timadoruswebapp/register</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>createCharacter</servlet-name>
+    <servlet-class>org.timadorus.webapp.server.rpc.service.CreateCharacterServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>createCharacter</servlet-name>
+    <url-pattern>/timadoruswebapp/createCharacter</url-pattern>
+  </servlet-mapping>
 </web-app>
