@@ -11,4 +11,6 @@ public interface HistoryStates {
 
   public static final String REGISTER_STATE = "register";
   
+  public static final String LOGOUT_STATE = "logout";
+  
 }

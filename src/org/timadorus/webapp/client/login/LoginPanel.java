@@ -50,7 +50,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
 
   private Button submit = new Button("Einloggen");
 
-  private User user;
+  public User user;
 
   private SessionId sessionId;
 
@@ -119,14 +119,49 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
         clearError();
         getUser().setUsername(userBox.getText());
         getUser().setPassword(passBox.getText());
-
+        
         if (getUser().getUsername().equals("") || user.getPassword().equals("")) {
           loginInvalid("Bitte Felder ausf�llen!");
           History.newItem("login");
         } else {
           sendToServer();
+          userBox.setText("");
+          passBox.setText("");
 
         }
+      }
+      
+      public void sendToServerLogout(){
+        LoginServiceAsync loginServiceAsync = GWT.create(LoginService.class);
+
+        AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+          public void onSuccess(String result) {
+            if (result != null) {
+              if (result.equals(LOGOUT_STATE)) {
+                
+
+                gettimadorus().setLoggedin(false);
+
+                Cookies.setCookie("session", null);
+                sessionId.setSessionId(null);
+//                System.out.println("logout session => " + result);
+                
+                History.newItem("login");
+              
+                
+              } 
+            }
+          }
+
+          public void onFailure(Throwable caught) {
+            gettimadorus().showDialogBox("Fehlermeldung", "Fehler bei der Anmeldung");
+            loginInvalid("Fehler bei der Anmeldung!");
+            History.newItem("login");
+            System.out.println(caught);
+          }
+        };
+
+        loginServiceAsync.logout(user, asyncCallback);
       }
 
       /**
@@ -184,6 +219,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
         loginServiceAsync.login(user, asyncCallback);
       }
     }
+    
 
     // Add a handler to send the name to the server
     MyHandler handler = new MyHandler();
@@ -230,7 +266,9 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
   public void onHistoryChanged(String historyToken) {
     if (LOGIN_STATE.equals(historyToken)) {
       gettimadorus().loadLoginPanel();
-    } else if (WELCOME_STATE.equals(historyToken)) {
+    }else if (LOGOUT_STATE.equals(historyToken)) {
+      gettimadorus().loadLogoutPanel();
+    }  else if (WELCOME_STATE.equals(historyToken)) {
       gettimadorus().loadWelcomePanel();
     } else if (CREATE_STATE.equals(historyToken)) {
       gettimadorus().loadCreateCharacter();

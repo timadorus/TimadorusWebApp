@@ -42,6 +42,23 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
   private CharacterPanel cpanel;
 
   private boolean loggedin = false;
+  
+  public TimadorusWebApp() {
+    
+    this.sessionId = new SessionId();
+
+    this.loginlink=new Hyperlink("login", LOGIN_STATE);
+
+    this.logoutlink=new Hyperlink("logout", LOGOUT_STATE);
+
+    this.createCharacterlink=new Hyperlink("create Character", CREATE_STATE);
+
+    this.registerlink=new Hyperlink("register", REGISTER_STATE);
+
+
+    this.loggedin = false;
+    
+  }
 
   public void onModuleLoad() {
 
@@ -124,6 +141,8 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
 
     if (LOGIN_STATE.equals(historyToken)) {
       loadLoginPanel();
+    } else if (LOGOUT_STATE.equals(historyToken)) {
+      loadLogoutPanel();
     } else if (WELCOME_STATE.equals(historyToken)) {
       loadWelcomePanel();
 
@@ -164,10 +183,27 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
     /* getLoginPanel().setStylePrimaryName("loginpanel"); */
     RootPanel.get("content").add(LoginPanel.getLoginPanel(sessionId, this));
   }
+  
+  public void loadLogoutPanel(){
+
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die Möglichkeit, sich wieder einzuloggen:"));
+    /* getLoginPanel().setStylePrimaryName("loginpanel"); */
+    
+    RootPanel.get("content").add(LoginPanel.getLoginPanel(new SessionId(), new TimadorusWebApp()));
+    
+    System.out.println("Login status " + isLoggedin());
+    RootPanel.get("menu").clear();
+    RootPanel.get("menu").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));
+    RootPanel.get("menu").add(getLoginlink());
+    RootPanel.get("menu").add(getCreateCharacterlink());
+    RootPanel.get("menu").add(getRegisterlink());
+  }
+  
 
   public Hyperlink getLogoutlink() {
     if (logoutlink == null) {
-      logoutlink = new Hyperlink("logout", LOGIN_STATE);
+      logoutlink = new Hyperlink("logout", LOGOUT_STATE);
     }
     return logoutlink;
   }

@@ -5,6 +5,10 @@ import java.io.Serializable;
 public class SessionId implements Serializable {
 
   private static final long serialVersionUID = 4637358200152132934L;
+  
+  public SessionId() {
+this.sessionId="";
+}
 
   private String sessionId = "";
 
