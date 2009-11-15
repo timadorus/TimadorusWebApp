@@ -2,6 +2,7 @@
 .gwt-PasswordTextBox {
 	width:150px;
 }
+
 .formPanel {
 	margin:5px;
 }
@@ -13,11 +14,16 @@
 	background:#CEF;
 }
 
-.contentPanel {
+.panel {
+	text-align: justify;
 	padding: 20px;
+
 }
 
-.buttonGrid {
+
+.selectGrid {
+	padding-top: 20px;
+	padding-bottom: 30px;	
 	text-align: center;
 }
 
@@ -31,19 +37,28 @@ body {
 	width: 150;
     float: left;
     text-align: center;
+    paddin-top: 20px;
 }
 
 #content {
 	background: #FFEFD5;
 	width: 550px;	
-    align: center;
     float: left;
-    text-align: center;
 }
 #information {
 	background: #EEE8CD;
     width: 200px;
     heigth: 100%;
     margin-left: 750px; 
-    text-align: justify;
+    padding: 10px;    
+}
+
+#information p{
+	
+}
+
+#information h1{
+	font-weight: bold;
+	font-size: medium;
+	text-decoration: underline;
 }

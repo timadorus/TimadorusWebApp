@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 
 @SuppressWarnings("deprecation")
 public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStates  {
@@ -62,13 +63,17 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
 
   public void onModuleLoad() {
 
-    VerticalPanel vp = new VerticalPanel();
+    FlowPanel vp = new FlowPanel();
+    vp.setStylePrimaryName("menuPanel");
     RootPanel.get("menu").add(vp);
+    
 
-    VerticalPanel vp1 = new VerticalPanel();
+    FlowPanel vp1 = new FlowPanel();
+    vp1.setStylePrimaryName("contentPanel");
     RootPanel.get("content").add(vp1);
 
-    VerticalPanel vp2 = new VerticalPanel();
+    FlowPanel vp2 = new FlowPanel();
+    vp2.setStylePrimaryName("informationPanel");
     RootPanel.get("information").add(vp2);
 
     sessionId.setSessionId(Cookies.getCookie("session"));
