@@ -218,6 +218,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	 * @param _userName
 	 */
 	public void getToonsOfUser(final String _userName) {
+		
 		AsyncCallback<Set<Toon>> callback = new AsyncCallback<Set<Toon>>() {
 			public void onFailure(Throwable caught) {
 				caught.printStackTrace();
@@ -228,6 +229,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 					toonsOfLoggedInUser.add(tmp);
 			}
 		};
+		
 		this.toonService.getToonsOfUser(_userName, callback);
 	}
 	

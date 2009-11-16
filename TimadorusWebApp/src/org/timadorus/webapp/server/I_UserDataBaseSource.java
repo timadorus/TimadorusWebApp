@@ -6,4 +6,5 @@ public interface I_UserDataBaseSource {
 	Boolean isValidUserPasswordPair(String _username, String _password);	
 	Boolean registerUser(User _userObj);
 	User getUserByName(String userName);
+	
 }
