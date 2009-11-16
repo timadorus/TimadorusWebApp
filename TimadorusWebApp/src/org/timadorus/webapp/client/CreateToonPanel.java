@@ -31,18 +31,13 @@ public class CreateToonPanel extends VerticalPanel {
 
 
 	private void initialize(){
-   // if(appReference.getUserLoggedIn())
-
-		final Grid 	  toonCreateGrid					= new Grid(6, 2);
-		final TextBox nameTextBox						= new TextBox();
-
-		final TextBox GenderTextBox						= new TextBox();
-		final TextBox fractionBox						= new TextBox();
-
-
-		final TextBox RaceTextBox						= new TextBox();
-		final TextBox proffesionTextBox					= new TextBox();
     
+
+		final Grid 	  toonCreateGrid					= new Grid(2, 2);
+		final TextBox nameTextBox						= new TextBox();
+    
+
+   
 
 		final Button submitButton						= new Button("Toon create");
     
@@ -53,93 +48,63 @@ public class CreateToonPanel extends VerticalPanel {
 			{
 
 				Toon toonObj = new Toon( user.getSurname(),nameTextBox.getText());
-				//if(appReference.isToonCreateIn()){
 
-					toonObj.setGender(GenderTextBox.getText());
-
-					toonObj.setFraction(fractionBox.getText());
-					toonObj.setRace(RaceTextBox.getText());
-
-					toonObj.setProffesion(proffesionTextBox.getText());
-
-					toonObj.setCommitFlag(true);
-
-				//}
 				appReference.createToon(toonObj);
 			}
+		
 		});
-
+		
 				toonCreateGrid.setWidget(0, 0, new Label("Name"));
 				toonCreateGrid.setWidget(0, 1, nameTextBox);
-				
-				toonCreateGrid.setWidget(1, 0, new Label("Gender"));
-				toonCreateGrid.setWidget(1, 1, GenderTextBox);
-				
-				toonCreateGrid.setWidget(2, 0, new Label("Fraction"));
-				toonCreateGrid.setWidget(2, 1, fractionBox);
-			
-				toonCreateGrid.setWidget(3, 0, new Label("Race"));
-		     	toonCreateGrid.setWidget(3, 1, RaceTextBox);
-			
-		     	toonCreateGrid.setWidget(4, 0, new Label("Proffesion"));
-		     	toonCreateGrid.setWidget(4, 1, proffesionTextBox);
 
-		toonCreateGrid.setWidget(5, 1, submitButton);
+		toonCreateGrid.setWidget(2, 1, submitButton);
 		this.add(new HTML("<h2>Toon create </h2>"));
 		this.add(toonCreateGrid);
-
+    }
 	}
-}
 
-//
-//toonCreateGrid.setWidget(7, 0, new Label("constition"));
-//toonCreateGrid.setWidget(7, 1, constitionBox);
-//
-//toonCreateGrid.setWidget(8, 0, new Label("agility"));
-//toonCreateGrid.setWidget(8, 1, agilityTextBox);
-//
-//toonCreateGrid.setWidget(9, 0, new Label("SelDiscipline"));
-//toonCreateGrid.setWidget(9, 1, selDisciplineTextBox);
-//
-//toonCreateGrid.setWidget(10, 0, new Label("memory"));
-//toonCreateGrid.setWidget(10, 1, memoryBox);
-//
-//toonCreateGrid.setWidget(11, 0, new Label("reasoning"));
-//toonCreateGrid.setWidget(11, 1, reasoningBox);
+
+
+
+
+//final TextBox GenderTextBox						= new TextBox();
+//final TextBox fractionBox						= new TextBox();
 //
 //
-//toonCreateGrid.setWidget(12, 0, new Label("Luck"));
-//toonCreateGrid.setWidget(12, 1, luckBox);
-//
-//toonCreateGrid.setWidget(13, 0, new Label("Strength"));
-//toonCreateGrid.setWidget(13, 1, strengthBox);
-//
-//toonCreateGrid.setWidget(14,0, new Label("quickness"));
-//toonCreateGrid.setWidget(14, 1, quicknessBox);
-//
-//toonCreateGrid.setWidget(15, 0, new Label("empathy"));
-//toonCreateGrid.setWidget(15, 1, empathyBox);
-//
-//toonCreateGrid.setWidget(16, 0, new Label("intution"));
-//toonCreateGrid.setWidget(16, 1,  intutionBox);
-//
-//toonCreateGrid.setWidget(17, 0, new Label("Presence"));
-//toonCreateGrid.setWidget(17, 1, presenceBox);
+//final TextBox RaceTextBox						= new TextBox();
+//final TextBox proffesionTextBox					= new TextBox();
 //
 
-//final TextBox constitionBox						= new TextBox();
+
+////if(appReference.isToonCreateIn()){
 //
-//		final TextBox agilityTextBox					= new TextBox();
-//		final TextBox selDisciplineTextBox				= new TextBox();
-//		final TextBox memoryBox							= new TextBox();
+//					toonObj.setGender(GenderTextBox.getText());
 //
+//					toonObj.setFraction(fractionBox.getText());
+//					toonObj.setRace(RaceTextBox.getText());
 //
-//		final TextBox reasoningBox					    = new TextBox();
-//		final TextBox luckBox							= new TextBox();
-//		final TextBox strengthBox						= new TextBox();
+//					toonObj.setProffesion(proffesionTextBox.getText());
 //
+//					toonObj.setCommitFlag(true);
 //
-//		final TextBox quicknessBox						= new TextBox();
-//		final TextBox empathyBox						= new TextBox();
-//		final TextBox intutionBox						= new TextBox();
-//		final TextBox presenceBox						= new TextBox();
+//				//}
+
+
+
+
+
+
+
+//
+//toonCreateGrid.setWidget(1, 0, new Label("Gender"));
+//toonCreateGrid.setWidget(1, 1, GenderTextBox);
+//
+//toonCreateGrid.setWidget(2, 0, new Label("Fraction"));
+//toonCreateGrid.setWidget(2, 1, fractionBox);
+//
+//toonCreateGrid.setWidget(3, 0, new Label("Race"));
+//	toonCreateGrid.setWidget(3, 1, RaceTextBox);
+//
+//	toonCreateGrid.setWidget(4, 0, new Label("Proffesion"));
+//	toonCreateGrid.setWidget(4, 1, proffesionTextBox);
+
