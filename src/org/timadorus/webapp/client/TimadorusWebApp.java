@@ -196,7 +196,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
     /* getLoginPanel().setStylePrimaryName("loginpanel"); */
     
     RootPanel.get("content").add(LoginPanel.getLoginPanel(new SessionId(), new TimadorusWebApp()));
-    
+    loggedin=false;
     System.out.println("Login status " + isLoggedin());
     RootPanel.get("menu").clear();
     RootPanel.get("menu").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));

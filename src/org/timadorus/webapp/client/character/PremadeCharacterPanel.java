@@ -174,11 +174,12 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
 
   }
 
-  public static final PremadeCharacterPanel getPremadeCharacterPanel(TimadorusWebApp entry) {
-    if (characterPanel == null) {
-      characterPanel = new PremadeCharacterPanel(entry);
-    }
-    return characterPanel;
+  public static PremadeCharacterPanel getPremadeCharacterPanel(TimadorusWebApp entry) {
+//    if (characterPanel == null) {
+//      characterPanel = new PremadeCharacterPanel(entry);
+//    }
+//    return characterPanel;
+    return new PremadeCharacterPanel(entry);
   }
 
   private static final HTML getBarbarianInformation() {

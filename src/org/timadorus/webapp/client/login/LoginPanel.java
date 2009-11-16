@@ -264,17 +264,17 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
 
   @Override
   public void onHistoryChanged(String historyToken) {
-    if (LOGIN_STATE.equals(historyToken)) {
-      gettimadorus().loadLoginPanel();
-    }else if (LOGOUT_STATE.equals(historyToken)) {
-      gettimadorus().loadLogoutPanel();
-    }  else if (WELCOME_STATE.equals(historyToken)) {
-      gettimadorus().loadWelcomePanel();
-    } else if (CREATE_CHARACTER_STATE.equals(historyToken)) {
-      gettimadorus().loadCreateCharacter();
-    } else if (REGISTER_STATE.equals(historyToken)) {
-      gettimadorus().loadRegisterPanel();
-    }
+//    if (LOGIN_STATE.equals(historyToken)) {
+//      gettimadorus().loadLoginPanel();
+//    }else if (LOGOUT_STATE.equals(historyToken)) {
+//      gettimadorus().loadLogoutPanel();
+//    }  else if (WELCOME_STATE.equals(historyToken)) {
+//      gettimadorus().loadWelcomePanel();
+//    } else if (CREATE_CHARACTER_STATE.equals(historyToken)) {
+//      gettimadorus().loadCreateCharacter();
+//    } else if (REGISTER_STATE.equals(historyToken)) {
+//      gettimadorus().loadRegisterPanel();
+//    }
   }
 
   private TimadorusWebApp gettimadorus() {

@@ -151,14 +151,16 @@ public class CharacterPanel extends FormPanel implements HistoryStates {
   }
 
   public void loadPremadeCreateCharacterPanel() {
+    RootPanel.get("content").clear();
     RootPanel.get("content").add(PremadeCharacterPanel.getPremadeCharacterPanel(entry));
   }
 
-  public static final CharacterPanel getCharacterPanel(TimadorusWebApp entry) {
-    if (characterPanel == null) {
-      characterPanel = new CharacterPanel(entry);
-    }
-    return characterPanel;
+  public static CharacterPanel getCharacterPanel(TimadorusWebApp entry) {
+//    if (characterPanel == null) {
+//      characterPanel = new CharacterPanel(entry);
+//    }
+//    return characterPanel;
+    return new CharacterPanel(entry);
   }
 
   private static final HTML getCustomInformation() {
