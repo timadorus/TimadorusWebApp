@@ -199,6 +199,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
                 }
               } else {
                 gettimadorus().setLoggedin(true);
+                getUser().setActive(true);
 
                 Cookies.setCookie("session", result, new Date(System.currentTimeMillis() + TWO_MIN));
                 sessionId.setSessionId(result);

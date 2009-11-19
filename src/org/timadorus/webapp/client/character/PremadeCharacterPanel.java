@@ -110,6 +110,7 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
           selectHunter.setValue(true);
         } else if (event.getSource().equals(nextButton)) {
           System.out.println("Weiter");
+          loadClassPanel();
         }
 
       }
@@ -173,6 +174,12 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
     hunterLabel.addClickHandler(handler);
 
   }
+  
+  public void loadClassPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(ClassPanel.getClassPanel(entry));
+  }
+
 
   public static PremadeCharacterPanel getPremadeCharacterPanel(TimadorusWebApp entry) {
 //    if (characterPanel == null) {
