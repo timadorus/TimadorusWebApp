@@ -35,7 +35,7 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 //ClassPanel allows you to choosing the Classes and Races of Character via Listbox
-public class ClassPanel extends FormPanel implements HistoryStates {
+public class CustomCharacterPanel extends FormPanel implements HistoryStates {
 
   TimadorusWebApp entry;
 
@@ -47,9 +47,9 @@ public class ClassPanel extends FormPanel implements HistoryStates {
 
  
 
-  private static ClassPanel classPanel;
+  private static CustomCharacterPanel classPanel;
 
-  public ClassPanel(TimadorusWebApp entry) {
+  public CustomCharacterPanel(TimadorusWebApp entry) {
     super();
     this.entry = entry;
 
@@ -120,17 +120,14 @@ public class ClassPanel extends FormPanel implements HistoryStates {
 
   }
 
-  public void loadPremadeCreateCharacterPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(PremadeCharacterPanel.getPremadeCharacterPanel(entry));
-  }
 
-  public static ClassPanel getClassPanel(TimadorusWebApp entry) {
+
+  public static CustomCharacterPanel getCustomCharacterPanel(TimadorusWebApp entry) {
 //    if (characterPanel == null) {
 //      characterPanel = new CharacterPanel(entry);
 //    }
 //    return characterPanel;
-    return new ClassPanel(entry);
+    return new CustomCharacterPanel(entry);
   }
 
   

@@ -7,6 +7,7 @@ import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.character.PremadeCharacterPanel;
+import org.timadorus.webapp.client.character.CustomCharacterPanel;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -92,7 +93,12 @@ public class CharacterPanel extends FormPanel implements HistoryStates {
           RootPanel.get("information").add(getCustomInformation());
           selectCustom.setValue(true);
         } else if (event.getSource().equals(nextButton)) {
-          loadPremadeCreateCharacterPanel();
+          if (selectPremade.getValue()) {
+            loadPremadeCreateCharacterPanel();
+          }
+          else if (selectCustom.getValue()) {
+            loadCustomCreateCharacterPanel();            
+          }
         }
 
       }
@@ -153,6 +159,11 @@ public class CharacterPanel extends FormPanel implements HistoryStates {
   public void loadPremadeCreateCharacterPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(PremadeCharacterPanel.getPremadeCharacterPanel(entry));
+  }
+  
+  public void loadCustomCreateCharacterPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(CustomCharacterPanel.getCustomCharacterPanel(entry));
   }
 
   public static CharacterPanel getCharacterPanel(TimadorusWebApp entry) {
