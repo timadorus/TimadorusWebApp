@@ -61,6 +61,8 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
   Image selectWizzardImage = new Image("media/images/characterWizzard.png");
 
   Image selectHunterImage = new Image("media/images/characterHunter.png");
+  
+  Character character;
 
   private static PremadeCharacterPanel characterPanel;
 
@@ -109,8 +111,17 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
           RootPanel.get("information").add(getHunterInformation());
           selectHunter.setValue(true);
         } else if (event.getSource().equals(nextButton)) {
-          System.out.println("Weiter");
-          loadClassPanel();
+          
+        /*  if (selectHunter.isChecked()) {
+            character = Character.getHunter();
+          }
+          else if (selectWizzard.isChecked()) {
+            character = Character.getWizzard();
+          }
+          else if (selectBarbarian.isChecked()) {
+            character = Character.getBarbarian();
+          }*/
+          loadCharacterReadyPanel(character);
         }
 
       }
@@ -175,9 +186,9 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
 
   }
   
-  public void loadClassPanel() {
+  public void loadCharacterReadyPanel(Character character) {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(ClassPanel.getClassPanel(entry));
+    RootPanel.get("content").add(CharacterReadyPanel.getCharacterReadyPanel(entry, character));
   }
 
 
