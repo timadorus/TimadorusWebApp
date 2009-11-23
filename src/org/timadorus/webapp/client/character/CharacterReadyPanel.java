@@ -44,39 +44,25 @@ public class CharacterReadyPanel extends FormPanel implements HistoryStates {
 
   FlexTable selectGrid = new FlexTable();
 
-  Label barbarianLabel = new Label("Barbar");
-
-  Label wizzardLabel = new Label("Zauberer");
-
-  Label hunterLabel = new Label("Waldläuferin");
-
-  RadioButton selectBarbarian = new RadioButton("selectCharacter");
-
-  RadioButton selectWizzard = new RadioButton("selectCharacter");
-  
-  RadioButton selectHunter = new RadioButton("selectCharacter");
-
-  Image selectBarbarianImage = new Image("media/images/characterBarbarian.png");
-
-  Image selectWizzardImage = new Image("media/images/characterWizzard.png");
-
-  Image selectHunterImage = new Image("media/images/characterHunter.png");
-
-  private static CharacterReadyPanel CharacterReadyPanel;
-
   public CharacterReadyPanel(TimadorusWebApp entry, Character character) {
     super();
     this.entry = entry;
- 
-    RootPanel.get("information").add(getInformation());
-    
-    HTML congratulationLabel = new HTML("<p>Herzlichen Glückwunsch.</p><p>Ihr Charakter wurde gespeichert. Loggen sie sich auf dem Client mit ihren Accountdaten ein"); 
+    HTML congratulationLabel = new HTML(
+                                        "<p>Herzlichen Glückwunsch.</p><p>Ihr Charakter wurde gespeichert. Loggen sie sich auf dem Client mit ihren Accountdaten ein");
 
-    RootPanel.get("content").add(congratulationLabel);
+    panel.setStyleName("panel");
+    panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+    panel.add(congratulationLabel);
+
+    RootPanel.get("information").clear();
+    RootPanel.get("information").add(getInformation());
+
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(panel);
   }
-  
-  public static CharacterReadyPanel getCharacterReadyPanel(TimadorusWebApp entry, Character character){    
-      return new CharacterReadyPanel(entry,character);
+
+  public static CharacterReadyPanel getCharacterReadyPanel(TimadorusWebApp entry, Character character) {
+    return new CharacterReadyPanel(entry, character);
   }
 
   private static final HTML getInformation() {

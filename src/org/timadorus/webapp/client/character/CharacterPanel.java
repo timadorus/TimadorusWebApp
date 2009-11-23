@@ -97,7 +97,7 @@ public class CharacterPanel extends FormPanel implements HistoryStates {
             loadPremadeCreateCharacterPanel();
           }
           else if (selectCustom.getValue()) {
-            loadCustomCreateCharacterPanel();            
+            loadSelectRacePanel();         
           }
         }
 
@@ -161,9 +161,9 @@ public class CharacterPanel extends FormPanel implements HistoryStates {
     RootPanel.get("content").add(PremadeCharacterPanel.getPremadeCharacterPanel(entry));
   }
   
-  public void loadCustomCreateCharacterPanel() {
+  public void loadSelectRacePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRacePanel.getCustomCharacterPanel(entry));
+    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry));
   }
 
   public static CharacterPanel getCharacterPanel(TimadorusWebApp entry) {

@@ -61,7 +61,7 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
   Image selectWizzardImage = new Image("media/images/characterWizzard.png");
 
   Image selectHunterImage = new Image("media/images/characterHunter.png");
-  
+
   Character character;
 
   private static PremadeCharacterPanel characterPanel;
@@ -73,7 +73,7 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
-      
+
         if (event.getSource().equals(selectBarbarianImage)) {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getBarbarianInformation());
@@ -111,16 +111,12 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
           RootPanel.get("information").add(getHunterInformation());
           selectHunter.setValue(true);
         } else if (event.getSource().equals(nextButton)) {
-          
-        /*  if (selectHunter.getValue()) {
-            character = Character.getHunter();
-          }
-          else if (selectWizzard.getValue()) {
-            character = Character.getWizzard();
-          }
-          else if (selectBarbarian.getValue()) {
-            character = Character.getBarbarian();
-          }*/
+
+          /*
+           * if (selectHunter.getValue()) { character = Character.getHunter(); } else if (selectWizzard.getValue()) {
+           * character = Character.getWizzard(); } else if (selectBarbarian.getValue()) { character =
+           * Character.getBarbarian(); }
+           */
           loadCharacterReadyPanel(character);
         }
 
@@ -175,7 +171,7 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
     selectBarbarianImage.addClickHandler(handler);
     selectWizzardImage.addClickHandler(handler);
     selectHunterImage.addClickHandler(handler);
-    
+
     selectBarbarian.addClickHandler(handler);
     selectWizzard.addClickHandler(handler);
     selectHunter.addClickHandler(handler);
@@ -185,18 +181,17 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
     hunterLabel.addClickHandler(handler);
 
   }
-  
+
   public void loadCharacterReadyPanel(Character character) {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(CharacterReadyPanel.getCharacterReadyPanel(entry, character));
   }
 
-
   public static PremadeCharacterPanel getPremadeCharacterPanel(TimadorusWebApp entry) {
-//    if (characterPanel == null) {
-//      characterPanel = new PremadeCharacterPanel(entry);
-//    }
-//    return characterPanel;
+    // if (characterPanel == null) {
+    // characterPanel = new PremadeCharacterPanel(entry);
+    // }
+    // return characterPanel;
     return new PremadeCharacterPanel(entry);
   }
 
@@ -218,7 +213,7 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
                                 "<h1>Der Waldläufer</h1><p>Du bist der Waldläufer. blablub. dsdggggggggggggggggggggdsgfwragewargearhbaerhaerher gearg g ewrgewr geragh erhgre gerg werg earghrea erhg ergher hergh aegdf gdfbher ghwer gerahg dfdf bbnetgwer age");
     return information;
   }
-  
+
   private static final HTML getInformation() {
     HTML information = new HTML(
                                 "<h1>Charaktervorauswahl</h1><p>Wähle zwischen einem von drei vorgefertigten Charakteren oder wage das Abenteuer und erstelle deinen eigenen Charakter!</p><p>Erstellen dir deinen eigenen Charkter. Wähle aus über 10 Rassen, 50 Klassen und über 100 Fähigkeiten diejenigen aus, die deinen Charakter am besten stehen.</p><p>Oder wähle einen der vorgefertigten Charaktere und beginne dein Abenteuer sofort</p><p>Es ist deine Entscheidung!</p>");

@@ -50,41 +50,34 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
 
   FlexTable selectGenderGrid = new FlexTable();
 
-  private static SelectRacePanel CustomCharacterPanel;
 
   public SelectRacePanel(TimadorusWebApp entry) {
     super();
     this.entry = entry;
 
-    // Create a handler for the sendButton and nameField
+    /*// Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
 
       }
-    }
+    }*/
 
-    // ProgressBar
-    panel.setStyleName("panel");
-    panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+    // Image progressBar = new Image("media/images/progressbar_1.png");
 
-    Image progressBar = new Image("media/images/progressbar_1.png");
-    HTML stepLabel = new HTML("<h1>Schritt 1 von 6</h1>");
-
-    nextButton.setStylePrimaryName("nextButton");
-
-    selectGenderGrid.setBorderWidth(0);
-    selectGenderGrid.setStylePrimaryName("selectGenderGrid");
     
+
+    /*selectGenderGrid.setBorderWidth(0);
+    selectGenderGrid.setStylePrimaryName("selectGenderGrid");
+
     HTML genderLabel = new HTML("Geschlecht auswählen");
-    selectGenderGrid.setTitle("Geschlecht auswählen");
+
     selectGenderGrid.setWidget(0, 0, selectMale);
     selectGenderGrid.setWidget(0, 1, selectFemale);
 
-    panel.add(genderLabel);
-    panel.add(selectGenderGrid);
-    
+    selectMale.setValue(true);*/
+
     // Make a new list box, adding a few items to it.
-    ListBox lb = new ListBox();
+    /*ListBox lb = new ListBox();
     lb.addItem("Bigfoot");
     lb.addItem("bar");
     lb.addItem("baz");
@@ -92,36 +85,44 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     lb.addItem("tintin");
 
     // Make enough room for all five items (setting this value to 1 turns it
-    // into a drop-down list).
-    lb.setVisibleItemCount(5);
+    // into a drop-down list).stepLabel
+    lb.setVisibleItemCount(5);*/
 
     // Add it to the root panel.
 
-    HTML headline = new HTML("<h1>Rasse und Geschlecht wählen</h1>");
-    HTML infotext = new HTML(
-                             "<p>Wählen sie hier das Geschlecht und die Rasse ihres Charakteres. Beachten sie, dass bestimmte Rassen nur bestimmte Klassen sowie Fraktionen wählen können.</p>");
+    /*panel.add(genderLabel);
+    panel.add(selectGenderGrid);
 
-    panel.add(selectMale);
-    panel.add(selectFemale);
-    panel.add(lb);
+    panel.add(new Label("Rasse wählen:"));
+    //panel.add(lb);*/
 
-    panel.add(nextButton);
+
+
+    
+    
+    
+    panel.setStyleName("panel");
+    panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+
+    panel.add(new Label("TEST"));
+
+    
+    
+    RootPanel.get("information").clear();
+    RootPanel.get("information").add(getInformation());
 
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
 
-        
-    RootPanel.get("information").add(headline);
-    RootPanel.get("information").add(infotext);
+    
 
     // Add Handlers
-    MyHandler handler = new MyHandler();
-
-    nextButton.addClickHandler(handler);
+   /* MyHandler handler = new MyHandler();
+    nextButton.addClickHandler(handler);*/
 
   }
 
-  public static SelectRacePanel getCustomCharacterPanel(TimadorusWebApp entry) {
+  public static SelectRacePanel getSelectRacePanel(TimadorusWebApp entry) {
     // if (characterPanel == null) {
     // characterPanel = new CharacterPanel(entry);
     // }
@@ -130,7 +131,9 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
   }
 
   private static final HTML getInformation() {
-    HTML information = new HTML("<h1>Auswahl der Klasse</h1><p>Wähle zwischen... !</p>");
+    HTML information = new HTML(
+                                "<h1>Rasse und Geschlecht wählen</h1><p>Wählen sie hier das Geschlecht und die Rasse ihres Charakteres. Beachten sie, dass bestimmte Rassen nur bestimmte Klassen sowie Fraktionen wählen können.</p>");
+
     return information;
   }
 
