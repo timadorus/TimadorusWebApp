@@ -73,7 +73,7 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
-
+      
         if (event.getSource().equals(selectBarbarianImage)) {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getBarbarianInformation());

@@ -34,8 +34,9 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
+
 //ClassPanel allows you to choosing the Classes and Races of Character via Listbox
-public class CustomCharacterPanel extends FormPanel implements HistoryStates {
+public class SelectRacePanel extends FormPanel implements HistoryStates {
 
   TimadorusWebApp entry;
 
@@ -43,13 +44,15 @@ public class CustomCharacterPanel extends FormPanel implements HistoryStates {
 
   VerticalPanel panel = new VerticalPanel();
 
-  FlexTable selectGrid = new FlexTable();
+  RadioButton selectMale = new RadioButton("selectGender", "männlich");
 
- 
+  RadioButton selectFemale = new RadioButton("selectGender", "weiblich");
 
-  private static CustomCharacterPanel classPanel;
+  FlexTable selectGenderGrid = new FlexTable();
 
-  public CustomCharacterPanel(TimadorusWebApp entry) {
+  private static SelectRacePanel CustomCharacterPanel;
+
+  public SelectRacePanel(TimadorusWebApp entry) {
     super();
     this.entry = entry;
 
@@ -57,30 +60,28 @@ public class CustomCharacterPanel extends FormPanel implements HistoryStates {
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
 
-        
-
       }
     }
 
-    // Style Components
-
-    nextButton.setStylePrimaryName("nextButton");
-
-    selectGrid.setBorderWidth(0);
-    selectGrid.setStylePrimaryName("selectGrid");
-
-    
-
-    HTML headline = new HTML("<h1>Klassen-Auswahl</h1>");
-    HTML infotext = new HTML(
-                             "<p>Wähle zwischen ...");
-
+    // ProgressBar
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
-    panel.add(headline);
-    panel.add(infotext);
+    Image progressBar = new Image("media/images/progressbar_1.png");
+    HTML stepLabel = new HTML("<h1>Schritt 1 von 6</h1>");
 
+    nextButton.setStylePrimaryName("nextButton");
+
+    selectGenderGrid.setBorderWidth(0);
+    selectGenderGrid.setStylePrimaryName("selectGenderGrid");
+    
+    HTML genderLabel = new HTML("Geschlecht auswählen");
+    selectGenderGrid.setTitle("Geschlecht auswählen");
+    selectGenderGrid.setWidget(0, 0, selectMale);
+    selectGenderGrid.setWidget(0, 1, selectFemale);
+
+    panel.add(genderLabel);
+    panel.add(selectGenderGrid);
     
     // Make a new list box, adding a few items to it.
     ListBox lb = new ListBox();
@@ -95,46 +96,41 @@ public class CustomCharacterPanel extends FormPanel implements HistoryStates {
     lb.setVisibleItemCount(5);
 
     // Add it to the root panel.
+
+    HTML headline = new HTML("<h1>Rasse und Geschlecht wählen</h1>");
+    HTML infotext = new HTML(
+                             "<p>Wählen sie hier das Geschlecht und die Rasse ihres Charakteres. Beachten sie, dass bestimmte Rassen nur bestimmte Klassen sowie Fraktionen wählen können.</p>");
+
+    panel.add(selectMale);
+    panel.add(selectFemale);
     panel.add(lb);
 
-    
-    
-    
-    
-    
-    panel.add(selectGrid);
     panel.add(nextButton);
 
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
 
-    RootPanel.get("information").clear();
-    RootPanel.get("information").add(getInformation());
+        
+    RootPanel.get("information").add(headline);
+    RootPanel.get("information").add(infotext);
 
     // Add Handlers
     MyHandler handler = new MyHandler();
 
     nextButton.addClickHandler(handler);
 
-    
-
   }
 
-
-
-  public static CustomCharacterPanel getCustomCharacterPanel(TimadorusWebApp entry) {
-//    if (characterPanel == null) {
-//      characterPanel = new CharacterPanel(entry);
-//    }
-//    return characterPanel;
-    return new CustomCharacterPanel(entry);
+  public static SelectRacePanel getCustomCharacterPanel(TimadorusWebApp entry) {
+    // if (characterPanel == null) {
+    // characterPanel = new CharacterPanel(entry);
+    // }
+    // return characterPanel;
+    return new SelectRacePanel(entry);
   }
-
-  
 
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Auswahl der Klasse</h1><p>Wähle zwischen... !</p>");
+    HTML information = new HTML("<h1>Auswahl der Klasse</h1><p>Wähle zwischen... !</p>");
     return information;
   }
 

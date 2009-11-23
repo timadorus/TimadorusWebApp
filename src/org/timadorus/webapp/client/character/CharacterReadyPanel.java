@@ -62,17 +62,17 @@ public class CharacterReadyPanel extends FormPanel implements HistoryStates {
 
   Image selectHunterImage = new Image("media/images/characterHunter.png");
 
-  private static PremadeCharacterPanel characterPanel;
+  private static CharacterReadyPanel CharacterReadyPanel;
 
   public CharacterReadyPanel(TimadorusWebApp entry, Character character) {
     super();
     this.entry = entry;
  
-   // Style Components
-
+    RootPanel.get("information").add(getInformation());
     
     HTML congratulationLabel = new HTML("<p>Herzlichen Glückwunsch.</p><p>Ihr Charakter wurde gespeichert. Loggen sie sich auf dem Client mit ihren Accountdaten ein"); 
 
+    RootPanel.get("content").add(congratulationLabel);
   }
   
   public static CharacterReadyPanel getCharacterReadyPanel(TimadorusWebApp entry, Character character){    
