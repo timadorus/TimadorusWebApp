@@ -11,11 +11,14 @@ public class ToonServiceImpl extends RemoteServiceServlet implements ToonService
 	
 	private final ToonDataBaseSource dataBaseSource = new ToonDataBaseSource();
 	
-	public Boolean createToon(Toon toonOb) {
+	public Boolean createToon(Toon toonOb){
+		
 		return dataBaseSource.createToon(toonOb);
 	}
 
-	public Toon getToonInformation(String toonName) {
+	public Toon getToonInformation(String toonName)
+	{
+		
 		return dataBaseSource.getToonByName(toonName);
 	}
 
@@ -30,7 +33,7 @@ public class ToonServiceImpl extends RemoteServiceServlet implements ToonService
 	}
 
 	public void toonInitialize(String _toonName) {
-		// TODO Auto-generated method stub
+	     dataBaseSource.getToonByName(_toonName);
 		
 	}
 
