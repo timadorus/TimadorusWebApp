@@ -17,7 +17,8 @@ public class LoginPanel extends VerticalPanel {
 		throw new Exception("No parameter set");
 	}
 	
-	public LoginPanel(TimadorusWebApp _appReference) {
+	public LoginPanel(TimadorusWebApp _appReference)
+	{
 		super();
 		this.appReference = _appReference;
 		initialize();

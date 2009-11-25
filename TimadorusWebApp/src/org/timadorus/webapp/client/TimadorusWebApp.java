@@ -19,18 +19,24 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	protected final String logoutUserState		= "logoutUser";
 	protected final String showUserProfileState	= "showUserProfile";
 	protected final String showUserToonsState	= "showUserToons";
-	
+	//protected final String showToonsState		= "showToons";
+
 	private final SessionId sessionId = new SessionId();
-	
+
 	private boolean userLoggedIn = false;
-	private boolean toonCreateIn = false;
-	
+	private int toonCreateIn = 0;
+
+
+
+
+
 	private final UserServiceAsync userService	= GWT.create(UserService.class);
 	private final ToonServiceAsync toonService	= GWT.create(ToonService.class);
-	
+
 	private User loggedInUserObject			= null;
+	private Toon toonToCreateInUserObject=null;
 	private Set<Toon> toonsOfLoggedInUser	= new HashSet<Toon>();
-	
+
 	/**
 	 * Returns if the user is logged in
 	 * 
@@ -39,10 +45,15 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	public Boolean getUserLoggedIn() {
 		return this.userLoggedIn;
 	}
-	
+
 	/**
 	 * 
 	 */
+
+	public Toon getToonToCreateInUserObject() {
+		return this.toonToCreateInUserObject;
+	}
+
 	public User getLoggedInUserObject() {
 		return this.loggedInUserObject;
 	}
@@ -54,7 +65,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		RootPanel.get("error").clear();
 		RootPanel.get("error").add(new HTML(_errMessage));
 	}
-	
+
 	/**
 	 * Returns the Username of the logged in user or NULL
 	 * 
@@ -63,51 +74,63 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	public String getLoggedInUsername() {
 		return this.loggedInUserObject.getUserName();
 	}
-	
+
+	public String getToonName() {
+		return this.toonToCreateInUserObject.getName();
+	}
+
+
+
 	/**
 	 * 
 	 */
 	public void onModuleLoad()
 	{
 		History.addHistoryListener(this);
-		
+
 		History.onHistoryChanged(startState);
-		
+
 		System.out.println("Session " + sessionId.getSessionId());
-		
+
 		RootPanel.get("head").clear();
 		RootPanel.get("head").add(new HTML("<h1>Timadorus Webapplication</h1>"));
 		RootPanel.get("menu").clear();
 		RootPanel.get("menu").add(new MenuPanel(this));
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void onHistoryChanged(String historyToken) {
 		RootPanel.get("content").clear();
 		RootPanel.get("error").clear();
-		
+
 		if (historyToken.equals(startState))
 			RootPanel.get("content").add(new StartPanel(this));
-		
+
 		if (historyToken.equals(loginUserState))
 			RootPanel.get("content").add(new LoginPanel(this));
-		
+
 		if (historyToken.equals(registerUserState))
 			RootPanel.get("content").add(new RegisterUserPanel(this));
-		
+
 		if (historyToken.equals(createToonState))
 			RootPanel.get("content").add(new CreateToonPanel(this));
-		
+
 		if (historyToken.equals(showUserProfileState))
 			RootPanel.get("content").add(new ShowUserProfilePanel(this));
-		
+
 		if (historyToken.equals(showUserToonsState)) {
 			this.getToonsOfUser(this.getLoggedInUsername());
 			RootPanel.get("content").add(new ShowUserToonsPanel(this));
 		}
-		
+		//if (historyToken.equals(showToonsState)) {
+		//this.getToonsOfUser(this.getLoggedInUsername());
+		//this.getToonName();
+		//	RootPanel.get("content").add(new ShowToonsPanel(this));
+		//}
+
+
 		if (historyToken.equals(logoutUserState)) {
 			this.userLoggedIn = false;
 			this.loggedInUserObject = null;
@@ -115,7 +138,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 			this.onModuleLoad();
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param _userName
@@ -127,12 +150,12 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 				showError(caught.getCause().toString());
 			}
 			public void onSuccess(Boolean result) {
-//				Login success
+				//				Login success
 				if (result) {
 					userLoggedIn = true;
 					getUserInformation(_userName);
 					onModuleLoad();
-//				Login failed
+					//				Login failed
 				} else {
 					loggedInUserObject = null;
 					showError("Login failed");
@@ -141,7 +164,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		};
 		this.userService.loginUserWithPassword(_userName, _userPassword, callback);
 	}
-	
+
 	/**
 	 * 
 	 * @param _userObj
@@ -152,11 +175,11 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 				showError(caught.toString());
 			}
 			public void onSuccess(Boolean result) {
-//				Login success
+				//				Login success
 				if (result) {
 					userLoggedIn = true;
 					onModuleLoad();
-//				Login failed
+					//				Login failed
 				} else {
 					showError("Could not register new User");
 				}
@@ -164,33 +187,35 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		};
 		this.userService.registerUser(_userObj, callback);
 	}
-	
+
 	/**
 	 * 
 	 * @param _toonObj
 	 */
 	public void createToon(final Toon _toonObj) {
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>(){
-			
+
 			public void onFailure(Throwable caught) {
 				showError(caught.toString());
 				System.out.println(caught.toString());
 			}
 			public void onSuccess(Boolean result) {			
-//				Login success
-				if (result){
-					toonCreateIn= true;
-					onHistoryChanged(createToonState);
-//				Login failed
-				} else {
-					showError("Could not create new Toon");
+				//				Login success
+				if (result)
+				{
+					toonCreateIn= 1;
+					onModuleLoad();
+					toonToCreateInUserObject= _toonObj;
+
+				}else{
+					showError(" could'not created  new Toon!");
 				}
 			}
 		};
-		
+
 		this.toonService.createToon(_toonObj, callback);
 	}
-	
+
 	/**
 	 * 
 	 * @param _userName
@@ -212,13 +237,12 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		};
 		this.userService.getUserInformation(_userName, callback);
 	}
-	
+
 	/**
 	 * 
 	 * @param _userName
 	 */
 	public void getToonsOfUser(final String _userName) {
-		
 		AsyncCallback<Set<Toon>> callback = new AsyncCallback<Set<Toon>>() {
 			public void onFailure(Throwable caught) {
 				caught.printStackTrace();
@@ -229,10 +253,15 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 					toonsOfLoggedInUser.add(tmp);
 			}
 		};
-		
 		this.toonService.getToonsOfUser(_userName, callback);
 	}
-	
+
+
+	public int getToonCreateIn() {
+		return toonCreateIn;
+	}
+
+
 	/**
 	 * 
 	 * @return

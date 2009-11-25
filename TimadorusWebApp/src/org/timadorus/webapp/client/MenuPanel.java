@@ -30,6 +30,7 @@ public class MenuPanel extends VerticalPanel {
 			this.add(new Hyperlink("My Profile", this.appReference.showUserProfileState));
 			this.add(new Hyperlink("My Toons", this.appReference.showUserToonsState));
 			this.add(new Hyperlink("Create Toon", this.appReference.createToonState));
+			//this.add(new Hyperlink("InitToon", this.appReference.createToonState));
 		}
 	}
 }
