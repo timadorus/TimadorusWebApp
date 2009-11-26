@@ -58,7 +58,9 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
   FlexTable selectGenderGrid = new FlexTable();
 
   FlexTable buttonGrid = new FlexTable();
-  
+
+  FlexTable selectRaceGrid = new FlexTable();
+
   ListBox raceListBox = new ListBox();
 
   public SelectRacePanel(TimadorusWebApp entry, Character character) {
@@ -71,10 +73,24 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
           loadCharacterPanel();
-        } else if (event.getSource().equals(nextButton)) {   
+        } else if (event.getSource().equals(nextButton)) {
           saveSelectedRace();
+          saveSelectedGender();
           loadSelectClassPanel();
+        } else if (event.getSource().equals(raceListBox)) {
+          String raceName = raceListBox.getValue(raceListBox.getSelectedIndex());
+          ListIterator raceIterator = getTestRaces().listIterator();
+          RootPanel.get("information").clear();
+          while (raceIterator.hasNext()) {
+            Race newRace = (Race) raceIterator.next();
+            if (newRace.getName().equals(raceName)) {
+              RootPanel.get("information").add(new HTML("<h1>" + newRace.getName() + "</h1><p>" + newRace.getDescription() + "</p>"));
+            } 
+          }
+           
         }
+
+
 
       }
     }
@@ -84,46 +100,49 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     selectGenderGrid.setBorderWidth(0);
     selectGenderGrid.setStylePrimaryName("selectGrid");
 
-    HTML genderLabel = new HTML("Geschlecht wählen");
+    Label genderLabel = new Label("Geschlecht wählen:");
 
-    selectGenderGrid.setWidget(0, 0, selectMale);
-    selectGenderGrid.setWidget(0, 1, selectFemale);
+    selectGenderGrid.setWidget(0, 0, genderLabel);
+    selectGenderGrid.setWidget(0, 1, selectMale);
+    selectGenderGrid.setWidget(0, 2, selectFemale);
 
-    selectMale.setValue(true);    
+    selectMale.setValue(true);
 
-    
+    selectRaceGrid.setBorderWidth(0);
+    selectRaceGrid.setStylePrimaryName("selectGrid");
 
-    ListIterator raceIterator = getTestRaces().listIterator();    
+    ListIterator raceIterator = getTestRaces().listIterator();
     while (raceIterator.hasNext()) {
-      Race newRace = (Race)raceIterator.next();
+      Race newRace = (Race) raceIterator.next();
       raceListBox.addItem(newRace.getName());
     }
-    
+
+    Label raceLabel = new Label("Rasse wählen: ");
+
+    selectRaceGrid.setWidget(0, 0, raceLabel);
+    selectRaceGrid.setWidget(0, 1, raceListBox);
+
     raceListBox.setVisibleItemCount(raceListBox.getItemCount());
-         
- 
+
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
 
     // Add it to the root panel.
-    
+
     HTML headline = new HTML("<h1>Geschlecht und Rasse wählen</h1>");
-    
+
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
- 
     panel.add(progressBar);
     panel.add(new Label("Schritt 1 von 6"));
     panel.add(headline);
-    
-    panel.add(genderLabel);
+
     panel.add(selectGenderGrid);
 
-    panel.add(new Label("Rasse wählen:"));
-    panel.add(raceListBox);
+    panel.add(selectRaceGrid);
 
     panel.add(buttonGrid);
 
@@ -138,6 +157,8 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
 
+    raceListBox.addClickHandler(handler);
+
   }
 
   public void loadCharacterPanel() {
@@ -145,18 +166,32 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     RootPanel.get("content").add(CharacterPanel.getCharacterPanel(entry));
   }
 
-  public void saveSelectedRace(){
-    character.setRace(getSelectedRace());    
+  public void saveSelectedRace() {
+    character.setRace(getSelectedRace());
   }
-  
-  public void loadSelectClassPanel() { 
+
+  public void saveSelectedGender() {
+    character.setGender(getSelectedGender());
+  }
+
+  public void loadSelectClassPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character));
   }
-  
-  public Race getSelectedRace(){
-    Race race = getTestRaces().get(raceListBox.getSelectedIndex());    
+
+  public Race getSelectedRace() {
+    Race race = getTestRaces().get(raceListBox.getSelectedIndex());
     return race;
+  }
+
+  public String getSelectedGender() {
+    String gender = "männlich";
+    if (selectMale.getValue()) {
+      gender = "männlich";
+    } else if (selectFemale.getValue()) {
+      gender = "weiblich";
+    }
+    return gender;
   }
 
   public static SelectRacePanel getSelectRacePanel(TimadorusWebApp entry, Character character) {
@@ -170,9 +205,9 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
 
     return information;
   }
-  
-  public List<Race> getTestRaces(){
-    List<Race> races = Race.getRaces();   
+
+  public List<Race> getTestRaces() {
+    List<Race> races = Race.getRaces();
     return races;
   }
 
