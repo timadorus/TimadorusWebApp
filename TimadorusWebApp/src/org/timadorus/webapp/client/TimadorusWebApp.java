@@ -9,6 +9,7 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class TimadorusWebApp implements EntryPoint, HistoryListener {
@@ -19,6 +20,8 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	protected final String logoutUserState		= "logoutUser";
 	protected final String showUserProfileState	= "showUserProfile";
 	protected final String showUserToonsState	= "showUserToons";
+    protected final String setToonState         = "setToonFeacture";
+
 	//protected final String showToonsState		= "showToons";
 
 	private final SessionId sessionId = new SessionId();
@@ -34,7 +37,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	private final ToonServiceAsync toonService	= GWT.create(ToonService.class);
 
 	private User loggedInUserObject			= null;
-	private Toon toonToCreateInUserObject=null;
+	private  Toon toonToCreateInUserObject=null;
 	private Set<Toon> toonsOfLoggedInUser	= new HashSet<Toon>();
 
 	/**
@@ -93,7 +96,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		System.out.println("Session " + sessionId.getSessionId());
 
 		RootPanel.get("head").clear();
-		RootPanel.get("head").add(new HTML("<h1>Timadorus Webapplication</h1>"));
+		RootPanel.get("head").add(new HTML("<h2>Timadorus Webapplication</h2>"));
 		RootPanel.get("menu").clear();
 		RootPanel.get("menu").add(new MenuPanel(this));
 	}
@@ -116,19 +119,21 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
 		if (historyToken.equals(createToonState))
 			RootPanel.get("content").add(new CreateToonPanel(this));
-
+			
+	    if(historyToken.equals(setToonState))
+			 RootPanel.get("content").add(new SetToonStatePanel(this));
+				//RootPanel.get("content").add(new HTML("Please  complet to create your Toon"));
+			
 		if (historyToken.equals(showUserProfileState))
 			RootPanel.get("content").add(new ShowUserProfilePanel(this));
 
-		if (historyToken.equals(showUserToonsState)) {
+		if (historyToken.equals(showUserToonsState))
+		{
 			this.getToonsOfUser(this.getLoggedInUsername());
 			RootPanel.get("content").add(new ShowUserToonsPanel(this));
+
 		}
-		//if (historyToken.equals(showToonsState)) {
-		//this.getToonsOfUser(this.getLoggedInUsername());
-		//this.getToonName();
-		//	RootPanel.get("content").add(new ShowToonsPanel(this));
-		//}
+
 
 
 		if (historyToken.equals(logoutUserState)) {
@@ -205,7 +210,42 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 				{
 					toonCreateIn= 1;
 					onModuleLoad();
+				
 					toonToCreateInUserObject= _toonObj;
+					
+
+				}else{
+					showError(" could'not created  new Toon!");
+				      toonCreateIn=-1;
+				}
+			}
+		};
+
+		this.toonService.createToon(_toonObj, callback);
+	
+	}
+
+	
+	
+	public void setToonFeacture(final Toon toonObj) {
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>(){
+		
+			
+			public void onFailure(Throwable caught) {
+				showError(caught.toString());
+				System.out.println(caught.toString());
+			}
+			public void onSuccess(Boolean result) {			
+				
+				if (result)
+				{
+					 if (toonCreateIn==1)
+					 {
+						 toonCreateIn=2;
+						 onModuleLoad();
+						 toonToCreateInUserObject =toonObj ;
+							
+					 }
 
 				}else{
 					showError(" could'not created  new Toon!");
@@ -213,9 +253,29 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 			}
 		};
 
-		this.toonService.createToon(_toonObj, callback);
+		this.toonService.createToon(toonObj, callback);
+	}
+	
+	public void getToonInformation( final String toonname) {
+		AsyncCallback<Toon> callback = new AsyncCallback<Toon>() {
+			public void onFailure(Throwable caught) {
+				caught.printStackTrace();
+				showError(caught.getLocalizedMessage());
+			}
+			public void onSuccess(Toon result) {
+				toonToCreateInUserObject= new Toon( toonname);
+				toonToCreateInUserObject.setGender(result.getGender());
+				toonToCreateInUserObject.setRace(result.getRace());
+				toonToCreateInUserObject.setFraction(result.getFraction());
+				toonToCreateInUserObject.setProffesion(result.getProffesion());
+				onModuleLoad();
+			}
+		};
+		this.toonService.getToonInformation(toonname, callback);
 	}
 
+	
+	
 	/**
 	 * 
 	 * @param _userName

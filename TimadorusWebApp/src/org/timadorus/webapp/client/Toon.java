@@ -181,7 +181,13 @@ public class Toon implements IsSerializable {
 
 
 	 
-	 public static long getSerialversionuid() {
+	 public Toon(String toonname) {
+		 name= toonname;
+		 isCommitFlag=false;
+			 
+	}
+
+	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 

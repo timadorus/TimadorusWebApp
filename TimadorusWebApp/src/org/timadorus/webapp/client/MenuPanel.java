@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client;
 
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hyperlink;
-
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MenuPanel extends VerticalPanel {
@@ -30,7 +30,10 @@ public class MenuPanel extends VerticalPanel {
 			this.add(new Hyperlink("My Profile", this.appReference.showUserProfileState));
 			this.add(new Hyperlink("My Toons", this.appReference.showUserToonsState));
 			this.add(new Hyperlink("Create Toon", this.appReference.createToonState));
-			//this.add(new Hyperlink("InitToon", this.appReference.createToonState));
 		}
+		
+		 if(this.appReference.getUserLoggedIn()&& this.appReference.getToonCreateIn()==1){
+			 this.add(new Hyperlink("Complet Your Toon creation", this.appReference.setToonState));
+		 }
 	}
 }
