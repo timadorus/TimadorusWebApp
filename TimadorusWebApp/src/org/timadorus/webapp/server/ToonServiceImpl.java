@@ -4,6 +4,8 @@ import java.util.Set;
 
 import org.timadorus.webapp.client.Toon;
 import org.timadorus.webapp.client.ToonService;
+
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ToonServiceImpl extends RemoteServiceServlet implements ToonService {
@@ -12,9 +14,17 @@ public class ToonServiceImpl extends RemoteServiceServlet implements ToonService
 	private final ToonDataBaseSource dataBaseSource = new ToonDataBaseSource();
 	
 	public Boolean createToon(Toon toonOb){
+		// if(!dataBaseSource.createToon(toonOb)){
+	    //System.out.println(" This Toon is already saved !!! Please enter new Toon");
 		
-		return dataBaseSource.createToon(toonOb);
+		// }
+	    return dataBaseSource.createToon(toonOb);
+		 
+		
+	
 	}
+
+	
 
 	public Toon getToonInformation(String toonName)
 	{
