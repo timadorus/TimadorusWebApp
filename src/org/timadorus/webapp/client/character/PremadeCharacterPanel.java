@@ -40,9 +40,13 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
 
   Button nextButton = new Button("weiter");
 
+  Button prevButton = new Button("zurück");
+
   VerticalPanel panel = new VerticalPanel();
 
   FlexTable selectGrid = new FlexTable();
+
+  FlexTable buttonGrid = new FlexTable();
 
   Label barbarianLabel = new Label("Barbar");
 
@@ -118,6 +122,8 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
            * Character.getBarbarian(); }
            */
           loadCharacterReadyPanel(character);
+        } else if (event.getSource().equals(prevButton)) {
+          loadCharacterPanel();
         }
 
       }
@@ -144,18 +150,20 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
 
     selectBarbarian.setValue(true);
 
-    HTML headline = new HTML("<h1>Charaktervorauswahl</h1>");
-    HTML infotext = new HTML(
-                             "<p>Wähle zwischen einem von drei vorgefertigten Charakteren oder wage das Abenteuer und erstelle deinen eigenen Charakter!</p>");
+    HTML headline = new HTML("<h1>Charakterauswahl</h1>");
+
+    buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
+    buttonGrid.setWidget(0, 0, prevButton);
+    buttonGrid.setWidget(0, 1, nextButton);
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
     panel.add(headline);
-    panel.add(infotext);
-
+    
     panel.add(selectGrid);
-    panel.add(nextButton);
+
+    panel.add(buttonGrid);
 
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
@@ -167,6 +175,7 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
     MyHandler handler = new MyHandler();
 
     nextButton.addClickHandler(handler);
+    prevButton.addClickHandler(handler);
 
     selectBarbarianImage.addClickHandler(handler);
     selectWizzardImage.addClickHandler(handler);
@@ -185,6 +194,11 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
   public void loadCharacterReadyPanel(Character character) {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(CharacterReadyPanel.getCharacterReadyPanel(entry, character));
+  }
+
+  public void loadCharacterPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(CharacterPanel.getCharacterPanel(entry));
   }
 
   public static PremadeCharacterPanel getPremadeCharacterPanel(TimadorusWebApp entry) {
@@ -216,7 +230,7 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
 
   private static final HTML getInformation() {
     HTML information = new HTML(
-                                "<h1>Charaktervorauswahl</h1><p>Wähle zwischen einem von drei vorgefertigten Charakteren oder wage das Abenteuer und erstelle deinen eigenen Charakter!</p><p>Erstellen dir deinen eigenen Charkter. Wähle aus über 10 Rassen, 50 Klassen und über 100 Fähigkeiten diejenigen aus, die deinen Charakter am besten stehen.</p><p>Oder wähle einen der vorgefertigten Charaktere und beginne dein Abenteuer sofort</p><p>Es ist deine Entscheidung!</p>");
+                                "<h1>Charakterauswahl</h1><p>Wähle zwischen einem von drei vorgefertigten Charakteren. Klicke auf eine der Charaktere um weitere Informationen zu bekommen");
     return information;
   }
 

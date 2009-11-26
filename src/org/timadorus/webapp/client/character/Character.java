@@ -41,7 +41,7 @@ public class Character implements Serializable {
   ArrayList<Fraction> fraction_list;
 
   @Persistent
-  String race;
+  Race race;
 
   /*
    * @Persistent String profession;
@@ -78,11 +78,11 @@ public class Character implements Serializable {
     this.fraction_list.add(fraction);
   }
 
-  public String getRace() {
+  public Race getRace() {
     return race;
   }
 
-  public void setRace(String race) {
+  public void setRace(Race race) {
     this.race = race;
   }
 

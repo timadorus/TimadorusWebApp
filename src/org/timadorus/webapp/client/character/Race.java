@@ -4,6 +4,10 @@
 package org.timadorus.webapp.client.character;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Dictionary;
+import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Persistent;
@@ -30,8 +34,19 @@ public class Race implements Serializable {
   @Persistent
   String description;
 
-  public Race() {
+  public Race(String name) {
     super();
+    this.name = name;
+  }
+  
+  public static List<Race> getRaces(){
+    List<Race> races = new ArrayList<Race>();
+    races.add(new Race("Witzbold"));
+    races.add(new Race("Laufbursche"));
+    races.add(new Race("Mächtiger Winzer"));
+    races.add(new Race("Terrorgnom"));
+    races.add(new Race("Lausbub"));    
+    return races;
   }
 
   public Long getRaceID() {

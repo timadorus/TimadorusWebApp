@@ -8,6 +8,7 @@ import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.character.PremadeCharacterPanel;
 import org.timadorus.webapp.client.character.SelectRacePanel;
+import org.timadorus.webapp.client.character.Character;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -163,7 +164,7 @@ public class CharacterPanel extends FormPanel implements HistoryStates {
   
   public void loadSelectRacePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry));
+    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, (new Character())));
   }
 
   public static CharacterPanel getCharacterPanel(TimadorusWebApp entry) {

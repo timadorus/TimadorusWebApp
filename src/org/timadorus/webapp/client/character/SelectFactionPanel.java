@@ -6,7 +6,6 @@ import java.util.List;
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.register.RegisterPanel;
-import org.timadorus.webapp.client.character.SelectClassPanel;
 import org.timadorus.webapp.client.character.SelectFactionPanel;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -37,23 +36,23 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
 //ClassPanel allows you to choosing the Classes and Races of Character via Listbox
-public class SelectClassPanel extends FormPanel implements HistoryStates {
+public class SelectFactionPanel extends FormPanel implements HistoryStates {
 
   TimadorusWebApp entry;
-
+  
   Character character;
 
   Button nextButton = new Button("weiter");
-
+  
   Button prevButton = new Button("zurück");
 
   VerticalPanel panel = new VerticalPanel();
 
   FlexTable selectGenderGrid = new FlexTable();
-
+  
   FlexTable buttonGrid = new FlexTable();
 
-  public SelectClassPanel(TimadorusWebApp entry, Character character) {
+  public SelectFactionPanel(TimadorusWebApp entry, Character character) {
     super();
     this.entry = entry;
     this.character = character;
@@ -62,39 +61,39 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
-          loadSelectRacePanel();
+            loadSelectClassPanel();
         } else if (event.getSource().equals(nextButton)) {
-          loadSelectFactionPanel();
+            //Todo
         }
-
+        
       }
-    }
-
-    Image progressBar = new Image("media/images/progressbar_2.png");
-
+    } 
+    Image progressBar = new Image("media/images/progressbar_3.png");
+    
+    HTML headline = new HTML("<h1>Fraktionen wählen</h1>");
+    
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
-
+    
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-
-    panel.add(progressBar);
-    panel.add(new Label("Schritt 2 von 6"));
-    panel.add(new Label("Rasse: " + character.getRace().getName()));
     
-    HTML headline = new HTML("<h1>Klasse wählen</h1>");
+    panel.add(progressBar);
+    panel.add(new Label("Schritt 3 von 6"));
     
     panel.add(headline);
-
+    
     panel.add(buttonGrid);
-
+    
     RootPanel.get("information").clear();
     RootPanel.get("information").add(getInformation());
 
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
+
+    
 
     // Add Handlers
     MyHandler handler = new MyHandler();
@@ -102,28 +101,27 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     prevButton.addClickHandler(handler);
 
   }
-
-  public void loadSelectRacePanel() {
+  
+  public void loadSelectClassPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, character));
+    RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character));
   }
 
-  public void loadSelectFactionPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
+  public void loadSelectSkillPanel() {
+    //todo: creating SelectSkillPanel
   }
 
-  public static SelectClassPanel getSelectClassPanel(TimadorusWebApp entry, Character character) {
+  public static SelectFactionPanel getSelectFactionPanel(TimadorusWebApp entry, Character character) {
     // if (characterPanel == null) {
     // characterPanel = new CharacterPanel(entry);
     // }
     // return characterPanel;
-    return new SelectClassPanel(entry, character);
+    return new SelectFactionPanel(entry, character);
   }
 
   private static final HTML getInformation() {
     HTML information = new HTML(
-                                "<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können.</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie Fraktionen wählen können.</p>");
+                                "<h1>Fraktionen wählen</h1><p>Wählen sie hier die Fraktionen ihres Charakteres. Beachten sie, dass bestimmte Fraktionen nur von bestimmten Rassen sowie Klassen gewählt werden können.</p>");
 
     return information;
   }
