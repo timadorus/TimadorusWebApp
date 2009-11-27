@@ -1,6 +1,7 @@
 package org.timadorus.webapp.client;
 
 import org.timadorus.webapp.client.character.CharacterPanel;
+import org.timadorus.webapp.client.character.TestCharacterValues;
 import org.timadorus.webapp.client.login.LoginPanel;
 import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.rpc.service.SessionService;
@@ -40,9 +41,10 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
 
   private Hyperlink registerlink;
 
-  private CharacterPanel cpanel;
-
   private boolean loggedin = false;
+  
+  public TestCharacterValues testValues;
+  
   
   public TimadorusWebApp() {
     
@@ -54,10 +56,13 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
 
     this.createCharacterlink=new Hyperlink("create Character", CREATE_CHARACTER_STATE);
 
-    this.registerlink=new Hyperlink("register", REGISTER_STATE);
-
+    this.registerlink=new Hyperlink("register", REGISTER_STATE);    
 
     this.loggedin = false;
+    
+    //testValues
+    
+    this.testValues = new TestCharacterValues();
     
   }
 
@@ -278,5 +283,13 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
         dialogBox.hide();
       }
     });
+  }
+
+  public TestCharacterValues getTestValues() {
+    return testValues;
+  }
+
+  public void setTestValues(TestCharacterValues testValues) {
+    this.testValues = testValues;
   }
 }

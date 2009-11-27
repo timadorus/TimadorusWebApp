@@ -77,11 +77,15 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
     
+    
+    
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
     
     panel.add(progressBar);
     panel.add(new Label("Schritt 3 von 6"));
+    panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
+    panel.add(new Label("Klasse: " + character.getCharClass().getName()));
     
     panel.add(headline);
     

@@ -2,12 +2,11 @@ package org.timadorus.webapp.client.character;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.register.RegisterPanel;
-import org.timadorus.webapp.client.character.SelectClassPanel;
-import org.timadorus.webapp.client.character.SelectFactionPanel;
+import org.timadorus.webapp.client.character.Character;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -39,7 +38,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentC
 //ClassPanel allows you to choosing the Classes and Races of Character via Listbox
 public class SelectClassPanel extends FormPanel implements HistoryStates {
 
-  TimadorusWebApp entry;
+  final TimadorusWebApp entry;
 
   Character character;
 
@@ -49,11 +48,13 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
 
   VerticalPanel panel = new VerticalPanel();
 
-  FlexTable selectGenderGrid = new FlexTable();
+  FlexTable selectClassGrid = new FlexTable();
 
   FlexTable buttonGrid = new FlexTable();
 
-  public SelectClassPanel(TimadorusWebApp entry, Character character) {
+  ListBox classListBox = new ListBox();
+
+  public SelectClassPanel(final TimadorusWebApp entry, Character character) {
     super();
     this.entry = entry;
     this.character = character;
@@ -64,13 +65,46 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
         if (event.getSource().equals(prevButton)) {
           loadSelectRacePanel();
         } else if (event.getSource().equals(nextButton)) {
+          saveSelectedClass();
           loadSelectFactionPanel();
+        } else if (event.getSource().equals(selectClassGrid)) {
+          String className = classListBox.getValue(classListBox.getSelectedIndex());
+          ListIterator<Class> classIterator = entry.getTestValues().getClasses().listIterator();
+          RootPanel.get("information").clear();
+          while (classIterator.hasNext()) {
+            Class newClass = (Class)classIterator.next();
+            if (newClass.getName().equals(className)) {
+              RootPanel.get("information").add(
+                                               new HTML("<h1>" + newClass.getName() + "</h1><p>"
+                                                   + newClass.getDescription() + "</p>"));
+            }
+          }
         }
 
       }
     }
 
+    HTML headline = new HTML("<h1>Klasse wählen</h1>");
+
     Image progressBar = new Image("media/images/progressbar_2.png");
+
+    selectClassGrid.setBorderWidth(0);
+    selectClassGrid.setStylePrimaryName("selectGrid");
+
+    ListIterator<Class> classIterator = entry.getTestValues().getClasses().listIterator();
+    while (classIterator.hasNext()) {
+      Class newClass = (Class) classIterator.next();
+      if (character.getRace().getAvailableClasses().contains(newClass)) {
+        classListBox.addItem(newClass.getName());
+      }      
+    }
+
+    Label classLabel = new Label("Klasse wählen: ");
+
+    selectClassGrid.setWidget(0, 0, classLabel);
+    selectClassGrid.setWidget(0, 1, classListBox);
+
+    classListBox.setVisibleItemCount(classListBox.getItemCount());
 
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
@@ -83,10 +117,10 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     panel.add(progressBar);
     panel.add(new Label("Schritt 2 von 6"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
-    
-    HTML headline = new HTML("<h1>Klasse wählen</h1>");
-    
+
     panel.add(headline);
+
+    panel.add(selectClassGrid);
 
     panel.add(buttonGrid);
 
@@ -100,7 +134,23 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     MyHandler handler = new MyHandler();
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
+    selectClassGrid.addClickHandler(handler);
 
+  }
+  
+  public void saveSelectedClass(){
+    character.setCharClass(getSelectedClass());
+  }
+  
+  public Class getSelectedClass() {  
+    ListIterator<Class> classIterator = entry.getTestValues().getClasses().listIterator();
+    while (classIterator.hasNext()){
+      Class selectedClass = classIterator.next();      
+      if(selectedClass.getName().equals(classListBox.getValue(classListBox.getSelectedIndex()))){
+        return selectedClass;
+      }
+    }
+    return null;    
   }
 
   public void loadSelectRacePanel() {

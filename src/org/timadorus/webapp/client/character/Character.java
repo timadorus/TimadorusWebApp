@@ -42,6 +42,8 @@ public class Character implements Serializable {
 
   @Persistent
   Race race;
+  
+  Class charClass;
 
   /*
    * @Persistent String profession;
@@ -98,6 +100,14 @@ public class Character implements Serializable {
 
   public void setCharacterID(Long characterID) {
     this.characterID = characterID;
+  }
+
+  public Class getCharClass() {
+    return charClass;
+  }
+
+  public void setCharClass(Class charClass) {
+    this.charClass = charClass;
   }
 
 }
