@@ -9,14 +9,55 @@ public class TestCharacterValues {
   
   List<Race> races = new ArrayList<Race>();
   
+  List<Faction> factions = new ArrayList<Faction>();
+  
   public TestCharacterValues(){
     createTestCharacterValues();
   }
   
   public void createTestCharacterValues(){
-    //create testclasses
+    //create testfactions
+    Faction fac1 = new Faction();
+    fac1.setName("Skater");
+    fac1.setDescription("Die Kinder der Stadt sind deine Freunde");
+    factions.add(fac1);
     
+    Faction fac2 = new Faction();
+    fac2.setName("Börsianer");
+    fac2.setDescription("Geld, geld, geld, geld");
+    factions.add(fac2);
     
+    Faction fac3 = new Faction();
+    fac3.setName("Grüne Alternative Liste");
+    fac3.setDescription("Ihr wisst was das bedeutet");
+    factions.add(fac3);
+    
+    Faction fac4 = new Faction();
+    fac4.setName("Öffentlicher Dienst");
+    fac4.setDescription("Alle Formulare erledigen sich wie von selbst mit den richtigen Freunden");
+    factions.add(fac4);
+    
+    Faction fac5 = new Faction();
+    fac5.setName("Pharmaindustrie");
+    fac5.setDescription("Warum in die Apotheke, wenns an jeder Ecke Medis gibt");
+    factions.add(fac5);
+    
+    Faction fac6 = new Faction();
+    fac6.setName("Nooobs");
+    fac6.setDescription("Oft unterschätzt, aber immer nützliche Partner");
+    factions.add(fac6);
+    
+    Faction fac7 = new Faction();
+    fac7.setName("VIP");
+    fac7.setDescription("Ohhhh jeaaaah");
+    factions.add(fac7);
+    
+    Faction fac8 = new Faction();
+    fac8.setName("Juntas");
+    fac8.setDescription("Hier wird gehängt, da wird verdient.");
+    factions.add(fac8);
+    
+    //create testclasses   
     Class class1 = new Class();
     class1.setName("Gärtner");
     class1.setDescription("Der Garten ist dein Leben. Keine Straßen, keine Autos, kein Lärm. Nur Bäume und Gräser und so.");

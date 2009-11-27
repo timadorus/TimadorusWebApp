@@ -38,7 +38,7 @@ public class Character implements Serializable {
   String gender;
 
   @Persistent
-  ArrayList<Fraction> fraction_list;
+  ArrayList<Faction> fraction_list;
 
   @Persistent
   Race race;
@@ -72,11 +72,11 @@ public class Character implements Serializable {
     this.gender = gender;
   }
 
-  public ArrayList<Fraction> getFraction() {
+  public ArrayList<Faction> getFraction() {
     return fraction_list;
   }
 
-  public void addFraction(Fraction fraction) {
+  public void addFraction(Faction fraction) {
     this.fraction_list.add(fraction);
   }
 

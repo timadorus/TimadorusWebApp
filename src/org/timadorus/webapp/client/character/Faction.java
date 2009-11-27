@@ -6,7 +6,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-public class Fraction implements Serializable {
+public class Faction implements Serializable {
 
   /**
 	 * 
@@ -18,12 +18,12 @@ public class Fraction implements Serializable {
   Long fractionID;
 
   @Persistent
-  String names;
+  String name;
 
   @Persistent
   String description;
 
-  Fraction() {
+  Faction() {
     super();
   }
 
@@ -35,19 +35,19 @@ public class Fraction implements Serializable {
     this.fractionID = fractionID;
   }
 
-  public String getNames() {
-    return names;
+  public String getName() {
+    return name;
   }
 
-  public void setNames(String name) {
-    this.names = name;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setdescription(String description) {
+  public void setDescription(String description) {
     this.description = description;
   }
 
