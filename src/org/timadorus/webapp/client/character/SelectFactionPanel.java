@@ -145,7 +145,7 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
   
   public void loadSelectStatsPanelS0() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectStatsPanelS0.getSelectStatsPanelS0(entry, character));
+    RootPanel.get("content").add(SelectTempStatsPanel.getSelectStatsPanelS0(entry, character));
   }
 
   public void loadSelectSkillPanel() {

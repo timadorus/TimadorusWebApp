@@ -36,7 +36,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
 //ClassPanel allows you to choosing the Classes and Races of Character via Listbox
-public class SelectStatsPanelS0 extends FormPanel implements HistoryStates {
+public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   final TimadorusWebApp entry;
 
@@ -54,7 +54,7 @@ public class SelectStatsPanelS0 extends FormPanel implements HistoryStates {
 
   ListBox classListBox = new ListBox();
 
-  public SelectStatsPanelS0(final TimadorusWebApp entry, final Character character) {
+  public SelectTempStatsPanel(final TimadorusWebApp entry, final Character character) {
     super();
     this.entry = entry;
     this.character = character;
@@ -131,12 +131,12 @@ public class SelectStatsPanelS0 extends FormPanel implements HistoryStates {
     RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
   }
 
-  public static SelectStatsPanelS0 getSelectStatsPanelS0(TimadorusWebApp entry, Character character) {
+  public static SelectTempStatsPanel getSelectTempStatsPanel(TimadorusWebApp entry, Character character) {
     // if (characterPanel == null) {
     // characterPanel = new CharacterPanel(entry);
     // }
     // return characterPanel;
-    return new SelectStatsPanelS0(entry, character);
+    return new SelectTempStatsPanel(entry, character);
   }
 
   private static final HTML getInformation() {
