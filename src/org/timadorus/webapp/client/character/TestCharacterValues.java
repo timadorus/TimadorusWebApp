@@ -28,7 +28,7 @@ public class TestCharacterValues {
     factions.add(fac2);
     
     Faction fac3 = new Faction();
-    fac3.setName("Grüne Alternatithis.testValues = new TestCharacterValues();ve Liste");
+    fac3.setName("Grüne Alternative Liste");
     fac3.setDescription("Ihr wisst was das bedeutet");
     factions.add(fac3);
     

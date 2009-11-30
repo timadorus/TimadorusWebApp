@@ -42,7 +42,7 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
 
   final TimadorusWebApp entry;
 
-  Character character;
+  final Character character;
 
   Button nextButton = new Button("weiter");
 
@@ -62,7 +62,7 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
 
   ListBox raceListBox = new ListBox();
 
-  public SelectRacePanel(final TimadorusWebApp entry, Character character) {
+  public SelectRacePanel(final TimadorusWebApp entry, final Character character) {
     super();
     this.entry = entry;
     this.character = character;
@@ -82,7 +82,7 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
           loadSelectClassPanel();
           // racelistitem onclick
         } else if (event.getSource().equals(raceListBox)) {
-          //show race informations
+          // show race informations
           String raceName = raceListBox.getValue(raceListBox.getSelectedIndex());
           ListIterator<Race> raceIterator = entry.getTestValues().getRaces().listIterator();
           RootPanel.get("information").clear();
@@ -93,7 +93,7 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
                                                new HTML("<h1>" + newRace.getName() + "</h1><p>"
                                                    + newRace.getDescription() + "</p>"));
 
-              //Show available Classes
+              // Show available Classes
               RootPanel.get("information").add(new HTML("<h2>Wählbare Klassen</h2>"));
               ListIterator<Class> classIterator = newRace.getAvailableClasses().listIterator();
               String availableClasses = new String("<ul>");
@@ -105,8 +105,25 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
               }
               availableClasses = availableClasses + "</ul>";
               RootPanel.get("information").add(new HTML(availableClasses));
+              
+              // Show available Factions
+              RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
+              ListIterator<Faction> factionIterator = newRace.getAvailableFactions().listIterator();
+              String availableFactions = new String("<ul>");
+              String nextFaction = new String();
+              while (factionIterator.hasNext()) {
+                Faction newFaction = (Faction) factionIterator.next();
+                nextFaction = newFaction.getName();
+                if (newRace.getAvailableFactions().contains(newFaction)) {
+                  availableFactions = availableFactions + "<li>" + nextFaction + "</li>";
+                }
+              }
+              availableFactions = availableFactions + "</ul>";
+              RootPanel.get("information").add(new HTML(availableFactions));
+
             }
           }
+
         }
       }
     }
