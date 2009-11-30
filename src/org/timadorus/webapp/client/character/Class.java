@@ -45,7 +45,7 @@ public class Class implements Serializable {
     return availableFactions;
   }
   
-  public void addAvailableFaction(Faction faction){
+  public void addFaction(Faction faction){
     availableFactions.add(faction);
   }
 

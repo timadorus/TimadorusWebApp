@@ -37,6 +37,8 @@ public class Race implements Serializable {
   String description;
   
   List<Class> availableClasses = new ArrayList<Class>();
+  
+  List<Faction> availableFactions = new ArrayList<Faction>(); 
 
   public Race() {
     super();
@@ -84,6 +86,14 @@ public class Race implements Serializable {
   
   public void addClass(Class newClass){
     availableClasses.add(newClass);    
+  }
+  
+  public List<Faction> getAvailableFactions(){
+    return availableFactions;
+  }
+  
+  public void addFaction(Faction faction){
+    availableFactions.add(faction);
   }
   
   
