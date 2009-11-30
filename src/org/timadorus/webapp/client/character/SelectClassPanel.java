@@ -76,8 +76,20 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
             if (newClass.getName().equals(className)) {
               RootPanel.get("information").add(
                                                new HTML("<h1>" + newClass.getName() + "</h1><p>"
-                                                   + newClass.getDescription() + "</p>"));
+                                                   + newClass.getDescription() + "</p>"));            
             }
+            //Show available Factions
+            RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
+            ListIterator<Faction> factionIterator = newClass.getAvailableFactions().listIterator();
+            String availableFactions = new String("<ul>");
+            String nextFaction = new String();
+            while (factionIterator.hasNext()) {
+              Faction newFaction = (Faction) factionIterator.next();
+              nextFaction = newFaction.getName();
+              availableFactions = availableFactions + "<li>" + nextFaction+ "</li>";
+            }
+            availableFactions = availableFactions + "</ul>";
+            RootPanel.get("information").add(new HTML(availableFactions));
           }
         }
 

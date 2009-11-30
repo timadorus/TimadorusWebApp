@@ -9,7 +9,9 @@ public class Class implements Serializable {
   String name;
 
   String description;
-
+  
+  List<Faction> availableFactions = new ArrayList<Faction>();
+ 
   private static final long serialVersionUID = 1L;
 
   public Class() {
@@ -37,6 +39,14 @@ public class Class implements Serializable {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public List<Faction> getAvailableFactions() {
+    return availableFactions;
+  }
+  
+  public void addAvailableFaction(Faction faction){
+    availableFactions.add(faction);
   }
 
 }
