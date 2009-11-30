@@ -40,7 +40,7 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
 
   final TimadorusWebApp entry;
 
-  Character character;
+  final Character character;
 
   Button nextButton = new Button("weiter");
 
@@ -54,7 +54,7 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
 
   ListBox classListBox = new ListBox();
 
-  public SelectClassPanel(final TimadorusWebApp entry, Character character) {
+  public SelectClassPanel(final TimadorusWebApp entry, final Character character) {
     super();
     this.entry = entry;
     this.character = character;
@@ -72,24 +72,29 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
           ListIterator<Class> classIterator = entry.getTestValues().getClasses().listIterator();
           RootPanel.get("information").clear();
           while (classIterator.hasNext()) {
-            Class newClass = (Class)classIterator.next();
+            Class newClass = (Class) classIterator.next();
             if (newClass.getName().equals(className)) {
               RootPanel.get("information").add(
                                                new HTML("<h1>" + newClass.getName() + "</h1><p>"
-                                                   + newClass.getDescription() + "</p>"));            
+                                                   + newClass.getDescription() + "</p>"));
+
+              // Show available Factions
+              RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
+              ListIterator<Faction> factionIterator = newClass.getAvailableFactions().listIterator();
+              String availableFactions = new String("<ul>");
+              String nextFaction = new String();
+              while (factionIterator.hasNext()) {
+                Faction newFaction = (Faction) factionIterator.next();
+                nextFaction = newFaction.getName();
+                if (character.getRace().getAvailableFactions().contains(newFaction)) {
+                  availableFactions = availableFactions + "<li>" + nextFaction + "</li>";
+                }
+              }
+              availableFactions = availableFactions + "</ul>";
+              RootPanel.get("information").add(new HTML(availableFactions));
+
             }
-            //Show available Factions
-            RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
-            ListIterator<Faction> factionIterator = newClass.getAvailableFactions().listIterator();
-            String availableFactions = new String("<ul>");
-            String nextFaction = new String();
-            while (factionIterator.hasNext()) {
-              Faction newFaction = (Faction) factionIterator.next();
-              nextFaction = newFaction.getName();
-              availableFactions = availableFactions + "<li>" + nextFaction+ "</li>";
-            }
-            availableFactions = availableFactions + "</ul>";
-            RootPanel.get("information").add(new HTML(availableFactions));
+
           }
         }
 
@@ -108,7 +113,7 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
       Class newClass = (Class) classIterator.next();
       if (character.getRace().getAvailableClasses().contains(newClass)) {
         classListBox.addItem(newClass.getName());
-      }      
+      }
     }
 
     Label classLabel = new Label("Klasse wählen: ");
@@ -149,20 +154,18 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     selectClassGrid.addClickHandler(handler);
 
   }
-  
-  public void saveSelectedClass(){
+
+  public void saveSelectedClass() {
     character.setCharClass(getSelectedClass());
   }
-  
-  public Class getSelectedClass() {  
+
+  public Class getSelectedClass() {
     ListIterator<Class> classIterator = entry.getTestValues().getClasses().listIterator();
-    while (classIterator.hasNext()){
-      Class selectedClass = classIterator.next();      
-      if(selectedClass.getName().equals(classListBox.getValue(classListBox.getSelectedIndex()))){
-        return selectedClass;
-      }
+    while (classIterator.hasNext()) {
+      Class selectedClass = classIterator.next();
+      if (selectedClass.getName().equals(classListBox.getValue(classListBox.getSelectedIndex()))) { return selectedClass; }
     }
-    return null;    
+    return null;
   }
 
   public void loadSelectRacePanel() {

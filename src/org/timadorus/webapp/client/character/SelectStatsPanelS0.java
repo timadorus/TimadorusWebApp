@@ -6,9 +6,7 @@ import java.util.ListIterator;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.register.RegisterPanel;
-import org.timadorus.webapp.client.character.SelectFactionPanel;
-import org.timadorus.webapp.client.character.Class;
+import org.timadorus.webapp.client.character.Character;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -38,11 +36,11 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
 //ClassPanel allows you to choosing the Classes and Races of Character via Listbox
-public class SelectFactionPanel extends FormPanel implements HistoryStates {
+public class SelectStatsPanelS0 extends FormPanel implements HistoryStates {
 
-  TimadorusWebApp entry;
+  final TimadorusWebApp entry;
 
-  Character character;
+  final Character character;
 
   Button nextButton = new Button("weiter");
 
@@ -50,13 +48,13 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
 
   VerticalPanel panel = new VerticalPanel();
 
-  FlexTable selectFactionGrid = new FlexTable();
+  FlexTable selectStatGrid = new FlexTable();
 
   FlexTable buttonGrid = new FlexTable();
 
-  ListBox factionListBox = new ListBox();
+  ListBox classListBox = new ListBox();
 
-  public SelectFactionPanel(TimadorusWebApp entry, Character character) {
+  public SelectStatsPanelS0(final TimadorusWebApp entry, final Character character) {
     super();
     this.entry = entry;
     this.character = character;
@@ -65,36 +63,39 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
-          loadSelectClassPanel();
+          loadSelectRacePanel();
         } else if (event.getSource().equals(nextButton)) {
-          // Todo
-        }
+          saveSelectedClass();
+          loadSelectFactionPanel();
+        } 
 
       }
     }
-    Image progressBar = new Image("media/images/progressbar_3.png");
 
-    HTML headline = new HTML("<h1>Fraktion wählen</h1>");
+    HTML headline = new HTML("<h1>Stats verteilen</h1>");
 
-    selectFactionGrid.setBorderWidth(0);
-    selectFactionGrid.setStylePrimaryName("selectGrid");
+    Image progressBar = new Image("media/images/progressbar_4.png");
 
-    ListIterator<Faction> factionIterator = entry.getTestValues().getFactions().listIterator();
-    while (factionIterator.hasNext()) {
-      Faction newFaction = (Faction) factionIterator.next();      
-      if (character.getCharClass().getAvailableFactions().contains(newFaction)) {
-        if (character.getRace().getAvailableFactions().contains(newFaction)) {
-          factionListBox.addItem(newFaction.getName());
-        }
-      }
+    selectStatGrid.setBorderWidth(0);
+    selectStatGrid.setStylePrimaryName("selectGrid");
+
+    
+
+    Label statLabel = new Label("Statpunkte verteilen: ");
+
+    selectStatGrid.setWidget(0, 0, new Label("Stat"));
+    selectStatGrid.setWidget(0, 1, new Label("Wert"));
+    selectStatGrid.setWidget(0, 2, new Label("Wert verringern"));
+    selectStatGrid.setWidget(0, 3, new Label("Wert erhöhen"));
+    selectStatGrid.setWidget(0, 4, new Label("Kosten pro Punkt"));
+    
+    //show stats
+    for (int i=0;i<12;i++){
+      selectStatGrid.setWidget(i+1, 0, new Label(character.getStatList().get(i).getName()));
+      selectStatGrid.setWidget(i+1, 1, new Label(character.getStatList().get(i).getTempStat().toString()));      
     }
-
-    Label factionLabel = new Label("Fraktion wählen: ");
-
-    selectFactionGrid.setWidget(0, 0, factionLabel);
-    selectFactionGrid.setWidget(0, 1, factionListBox);
-
-    factionListBox.setVisibleItemCount(factionListBox.getItemCount());
+    
+    
 
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
@@ -105,13 +106,13 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
     panel.add(progressBar);
-    panel.add(new Label("Schritt 3 von 6"));
+    panel.add(new Label("Schritt 4 von 6"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
-    panel.add(new Label("Klasse: " + character.getCharClass().getName()));
+    panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: " + character.getFaction().getName()));
 
     panel.add(headline);
-    
-    panel.add(selectFactionGrid);
+
+    panel.add(selectStatGrid);
 
     panel.add(buttonGrid);
 
@@ -125,29 +126,44 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     MyHandler handler = new MyHandler();
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
+    selectStatGrid.addClickHandler(handler);
 
   }
 
-  public void loadSelectClassPanel() {
+  public void saveSelectedClass() {
+    character.setCharClass(getSelectedClass());
+  }
+
+  public Class getSelectedClass() {
+    ListIterator<Class> classIterator = entry.getTestValues().getClasses().listIterator();
+    while (classIterator.hasNext()) {
+      Class selectedClass = classIterator.next();
+      if (selectedClass.getName().equals(classListBox.getValue(classListBox.getSelectedIndex()))) { return selectedClass; }
+    }
+    return null;
+  }
+
+  public void loadSelectRacePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character));
+    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, character));
   }
 
-  public void loadSelectSkillPanel() {
-    // todo: creating SelectSkillPanel
+  public void loadSelectFactionPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
   }
 
-  public static SelectFactionPanel getSelectFactionPanel(TimadorusWebApp entry, Character character) {
+  public static SelectStatsPanelS0 getSelectClassPanel(TimadorusWebApp entry, Character character) {
     // if (characterPanel == null) {
     // characterPanel = new CharacterPanel(entry);
     // }
     // return characterPanel;
-    return new SelectFactionPanel(entry, character);
+    return new SelectStatsPanelS0(entry, character);
   }
 
   private static final HTML getInformation() {
     HTML information = new HTML(
-                                "<h1>Fraktionen wählen</h1><p>Wählen sie hier die Fraktionen ihres Charakteres. Beachten sie, dass bestimmte Fraktionen nur von bestimmten Rassen sowie Klassen gewählt werden können.</p>");
+                                "<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können.</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie Fraktionen wählen können.</p>");
 
     return information;
   }
