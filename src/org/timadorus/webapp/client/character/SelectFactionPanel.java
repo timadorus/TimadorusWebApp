@@ -143,6 +143,7 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     MyHandler handler = new MyHandler();
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
+    selectFactionGrid.addClickHandler(handler);
 
   }
 
