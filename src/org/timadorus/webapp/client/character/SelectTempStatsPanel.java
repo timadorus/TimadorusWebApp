@@ -51,14 +51,16 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   FlexTable selectStatGrid = new FlexTable();
 
   FlexTable buttonGrid = new FlexTable();
-  
+
   FlexTable statPointGrid = new FlexTable();
 
   ListBox classListBox = new ListBox();
-  
+
   int statCosts = 1;
-  
+
   int statPoints = 750;
+
+  List<Integer> tempStats = new ArrayList<Integer>();
 
   public SelectTempStatsPanel(final TimadorusWebApp entry, final Character character) {
     super();
@@ -70,9 +72,26 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
           loadSelectFactionPanel();
-        } else if (event.getSource().equals(nextButton)) {          
-          
-        } 
+        } else if (event.getSource().equals(nextButton)) {
+        }
+        ListIterator<Stat> statIterator = character.getStatList().listIterator();
+        int i = 0;
+        while (statIterator.hasNext()) {
+          Stat stat = statIterator.next();
+          if (event.getSource().equals(stat.decButton)) {
+            System.out.print("while");
+            decStat(i);
+            selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
+            selectStatGrid.setText(i + 1, 4, String.valueOf(getStatCosts(i)));
+            statPointGrid.setText(0, 1, String.valueOf(statPoints));
+          } else if (event.getSource().equals(stat.incButton)) {
+            incStat(i);
+            selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
+            selectStatGrid.setText(i + 1, 4, String.valueOf(getStatCosts(i)));
+            statPointGrid.setText(0, 1, String.valueOf(statPoints));
+          }
+          i++;
+        }
 
       }
     }
@@ -83,31 +102,31 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
     statPointGrid.setBorderWidth(0);
     statPointGrid.setStylePrimaryName("selectGrid");
-    
+
     statPointGrid.setWidget(0, 0, new Label("Verbleibende Punkte: "));
     statPointGrid.setWidget(0, 1, new Label(String.valueOf(statPoints)));
-    
+
     selectStatGrid.setBorderWidth(1);
-    selectStatGrid.setStylePrimaryName("selectGrid");    
-    
+    selectStatGrid.setStylePrimaryName("selectGrid");
+
     selectStatGrid.setWidget(0, 0, new Label("Stat"));
     selectStatGrid.setWidget(0, 1, new Label("Wert"));
     selectStatGrid.setWidget(0, 2, new Label("Verringern"));
     selectStatGrid.setWidget(0, 3, new Label("Steigern"));
     selectStatGrid.setWidget(0, 4, new Label("Kosten pro Punkt"));
-    
-    Label statCostsLabel = new Label(String.valueOf(statCosts));
-    
-    //show stats
-    for (int i=0;i<12;i++){
-      selectStatGrid.setWidget(i+1, 0, new Label(character.getStatList().get(i).getName()));
-      selectStatGrid.setWidget(i+1, 1, new Label(character.getStatList().get(i).getTempStat().toString()));
-      selectStatGrid.setWidget(i+1, 2, character.getStatList().get(i).getDecButton());
-      selectStatGrid.setWidget(i+1, 3, character.getStatList().get(i).getIncButton());
-      selectStatGrid.setWidget(i+1, 4, statCostsLabel);
+
+    // show stats
+    for (int i = 0; i < 11; i++) {
+      tempStats.add(character.getStatList().get(i).getTempStat());
+      selectStatGrid.setWidget(i + 1, 0, new Label(character.getStatList().get(i).getName()));
+      selectStatGrid.setWidget(i + 1, 1, new Label(String.valueOf(tempStats.get(i))));
+      selectStatGrid.setWidget(i + 1, 2, character.getStatList().get(i).getDecButton());
+      selectStatGrid.setWidget(i + 1, 3, character.getStatList().get(i).getIncButton());
+      selectStatGrid.setText(i + 1, 4, String.valueOf(statCosts));
     }
-    
-    
+    tempStats.add(character.getStatList().get(11).getTempStat());
+    selectStatGrid.setWidget(12, 0, new Label(character.getStatList().get(11).getName()));
+    selectStatGrid.setWidget(12, 1, new Label(String.valueOf(tempStats.get(11))));
 
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
@@ -120,10 +139,11 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     panel.add(progressBar);
     panel.add(new Label("Schritt 4 von 6"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
-    panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: " + character.getFaction().getName()));
+    panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: "
+        + character.getFaction().getName()));
 
     panel.add(headline);
-    
+
     panel.add(statPointGrid);
 
     panel.add(selectStatGrid);
@@ -140,10 +160,55 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     MyHandler handler = new MyHandler();
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
-    selectStatGrid.addClickHandler(handler);
+
+    ListIterator<Stat> statIterator = character.getStatList().listIterator();
+    while (statIterator.hasNext()) {
+      Stat stat = statIterator.next();
+      stat.getDecButton().addClickHandler(handler);
+      stat.getIncButton().addClickHandler(handler);
+    }
+
   }
 
-  
+  public int getStatCosts(int i) {
+    int stat = tempStats.get(i);
+    int cost = 1;
+    if (stat > 89)
+      cost = 10;
+
+    return cost;
+  }
+
+  public void incStat(int i) {
+    if ((tempStats.get(i)) <= 100) {
+      tempStats.set(i, (tempStats.get(i) + 1));
+      decStatPoints(getStatCosts(i));
+    } else
+      tempStats.set(i, 100);
+  }
+
+  public void decStat(int i) {
+    if ((tempStats.get(i)) >= 30) {
+      tempStats.set(i, (tempStats.get(i) - 1));
+      incStatPoints(getStatCosts(i));
+    } else
+      tempStats.set(i, 30);
+  }
+
+  public void incStatPoints(int costs) {
+    if (statPoints <= 750)
+      statPoints = statPoints + costs;
+    else
+      statPoints = 750;
+  }
+
+  public void decStatPoints(int costs) {
+    if (statPoints >= 0) {
+      statPoints = statPoints - costs;
+    } else
+      statPoints = 0;
+  }
+
   public void loadSelectFactionPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
