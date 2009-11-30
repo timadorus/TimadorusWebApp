@@ -56,7 +56,7 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
 
   ListBox factionListBox = new ListBox();
 
-  public SelectFactionPanel(TimadorusWebApp entry, Character character) {
+  public SelectFactionPanel(final TimadorusWebApp entry, Character character) {
     super();
     this.entry = entry;
     this.character = character;
@@ -69,8 +69,25 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedFaction();
           loadSelectStatsPanelS0();
-        }
+        }else if(event.getSource().equals(selectFactionGrid)){
 
+          String factionName = factionListBox.getValue(factionListBox.getSelectedIndex());
+          ListIterator<Faction> factionIterator = entry.getTestValues().getFactions().listIterator();
+          RootPanel.get("information").clear();
+          while (factionIterator.hasNext()) {
+            Faction newFaction = (Faction) factionIterator.next();
+            if (newFaction.getName().equals(factionName)) {
+              RootPanel.get("information").add(
+                                               new HTML("<h1>" + newFaction.getName() + "</h1><p>"
+                                                   + newFaction.getDescription() + "</p>"));
+
+
+            }
+
+          }
+        
+        }
+        
       }
     }
     Image progressBar = new Image("media/images/progressbar_3.png");
@@ -134,9 +151,14 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
   }
   
   public Faction getSelectedFaction() {
-    Faction faction = entry.getTestValues().getFactions().get(factionListBox.getSelectedIndex());
-    return faction;
+    ListIterator<Faction> factionIterator = entry.getTestValues().getFactions().listIterator();
+    while (factionIterator.hasNext()) {
+      Faction selectedClass = factionIterator.next();
+      if (selectedClass.getName().equals(factionListBox.getValue(factionListBox.getSelectedIndex()))) { return selectedClass; }
+    }
+    return null;
   }
+  
   
   public void loadSelectClassPanel() {
     RootPanel.get("content").clear();
@@ -145,7 +167,7 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
   
   public void loadSelectStatsPanelS0() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectTempStatsPanel.getSelectStatsPanelS0(entry, character));
+    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
   }
 
   public void loadSelectSkillPanel() {
