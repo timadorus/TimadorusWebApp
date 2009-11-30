@@ -61,36 +61,58 @@ public class TestCharacterValues {
     Class class1 = new Class();
     class1.setName("Gärtner");
     class1.setDescription("Der Garten ist dein Leben. Keine Straßen, keine Autos, kein Lärm. Nur Bäume und Gräser und so.");
+    class1.addFaction(fac8);
+    class1.addFaction(fac7);
+    class1.addFaction(fac6);
+    class1.addFaction(fac4);
     classes.add(class1);
     
     Class class2 = new Class();
     class2.setName("Hühnerdieb");
     class2.setDescription("Hühnerdiebe sind enorm schnelle Viecher, die vorwiegen in Hühnerstellen rumhängen oder an Grillimbissen");
+    class2.addFaction(fac1);
+    class2.addFaction(fac2);
+    class2.addFaction(fac4);
     classes.add(class2);
     
     Class class3 = new Class();
     class3.setName("Söldner");
     class3.setDescription("Geld, Blut, das wars");
+    class3.addFaction(fac7);
+    class3.addFaction(fac6);
+    class3.addFaction(fac4);
     classes.add(class3);
     
     Class class4 = new Class();
     class4.setName("Abmahnungsanwalt");
     class4.setDescription("ROFLROFLPWNED");
+    class4.addFaction(fac7);
+    class4.addFaction(fac6);
+    class4.addFaction(fac4);
     classes.add(class4);
         
     Class class5 = new Class();
     class5.setName("Pilot");
     class5.setDescription("Über den wolken, blablubb.");
+    class5.addFaction(fac7);
+    class5.addFaction(fac6);
+    class5.addFaction(fac4);
     classes.add(class5);
     
     Class class6 = new Class();
     class6.setName("Informatiker");
     class6.setDescription("Du schreibst Stundenlang testtexte für ne webapp.");
+    class6.addFaction(fac7);
+    class6.addFaction(fac6);
+    class6.addFaction(fac4);
     classes.add(class6);
     
     Class class7 = new Class();
     class7.setName("Drücker");
     class7.setDescription("Ja, du hörst richtig. Und nun ab zur nächsten Tür - Geld ranschaffen!");
+    class7.addFaction(fac7);
+    class7.addFaction(fac6);
+    class7.addFaction(fac4);
     classes.add(class7);
     
     
@@ -98,19 +120,20 @@ public class TestCharacterValues {
     Class c1 = new Class(
                          "Capitalist class",
                          "Top-level executives, high-rung politicians, heirs. Ivy League education common. Source: http://en.wikipedia.org/wiki/Social_class");
+    c1.addFaction(fac4);
 
     Class c2 = new Class(
                          "Upper middle class",
                          "Highly educated (often with graduate degrees), most commonly salaried, professionals and middle management with large work autonomy. Source: http://en.wikipedia.org/wiki/Social_class");
-
+    c2.addFaction(fac4);
     Class c3 = new Class(
                          "Working class",
                          "Clerical and most blue collar workers whose work is highly routinized. Standard of living varies depending on number of income earners, but is commonly just adequate. High school education. Source: http://en.wikipedia.org/wiki/Social_class");
-
+    c3.addFaction(fac4);
     Class c4 = new Class(
                          "Underclass",
                          "Those with limited or no participation in the labor force. Reliant on government transfers. Some high school education. Source: http://en.wikipedia.org/wiki/Social_class");
-
+    c4.addFaction(fac4);
     classes.add(c1);
     classes.add(c2);
     classes.add(c3);
@@ -125,22 +148,35 @@ public class TestCharacterValues {
     race1.setName("Witzbold");
     race1.setdescription("Der Witzbold ist ein Witzbolt");
     race1.addClass(class1);
-    race1.addClass(class3);
+    race1.addClass(class3);    
+    race1.addFaction(fac3);
+    race1.addFaction(fac5);
+    race1.addFaction(fac7);
+    race1.addFaction(fac4);
     races.add(race1);
     
     Race race2 = new Race();
     race2.setName("Laufbursche");
     race2.setdescription("Er läuft und läuft und läuft");
     race2.addClass(class2);
-    race2.addClass(class4);
+    race2.addClass(class4);    
+    race2.addFaction(fac4);
+    race2.addFaction(fac1);
+    race2.addFaction(fac2);
+    race2.addFaction(fac3);
     races.add(race2);
+    
     
     Race race3 = new Race();
     race3.setName("Mächtiger Winzer");
     race3.setdescription("Keiner macht so guten Wein wie er");
     race3.addClass(class1);
     race3.addClass(class4);
-    race3.addClass(class5);
+    race3.addClass(class5);    
+    race3.addFaction(fac6);
+    race3.addFaction(fac7);
+    race3.addFaction(fac8);
+    race3.addFaction(fac4);
     races.add(race3);
     
     Race race4 = new Race();
@@ -150,6 +186,10 @@ public class TestCharacterValues {
     race4.addClass(class2);
     race4.addClass(class4);
     race4.addClass(class6);
+    race4.addFaction(fac6);
+    race4.addFaction(fac7);
+    race4.addFaction(fac8);
+    race4.addFaction(fac4);
     races.add(race4);
     
     Race race5 = new Race();
@@ -159,6 +199,14 @@ public class TestCharacterValues {
     race5.addClass(class3);
     race5.addClass(class5);
     race5.addClass(class6);
+    race5.addFaction(fac6);
+    race5.addFaction(fac7);
+    race5.addFaction(fac8);
+    race5.addFaction(fac5);
+    race5.addFaction(fac1);
+    race5.addFaction(fac2);
+    race5.addFaction(fac3);
+    race5.addFaction(fac4);
     races.add(race5);
     
   //M**

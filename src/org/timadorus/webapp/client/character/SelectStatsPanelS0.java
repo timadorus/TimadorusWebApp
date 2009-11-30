@@ -123,16 +123,9 @@ public class SelectStatsPanelS0 extends FormPanel implements HistoryStates {
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
     selectStatGrid.addClickHandler(handler);
-
   }
 
   
-
-  public void loadSelectRacePanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, character));
-  }
-
   public void loadSelectFactionPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
