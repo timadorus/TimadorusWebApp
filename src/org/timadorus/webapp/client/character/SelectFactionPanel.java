@@ -67,6 +67,7 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
         if (event.getSource().equals(prevButton)) {
           loadSelectClassPanel();
         } else if (event.getSource().equals(nextButton)) {
+          saveSelectedFaction();
           loadSelectStatsPanelS0();
         }
 
@@ -128,6 +129,15 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
 
   }
 
+  public void saveSelectedFaction() {
+    character.setFaction(getSelectedFaction());
+  }
+  
+  public Faction getSelectedFaction() {
+    Faction faction = entry.getTestValues().getFactions().get(factionListBox.getSelectedIndex());
+    return faction;
+  }
+  
   public void loadSelectClassPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character));
