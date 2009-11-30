@@ -9,7 +9,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface ToonService extends RemoteService {
 	Boolean createToon(Toon _toonOb);
 	void toonInitialize( String _toonName);
-	void setToonRace( String _race);
+	 void setToonFeacture(Toon toonObj);
 	//void setToonPoints(int _tempPoints, int _statPoints, int _statsPoints, int _raceBonus);
 	Toon getToonInformation(String _toonName);
 	Set<Toon> getToonsOfUser(String _userName);

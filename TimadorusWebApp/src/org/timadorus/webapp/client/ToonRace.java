@@ -24,7 +24,7 @@ public class ToonRace implements Serializable{
 	
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Long _raceID= null;
-	private String _toonNamen= null;
+	private String _toonRaceNamen= null;
     private String _description= null;
 	
     
@@ -32,6 +32,10 @@ public class ToonRace implements Serializable{
 		throw new Exception("no argument given"); 
 	 }
 	 
+	 public ToonRace( String racename) {
+		         _toonRaceNamen = racename;
+		 }
+		 
 	
 	public Long getRaceID() {
 
@@ -44,12 +48,12 @@ public class ToonRace implements Serializable{
 
 
 	public String getNamen() {
-		return _toonNamen;
+		return _toonRaceNamen;
 	}
 
 
 	public void setNamen(String _name) {
-		this._toonNamen =_name;
+		this._toonRaceNamen=_name;
 	}
 
 

@@ -60,7 +60,7 @@ public class CreateToonPanel extends VerticalPanel {
 		toonCreateGrid.setWidget(0, 1, nameTextBox);
 
 		toonCreateGrid.setWidget(1, 1, submitButton);
-	    this.add(new HTML("Please Enter Toon name "));
+	    this.add(new HTML("Toon name "));
 		this.add(toonCreateGrid);
 		
 	}

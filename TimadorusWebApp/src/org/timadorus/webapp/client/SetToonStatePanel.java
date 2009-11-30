@@ -4,9 +4,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -15,6 +17,9 @@ public class SetToonStatePanel extends VerticalPanel {
 	
 	private  TimadorusWebApp appReference;
 	private User user ;
+	private ToonFraction tfraction = new ToonFraction("");
+	private ToonRace tRace= new ToonRace("");
+	
 	private  String toonName="";
 	private CreateToonPanel panel;
 	
@@ -26,9 +31,6 @@ public class SetToonStatePanel extends VerticalPanel {
 	public SetToonStatePanel(TimadorusWebApp _appReference) {
 		super();
 		appReference  = _appReference;
-		// user= username;
-		//this.toonName = tooname;
-		System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhueuuiooooooooooo");
 		initialize();
 	  
 	}
@@ -39,9 +41,21 @@ public class SetToonStatePanel extends VerticalPanel {
      {
     
 		final Grid 	  toonCharaterCreateGrid			= new Grid(5, 2);
-		//final TextBox nameTextBox						= new TextBox();
-		final TextBox genderTextBox						= new TextBox();
+		final ListBox genderlist = new ListBox();
+		genderlist.addItem("female");
+		genderlist.addItem("male");
+		
+		//final FlexTable fractionTable= new FlexTable();
+		final  ListBox fractionList  = new  ListBox();
+		fractionList.addItem("hhhh");
+		fractionList.addItem("test1");
+		fractionList.addItem("tintin");
+		fractionList.addItem("test3");
+		
+
+		
 		final TextBox fractionBox						= new TextBox();
+	
 		
 		final TextBox RaceTextBox						= new TextBox();
 		final TextBox proffesionTextBox					= new TextBox();
@@ -52,13 +66,15 @@ public class SetToonStatePanel extends VerticalPanel {
 		submitButton.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event)
-			{
+			{  
+				int i=0;
 			    user = panel.getUser();
 			    toonName= panel.getToonName();
 				Toon toonObj = new Toon( user.getSurname(),toonName);
+				toonObj.setGender(genderlist.getItemText(i));
          
-				toonObj.setGender(genderTextBox.getText());
-				toonObj.setFraction(fractionBox.getText());
+				toonObj.setFraction(fractionList.getItemText(i));
+				//toonObj.setFraction(fractionBox.getText());
 				toonObj.setRace(RaceTextBox.getText());
 				toonObj.setProffesion(proffesionTextBox.getText());
 			
@@ -69,21 +85,22 @@ public class SetToonStatePanel extends VerticalPanel {
 		
 			   
 		toonCharaterCreateGrid.setWidget(0, 0, new Label("Gender"));
-		toonCharaterCreateGrid.setWidget(0, 1,  genderTextBox);
+	
+		toonCharaterCreateGrid.setWidget(0, 1,  genderlist);
 		
 		toonCharaterCreateGrid.setWidget(1, 0, new Label("Race"));
 		toonCharaterCreateGrid.setWidget(1, 1, RaceTextBox);
 			   
 			   
 		toonCharaterCreateGrid.setWidget(2, 0, new Label("Fraction"));
-		toonCharaterCreateGrid.setWidget(2, 1, fractionBox);
+		toonCharaterCreateGrid.setWidget(2, 1, fractionList);
 			   
 		toonCharaterCreateGrid.setWidget(3, 0, new Label("Proffesion"));
 		toonCharaterCreateGrid.setWidget(3, 1, proffesionTextBox);
 		
 
 		toonCharaterCreateGrid.setWidget(4, 1, submitButton);
-	    this.add(new HTML("<h2>Please Enter Your Toon feacture  </h2>"));
+	    this.add(new HTML("<h2>Toon feactures </h2>"));
 	    this.add(toonCharaterCreateGrid);
 		       
 		           
