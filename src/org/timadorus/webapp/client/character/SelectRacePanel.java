@@ -10,7 +10,6 @@ import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.character.SelectClassPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 
-
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -63,30 +62,29 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
 
   ListBox raceListBox = new ListBox();
 
-
   public SelectRacePanel(final TimadorusWebApp entry, Character character) {
     super();
     this.entry = entry;
     this.character = character;
-    
+
     // TestValues
-    
 
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
-        //prevButton onclick
+        // prevButton onclick
         if (event.getSource().equals(prevButton)) {
           loadCharacterPanel();
-        //nextButton onclick
+          // nextButton onclick
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedRace();
           saveSelectedGender();
           loadSelectClassPanel();
-        //racelistitem onclick
+          // racelistitem onclick
         } else if (event.getSource().equals(raceListBox)) {
+          //show race informations
           String raceName = raceListBox.getValue(raceListBox.getSelectedIndex());
-          ListIterator<Race> raceIterator = entry.getTestValues().getRaces().listIterator();          
+          ListIterator<Race> raceIterator = entry.getTestValues().getRaces().listIterator();
           RootPanel.get("information").clear();
           while (raceIterator.hasNext()) {
             Race newRace = (Race) raceIterator.next();
@@ -94,6 +92,19 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
               RootPanel.get("information").add(
                                                new HTML("<h1>" + newRace.getName() + "</h1><p>"
                                                    + newRace.getDescription() + "</p>"));
+
+              //Show available Classes
+              RootPanel.get("information").add(new HTML("<h2>Wählbare Klassen</h2>"));
+              ListIterator<Class> classIterator = newRace.getAvailableClasses().listIterator();
+              String availableClasses = new String("<ul>");
+              String nextClass = new String();
+              while (classIterator.hasNext()) {
+                Class newClass = (Class) classIterator.next();
+                nextClass = newClass.getName();
+                availableClasses = availableClasses + "<li>" + nextClass + "</li>";
+              }
+              availableClasses = availableClasses + "</ul>";
+              RootPanel.get("information").add(new HTML(availableClasses));
             }
           }
         }
@@ -123,7 +134,6 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     }
 
     Label raceLabel = new Label("Rasse wählen: ");
-
     selectRaceGrid.setWidget(0, 0, raceLabel);
     selectRaceGrid.setWidget(0, 1, raceListBox);
 
@@ -165,7 +175,7 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     raceListBox.addClickHandler(handler);
 
   }
-  
+
   public void loadCharacterPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(CharacterPanel.getCharacterPanel(entry));
@@ -184,7 +194,7 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character));
   }
 
-  public Race getSelectedRace() {    
+  public Race getSelectedRace() {
     Race race = entry.getTestValues().getRaces().get(raceListBox.getSelectedIndex());
     return race;
   }

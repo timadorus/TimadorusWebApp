@@ -50,6 +50,7 @@ body {
     font-size: medium;
     text-decoration: underline;
 }
+
 #information {
 	background: #EEE8CD;
     width: 200px;
@@ -66,4 +67,10 @@ body {
 	font-weight: bold;
 	font-size: medium;
 	text-decoration: underline;
+}
+
+#information h2{
+    font-weight: normal;
+    font-size: medium;
+    text-decoration: underline;
 }
