@@ -93,6 +93,30 @@ public class TestCharacterValues {
     class7.setDescription("Ja, du hörst richtig. Und nun ab zur nächsten Tür - Geld ranschaffen!");
     classes.add(class7);
     
+    //M**
+    Class c1 = new Class(
+                         "Capitalist class",
+                         "Top-level executives, high-rung politicians, heirs. Ivy League education common. Source: http://en.wikipedia.org/wiki/Social_class");
+
+    Class c2 = new Class(
+                         "Upper middle class",
+                         "Highly educated (often with graduate degrees), most commonly salaried, professionals and middle management with large work autonomy. Source: http://en.wikipedia.org/wiki/Social_class");
+
+    Class c3 = new Class(
+                         "Working class",
+                         "Clerical and most blue collar workers whose work is highly routinized. Standard of living varies depending on number of income earners, but is commonly just adequate. High school education. Source: http://en.wikipedia.org/wiki/Social_class");
+
+    Class c4 = new Class(
+                         "Underclass",
+                         "Those with limited or no participation in the labor force. Reliant on government transfers. Some high school education. Source: http://en.wikipedia.org/wiki/Social_class");
+
+    classes.add(c1);
+    classes.add(c2);
+    classes.add(c3);
+    classes.add(c4);
+    
+    //**
+    
     
     //create testraces
     
@@ -135,6 +159,34 @@ public class TestCharacterValues {
     race5.addClass(class5);
     race5.addClass(class6);
     races.add(race5);
+    
+    //M**
+    Race r1 = new Race(
+                       new Long(001),
+                       "Race-Almas",
+                       "The Almas, Mongolian for \"wild man,\" is a purported hominid cryptozoological species reputed to inhabit the Caucasus and Pamir Mountains of central Asia, and the Altai Mountains of southern Mongolia. Source: http://en.wikipedia.org/wiki/Almas_%28cryptozoology%29");
+    Race r2 = new Race(
+                       new Long(002),
+                       "Race-Amomongo",
+                       "The Amomongo is a creature of Philippine mythology described as hairy, man-sized and ape-like with long nails. Source: http://en.wikipedia.org/wiki/Amomongo");
+
+    Race r3 = new Race(
+                       new Long(003),
+                       "Race-Chuchunya",
+                       "Chuchunya is a hominid cryptid rumoured to exist in Siberia, Russia. It has been described as six to seven feet tall and covered with dark hair. Source: http://en.wikipedia.org/wiki/Tjutjuna");
+
+    Race r4 = new Race(
+                       new Long(004),
+                       "Race-Yeti",
+                       "The Yeti or Abominable Snowman is a creature and an ape-like cryptid said to inhabit the Himalayan region of Nepal and Tibet. The names Yeti and Meh-Teh are commonly used by the people indigenous to the region,[1] and are part of their history and mythology. Stories of the Yeti first emerged as a facet of Western popular culture in the 19th century. Source: http://en.wikipedia.org/wiki/Yeti");
+
+    races.add(r1);
+    races.add(r2);
+    races.add(r3);
+    races.add(r4);
+    
+    //***
+    
   }
 
   public List<Class> getClasses() {
