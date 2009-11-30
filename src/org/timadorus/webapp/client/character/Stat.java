@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.user.client.ui.Button;
+
 public class Stat implements Serializable {
 
   String name;
@@ -14,7 +16,11 @@ public class Stat implements Serializable {
   
   Integer potStat;
   
-   private static final long serialVersionUID = 1L;
+  Button incButton = new Button("+");
+  
+  Button decButton = new Button("-");
+  
+  private static final long serialVersionUID = 1L;
 
   public Stat() {
 
@@ -59,4 +65,20 @@ public class Stat implements Serializable {
   public void setPotStat(Integer potStat) {
     this.potStat = potStat;
   }
+
+  public Button getIncButton() {
+    return incButton;
+  }
+
+  public void setIncButton(Button incButton) {
+    this.incButton = incButton;
+  }
+
+  public Button getDecButton() {
+    return decButton;
+  }
+
+  public void setDecButton(Button decButton) {
+    this.decButton = decButton;
+  }    
 }

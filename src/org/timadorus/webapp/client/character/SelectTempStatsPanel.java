@@ -51,8 +51,14 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   FlexTable selectStatGrid = new FlexTable();
 
   FlexTable buttonGrid = new FlexTable();
+  
+  FlexTable statPointGrid = new FlexTable();
 
   ListBox classListBox = new ListBox();
+  
+  int statCosts = 1;
+  
+  int statPoints = 750;
 
   public SelectTempStatsPanel(final TimadorusWebApp entry, final Character character) {
     super();
@@ -75,20 +81,30 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
     Image progressBar = new Image("media/images/progressbar_4.png");
 
-    selectStatGrid.setBorderWidth(0);
-    selectStatGrid.setStylePrimaryName("selectGrid");
+    statPointGrid.setBorderWidth(0);
+    statPointGrid.setStylePrimaryName("selectGrid");
     
+    statPointGrid.setWidget(0, 0, new Label("Verbleibende Punkte: "));
+    statPointGrid.setWidget(0, 1, new Label(String.valueOf(statPoints)));
+    
+    selectStatGrid.setBorderWidth(1);
+    selectStatGrid.setStylePrimaryName("selectGrid");    
     
     selectStatGrid.setWidget(0, 0, new Label("Stat"));
     selectStatGrid.setWidget(0, 1, new Label("Wert"));
-    selectStatGrid.setWidget(0, 2, new Label("Wert verringern"));
-    selectStatGrid.setWidget(0, 3, new Label("Wert erhöhen"));
+    selectStatGrid.setWidget(0, 2, new Label("Verringern"));
+    selectStatGrid.setWidget(0, 3, new Label("Steigern"));
     selectStatGrid.setWidget(0, 4, new Label("Kosten pro Punkt"));
+    
+    Label statCostsLabel = new Label(String.valueOf(statCosts));
     
     //show stats
     for (int i=0;i<12;i++){
       selectStatGrid.setWidget(i+1, 0, new Label(character.getStatList().get(i).getName()));
-      selectStatGrid.setWidget(i+1, 1, new Label(character.getStatList().get(i).getTempStat().toString()));      
+      selectStatGrid.setWidget(i+1, 1, new Label(character.getStatList().get(i).getTempStat().toString()));
+      selectStatGrid.setWidget(i+1, 2, character.getStatList().get(i).getDecButton());
+      selectStatGrid.setWidget(i+1, 3, character.getStatList().get(i).getIncButton());
+      selectStatGrid.setWidget(i+1, 4, statCostsLabel);
     }
     
     
@@ -107,6 +123,8 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: " + character.getFaction().getName()));
 
     panel.add(headline);
+    
+    panel.add(statPointGrid);
 
     panel.add(selectStatGrid);
 
