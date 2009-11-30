@@ -63,10 +63,9 @@ public class SelectStatsPanelS0 extends FormPanel implements HistoryStates {
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
-          loadSelectRacePanel();
-        } else if (event.getSource().equals(nextButton)) {
-          saveSelectedClass();
           loadSelectFactionPanel();
+        } else if (event.getSource().equals(nextButton)) {          
+          
         } 
 
       }
@@ -78,11 +77,8 @@ public class SelectStatsPanelS0 extends FormPanel implements HistoryStates {
 
     selectStatGrid.setBorderWidth(0);
     selectStatGrid.setStylePrimaryName("selectGrid");
-
     
-
-    Label statLabel = new Label("Statpunkte verteilen: ");
-
+    
     selectStatGrid.setWidget(0, 0, new Label("Stat"));
     selectStatGrid.setWidget(0, 1, new Label("Wert"));
     selectStatGrid.setWidget(0, 2, new Label("Wert verringern"));
@@ -130,18 +126,7 @@ public class SelectStatsPanelS0 extends FormPanel implements HistoryStates {
 
   }
 
-  public void saveSelectedClass() {
-    character.setCharClass(getSelectedClass());
-  }
-
-  public Class getSelectedClass() {
-    ListIterator<Class> classIterator = entry.getTestValues().getClasses().listIterator();
-    while (classIterator.hasNext()) {
-      Class selectedClass = classIterator.next();
-      if (selectedClass.getName().equals(classListBox.getValue(classListBox.getSelectedIndex()))) { return selectedClass; }
-    }
-    return null;
-  }
+  
 
   public void loadSelectRacePanel() {
     RootPanel.get("content").clear();
@@ -153,7 +138,7 @@ public class SelectStatsPanelS0 extends FormPanel implements HistoryStates {
     RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
   }
 
-  public static SelectStatsPanelS0 getSelectClassPanel(TimadorusWebApp entry, Character character) {
+  public static SelectStatsPanelS0 getSelectStatsPanelS0(TimadorusWebApp entry, Character character) {
     // if (characterPanel == null) {
     // characterPanel = new CharacterPanel(entry);
     // }

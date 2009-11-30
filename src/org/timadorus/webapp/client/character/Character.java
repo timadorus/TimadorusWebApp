@@ -49,7 +49,7 @@ public class Character implements Serializable {
   
   Faction faction;
 
-  List<Stat> statList;
+  List<Stat> statList = new ArrayList<Stat>();
 
   @Persistent
   boolean complete;
@@ -79,9 +79,8 @@ public class Character implements Serializable {
     addStat(s10);
     Stat s11 = new Stat("Empathie","Emp");
     addStat(s11);
-    Stat s12 = new Stat("Aussehen", "aussehen");
-    Random ran = new Random();
-    Integer randomInt = ran.nextInt(71) + 30;
+    Stat s12 = new Stat("Aussehen", "aussehen");    
+    int randomInt = (int) Math.floor((Math.random()*100)+1);
     s12.setTempStat(randomInt);
     addStat(s12);
   }

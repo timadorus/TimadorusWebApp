@@ -67,7 +67,7 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
         if (event.getSource().equals(prevButton)) {
           loadSelectClassPanel();
         } else if (event.getSource().equals(nextButton)) {
-          // Todo
+          loadSelectStatsPanelS0();
         }
 
       }
@@ -131,6 +131,11 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
   public void loadSelectClassPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character));
+  }
+  
+  public void loadSelectStatsPanelS0() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectStatsPanelS0.getSelectStatsPanelS0(entry, character));
   }
 
   public void loadSelectSkillPanel() {
