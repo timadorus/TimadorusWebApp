@@ -166,21 +166,30 @@ public class TestCharacterValues {
                        new Long(001),
                        "Race-Almas",
                        "The Almas, Mongolian for \"wild man,\" is a purported hominid cryptozoological species reputed to inhabit the Caucasus and Pamir Mountains of central Asia, and the Altai Mountains of southern Mongolia. Source: http://en.wikipedia.org/wiki/Almas_%28cryptozoology%29");
+    r1.addClass(c1);
+    
     Race r2 = new Race(
                        new Long(002),
                        "Race-Amomongo",
                        "The Amomongo is a creature of Philippine mythology described as hairy, man-sized and ape-like with long nails. Source: http://en.wikipedia.org/wiki/Amomongo");
+    r2.addClass(c2);
+    
 
     Race r3 = new Race(
                        new Long(003),
                        "Race-Chuchunya",
                        "Chuchunya is a hominid cryptid rumoured to exist in Siberia, Russia. It has been described as six to seven feet tall and covered with dark hair. Source: http://en.wikipedia.org/wiki/Tjutjuna");
 
+    r3.addClass(c3);
+    
+    
     Race r4 = new Race(
                        new Long(004),
                        "Race-Yeti",
                        "The Yeti or Abominable Snowman is a creature and an ape-like cryptid said to inhabit the Himalayan region of Nepal and Tibet. The names Yeti and Meh-Teh are commonly used by the people indigenous to the region,[1] and are part of their history and mythology. Stories of the Yeti first emerged as a facet of Western popular culture in the 19th century. Source: http://en.wikipedia.org/wiki/Yeti");
 
+    r4.addClass(c4);
+    
     races.add(r1);
     races.add(r2);
     races.add(r3);
