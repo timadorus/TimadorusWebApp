@@ -1,23 +1,45 @@
 .toonOfUserSmall {
-	background.color:	grey;
+	
+	background.color:788600;
 }
 
-a:active {
+a:active
+ {
 	font-weight:bold;
 }
 
-h1 {
+#information{
+ float:	center;
+ color: #777777;
+}
+
+
+body
+{
+	
+    text-align: center;
+    background-color: #A5DDF8;
+    background-repeat: no-repeat;
+    background-position: 100% 100%
+    background-attachment: fixed
+ }
+
+h1{
+
   font-size: 16px;
   font-weight: bold;
   color: #777777;
 }
 
-h2 {
+h2{
+
   font-size: 14px;
   font-weight: bold;
   color: #777777;
   margin: 0px;
 }
+
+
 
 .sendButton {
   display: block;
@@ -25,11 +47,18 @@ h2 {
 }
 
 #menu {
-	float:	left;
+	float: left;
+	width : 200px;
+	color: #008600;
 }
 
-#content {
-	float:	left;
+#content{
+  float: center;
+  width : 300px;
+  background.color: 008690;
+  padding:6px;
+  margin:0px
+	
 }
 
 #error {
@@ -41,6 +70,7 @@ h2 {
 	font-weight:bold;
 	
 }
+
 
 
 /** Most GWT widgets already have a style name defined */

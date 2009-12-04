@@ -33,9 +33,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	private final UserServiceAsync userService	= GWT.create(UserService.class);
 	private final ToonServiceAsync toonService	= GWT.create(ToonService.class);
 
-	private User loggedInUserObject			= null;
+	private User loggedInUserObject	= null;
 	private  Toon toonToCreateInUserObject=null;
-	private Set<Toon> toonsOfLoggedInUser	= new HashSet<Toon>();
+	private Set<Toon> toonsOfLoggedInUser = new HashSet<Toon>();
 
 	/**
 	 * Returns if the user is logged in
@@ -95,6 +95,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		RootPanel.get("head").clear();
 		RootPanel.get("head").add(new HTML("<h2>Timadorus Webapplication</h2>"));
 		RootPanel.get("menu").clear();
+
 		RootPanel.get("menu").add(new MenuPanel(this));
 	}
 
@@ -119,8 +120,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
 		if(historyToken.equals(setToonState))
 			RootPanel.get("content").add(new SetToonStatePanel(this));
-		//RootPanel.get("content").add(new HTML("Please  complet to create your Toon"));
-
+		
 		if (historyToken.equals(showUserProfileState))
 			RootPanel.get("content").add(new ShowUserProfilePanel(this));
 
@@ -132,8 +132,8 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		}
 
 
-
-		if (historyToken.equals(logoutUserState)) {
+		if (historyToken.equals(logoutUserState))
+		{
 			this.userLoggedIn = false;
 			this.loggedInUserObject = null;
 			this.toonsOfLoggedInUser = new HashSet<Toon>();

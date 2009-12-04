@@ -41,7 +41,8 @@ public class MenuPanel extends VerticalPanel {
 		 
 		 if(this.appReference.getUserLoggedIn()&& this.appReference.getToonCreateIn()==2)
 		 {
-			 this.add(new HTML("Toon was created "));
+			 System.out.println("hhhhhhhhhhhhhhhhh");
+			 this.add(new HTML("Toon is saved"));
 		 }
 		 
 	}

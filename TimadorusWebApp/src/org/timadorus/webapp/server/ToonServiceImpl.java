@@ -14,17 +14,20 @@ public class ToonServiceImpl extends RemoteServiceServlet implements ToonService
 	private final ToonDataBaseSource dataBaseSource = new ToonDataBaseSource();
 	
 	public Boolean createToon(Toon toonOb){
-		// if(!dataBaseSource.createToon(toonOb)){
-	    //System.out.println(" This Toon is already saved !!! Please enter new Toon");
-		
-		// }
+	
 	    return dataBaseSource.createToon(toonOb);
 		 
 		
 	
 	}
 
-	
+
+
+	public void setToonFeacture(Toon toonObj)
+	{
+	     dataBaseSource.setToonFeacture(toonObj);
+		
+	}
 
 	public Toon getToonInformation(String toonName)
 	{
@@ -50,4 +53,6 @@ public class ToonServiceImpl extends RemoteServiceServlet implements ToonService
 	public Set<Toon> getToonsOfUser(String _userName) {		
 		return dataBaseSource.getToonsOfUser(_userName);
 	}
+
+
 }

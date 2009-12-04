@@ -53,6 +53,8 @@ public class ToonDataBaseSource implements I_ToonDataBaseSource {
 
 	}
 
+	
+	
 	public Set<Toon> getToonsOfUser(String _userName) {
 		Set<Toon> toonsOfUser = new HashSet<Toon>();
 
@@ -81,6 +83,12 @@ public class ToonDataBaseSource implements I_ToonDataBaseSource {
 
 		return null;
 	}
+	
+	public void setToonFeacture(Toon toonname){
+	
+		
+	}
+	
 
 	public void commitToon(String toonName) {
 		// TODO Auto-generated method stub
@@ -91,4 +99,6 @@ public class ToonDataBaseSource implements I_ToonDataBaseSource {
 		// TODO Auto-generated method stub
 
 	}
+
+	
 }

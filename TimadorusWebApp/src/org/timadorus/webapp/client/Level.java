@@ -4,7 +4,7 @@
 
 	
 	
-   public class ToonClass implements Serializable 
+   public class Level implements Serializable 
 	{
 		
 	private String name=null;
@@ -13,12 +13,12 @@
 	
 	private static final long serialVersionUID = 1L;
 
-	public ToonClass() throws Exception {
+	public Level() throws Exception {
 		throw new Exception("No parameter set");
 	}
 	
 	
-	public ToonClass(String name, String description) {
+	public Level(String name, String description) {
 	
 	  this.name = name;
 	  this.description = description;
