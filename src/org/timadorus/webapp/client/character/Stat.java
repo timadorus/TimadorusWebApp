@@ -16,10 +16,6 @@ public class Stat implements Serializable {
   
   Integer potStat;
   
-  Button incButton = new Button("+");
-  
-  Button decButton = new Button("-");
-  
   private static final long serialVersionUID = 1L;
 
   public Stat() {
@@ -64,21 +60,5 @@ public class Stat implements Serializable {
 
   public void setPotStat(Integer potStat) {
     this.potStat = potStat;
-  }
-
-  public Button getIncButton() {
-    return incButton;
-  }
-
-  public void setIncButton(Button incButton) {
-    this.incButton = incButton;
-  }
-
-  public Button getDecButton() {
-    return decButton;
-  }
-
-  public void setDecButton(Button decButton) {
-    this.decButton = decButton;
-  }    
+  } 
 }

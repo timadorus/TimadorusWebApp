@@ -62,6 +62,16 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   List<Integer> tempStats = new ArrayList<Integer>();
 
+  List<Button> incStatButtons = new ArrayList<Button>();
+
+  List<Button> decStatButtons = new ArrayList<Button>();
+
+  List<Button> incTenStatButtons = new ArrayList<Button>();
+
+  List<Button> decTenStatButtons = new ArrayList<Button>();
+    
+  int i;
+
   public SelectTempStatsPanel(final TimadorusWebApp entry, final Character character) {
     super();
     this.entry = entry;
@@ -72,27 +82,34 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
           loadSelectFactionPanel();
-        } else if (event.getSource().equals(nextButton)) {
-        }
-        ListIterator<Stat> statIterator = character.getStatList().listIterator();
-        int i = 0;
-        while (statIterator.hasNext()) {
-          Stat stat = statIterator.next();
-          if (event.getSource().equals(stat.decButton)) {
-            System.out.print("while");
+        } else if (event.getSource().equals(nextButton)) {   
+        } else {
+        for (i=0;i < decStatButtons.size(); i++){
+          if (event.getSource().equals(decStatButtons.get(i))) {            
             decStat(i);
             selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-            selectStatGrid.setText(i + 1, 4, String.valueOf(getStatCosts(i)));
+            selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(i)));
             statPointGrid.setText(0, 1, String.valueOf(statPoints));
-          } else if (event.getSource().equals(stat.incButton)) {
-            incStat(i);
-            selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-            selectStatGrid.setText(i + 1, 4, String.valueOf(getStatCosts(i)));
-            statPointGrid.setText(0, 1, String.valueOf(statPoints));
+          } else if (event.getSource().equals(incStatButtons.get(i))){
+              incStat(i);
+              selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
+              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(i)));
+              statPointGrid.setText(0, 1, String.valueOf(statPoints));
+          } else if (event.getSource().equals(decTenStatButtons.get(i))){
+              for (int j=0;j<10;j++) { decStat(i); }
+              selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
+              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(i)));
+              statPointGrid.setText(0, 1, String.valueOf(statPoints));
+          } else if (event.getSource().equals(incTenStatButtons.get(i))){
+              for (int j=0;j<10;j++) { incStat(i); }
+              selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
+              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(i)));
+              statPointGrid.setText(0, 1, String.valueOf(statPoints));
           }
-          i++;
+          
         }
-
+        
+        }
       }
     }
 
@@ -110,19 +127,23 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     selectStatGrid.setStylePrimaryName("selectGrid");
 
     selectStatGrid.setWidget(0, 0, new Label("Stat"));
-    selectStatGrid.setWidget(0, 1, new Label("Wert"));
-    selectStatGrid.setWidget(0, 2, new Label("Verringern"));
-    selectStatGrid.setWidget(0, 3, new Label("Steigern"));
-    selectStatGrid.setWidget(0, 4, new Label("Kosten pro Punkt"));
+    selectStatGrid.setWidget(0, 1, new Label("Wert"));    
+    selectStatGrid.setWidget(0, 6, new Label("Kosten pro Punkt"));
 
     // show stats
     for (int i = 0; i < 11; i++) {
       tempStats.add(character.getStatList().get(i).getTempStat());
       selectStatGrid.setWidget(i + 1, 0, new Label(character.getStatList().get(i).getName()));
       selectStatGrid.setWidget(i + 1, 1, new Label(String.valueOf(tempStats.get(i))));
-      selectStatGrid.setWidget(i + 1, 2, character.getStatList().get(i).getDecButton());
-      selectStatGrid.setWidget(i + 1, 3, character.getStatList().get(i).getIncButton());
-      selectStatGrid.setText(i + 1, 4, String.valueOf(statCosts));
+      decStatButtons.add(new Button("-1"));
+      selectStatGrid.setWidget(i + 1, 2, decStatButtons.get(i));
+      incStatButtons.add(new Button("+1"));
+      selectStatGrid.setWidget(i + 1, 3, incStatButtons.get(i));
+      decTenStatButtons.add(new Button("-10"));
+      selectStatGrid.setWidget(i + 1, 4, decTenStatButtons.get(i));
+      incTenStatButtons.add(new Button("+10"));
+      selectStatGrid.setWidget(i + 1, 5, incTenStatButtons.get(i));      
+      selectStatGrid.setText(i + 1, 6, String.valueOf(statCosts));
     }
     tempStats.add(character.getStatList().get(11).getTempStat());
     selectStatGrid.setWidget(12, 0, new Label(character.getStatList().get(11).getName()));
@@ -161,11 +182,11 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
 
-    ListIterator<Stat> statIterator = character.getStatList().listIterator();
-    while (statIterator.hasNext()) {
-      Stat stat = statIterator.next();
-      stat.getDecButton().addClickHandler(handler);
-      stat.getIncButton().addClickHandler(handler);
+    for (i=0;i<incStatButtons.size();i++){
+      incStatButtons.get(i).addClickHandler(handler);
+      decStatButtons.get(i).addClickHandler(handler);
+      incTenStatButtons.get(i).addClickHandler(handler);
+      decTenStatButtons.get(i).addClickHandler(handler);
     }
 
   }
@@ -173,40 +194,39 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   public int getStatCosts(int i) {
     int stat = tempStats.get(i);
     int cost = 1;
-    if (stat > 89)
+    if (stat > 90)
       cost = 10;
-
     return cost;
   }
 
   public void incStat(int i) {
-    if ((tempStats.get(i)) <= 100) {
+    if ((tempStats.get(i)) < 100) {
       tempStats.set(i, (tempStats.get(i) + 1));
       decStatPoints(getStatCosts(i));
     } else
-      tempStats.set(i, 100);
+      System.out.print("maximal 100");
   }
 
   public void decStat(int i) {
-    if ((tempStats.get(i)) >= 30) {
+    if ((tempStats.get(i)) > 30) {
       tempStats.set(i, (tempStats.get(i) - 1));
       incStatPoints(getStatCosts(i));
     } else
-      tempStats.set(i, 30);
+      System.out.print("minimal 30");
   }
 
   public void incStatPoints(int costs) {
-    if (statPoints <= 750)
+    if (statPoints < 750)
       statPoints = statPoints + costs;
     else
-      statPoints = 750;
+      System.out.print("maximal 750");
   }
 
   public void decStatPoints(int costs) {
-    if (statPoints >= 0) {
+    if (statPoints > 0) {
       statPoints = statPoints - costs;
     } else
-      statPoints = 0;
+      System.out.print("minimal 0");
   }
 
   public void loadSelectFactionPanel() {
