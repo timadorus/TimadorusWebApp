@@ -58,7 +58,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   int statCosts = 1;
 
-  int statPoints = 750;
+  int statPoints = 420;
 
   List<Integer> tempStats = new ArrayList<Integer>();
 
@@ -69,8 +69,10 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   List<Button> incTenStatButtons = new ArrayList<Button>();
 
   List<Button> decTenStatButtons = new ArrayList<Button>();
-    
+
   int i;
+
+  boolean isReady = false;
 
   public SelectTempStatsPanel(final TimadorusWebApp entry, final Character character) {
     super();
@@ -82,34 +84,39 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
           loadSelectFactionPanel();
-        } else if (event.getSource().equals(nextButton)) {   
+        } else if (event.getSource().equals(nextButton)) {
         } else {
-        for (i=0;i < decStatButtons.size(); i++){
-          if (event.getSource().equals(decStatButtons.get(i))) {            
-            decStat(i);
-            selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-            selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(i)));
-            statPointGrid.setText(0, 1, String.valueOf(statPoints));
-          } else if (event.getSource().equals(incStatButtons.get(i))){
+          for (i = 0; i < decStatButtons.size(); i++) {
+            if (event.getSource().equals(decStatButtons.get(i))) {
+              decStat(i);
+              selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
+              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(tempStats.get(i) + 1)));
+              statPointGrid.setText(0, 1, String.valueOf(statPoints));
+            } else if (event.getSource().equals(incStatButtons.get(i))) {
               incStat(i);
               selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(i)));
+              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(tempStats.get(i) + 1)));
               statPointGrid.setText(0, 1, String.valueOf(statPoints));
-          } else if (event.getSource().equals(decTenStatButtons.get(i))){
-              for (int j=0;j<10;j++) { decStat(i); }
+            } else if (event.getSource().equals(decTenStatButtons.get(i))) {
+              for (int j = 0; j < 10; j++) {
+                decStat(i);
+              }
               selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(i)));
+              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(tempStats.get(i) + 1)));
               statPointGrid.setText(0, 1, String.valueOf(statPoints));
-          } else if (event.getSource().equals(incTenStatButtons.get(i))){
-              for (int j=0;j<10;j++) { incStat(i); }
+            } else if (event.getSource().equals(incTenStatButtons.get(i))) {
+              for (int j = 0; j < 10; j++) {
+                incStat(i);
+              }
               selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(i)));
+              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(tempStats.get(i) + 1)));
               statPointGrid.setText(0, 1, String.valueOf(statPoints));
+            }
+
           }
-          
+
         }
-        
-        }
+        setReadyStatus();
       }
     }
 
@@ -127,14 +134,18 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     selectStatGrid.setStylePrimaryName("selectGrid");
 
     selectStatGrid.setWidget(0, 0, new Label("Stat"));
-    selectStatGrid.setWidget(0, 1, new Label("Wert"));    
-    selectStatGrid.setWidget(0, 6, new Label("Kosten pro Punkt"));
+    selectStatGrid.setWidget(0, 1, new Label("Wert"));
+    selectStatGrid.setWidget(0, 2, new Label("-1"));
+    selectStatGrid.setWidget(0, 3, new Label("+1"));
+    selectStatGrid.setWidget(0, 4, new Label("-10"));
+    selectStatGrid.setWidget(0, 5, new Label("+10"));
+    selectStatGrid.setWidget(0, 6, new Label("Kosten für nächsten Punkt"));
 
     // show stats
     for (int i = 0; i < 11; i++) {
       tempStats.add(character.getStatList().get(i).getTempStat());
       selectStatGrid.setWidget(i + 1, 0, new Label(character.getStatList().get(i).getName()));
-      selectStatGrid.setWidget(i + 1, 1, new Label(String.valueOf(tempStats.get(i))));
+      selectStatGrid.setWidget(i + 1, 1, new Label(String.valueOf(tempStats.get(i))));      
       decStatButtons.add(new Button("-1"));
       selectStatGrid.setWidget(i + 1, 2, decStatButtons.get(i));
       incStatButtons.add(new Button("+1"));
@@ -142,7 +153,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       decTenStatButtons.add(new Button("-10"));
       selectStatGrid.setWidget(i + 1, 4, decTenStatButtons.get(i));
       incTenStatButtons.add(new Button("+10"));
-      selectStatGrid.setWidget(i + 1, 5, incTenStatButtons.get(i));      
+      selectStatGrid.setWidget(i + 1, 5, incTenStatButtons.get(i));
       selectStatGrid.setText(i + 1, 6, String.valueOf(statCosts));
     }
     tempStats.add(character.getStatList().get(11).getTempStat());
@@ -153,6 +164,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     buttonGrid.setWidth("350px");
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
+    nextButton.setEnabled(false);
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -182,7 +194,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
 
-    for (i=0;i<incStatButtons.size();i++){
+    for (i = 0; i < incStatButtons.size(); i++) {
       incStatButtons.get(i).addClickHandler(handler);
       decStatButtons.get(i).addClickHandler(handler);
       incTenStatButtons.get(i).addClickHandler(handler);
@@ -191,35 +203,34 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   }
 
-  public int getStatCosts(int i) {
-    int stat = tempStats.get(i);
+  public int getStatCosts(int currentStat) {
     int cost = 1;
-    if (stat > 90)
+    if (currentStat > 90)
       cost = 10;
     return cost;
   }
 
   public void incStat(int i) {
-    if ((tempStats.get(i)) < 100) {
+    if (((tempStats.get(i)) < 100) && (statPoints > 0)) {
+      decStatPoints(getStatCosts(tempStats.get(i) + 1));
       tempStats.set(i, (tempStats.get(i) + 1));
-      decStatPoints(getStatCosts(i));
     } else
       System.out.print("maximal 100");
   }
 
   public void decStat(int i) {
-    if ((tempStats.get(i)) > 30) {
+    if (((tempStats.get(i)) > 30) && (statPoints < 750)) {
+      incStatPoints(getStatCosts(tempStats.get(i)));
       tempStats.set(i, (tempStats.get(i) - 1));
-      incStatPoints(getStatCosts(i));
     } else
       System.out.print("minimal 30");
   }
 
   public void incStatPoints(int costs) {
-    if (statPoints < 750)
+    if (statPoints < 420)
       statPoints = statPoints + costs;
     else
-      System.out.print("maximal 750");
+      System.out.print("maximal 420");
   }
 
   public void decStatPoints(int costs) {
@@ -247,6 +258,15 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
                                 "<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können.</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie Fraktionen wählen können.</p>");
 
     return information;
+  }
+
+  public void setReadyStatus() {
+    if (statPoints == 0) {
+      isReady = true;
+    } else {
+      isReady = false;
+    }
+    nextButton.setEnabled(isReady);
   }
 
   public TimadorusWebApp getEntry() {
