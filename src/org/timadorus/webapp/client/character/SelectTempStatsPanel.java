@@ -69,13 +69,13 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   List<Integer> tempStats = new ArrayList<Integer>();
 
-  List<Button> incStatButtons = new ArrayList<Button>();
+  List<Image> incStatButtons = new ArrayList<Image>();
 
-  List<Button> decStatButtons = new ArrayList<Button>();
+  List<Image> decStatButtons = new ArrayList<Image>();
 
-  List<Button> incTenStatButtons = new ArrayList<Button>();
+  List<Image> incTenStatButtons = new ArrayList<Image>();
 
-  List<Button> decTenStatButtons = new ArrayList<Button>();
+  List<Image> decTenStatButtons = new ArrayList<Image>();
 
   List<HTML> statCostHTML = new ArrayList<HTML>();
 
@@ -131,7 +131,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
     }
 
-    HTML headline = new HTML("<h1>Stats verteilen</h1>");
+    HTML headline = new HTML("<h1>Temporäre Attribute verteilen</h1>");
 
     Image progressBar = new Image("media/images/progressbar_4.png");
 
@@ -160,13 +160,14 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       tempStats.add(character.getStatList().get(i).getTempStat());
       selectStatGrid.setWidget(i + 1, 0, new Label(character.getStatList().get(i).getName()));
       selectStatGrid.setWidget(i + 1, 1, new Label(String.valueOf(tempStats.get(i))));
-      decStatButtons.add(new Button("-1"));
+      decStatButtons.add(new Image("/media/images/minus1.png"));
       selectStatGrid.setWidget(i + 1, 2, decStatButtons.get(i));
-      incStatButtons.add(new Button("+1"));
+      incStatButtons.add(new Image("/media/images/minus10.png"));
+      incStatButtons.get(i).setStyleName("plus1Button");
       selectStatGrid.setWidget(i + 1, 3, incStatButtons.get(i));
-      decTenStatButtons.add(new Button("-10"));
+      decTenStatButtons.add(new Image("/media/images/plus1.png"));
       selectStatGrid.setWidget(i + 1, 4, decTenStatButtons.get(i));
-      incTenStatButtons.add(new Button("+10"));
+      incTenStatButtons.add(new Image("/media/images/plus10.png"));
       selectStatGrid.setWidget(i + 1, 5, incTenStatButtons.get(i));
       statCostHTML.add(new HTML(String.valueOf(statCosts)));
       statCostHTML.get(i).setStyleName("labelColorGreen");
@@ -198,11 +199,11 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
     panel.add(statPointGrid);
 
-    panel.add(selectStatGrid);
-
-    panel.add(readyLabel);
+    panel.add(selectStatGrid);    
 
     panel.add(buttonGrid);
+    
+    panel.add(readyLabel);
 
     RootPanel.get("information").clear();
     RootPanel.get("information").add(getInformation());

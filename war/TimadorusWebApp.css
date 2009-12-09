@@ -19,8 +19,8 @@
 }
 
 .selectGrid {
-	padding-top: 20px;
-	padding-bottom: 30px;	
+	margin-top: 20px;
+	margin-bottom: 30px;	
 	text-align: center;
 }
 
@@ -31,7 +31,6 @@
 .labelColorGreen {
 	color: #00CD00;
 }
-
 
 body {
     background: red;
