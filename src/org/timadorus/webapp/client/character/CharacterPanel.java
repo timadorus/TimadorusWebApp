@@ -128,6 +128,7 @@ public class CharacterPanel extends FormPanel implements HistoryStates {
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+    panel.setWidth("100%");
 
     panel.add(headline);
     panel.add(infotext);

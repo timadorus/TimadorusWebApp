@@ -2,7 +2,6 @@
 .gwt-PasswordTextBox {
 	width:150px;
 }
-
 .formPanel {
 	margin:5px;
 }
@@ -19,11 +18,18 @@
 	padding: 20px;
 }
 
-
 .selectGrid {
 	padding-top: 20px;
 	padding-bottom: 30px;	
 	text-align: center;
+}
+
+.labelColorRed {
+	color: #FF0000;
+}
+
+.labelColorGreen {
+	color: #00CD00;
 }
 
 
@@ -49,6 +55,11 @@ body {
     font-weight: bold;
     font-size: medium;
     text-decoration: underline;
+}
+
+#content h2{
+	font-size: medium;
+	font-weight: bold;
 }
 
 #information {

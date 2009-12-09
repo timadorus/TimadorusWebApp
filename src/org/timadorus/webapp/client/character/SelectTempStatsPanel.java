@@ -42,6 +42,13 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   final Character character;
 
+  HTML statPointLabel = new HTML("<h2>Verteilbare Punkte:</h2>");
+
+  HTML statPointViewLabel = new HTML();
+
+  HTML readyLabel = new HTML(
+                             "Bevor sie ihre Charaktererstellung fortsetzen können, vergeben sie ihre freien Attributspunkte");
+
   Button nextButton = new Button("weiter");
 
   Button prevButton = new Button("zurück");
@@ -70,6 +77,8 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   List<Button> decTenStatButtons = new ArrayList<Button>();
 
+  List<HTML> statCostHTML = new ArrayList<HTML>();
+
   int i;
 
   boolean isReady = false;
@@ -89,35 +98,37 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
           for (i = 0; i < decStatButtons.size(); i++) {
             if (event.getSource().equals(decStatButtons.get(i))) {
               decStat(i);
-              selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(tempStats.get(i) + 1)));
-              statPointGrid.setText(0, 1, String.valueOf(statPoints));
             } else if (event.getSource().equals(incStatButtons.get(i))) {
               incStat(i);
-              selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(tempStats.get(i) + 1)));
-              statPointGrid.setText(0, 1, String.valueOf(statPoints));
             } else if (event.getSource().equals(decTenStatButtons.get(i))) {
               for (int j = 0; j < 10; j++) {
                 decStat(i);
               }
-              selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(tempStats.get(i) + 1)));
-              statPointGrid.setText(0, 1, String.valueOf(statPoints));
             } else if (event.getSource().equals(incTenStatButtons.get(i))) {
               for (int j = 0; j < 10; j++) {
                 incStat(i);
               }
-              selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-              selectStatGrid.setText(i + 1, 6, String.valueOf(getStatCosts(tempStats.get(i) + 1)));
-              statPointGrid.setText(0, 1, String.valueOf(statPoints));
             }
+            statPointViewLabel.setHTML("<h2>" + String.valueOf(statPoints) + "</h2>");
+            selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
+            statCostHTML.get(i).setHTML(String.valueOf(getStatCosts(tempStats.get(i) + 1)));
 
+            setReadyStatus();
+          }
+          // handle StatCostsLabelColor for each increase/decrease event
+          for (i = 0; i < decStatButtons.size(); i++) {
+            int nextCost = getStatCosts(tempStats.get(i) + 1);
+            if ((nextCost > statPoints) || ((tempStats.get(i)) == 100)) {
+              statCostHTML.get(i).setStyleName("labelColorRed");
+            } else {
+              statCostHTML.get(i).setStyleName("labelColorGreen");
+            }
           }
 
         }
-        setReadyStatus();
+
       }
+
     }
 
     HTML headline = new HTML("<h1>Stats verteilen</h1>");
@@ -125,27 +136,30 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     Image progressBar = new Image("media/images/progressbar_4.png");
 
     statPointGrid.setBorderWidth(0);
-    statPointGrid.setStylePrimaryName("selectGrid");
 
-    statPointGrid.setWidget(0, 0, new Label("Verbleibende Punkte: "));
-    statPointGrid.setWidget(0, 1, new Label(String.valueOf(statPoints)));
+    statPointViewLabel.setHTML("<h2>" + String.valueOf(statPoints) + "<h2>");
+    statPointViewLabel.setStyleName("labelColorGreen");
+    statPointLabel.setStyleName("labelColorGreen");
+
+    statPointGrid.setWidget(0, 0, statPointLabel);
+    statPointGrid.setWidget(0, 1, statPointViewLabel);
 
     selectStatGrid.setBorderWidth(1);
-    selectStatGrid.setStylePrimaryName("selectGrid");
+    selectStatGrid.setStyleName("selectGrid");
 
-    selectStatGrid.setWidget(0, 0, new Label("Stat"));
-    selectStatGrid.setWidget(0, 1, new Label("Wert"));
+    selectStatGrid.setWidget(0, 0, new Label("Attribut"));
+    selectStatGrid.setWidget(0, 1, new Label("Stufe"));
     selectStatGrid.setWidget(0, 2, new Label("-1"));
     selectStatGrid.setWidget(0, 3, new Label("+1"));
     selectStatGrid.setWidget(0, 4, new Label("-10"));
     selectStatGrid.setWidget(0, 5, new Label("+10"));
-    selectStatGrid.setWidget(0, 6, new Label("Kosten für nächsten Punkt"));
+    selectStatGrid.setWidget(0, 6, new Label("Kosten"));
 
     // show stats
     for (int i = 0; i < 11; i++) {
       tempStats.add(character.getStatList().get(i).getTempStat());
       selectStatGrid.setWidget(i + 1, 0, new Label(character.getStatList().get(i).getName()));
-      selectStatGrid.setWidget(i + 1, 1, new Label(String.valueOf(tempStats.get(i))));      
+      selectStatGrid.setWidget(i + 1, 1, new Label(String.valueOf(tempStats.get(i))));
       decStatButtons.add(new Button("-1"));
       selectStatGrid.setWidget(i + 1, 2, decStatButtons.get(i));
       incStatButtons.add(new Button("+1"));
@@ -154,11 +168,15 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       selectStatGrid.setWidget(i + 1, 4, decTenStatButtons.get(i));
       incTenStatButtons.add(new Button("+10"));
       selectStatGrid.setWidget(i + 1, 5, incTenStatButtons.get(i));
-      selectStatGrid.setText(i + 1, 6, String.valueOf(statCosts));
+      statCostHTML.add(new HTML(String.valueOf(statCosts)));
+      statCostHTML.get(i).setStyleName("labelColorGreen");
+      selectStatGrid.setWidget(i + 1, 6, statCostHTML.get(i));
     }
     tempStats.add(character.getStatList().get(11).getTempStat());
     selectStatGrid.setWidget(12, 0, new Label(character.getStatList().get(11).getName()));
     selectStatGrid.setWidget(12, 1, new Label(String.valueOf(tempStats.get(11))));
+
+    readyLabel.setStyleName("labelColorRed");
 
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
@@ -168,6 +186,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+    panel.setWidth("100%");
 
     panel.add(progressBar);
     panel.add(new Label("Schritt 4 von 6"));
@@ -180,6 +199,8 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     panel.add(statPointGrid);
 
     panel.add(selectStatGrid);
+
+    panel.add(readyLabel);
 
     panel.add(buttonGrid);
 
@@ -211,7 +232,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   }
 
   public void incStat(int i) {
-    if (((tempStats.get(i)) < 100) && (statPoints > 0)) {
+    if (((tempStats.get(i)) < 100) && (statPoints >= (getStatCosts(tempStats.get(i) + 1)))) {
       decStatPoints(getStatCosts(tempStats.get(i) + 1));
       tempStats.set(i, (tempStats.get(i) + 1));
     } else
@@ -255,16 +276,26 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   private static final HTML getInformation() {
     HTML information = new HTML(
-                                "<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können.</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie Fraktionen wählen können.</p>");
+                                "<h1>Attribute Verteilen</h1><p>Hier können sie die Attribute ihres Charakteres anpassen. Ihnen stehen dafür 420 freie Punkte zur Verfügung.</p><p>Jeder Attributspunkt bis einschließlich Stufe 90 kostet sie einen freien Punkt. Ab Stufe 90 zahlen sie 10 freie Punkte");
 
     return information;
   }
 
+  // sets isReady and colors
   public void setReadyStatus() {
     if (statPoints == 0) {
       isReady = true;
+      statPointLabel.setStyleName("labelColorRed");
+      statPointViewLabel.setStyleName("labelColorRed");
+      readyLabel.setHTML("Sie haben ihre gesamten Punkte Verteilt und können fortfahren");
+      readyLabel.setStyleName("labelColorGreen");
     } else {
       isReady = false;
+      statPointLabel.setStyleName("labelColorGreen");
+      statPointViewLabel.setStyleName("labelColorGreen");
+      readyLabel
+          .setHTML("Bevor sie ihre Charaktererstellung fortsetzen können, vergeben sie ihre freien Attributspunkte");
+      readyLabel.setStyleName("labelColorRed");
     }
     nextButton.setEnabled(isReady);
   }

@@ -52,6 +52,8 @@ public class CharacterReadyPanel extends FormPanel implements HistoryStates {
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+    panel.setWidth("100%");
+    
     panel.add(congratulationLabel);
 
     RootPanel.get("information").clear();
@@ -59,6 +61,7 @@ public class CharacterReadyPanel extends FormPanel implements HistoryStates {
 
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
+    
   }
 
   public static CharacterReadyPanel getCharacterReadyPanel(TimadorusWebApp entry, Character character) {
