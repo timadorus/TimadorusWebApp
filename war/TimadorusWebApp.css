@@ -32,6 +32,11 @@
 	color: #00CD00;
 }
 
+.underlinedText {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
 body {
     background: red;
 }
