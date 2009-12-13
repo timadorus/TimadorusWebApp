@@ -10,6 +10,7 @@ import java.util.Dictionary;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
@@ -19,6 +20,7 @@ import javax.jdo.annotations.PrimaryKey;
  * @author maddin
  * 
  */
+@PersistenceCapable
 public class Race implements Serializable {
 
   /**
@@ -36,8 +38,9 @@ public class Race implements Serializable {
   @Persistent
   String description;
   
+  @Persistent
   List<Class> availableClasses = new ArrayList<Class>();
-  
+  @Persistent
   List<Faction> availableFactions = new ArrayList<Faction>(); 
 
   public Race() {

@@ -6,6 +6,7 @@ import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.LoginService;
 import org.timadorus.webapp.server.RegisteredUserList;
 
+import com.google.appengine.api.users.UserService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
@@ -15,6 +16,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
   private static RegisteredUserList userList = RegisteredUserList.getInstance();
 
   public String login(User tmpUser) {
+    userList.addC();
     System.out.println("Login aufgerufen");
     if (tmpUser == null) { return null; }
     if (userList.isValid(tmpUser)) {

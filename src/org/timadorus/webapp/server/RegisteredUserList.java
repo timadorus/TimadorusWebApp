@@ -4,13 +4,19 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import javax.jdo.Extent;
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Query;
+import javax.jdo.*;
+
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+
+
 
 import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.client.character.ContactInfo;
+import org.timadorus.webapp.client.character.WriteEmpl;
+
+import com.google.appengine.api.datastore.KeyFactory;
 
 public class RegisteredUserList {
 
@@ -132,8 +138,12 @@ public class RegisteredUserList {
    * @return false, wenn Username bereits vergeben, true sonst
    */
   public Boolean addUser(User user) {
+    
+   
+    
     if (usernameAvailable(user.getUsername())) {
       PersistenceManager pm = PMF.getPersistenceManager();
+     pm = PMF.getPersistenceManager();
       user.setActive(true);
       pm.makePersistent(user);
       System.out.println("Datastore: '" + user.getDisplayname() + "' hinzugefügt...");
@@ -142,6 +152,40 @@ public class RegisteredUserList {
     }
     return false;
   }
+  
+  public static void addC(){
+    
+    ContactInfo co1=new ContactInfo();
+    co1.setStreetAddress("MyStreet!!!");
+    WriteEmpl e1=new WriteEmpl();
+    Key key = KeyFactory.createKey(WriteEmpl.class.getSimpleName(), 43234);
+
+    e1.setMail("A1@1.de");
+    e1.setContactInfo(co1);
+    
+    WriteEmpl e2= new WriteEmpl();
+    e2.setMail("A2@2.de");
+    
+    
+    PersistenceManager pm = PMF.getPersistenceManager();
+//    pm.makePersistent(e1);
+//    pm.makePersistent(e2);
+//    
+//    WriteEmpl e = pm.getObjectById(WriteEmpl.class, key);
+//    
+//    System.out.println(e.getMail());
+    
+    Character c=new Character();
+    
+//    pm.makePersistent(c);
+    pm.close();
+    
+    
+    
+//    getC("MyStreet!!!");
+    
+    
+  }
 
   public void print() {
     System.out.println("Derzeit geladene User:");
@@ -149,4 +193,22 @@ public class RegisteredUserList {
       System.out.println(user);
     }
   }
+  
+//  public static String getC(String s){
+//    s=s.toLowerCase();
+//    PersistenceManager pm = PMF.getPersistenceManager();
+//
+//    Extent<WriteEmpl> extent = pm.getExtent(WriteEmpl.class, true);
+//
+//    Query query = pm.newQuery(extent, "username == "+s);
+//    query.declareParameters("String name");
+//
+//    Iterator<WriteEmpl> iterator = ((Collection<WriteEmpl>) query.execute(s)).iterator();
+//    if (iterator.hasNext()) {
+//      WriteEmpl found = iterator.next();
+//      System.out.println("YEAH!!!! Datastore: '" + found.getContactInfo().getStreetAddress() + "' wurde geladen...");
+//      return s;
+//    }else return null;
+//    
+//  }
 }

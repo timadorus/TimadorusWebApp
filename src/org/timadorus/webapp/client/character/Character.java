@@ -42,10 +42,13 @@ public class Character implements Serializable {
   @Persistent
   Race race;
 
+  @Persistent
   Class charClass;
   
+  @Persistent
   Faction faction;
 
+  @Persistent(mappedBy="character")
   List<Stat> statList = new ArrayList<Stat>();
 
   @Persistent
