@@ -95,11 +95,11 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
 
               // Show available Classes
               RootPanel.get("information").add(new HTML("<h2>Wählbare Klassen</h2>"));
-              ListIterator<Class> classIterator = newRace.getAvailableClasses().listIterator();
+              ListIterator<CClass> classIterator = newRace.getAvailableClasses().listIterator();
               String availableClasses = new String("<ul>");
               String nextClass = new String();
               while (classIterator.hasNext()) {
-                Class newClass = (Class) classIterator.next();
+                CClass newClass = (CClass) classIterator.next();
                 nextClass = newClass.getName();
                 availableClasses = availableClasses + "<li>" + nextClass + "</li>";
               }
@@ -109,17 +109,17 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
               // Show available Factions
               RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
               ListIterator<Faction> factionIterator = newRace.getAvailableFactions().listIterator();
-              String availableFactions = new String("<ul>");
+              String availableFactions4 = new String("<ul>");
               String nextFaction = new String();
               while (factionIterator.hasNext()) {
                 Faction newFaction = (Faction) factionIterator.next();
                 nextFaction = newFaction.getName();
                 if (newRace.getAvailableFactions().contains(newFaction)) {
-                  availableFactions = availableFactions + "<li>" + nextFaction + "</li>";
+                  availableFactions4 = availableFactions4 + "<li>" + nextFaction + "</li>";
                 }
               }
-              availableFactions = availableFactions + "</ul>";
-              RootPanel.get("information").add(new HTML(availableFactions));
+              availableFactions4 = availableFactions4 + "</ul>";
+              RootPanel.get("information").add(new HTML(availableFactions4));
 
             }
           }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TestCharacterValues {
   
-  List<Class> classes = new ArrayList<Class>();
+  List<CClass> classes = new ArrayList<CClass>();
   
   List<Race> races = new ArrayList<Race>();
   
@@ -58,7 +58,7 @@ public class TestCharacterValues {
     factions.add(fac8);
     
     //create testclasses   
-    Class class1 = new Class();
+    CClass class1 = new CClass();
     class1.setName("Gärtner");
     class1.setDescription("Der Garten ist dein Leben. Keine Straßen, keine Autos, kein Lärm. Nur Bäume und Gräser und so.");
     class1.addFaction(fac8);
@@ -67,7 +67,7 @@ public class TestCharacterValues {
     class1.addFaction(fac4);
     classes.add(class1);
     
-    Class class2 = new Class();
+    CClass class2 = new CClass();
     class2.setName("Hühnerdieb");
     class2.setDescription("Hühnerdiebe sind enorm schnelle Viecher, die vorwiegen in Hühnerstellen rumhängen oder an Grillimbissen");
     class2.addFaction(fac1);
@@ -75,7 +75,7 @@ public class TestCharacterValues {
     class2.addFaction(fac4);
     classes.add(class2);
     
-    Class class3 = new Class();
+    CClass class3 = new CClass();
     class3.setName("Söldner");
     class3.setDescription("Geld, Blut, das wars");
     class3.addFaction(fac7);
@@ -83,7 +83,7 @@ public class TestCharacterValues {
     class3.addFaction(fac4);
     classes.add(class3);
     
-    Class class4 = new Class();
+    CClass class4 = new CClass();
     class4.setName("Abmahnungsanwalt");
     class4.setDescription("ROFLROFLPWNED");
     class4.addFaction(fac7);
@@ -91,7 +91,7 @@ public class TestCharacterValues {
     class4.addFaction(fac4);
     classes.add(class4);
         
-    Class class5 = new Class();
+    CClass class5 = new CClass();
     class5.setName("Pilot");
     class5.setDescription("Über den wolken, blablubb.");
     class5.addFaction(fac7);
@@ -99,7 +99,7 @@ public class TestCharacterValues {
     class5.addFaction(fac4);
     classes.add(class5);
     
-    Class class6 = new Class();
+    CClass class6 = new CClass();
     class6.setName("Informatiker");
     class6.setDescription("Du schreibst Stundenlang testtexte für ne webapp.");
     class6.addFaction(fac7);
@@ -107,7 +107,7 @@ public class TestCharacterValues {
     class6.addFaction(fac4);
     classes.add(class6);
     
-    Class class7 = new Class();
+    CClass class7 = new CClass();
     class7.setName("Drücker");
     class7.setDescription("Ja, du hörst richtig. Und nun ab zur nächsten Tür - Geld ranschaffen!");
     class7.addFaction(fac7);
@@ -117,20 +117,20 @@ public class TestCharacterValues {
     
     
   //M**
-    Class c1 = new Class(
+    CClass c1 = new CClass(
                          "Capitalist class",
                          "Top-level executives, high-rung politicians, heirs. Ivy League education common. Source: http://en.wikipedia.org/wiki/Social_class");
     c1.addFaction(fac4);
 
-    Class c2 = new Class(
+    CClass c2 = new CClass(
                          "Upper middle class",
                          "Highly educated (often with graduate degrees), most commonly salaried, professionals and middle management with large work autonomy. Source: http://en.wikipedia.org/wiki/Social_class");
     c2.addFaction(fac4);
-    Class c3 = new Class(
+    CClass c3 = new CClass(
                          "Working class",
                          "Clerical and most blue collar workers whose work is highly routinized. Standard of living varies depending on number of income earners, but is commonly just adequate. High school education. Source: http://en.wikipedia.org/wiki/Social_class");
     c3.addFaction(fac4);
-    Class c4 = new Class(
+    CClass c4 = new CClass(
                          "Underclass",
                          "Those with limited or no participation in the labor force. Reliant on government transfers. Some high school education. Source: http://en.wikipedia.org/wiki/Social_class");
     c4.addFaction(fac4);
@@ -257,11 +257,11 @@ public class TestCharacterValues {
     this.factions = factions;
   }
 
-  public List<Class> getClasses() {
+  public List<CClass> getClasses() {
     return classes;
   }
 
-  public void setClasses(List<Class> classes) {
+  public void setClasses(List<CClass> classes) {
     this.classes = classes;
   }
 

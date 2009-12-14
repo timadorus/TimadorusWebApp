@@ -11,9 +11,12 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class CreateCharacterServiceImpl extends RemoteServiceServlet implements CreateCharacterService {
 
   /**
+   * 
+   */
+  private static final long serialVersionUID = 2463839761006931303L;
+  /**
    * character ff charakter
    */
-  private static final long serialVersionUID = 1L;
   
   private static final PersistenceManagerFactory PMF =
     JDOHelper.getPersistenceManagerFactory("transactions-optional");
@@ -22,7 +25,7 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
 
   @Override
   public Character createCharacter(Character name) {
-    Character char1 = new Character();
+    Character char1 = Character.getInstance();
     return char1;
   }
 }

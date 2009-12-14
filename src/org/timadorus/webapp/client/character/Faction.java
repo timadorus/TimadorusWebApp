@@ -3,17 +3,22 @@ package org.timadorus.webapp.client.character;
 import java.io.Serializable;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+@PersistenceCapable
 public class Faction implements Serializable {
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -5760923481329375866L;
 
   /**
 	 * 
 	 */
-  private static final long serialVersionUID = 1L;
 
-  @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   Long fractionID;
 
@@ -22,6 +27,9 @@ public class Faction implements Serializable {
 
   @Persistent
   String description;
+  
+  @Persistent ////braucht JDO für 1-to-n Relationship, beginnend von Race-Klasse
+  Race race;
 
   Faction() {
     super();
@@ -50,5 +58,14 @@ public class Faction implements Serializable {
   public void setDescription(String description) {
     this.description = description;
   }
+
+  public Race getRace() {
+    return race;
+  }
+
+  public void setRace(Race race) {
+    this.race = race;
+  }
+  
 
 }

@@ -8,7 +8,7 @@ import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.character.SelectFactionPanel;
-import org.timadorus.webapp.client.character.Class;
+import org.timadorus.webapp.client.character.CClass;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;

@@ -165,7 +165,7 @@ public class CharacterPanel extends FormPanel implements HistoryStates {
   
   public void loadSelectRacePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, (new Character())));
+    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, (Character.getInstance())));
   }
 
   public static CharacterPanel getCharacterPanel(TimadorusWebApp entry) {

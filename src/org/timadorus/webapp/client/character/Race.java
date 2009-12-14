@@ -24,11 +24,14 @@ import javax.jdo.annotations.PrimaryKey;
 public class Race implements Serializable {
 
   /**
+   * 
+   */
+  private static final long serialVersionUID = 1841788742607089967L;
+
+  /**
 	 * 
 	 */
-  private static final long serialVersionUID = 1L;
 
-  @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   Long raceID;
 
@@ -38,10 +41,11 @@ public class Race implements Serializable {
   @Persistent
   String description;
   
-  @Persistent
-  List<Class> availableClasses = new ArrayList<Class>();
-  @Persistent
-  List<Faction> availableFactions = new ArrayList<Faction>(); 
+  @Persistent(mappedBy="race")
+  List<CClass> availableClasses = new ArrayList<CClass>();
+  
+  @Persistent(mappedBy="race")
+  List<Faction> availableFactions2 = new ArrayList<Faction>(); 
 
   public Race() {
     super();
@@ -79,24 +83,24 @@ public class Race implements Serializable {
     this.description = description;
   }
   
-  public List<Class> getAvailableClasses() {
+  public List<CClass> getAvailableClasses() {
     return availableClasses;
   }
   
-  public void setAvailableClasses(List<Class> availableClasses) {
+  public void setAvailableClasses(List<CClass> availableClasses) {
     this.availableClasses = availableClasses;
   }
   
-  public void addClass(Class newClass){
+  public void addClass(CClass newClass){
     availableClasses.add(newClass);    
   }
   
   public List<Faction> getAvailableFactions(){
-    return availableFactions;
+    return availableFactions2;
   }
   
   public void addFaction(Faction faction){
-    availableFactions.add(faction);
+    availableFactions2.add(faction);
   }
   
   

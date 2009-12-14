@@ -16,11 +16,15 @@ import javax.jdo.annotations.PrimaryKey;
 public class Profession implements Serializable {
 
   /**
+   * 
+   */
+  private static final long serialVersionUID = 3930555680427575279L;
+
+  /**
 	 * 
 	 */
-  private static final long serialVersionUID = 1L;
 
-  @PrimaryKey
+  
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   Long rasseID;
 

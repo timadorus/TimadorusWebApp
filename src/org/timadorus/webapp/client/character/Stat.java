@@ -12,18 +12,26 @@ import com.google.gwt.user.client.ui.Button;
 @PersistenceCapable
 public class Stat implements Serializable {
   
-  @Persistent
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -7796504950459320478L;
+
+  @Persistent        //braucht JDO für 1-to-n Relationship, beginnend von Character-Klasse
   Character character;
 
+  @Persistent
   String name;
 
+  @Persistent
   String description;
   
+  @Persistent
   Integer tempStat;
   
+  @Persistent
   Integer potStat;
   
-  private static final long serialVersionUID = 1L;
 
   public Stat() {
 

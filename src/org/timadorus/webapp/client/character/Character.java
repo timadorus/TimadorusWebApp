@@ -22,9 +22,13 @@ import java.util.Random;
 public class Character implements Serializable {
 
   /**
+   * 
+   */
+  private static final long serialVersionUID = -5074030667922748006L;
+
+  /**
 	 * 
 	 */
-  private static final long serialVersionUID = 1L;
 
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -43,47 +47,88 @@ public class Character implements Serializable {
   Race race;
 
   @Persistent
-  Class charClass;
+  CClass charClass;
   
   @Persistent
   Faction faction;
 
   @Persistent(mappedBy="character")
-  List<Stat> statList = new ArrayList<Stat>();
+  List<Stat> statList;
 
   @Persistent
   boolean complete;
 
-  public Character() {
+  private Character() {
     super();
 
+//    Stat s1 = new Stat("Konstitution", "Konsti");
+//    addStat(s1);
+//    Stat s2 = new Stat("Agilität", "Agi");
+//    addStat(s2);
+//    Stat s3 = new Stat("Selbstdisziplin", "Diszi");
+//    addStat(s3);
+//    Stat s4 = new Stat("Schlußfolgern","Schlußfolgern");
+//    addStat(s4);
+//    Stat s5 = new Stat("Erinnerungsvermögen","Memory");
+//    addStat(s5);
+//    Stat s6 = new Stat("Glück","Lucky luck");
+//    addStat(s6);
+//    Stat s7 = new Stat("Stärke","Strength");
+//    addStat(s7);
+//    Stat s8 = new Stat("Schnelligkeit","SChnelligkeit");
+//    addStat(s8);
+//    Stat s9 = new Stat("Intuition","Intuition");
+//    addStat(s9);
+//    Stat s10 = new Stat("Präsenz","Präsenz");
+//    addStat(s10);
+//    Stat s11 = new Stat("Empathie","Emp");
+//    addStat(s11);
+//    Stat s12 = new Stat("Aussehen", "aussehen");    
+//    int randomInt = (int) Math.floor((Math.random()*100)+1);
+//    s12.setTempStat(randomInt);
+//    addStat(s12);
+  }
+  
+  void fillStats(){
+
     Stat s1 = new Stat("Konstitution", "Konsti");
-    addStat(s1);
+    statList=new ArrayList<Stat>();
+    statList.add(s1);
     Stat s2 = new Stat("Agilität", "Agi");
-    addStat(s2);
+    statList.add(s2);
     Stat s3 = new Stat("Selbstdisziplin", "Diszi");
-    addStat(s3);
+    statList.add(s3);
     Stat s4 = new Stat("Schlußfolgern","Schlußfolgern");
-    addStat(s4);
+    statList.add(s4);
     Stat s5 = new Stat("Erinnerungsvermögen","Memory");
-    addStat(s5);
+    statList.add(s5);
     Stat s6 = new Stat("Glück","Lucky luck");
-    addStat(s6);
+    statList.add(s6);
     Stat s7 = new Stat("Stärke","Strength");
-    addStat(s7);
-    Stat s8 = new Stat("Schnelligkeit","SChnelligkeit");
-    addStat(s8);
+    statList.add(s7);
+    Stat s8 = new Stat("Schnelligkeit","Schnelligkeit");
+    statList.add(s8);
     Stat s9 = new Stat("Intuition","Intuition");
-    addStat(s9);
+    statList.add(s9);
     Stat s10 = new Stat("Präsenz","Präsenz");
-    addStat(s10);
+    statList.add(s10);
     Stat s11 = new Stat("Empathie","Emp");
-    addStat(s11);
+    statList.add(s11);
     Stat s12 = new Stat("Aussehen", "aussehen");    
     int randomInt = (int) Math.floor((Math.random()*100)+1);
     s12.setTempStat(randomInt);
-    addStat(s12);
+    statList.add(s12);
+      
+    
   }
+  
+  public static Character getInstance(){
+    
+    Character character=new Character();
+    character.fillStats();
+    return character;
+    
+  } 
 
   public String getName() {
     return name;
@@ -126,11 +171,11 @@ public class Character implements Serializable {
     this.characterID = characterID;
   }
 
-  public Class getCharClass() {
+  public CClass getCharClass() {
     return charClass;
   }
 
-  public void setCharClass(Class charClass) {
+  public void setCharClass(CClass charClass) {
     this.charClass = charClass;
   }
 

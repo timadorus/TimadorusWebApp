@@ -69,10 +69,10 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
           loadSelectFactionPanel();
         } else if (event.getSource().equals(selectClassGrid)) {
           String className = classListBox.getValue(classListBox.getSelectedIndex());
-          ListIterator<Class> classIterator = entry.getTestValues().getClasses().listIterator();
+          ListIterator<CClass> classIterator = entry.getTestValues().getClasses().listIterator();
           RootPanel.get("information").clear();
           while (classIterator.hasNext()) {
-            Class newClass = (Class) classIterator.next();
+            CClass newClass = (CClass) classIterator.next();
             if (newClass.getName().equals(className)) {
               RootPanel.get("information").add(
                                                new HTML("<h1>" + newClass.getName() + "</h1><p>"
@@ -81,17 +81,17 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
               // Show available Factions
               RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
               ListIterator<Faction> factionIterator = newClass.getAvailableFactions().listIterator();
-              String availableFactions = new String("<ul>");
+              String availableFactions3 = new String("<ul>");
               String nextFaction = new String();
               while (factionIterator.hasNext()) {
                 Faction newFaction = (Faction) factionIterator.next();
                 nextFaction = newFaction.getName();
                 if (character.getRace().getAvailableFactions().contains(newFaction)) {
-                  availableFactions = availableFactions + "<li>" + nextFaction + "</li>";
+                  availableFactions3 = availableFactions3 + "<li>" + nextFaction + "</li>";
                 }
               }
-              availableFactions = availableFactions + "</ul>";
-              RootPanel.get("information").add(new HTML(availableFactions));
+              availableFactions3 = availableFactions3 + "</ul>";
+              RootPanel.get("information").add(new HTML(availableFactions3));
 
             }
 
@@ -108,9 +108,9 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     selectClassGrid.setBorderWidth(0);
     selectClassGrid.setStylePrimaryName("selectGrid");
 
-    ListIterator<Class> classIterator = entry.getTestValues().getClasses().listIterator();
+    ListIterator<CClass> classIterator = entry.getTestValues().getClasses().listIterator();
     while (classIterator.hasNext()) {
-      Class newClass = (Class) classIterator.next();
+      CClass newClass = (CClass) classIterator.next();
       if (character.getRace().getAvailableClasses().contains(newClass)) {
         classListBox.addItem(newClass.getName());
       }
@@ -160,10 +160,10 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     character.setCharClass(getSelectedClass());
   }
 
-  public Class getSelectedClass() {
-    ListIterator<Class> classIterator = entry.getTestValues().getClasses().listIterator();
+  public CClass getSelectedClass() {
+    ListIterator<CClass> classIterator = entry.getTestValues().getClasses().listIterator();
     while (classIterator.hasNext()) {
-      Class selectedClass = classIterator.next();
+      CClass selectedClass = classIterator.next();
       if (selectedClass.getName().equals(classListBox.getValue(classListBox.getSelectedIndex()))) { return selectedClass; }
     }
     return null;
