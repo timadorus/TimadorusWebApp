@@ -36,7 +36,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
 //ClassPanel allows you to choosing the Classes and Races of Character via Listbox
-public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
+public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   final TimadorusWebApp entry;
 
@@ -45,10 +45,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   HTML statPointLabel = new HTML("<h2>Verteilbare Punkte:</h2>");
 
   HTML statPointViewLabel = new HTML();
-
-  HTML readyLabel = new HTML(
-                             "Bevor sie ihre Charaktererstellung fortsetzen können, vergeben sie ihre freien Attributspunkte");
-
+  
   Button nextButton = new Button("weiter");
 
   Button prevButton = new Button("zurück");
@@ -83,7 +80,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   boolean isReady = false;
 
-  public SelectTempStatsPanel(final TimadorusWebApp entry, final Character character) {
+  public GetPotStatsPanel(final TimadorusWebApp entry, final Character character) {
     super();
     this.entry = entry;
     this.character = character;
@@ -92,43 +89,10 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
-          loadSelectFactionPanel();
+          loadSelectTempStatsPanel();
         } else if (event.getSource().equals(nextButton)) {
-        } else {
-          for (i = 0; i < decStatButtons.size(); i++) {
-            if (event.getSource().equals(decStatButtons.get(i))) {
-              decStat(i);
-            } else if (event.getSource().equals(incStatButtons.get(i))) {
-              incStat(i);
-            } else if (event.getSource().equals(decTenStatButtons.get(i))) {
-              for (int j = 0; j < 10; j++) {
-                decStat(i);
-              }
-            } else if (event.getSource().equals(incTenStatButtons.get(i))) {
-              for (int j = 0; j < 10; j++) {
-                incStat(i);
-              }
-            }
-            statPointViewLabel.setHTML("<h2>" + String.valueOf(statPoints) + "</h2>");
-            selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-            statCostHTML.get(i).setHTML(String.valueOf(getStatCosts(tempStats.get(i) + 1)));
-
-            setReadyStatus();
-          }
-          // handle StatCostsLabelColor for each increase/decrease event
-          for (i = 0; i < decStatButtons.size(); i++) {
-            int nextCost = getStatCosts(tempStats.get(i) + 1);
-            if ((nextCost > statPoints) || ((tempStats.get(i)) == 100)) {
-              statCostHTML.get(i).setStyleName("labelColorRed");
-            } else {
-              statCostHTML.get(i).setStyleName("labelColorGreen");
-            }
-          }
-
-        }
-
+        }       
       }
-
     }
 
     HTML headline = new HTML("<h1>Temporäre Attribute verteilen</h1>");
@@ -162,28 +126,13 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     // show stats
     for (int i = 0; i < 11; i++) {
       tempStats.add(character.getStatList().get(i).getTempStat());
-      selectStatGrid.setWidget(i + 1, 0, new Label(character.getStatList().get(i).getName()));
-      selectStatGrid.setWidget(i + 1, 1, new Label(String.valueOf(tempStats.get(i))));
-      statCostHTML.add(new HTML(String.valueOf(statCosts)));
-      statCostHTML.get(i).setStyleName("labelColorGreen");
-      selectStatGrid.setWidget(i + 1, 2, statCostHTML.get(i));
-      decStatButtons.add(new Image("/media/images/minus1.png"));
-      selectStatGrid.setWidget(i + 1, 4, decStatButtons.get(i));
-      incStatButtons.add(new Image("/media/images/plus1.png"));
-      incStatButtons.get(i).setStyleName("plus1Button");
-      selectStatGrid.setWidget(i + 1, 5, incStatButtons.get(i));
-      decTenStatButtons.add(new Image("/media/images/minus10.png"));
-      selectStatGrid.setWidget(i + 1, 6, decTenStatButtons.get(i));
-      incTenStatButtons.add(new Image("/media/images/plus10.png"));
-      selectStatGrid.setWidget(i + 1, 7, incTenStatButtons.get(i));
-
+      selectStatGrid.setWidget(i + 1, 0, new Label(character.getStatList().get(i).getName()));    
     }
     tempStats.add(character.getStatList().get(11).getTempStat());
     selectStatGrid.setWidget(12, 0, new Label(character.getStatList().get(11).getName()));
     selectStatGrid.setWidget(12, 1, new Label(String.valueOf(tempStats.get(11))));
 
-    readyLabel.setStyleName("labelColorRed");
-
+    
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
     buttonGrid.setWidget(0, 0, prevButton);
@@ -195,7 +144,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     panel.setWidth("100%");
 
     panel.add(progressBar);
-    panel.add(new Label("Schritt 4 von 6"));
+    panel.add(new Label("Schritt 5 von 6"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
     panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: "
         + character.getFaction().getName()));
@@ -208,7 +157,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
     panel.add(buttonGrid);
 
-    panel.add(readyLabel);
+    
 
     RootPanel.get("information").clear();
     RootPanel.get("information").add(getInformation());
@@ -219,96 +168,30 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     // Add Handlers
     MyHandler handler = new MyHandler();
     nextButton.addClickHandler(handler);
-    prevButton.addClickHandler(handler);
-
-    for (i = 0; i < incStatButtons.size(); i++) {
-      incStatButtons.get(i).addClickHandler(handler);
-      decStatButtons.get(i).addClickHandler(handler);
-      incTenStatButtons.get(i).addClickHandler(handler);
-      decTenStatButtons.get(i).addClickHandler(handler);
-    }
+    prevButton.addClickHandler(handler);  
 
   }
 
-  public int getStatCosts(int currentStat) {
-    int cost = 1;
-    if (currentStat > 90)
-      cost = 10;
-    return cost;
-  }
 
-  public void incStat(int i) {
-    if (((tempStats.get(i)) < 100) && (statPoints >= (getStatCosts(tempStats.get(i) + 1)))) {
-      decStatPoints(getStatCosts(tempStats.get(i) + 1));
-      tempStats.set(i, (tempStats.get(i) + 1));
-    } else
-      System.out.print("maximal 100");
-  }
 
-  public void decStat(int i) {
-    if (((tempStats.get(i)) > 30) && (statPoints < 750)) {
-      incStatPoints(getStatCosts(tempStats.get(i)));
-      tempStats.set(i, (tempStats.get(i) - 1));
-    } else
-      System.out.print("minimal 30");
-  }
-
-  public void incStatPoints(int costs) {
-    if (statPoints < 420)
-      statPoints = statPoints + costs;
-    else
-      System.out.print("maximal 420");
-  }
-
-  public void decStatPoints(int costs) {
-    if (statPoints > 0) {
-      statPoints = statPoints - costs;
-    } else
-      System.out.print("minimal 0");
-  }
-
-  public void loadSelectFactionPanel() {
+  public void loadSelectTempStatsPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
-  }
-  
-  public void loadGetPotStatsPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(GetPotStatsPanel.getGetPotStatsPanel(entry, character));
+    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
   }
 
-  public static SelectTempStatsPanel getSelectTempStatsPanel(TimadorusWebApp entry, Character character) {
+  public static GetPotStatsPanel getGetPotStatsPanel(TimadorusWebApp entry, Character character) {
     // if (characterPanel == null) {
     // characterPanel = new CharacterPanel(entry);
     // }
     // return characterPanel;
-    return new SelectTempStatsPanel(entry, character);
+    return new GetPotStatsPanel(entry, character);
   }
 
   private static final HTML getInformation() {
     HTML information = new HTML(
-                                "<h1>Attribute Verteilen</h1><p>Hier können sie die Attribute ihres Charakteres anpassen. Ihnen stehen dafür 420 freie Punkte zur Verfügung.</p><p>Jeder Attributspunkt bis einschließlich Stufe 90 kostet sie einen freien Punkt. Ab Stufe 90 zahlen sie 10 freie Punkte");
+                                "<h1>Attribute bekommen</h1><p>Ausgehend von ihren Wahl der temporären Attribute, erhalten sie hier zusätzliche Punkte.</p><p>Diese Punkte werden anhand einer Tabelle ausgewürfelt.</p>");
 
     return information;
-  }
-
-  // sets isReady and colors
-  public void setReadyStatus() {
-    if (statPoints == 0) {
-      isReady = true;
-      statPointLabel.setStyleName("labelColorRed");
-      statPointViewLabel.setStyleName("labelColorRed");
-      readyLabel.setHTML("Sie haben ihre gesamten Punkte Verteilt und können fortfahren");
-      readyLabel.setStyleName("labelColorGreen");
-    } else {
-      isReady = false;
-      statPointLabel.setStyleName("labelColorGreen");
-      statPointViewLabel.setStyleName("labelColorGreen");
-      readyLabel
-          .setHTML("Bevor sie ihre Charaktererstellung fortsetzen können, vergeben sie ihre freien Attributspunkte");
-      readyLabel.setStyleName("labelColorRed");
-    }
-    nextButton.setEnabled(isReady);
   }
 
   public TimadorusWebApp getEntry() {
