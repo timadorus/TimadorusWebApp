@@ -10,6 +10,7 @@ import java.util.Dictionary;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -23,28 +24,21 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable
 public class Race implements Serializable {
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = 1841788742607089967L;
 
-  /**
-	 * 
-	 */
-
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long raceID;
+  Long raceID=new Long(-1);
 
   @Persistent
-  String name;
+  String name="--";
 
   @Persistent
-  String description;
+  String description="--";
   
-  @Persistent(mappedBy="race")
+  @NotPersistent
   List<CClass> availableClasses = new ArrayList<CClass>();
   
-  @Persistent(mappedBy="race")
+  @NotPersistent
   List<Faction> availableFactions2 = new ArrayList<Faction>(); 
 
   public Race() {
@@ -101,6 +95,24 @@ public class Race implements Serializable {
   
   public void addFaction(Faction faction){
     availableFactions2.add(faction);
+  }
+  
+  @Override
+  public String toString() {
+  
+    return "Race-Name: "+name;
+  }
+
+  public List<Faction> getAvailableFactions2() {
+    return availableFactions2;
+  }
+
+  public void setAvailableFactions2(List<Faction> availableFactions2) {
+    this.availableFactions2 = availableFactions2;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
   
   

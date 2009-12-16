@@ -10,23 +10,17 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable
 public class Faction implements Serializable {
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = -5760923481329375866L;
 
-  /**
-	 * 
-	 */
 
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long fractionID;
+  Long fractionID=new Long(-1);
 
   @Persistent
-  String name;
+  String name="--";
 
   @Persistent
-  String description;
+  String description="--";
   
   @Persistent ////braucht JDO für 1-to-n Relationship, beginnend von Race-Klasse
   Race race;
@@ -65,6 +59,12 @@ public class Faction implements Serializable {
 
   public void setRace(Race race) {
     this.race = race;
+  }
+  
+  @Override
+  public String toString() {
+  
+    return "Faction-Name: "+name;
   }
   
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -18,15 +19,15 @@ public class CClass implements Serializable {
   private static final long serialVersionUID = -9162491221927969566L;
   
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long classID;
+  Long classID=new Long(-1);
 
   @Persistent
-  String name;
+  String name="--";
 
   @Persistent
-  String description;
+  String description="--";
 
-  @Persistent
+  @NotPersistent
   List<Faction> availableFactions1 = new ArrayList<Faction>();
   
   @Persistent //braucht JDO für 1-to-n Relationship, beginnend von Race-Klasse
@@ -87,6 +88,20 @@ public class CClass implements Serializable {
 
   public void setAvailableFactions(List<Faction> availableFactions) {
     this.availableFactions1 = availableFactions;
+  }
+  
+  public List<Faction> getAvailableFactions1() {
+    return availableFactions1;
+  }
+
+  public void setAvailableFactions1(List<Faction> availableFactions1) {
+    this.availableFactions1 = availableFactions1;
+  }
+
+  @Override
+  public String toString() {
+  
+    return "Character-Class-Name: "+name;
   }
   
 

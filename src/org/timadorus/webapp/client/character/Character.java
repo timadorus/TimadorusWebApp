@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -21,114 +22,82 @@ import java.util.Random;
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Character implements Serializable {
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = -5074030667922748006L;
-
-  /**
-	 * 
-	 */
 
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long characterID;
+  Long characterID = new Long(-1);
 
   @Persistent
-  Long userIF;
+  Long userIF = new Long(-1);
 
   @Persistent
-  String name;
+  String name = "--";
 
   @Persistent
-  String gender;
+  String gender = "--";
 
   @Persistent
   Race race;
 
   @Persistent
   CClass charClass;
-  
+
   @Persistent
   Faction faction;
 
-  @Persistent(mappedBy="character")
-  List<Stat> statList;
+  @NotPersistent
+  List<Stat> statList = new ArrayList<Stat>();
 
   @Persistent
-  boolean complete;
+  boolean complete = false;
+
+  @Persistent
+  String allAttrInfo = "--";
 
   private Character() {
     super();
-
-//    Stat s1 = new Stat("Konstitution", "Konsti");
-//    addStat(s1);
-//    Stat s2 = new Stat("Agilität", "Agi");
-//    addStat(s2);
-//    Stat s3 = new Stat("Selbstdisziplin", "Diszi");
-//    addStat(s3);
-//    Stat s4 = new Stat("Schlußfolgern","Schlußfolgern");
-//    addStat(s4);
-//    Stat s5 = new Stat("Erinnerungsvermögen","Memory");
-//    addStat(s5);
-//    Stat s6 = new Stat("Glück","Lucky luck");
-//    addStat(s6);
-//    Stat s7 = new Stat("Stärke","Strength");
-//    addStat(s7);
-//    Stat s8 = new Stat("Schnelligkeit","SChnelligkeit");
-//    addStat(s8);
-//    Stat s9 = new Stat("Intuition","Intuition");
-//    addStat(s9);
-//    Stat s10 = new Stat("Präsenz","Präsenz");
-//    addStat(s10);
-//    Stat s11 = new Stat("Empathie","Emp");
-//    addStat(s11);
-//    Stat s12 = new Stat("Aussehen", "aussehen");    
-//    int randomInt = (int) Math.floor((Math.random()*100)+1);
-//    s12.setTempStat(randomInt);
-//    addStat(s12);
   }
-  
-  void fillStats(){
+
+  void fillStats() {
 
     Stat s1 = new Stat("Konstitution", "Konsti");
-    statList=new ArrayList<Stat>();
+    statList = new ArrayList<Stat>();
     statList.add(s1);
     Stat s2 = new Stat("Agilität", "Agi");
     statList.add(s2);
     Stat s3 = new Stat("Selbstdisziplin", "Diszi");
     statList.add(s3);
-    Stat s4 = new Stat("Schlußfolgern","Schlußfolgern");
+    Stat s4 = new Stat("Schlußfolgern", "Schlußfolgern");
     statList.add(s4);
-    Stat s5 = new Stat("Erinnerungsvermögen","Memory");
+    Stat s5 = new Stat("Erinnerungsvermögen", "Memory");
     statList.add(s5);
-    Stat s6 = new Stat("Glück","Lucky luck");
+    Stat s6 = new Stat("Glück", "Lucky luck");
     statList.add(s6);
-    Stat s7 = new Stat("Stärke","Strength");
+    Stat s7 = new Stat("Stärke", "Strength");
     statList.add(s7);
-    Stat s8 = new Stat("Schnelligkeit","Schnelligkeit");
+    Stat s8 = new Stat("Schnelligkeit", "Schnelligkeit");
     statList.add(s8);
-    Stat s9 = new Stat("Intuition","Intuition");
+    Stat s9 = new Stat("Intuition", "Intuition");
     statList.add(s9);
-    Stat s10 = new Stat("Präsenz","Präsenz");
+    Stat s10 = new Stat("Präsenz", "Präsenz");
     statList.add(s10);
-    Stat s11 = new Stat("Empathie","Emp");
+    Stat s11 = new Stat("Empathie", "Emp");
     statList.add(s11);
-    Stat s12 = new Stat("Aussehen", "aussehen");    
-    int randomInt = (int) Math.floor((Math.random()*100)+1);
+    Stat s12 = new Stat("Aussehen", "aussehen");
+    int randomInt = (int) Math.floor((Math.random() * 100) + 1);
     s12.setTempStat(randomInt);
     statList.add(s12);
-      
-    
+
   }
-  
-  public static Character getInstance(){
-    
-    Character character=new Character();
+
+  public static Character getInstance() {
+
+    Character character = new Character();
     character.fillStats();
     return character;
-    
-  } 
+
+  }
 
   public String getName() {
     return name;
@@ -147,7 +116,6 @@ public class Character implements Serializable {
   }
 
   List<Integer> tempStat;
-
 
   public Race getRace() {
     return race;
@@ -169,6 +137,47 @@ public class Character implements Serializable {
 
   public void setCharacterID(Long characterID) {
     this.characterID = characterID;
+  }
+
+  public Long getUserIF() {
+    return userIF;
+  }
+
+  public void setUserIF(Long userIF) {
+    this.userIF = userIF;
+  }
+
+  public boolean isComplete() {
+    return complete;
+  }
+
+  public void setComplete(boolean complete) {
+    this.complete = complete;
+  }
+
+  public String getAllAttrInfo() {
+    return allAttrInfo;
+  }
+
+  public void setAllAttrInfo(String allAttrInfo) {
+    this.allAttrInfo = allAttrInfo;
+  }
+
+  /* Save Character-Relevance Info's as one-String-Object, for later saving as one-String-Object in AppEngine-JDO */
+  public void setAllAttrInfo() {
+    this.allAttrInfo = this.toString();
+  }
+
+  public List<Integer> getTempStat() {
+    return tempStat;
+  }
+
+  public void setTempStat(List<Integer> tempStat) {
+    this.tempStat = tempStat;
+  }
+
+  public void setStatList(List<Stat> statList) {
+    this.statList = statList;
   }
 
   public CClass getCharClass() {
@@ -194,4 +203,35 @@ public class Character implements Serializable {
   public void setFaction(Faction faction) {
     this.faction = faction;
   }
+
+  public String getStatListString() {
+    String s = "";
+    for (Stat stat : statList) {
+      s += stat.toString() + ", ";
+    }
+
+    return s;
+  }
+
+  @Override
+  public String toString() {
+    String s = "";
+
+    s += "Character-ID: " + characterID + "\nCharacter-Name: " + name + "\nCharacter-Gender: " + gender;
+    if (race != null) {
+      s += "\n" + race.toString();
+    }
+    if (charClass != null) {
+      s += "\n" + charClass.toString();
+    }
+    if (faction != null) {
+      s += "\n" + faction.toString();
+    }
+    if (getStatList() != null) {
+      s += "\nCharacter-Stat-Liste: " + getStatListString().toString();
+    }
+    return s;
+
+  }
+
 }

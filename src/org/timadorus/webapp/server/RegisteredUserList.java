@@ -154,40 +154,25 @@ public class RegisteredUserList {
 
   public void addC(User u) {
 
-    // ContactInfo co1=new ContactInfo();
-    // co1.setStreetAddress("MyStreet!!!");
-    // WriteEmpl e1=new WriteEmpl();
-    // Key key = KeyFactory.createKey(WriteEmpl.class.getSimpleName(), 43234);
-    //
-    // e1.setMail("A1@1.de");
-    // e1.setContactInfo(co1);
-    //    
-    // WriteEmpl e2= new WriteEmpl();
-    // e2.setMail("A2@2.de");
-
     PersistenceManager pm = PMF.getPersistenceManager();
-    // pm.makePersistent(e1);
-    // pm.makePersistent(e2);
-    //    
-    // WriteEmpl e = pm.getObjectById(WriteEmpl.class, key);
-    //    
-    // System.out.println(e.getMail()); Character()
 
     try {
-       Character c = Character.getInstance();
+       Character c = Character.getInstance();//
        c.setName("MyCharacter1");
-       User us=new User("testx", "testx", "testx", "testx", "testx", "testx");
-      pm.makePersistent(us);
+       c.setAllAttrInfo();
+//       User us=new User("testx", "testx", "testx", "testx", "testx", "testx");
+//      pm.makePersistent(us);
       
 
        pm.makePersistent(c);
+      Character c2= getCharObjectFromAppEngine("MyCharacter1");
       pm.close();
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
-    getC("testx");
+//    getC("testx");
 
   }
 
@@ -198,26 +183,26 @@ public class RegisteredUserList {
     }
   }
 
-  public User getC(String cname) {
-    cname = cname.toLowerCase();
+  public Character getCharObjectFromAppEngine(String cname) {
+//    cname = cname.toLowerCase();
 
     try {
       PersistenceManager pm = PMF.getPersistenceManager();
 
       // **
-      List<User> entries = new ArrayList<User>();
+      List<Character> entries = new ArrayList<Character>();
 
-      Query query = pm.newQuery("SELECT FROM " + User.class.getName());
+      Query query = pm.newQuery("SELECT FROM " + Character.class.getName());
 
-      entries = (List<User>) query.execute();
+      entries = (List<Character>) query.execute();
 
 //      pm.close();
 
-      for (User user : entries) {
-        if (user.getNachname().equals(cname)) {
-          System.out.println("YEAH! " + cname);
+      for (Character character: entries) {
+        if (character.getName().equals(cname)) {
+          System.out.println("YES ! Character-Object: \"" + cname+ "\" saved to Datastore and read from there !");
           pm.close();
-          return user;
+          return character;
         }
       }
     } catch (Exception e) {
@@ -227,4 +212,34 @@ public class RegisteredUserList {
 
     return null;
   }
+
+  public User getC(String cname) {
+      cname = cname.toLowerCase();
+  
+      try {
+        PersistenceManager pm = PMF.getPersistenceManager();
+  
+        // **
+        List<User> entries = new ArrayList<User>();
+  
+        Query query = pm.newQuery("SELECT FROM " + User.class.getName());
+  
+        entries = (List<User>) query.execute();
+  
+  //      pm.close();
+  
+        for (User user : entries) {
+          if (user.getNachname().equals(cname)) {
+            System.out.println("YEAH! " + cname);
+            pm.close();
+            return user;
+          }
+        }
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+  
+      return null;
+    }
 }
