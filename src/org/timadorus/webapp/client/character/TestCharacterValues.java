@@ -4,77 +4,81 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestCharacterValues {
-  
+
   List<CClass> classes = new ArrayList<CClass>();
-  
+
   List<Race> races = new ArrayList<Race>();
-  
+
   List<Faction> factions = new ArrayList<Faction>();
-  
-  public TestCharacterValues(){
+
+  List<Skill> skills = new ArrayList<Skill>();
+
+  public TestCharacterValues() {
     createTestCharacterValues();
   }
-  
-  public void createTestCharacterValues(){
-    //create testfactions
+
+  public void createTestCharacterValues() {
+    // create testfactions
     Faction fac1 = new Faction();
     fac1.setName("Skater");
     fac1.setDescription("Die Kinder der Stadt sind deine Freunde");
     factions.add(fac1);
-    
+
     Faction fac2 = new Faction();
     fac2.setName("Börsianer");
     fac2.setDescription("Geld, geld, geld, geld");
     factions.add(fac2);
-    
+
     Faction fac3 = new Faction();
     fac3.setName("Grüne Alternative Liste");
     fac3.setDescription("Ihr wisst was das bedeutet");
     factions.add(fac3);
-    
+
     Faction fac4 = new Faction();
     fac4.setName("Öffentlicher Dienst");
     fac4.setDescription("Alle Formulare erledigen sich wie von selbst mit den richtigen Freunden");
     factions.add(fac4);
-    
+
     Faction fac5 = new Faction();
     fac5.setName("Pharmaindustrie");
     fac5.setDescription("Warum in die Apotheke, wenns an jeder Ecke Medis gibt");
     factions.add(fac5);
-    
+
     Faction fac6 = new Faction();
     fac6.setName("Nooobs");
     fac6.setDescription("Oft unterschätzt, aber immer nützliche Partner");
     factions.add(fac6);
-    
+
     Faction fac7 = new Faction();
     fac7.setName("VIP");
     fac7.setDescription("Ohhhh jeaaaah");
     factions.add(fac7);
-    
+
     Faction fac8 = new Faction();
     fac8.setName("Juntas");
     fac8.setDescription("Hier wird gehängt, da wird verdient.");
     factions.add(fac8);
-    
-    //create testclasses   
+
+    // create testclasses
     CClass class1 = new CClass();
     class1.setName("Gärtner");
-    class1.setDescription("Der Garten ist dein Leben. Keine Straßen, keine Autos, kein Lärm. Nur Bäume und Gräser und so.");
+    class1
+        .setDescription("Der Garten ist dein Leben. Keine Straßen, keine Autos, kein Lärm. Nur Bäume und Gräser und so.");
     class1.addFaction(fac8);
     class1.addFaction(fac7);
     class1.addFaction(fac6);
     class1.addFaction(fac4);
     classes.add(class1);
-    
+
     CClass class2 = new CClass();
     class2.setName("Hühnerdieb");
-    class2.setDescription("Hühnerdiebe sind enorm schnelle Viecher, die vorwiegen in Hühnerstellen rumhängen oder an Grillimbissen");
+    class2
+        .setDescription("Hühnerdiebe sind enorm schnelle Viecher, die vorwiegen in Hühnerstellen rumhängen oder an Grillimbissen");
     class2.addFaction(fac1);
     class2.addFaction(fac2);
     class2.addFaction(fac4);
     classes.add(class2);
-    
+
     CClass class3 = new CClass();
     class3.setName("Söldner");
     class3.setDescription("Geld, Blut, das wars");
@@ -82,7 +86,7 @@ public class TestCharacterValues {
     class3.addFaction(fac6);
     class3.addFaction(fac4);
     classes.add(class3);
-    
+
     CClass class4 = new CClass();
     class4.setName("Abmahnungsanwalt");
     class4.setDescription("ROFLROFLPWNED");
@@ -90,7 +94,7 @@ public class TestCharacterValues {
     class4.addFaction(fac6);
     class4.addFaction(fac4);
     classes.add(class4);
-        
+
     CClass class5 = new CClass();
     class5.setName("Pilot");
     class5.setDescription("Über den wolken, blablubb.");
@@ -98,7 +102,7 @@ public class TestCharacterValues {
     class5.addFaction(fac6);
     class5.addFaction(fac4);
     classes.add(class5);
-    
+
     CClass class6 = new CClass();
     class6.setName("Informatiker");
     class6.setDescription("Du schreibst Stundenlang testtexte für ne webapp.");
@@ -106,7 +110,7 @@ public class TestCharacterValues {
     class6.addFaction(fac6);
     class6.addFaction(fac4);
     classes.add(class6);
-    
+
     CClass class7 = new CClass();
     class7.setName("Drücker");
     class7.setDescription("Ja, du hörst richtig. Und nun ab zur nächsten Tür - Geld ranschaffen!");
@@ -114,71 +118,68 @@ public class TestCharacterValues {
     class7.addFaction(fac6);
     class7.addFaction(fac4);
     classes.add(class7);
-    
-    
-  //M**
+
+    // M**
     CClass c1 = new CClass(
-                         "Capitalist class",
-                         "Top-level executives, high-rung politicians, heirs. Ivy League education common. Source: http://en.wikipedia.org/wiki/Social_class");
+                           "Capitalist class",
+                           "Top-level executives, high-rung politicians, heirs. Ivy League education common. Source: http://en.wikipedia.org/wiki/Social_class");
     c1.addFaction(fac4);
 
     CClass c2 = new CClass(
-                         "Upper middle class",
-                         "Highly educated (often with graduate degrees), most commonly salaried, professionals and middle management with large work autonomy. Source: http://en.wikipedia.org/wiki/Social_class");
+                           "Upper middle class",
+                           "Highly educated (often with graduate degrees), most commonly salaried, professionals and middle management with large work autonomy. Source: http://en.wikipedia.org/wiki/Social_class");
     c2.addFaction(fac4);
     CClass c3 = new CClass(
-                         "Working class",
-                         "Clerical and most blue collar workers whose work is highly routinized. Standard of living varies depending on number of income earners, but is commonly just adequate. High school education. Source: http://en.wikipedia.org/wiki/Social_class");
+                           "Working class",
+                           "Clerical and most blue collar workers whose work is highly routinized. Standard of living varies depending on number of income earners, but is commonly just adequate. High school education. Source: http://en.wikipedia.org/wiki/Social_class");
     c3.addFaction(fac4);
     CClass c4 = new CClass(
-                         "Underclass",
-                         "Those with limited or no participation in the labor force. Reliant on government transfers. Some high school education. Source: http://en.wikipedia.org/wiki/Social_class");
+                           "Underclass",
+                           "Those with limited or no participation in the labor force. Reliant on government transfers. Some high school education. Source: http://en.wikipedia.org/wiki/Social_class");
     c4.addFaction(fac4);
     classes.add(c1);
     classes.add(c2);
     classes.add(c3);
     classes.add(c4);
-    
-    //**
-    
-    
-    //create testraces
-    
+
+    // **
+
+    // create testraces
+
     Race race1 = new Race();
     race1.setName("Witzbold");
     race1.setdescription("Der Witzbold ist ein Witzbolt");
     race1.addClass(class1);
-    race1.addClass(class3);    
+    race1.addClass(class3);
     race1.addFaction(fac3);
     race1.addFaction(fac5);
     race1.addFaction(fac7);
     race1.addFaction(fac4);
     races.add(race1);
-    
+
     Race race2 = new Race();
     race2.setName("Laufbursche");
     race2.setdescription("Er läuft und läuft und läuft");
     race2.addClass(class2);
-    race2.addClass(class4);    
+    race2.addClass(class4);
     race2.addFaction(fac4);
     race2.addFaction(fac1);
     race2.addFaction(fac2);
     race2.addFaction(fac3);
     races.add(race2);
-    
-    
+
     Race race3 = new Race();
     race3.setName("Mächtiger Winzer");
     race3.setdescription("Keiner macht so guten Wein wie er");
     race3.addClass(class1);
     race3.addClass(class4);
-    race3.addClass(class5);    
+    race3.addClass(class5);
     race3.addFaction(fac6);
     race3.addFaction(fac7);
     race3.addFaction(fac8);
     race3.addFaction(fac4);
     races.add(race3);
-    
+
     Race race4 = new Race();
     race4.setName("Terrorgnom");
     race4.setdescription("Für den kleinen Hunger zwischendurch");
@@ -191,7 +192,7 @@ public class TestCharacterValues {
     race4.addFaction(fac8);
     race4.addFaction(fac4);
     races.add(race4);
-    
+
     Race race5 = new Race();
     race5.setName("Lausbub");
     race5.setdescription("Ja nu, irgendwas muss hier ja stehen");
@@ -208,20 +209,19 @@ public class TestCharacterValues {
     race5.addFaction(fac3);
     race5.addFaction(fac4);
     races.add(race5);
-    
-  //M**
+
+    // M**
     Race r1 = new Race(
                        new Long(001),
                        "Race-Almas",
                        "The Almas, Mongolian for \"wild man,\" is a purported hominid cryptozoological species reputed to inhabit the Caucasus and Pamir Mountains of central Asia, and the Altai Mountains of southern Mongolia. Source: http://en.wikipedia.org/wiki/Almas_%28cryptozoology%29");
     r1.addClass(c1);
-    
+
     Race r2 = new Race(
                        new Long(002),
                        "Race-Amomongo",
                        "The Amomongo is a creature of Philippine mythology described as hairy, man-sized and ape-like with long nails. Source: http://en.wikipedia.org/wiki/Amomongo");
     r2.addClass(c2);
-    
 
     Race r3 = new Race(
                        new Long(003),
@@ -229,24 +229,59 @@ public class TestCharacterValues {
                        "Chuchunya is a hominid cryptid rumoured to exist in Siberia, Russia. It has been described as six to seven feet tall and covered with dark hair. Source: http://en.wikipedia.org/wiki/Tjutjuna");
 
     r3.addClass(c3);
-    
-    
+
     Race r4 = new Race(
                        new Long(004),
                        "Race-Yeti",
                        "The Yeti or Abominable Snowman is a creature and an ape-like cryptid said to inhabit the Himalayan region of Nepal and Tibet. The names Yeti and Meh-Teh are commonly used by the people indigenous to the region,[1] and are part of their history and mythology. Stories of the Yeti first emerged as a facet of Western popular culture in the 19th century. Source: http://en.wikipedia.org/wiki/Yeti");
 
     r4.addClass(c4);
-    
+
     races.add(r1);
     races.add(r2);
     races.add(r3);
     races.add(r4);
-    
-    //***
-    
-    
-    
+
+    // ***
+
+    // <skill-def label="Acro" lvl-bonus-cat="ATH" stat1="AG" stat2="QU" action-type="MM" calc-type="Std"> <locale-desc
+    // label="Acrobatics" language="en-US" default="true"> </locale-desc> <locale-desc label="Akrobatik"
+    // language="de-DE"
+    // default="false"> </locale-desc> </skill-def>
+
+    Skill sk1 = new Skill(
+                          "Acro",
+                          "ATH",
+                          "AG",
+                          "QU",
+                          "MM",
+                          "Std",
+                          "Acrobatics",
+                          "en-US",
+                          true,
+                          "Acrobatic traditions are found in many Western cultures as well. Minoan art from circa 2000 BC contains depictions of acrobatic feats on the backs of bulls, which may have been a religious ritual.[3] The noble court displays of the European Middle Ages would often include acrobatic performances along with song, juggling and other activities. \nSource: http://en.wikipedia.org/wiki/Acrobatics");
+
+    /*
+     * <skill-def label="Act" lvl-bonus-cat="SUB" stat1="PR" stat2="EM" action-type="SA" calc-type="Std"> <locale-desc
+     * label="Acting" language="en-US" default="true"> </locale-desc> <locale-desc label="Schauspielern"
+     * language="de-DE" default="false"> </locale-desc> </skill-def>
+     */
+
+    Skill sk2 = new Skill(
+                          "Act",
+                          "SUB",
+                          "PR",
+                          "EM",
+                          "SA",
+                          "Std",
+                          "Acting",
+                          "en-US",
+                          true,
+                          "Acting is the work of an actor or actress, which is a person in theatre or any other storytelling medium who tells the story by portraying a character and, usually, speaking or singing the written text or play. \nSource: http://en.wikipedia.org/wiki/Acting");
+
+    skills.add(sk1);
+    skills.add(sk2);
+
   }
 
   public List<Faction> getFactions() {
@@ -272,9 +307,17 @@ public class TestCharacterValues {
   public void setRaces(List<Race> races) {
     this.races = races;
   }
-  
-  public TestCharacterValues getTestCharacterValues(){
+
+  public TestCharacterValues getTestCharacterValues() {
     return this;
+  }
+
+  public List<Skill> getSkills() {
+    return skills;
+  }
+
+  public void setSkills(List<Skill> skills) {
+    this.skills = skills;
   }
 
 }

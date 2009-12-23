@@ -11,6 +11,9 @@ import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+
+import com.google.gwt.junit.client.WithProperties.Property;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -54,6 +57,10 @@ public class Character implements Serializable {
 
   @Persistent
   String allAttrInfo = "--";
+  
+  @NotPersistent
+  List<Skill> skillList = new ArrayList<Skill>();
+
 
   private Character() {
     super();
@@ -202,6 +209,16 @@ public class Character implements Serializable {
 
   public void setFaction(Faction faction) {
     this.faction = faction;
+  }
+  
+  
+
+  public List<Skill> getSkillList() {
+    return skillList;
+  }
+
+  public void setSkillList(List<Skill> skillList) {
+    this.skillList = skillList;
   }
 
   public String getStatListString() {

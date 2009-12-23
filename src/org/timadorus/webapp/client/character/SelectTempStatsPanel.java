@@ -94,6 +94,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
         if (event.getSource().equals(prevButton)) {
           loadSelectFactionPanel();
         } else if (event.getSource().equals(nextButton)) {
+          loadSelectSkillPanel();
         } else {
           for (i = 0; i < decStatButtons.size(); i++) {
             if (event.getSource().equals(decStatButtons.get(i))) {
@@ -270,6 +271,11 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   public void loadSelectFactionPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
+  }
+  
+  public void loadSelectSkillPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character));
   }
   
   public void loadGetPotStatsPanel() {
