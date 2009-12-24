@@ -143,7 +143,8 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
     }
 
     skillListBox.setVisibleItemCount(skillListBox.getItemCount());
-    addedskillListBox.setVisibleItemCount(addedskillListBox.getItemCount());
+    addedskillListBox.setVisibleItemCount(skillListBox.getItemCount());
+    addedskillListBox.setWidth("150");
 
     
     
