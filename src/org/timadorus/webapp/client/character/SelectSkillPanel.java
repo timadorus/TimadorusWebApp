@@ -1,8 +1,10 @@
 package org.timadorus.webapp.client.character;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
@@ -56,6 +58,14 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
 
   ListBox skillListBox = new ListBox();
 
+  Button hinzufügenButton = new Button("+");
+
+  Button entferneButton = new Button("-");
+
+  ListBox addedskillListBox = new ListBox();
+
+  private Set<String> tlist = new HashSet();
+
   public SelectSkillPanel(final TimadorusWebApp entry, final Character character) {
     super();
     this.entry = entry;
@@ -71,10 +81,8 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
           loadSelectStatsPanelS0();
           // nextButton onclick
         } else if (event.getSource().equals(nextButton)) {
-          // saveSelectedSkill();
-          // saveSelectedGender();
-          // loadSelectClassPanel();
-          // skilllistitem onclick
+           saveSelectedSkillsInCharacter();
+          
         } else if (event.getSource().equals(skillListBox)) {
           // show skill informations
           String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
@@ -85,41 +93,37 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
             if (newSkill.getName().equals(skillName)) {
               RootPanel.get("information").add(
                                                new HTML("<h1>" + newSkill.getName() + "</h1><p>"
-                                                   + newSkill.getDescription() + "</p>"+"<p>"
-                                                   + newSkill.toString() + "</p>"));
+                                                   + newSkill.getDescription() + "</p>" + "<p>" + newSkill.toString()
+                                                   + "</p>"));
 
-              // // Show available Lists
-              // RootPanel.get("information").add(new HTML("<h2>Wählbare Klassen</h2>"));
-              // ListIterator<CClass> classIterator = newSkill.getAvailableClasses().listIterator();
-              // String availableClasses = new String("<ul>");
-              // String nextClass = new String();
-              // while (classIterator.hasNext()) {
-              // CClass newClass = (CClass) classIterator.next();
-              // nextClass = newClass.getName();
-              // availableClasses = availableClasses + "<li>" + nextClass + "</li>";
-              // }
-              // availableClasses = availableClasses + "</ul>";
-              // RootPanel.get("information").add(new HTML(availableClasses));
-              //              
-              // // Show available Factions
-              // RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
-              // ListIterator<Faction> factionIterator = newSkill.getAvailableFactions().listIterator();
-              // String availableFactions4 = new String("<ul>");
-              // String nextFaction = new String();
-              // while (factionIterator.hasNext()) {
-              // Faction newFaction = (Faction) factionIterator.next();
-              // nextFaction = newFaction.getName();
-              // if (newSkill.getAvailableFactions().contains(newFaction)) {
-              // availableFactions4 = availableFactions4 + "<li>" + nextFaction + "</li>";
-              // }
-              // }
-              // availableFactions4 = availableFactions4 + "</ul>";
-              // RootPanel.get("information").add(new HTML(availableFactions4));
+              
 
             }
           }
 
+        } else if (event.getSource().equals(hinzufügenButton)) {
+
+          String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
+
+          if (!tlist.contains(skillName)) {
+            addedskillListBox.addItem(skillName);
+            tlist.add(skillName);
+          }
+
+        } else if (event.getSource().equals(entferneButton)) {
+          int i = addedskillListBox.getItemCount();
+          String skillName = addedskillListBox.getValue(addedskillListBox.getSelectedIndex());
+          int ind = addedskillListBox.getSelectedIndex();
+          if (addedskillListBox.getItemCount() > 0) {
+            if (ind >= 0) {
+              addedskillListBox.removeItem(ind);
+              tlist.remove(skillName);
+            }
+
+          }
+
         }
+
       }
     }
 
@@ -134,11 +138,19 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
       skillListBox.addItem(newSkill.getName());
     }
 
-    Label skillLabel = new Label("Fertigkeiten wählen: ");
-    selectSkillGrid.setWidget(0, 0, skillLabel);
-    selectSkillGrid.setWidget(0, 1, skillListBox);
-
     skillListBox.setVisibleItemCount(skillListBox.getItemCount());
+    addedskillListBox.setVisibleItemCount(addedskillListBox.getItemCount());
+
+    Label skillLabel = new Label("Fertigkeiten wählen: ");
+    Label addedskillLabel = new Label("Ausgewählte Fertigkeiten: ");
+    // Label choosenskillLabel = new Label("Ausgewählte Fertigkeiten: ");
+    selectSkillGrid.setWidget(0, 0, skillLabel);
+    selectSkillGrid.setWidget(0, 12, addedskillLabel);
+    // selectSkillGrid.setWidget(1, 1, choosenskillLabel);
+    selectSkillGrid.setWidget(1, 0, skillListBox);
+    selectSkillGrid.setWidget(1, 8, hinzufügenButton);
+    selectSkillGrid.setWidget(2, 8, entferneButton);
+    selectSkillGrid.setWidget(1, 12, addedskillListBox);
 
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
@@ -175,7 +187,11 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
 
+    hinzufügenButton.addClickHandler(handler);
+    entferneButton.addClickHandler(handler);
+
     skillListBox.addClickHandler(handler);
+    addedskillListBox.addClickHandler(handler);
 
   }
 
@@ -184,9 +200,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
     RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
   }
 
-  // public void saveSelectedSkill() {
-  // character.setSkill(getSelectedSkill());
-  // }
+ 
 
   public Skill getSelectedSkill() {
     Skill skill = entry.getTestValues().getSkills().get(skillListBox.getSelectedIndex());
@@ -207,5 +221,18 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
 
   public TimadorusWebApp getEntry() {
     return entry;
+  }
+
+  public void saveSelectedSkillsInCharacter() {
+    for (String skillName : tlist) {
+      ListIterator<Skill> skillIterator = entry.getTestValues().getSkills().listIterator();
+      while (skillIterator.hasNext()) {
+        Skill sk1 = (Skill) skillIterator.next();
+        if (sk1.getName().equals(skillName)) {
+          character.getSkillList().add(sk1);
+
+        }
+      }
+    }
   }
 }

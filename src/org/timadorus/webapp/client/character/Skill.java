@@ -6,7 +6,7 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
-@PersistenceCapable(identityType = IdentityType.APPLICATION)
+@PersistenceCapable
 public class Skill implements Serializable {
 
   private static final long serialVersionUID = -5634375002626095838L;
