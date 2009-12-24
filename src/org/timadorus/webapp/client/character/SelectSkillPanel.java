@@ -65,6 +65,9 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
   ListBox addedskillListBox = new ListBox();
 
   private Set<String> tlist = new HashSet();
+  
+  Label skillLabel = new Label("Fertigkeiten wählen: ");
+  Label addedskillLabel = new Label("Ausgewählte Fertigkeiten: ");
 
   public SelectSkillPanel(final TimadorusWebApp entry, final Character character) {
     super();
@@ -109,7 +112,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
             addedskillListBox.addItem(skillName);
             tlist.add(skillName);
           }
-
+          readyToSave();
         } else if (event.getSource().equals(entferneButton)) {
           int i = addedskillListBox.getItemCount();
           String skillName = addedskillListBox.getValue(addedskillListBox.getSelectedIndex());
@@ -121,12 +124,13 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
             }
 
           }
-
+          readyToSave();
         }
 
       }
     }
-
+    addedskillLabel.setStyleName("labelColorRed");
+    nextButton.setEnabled(false);
     Image progressBar = new Image("media/images/progressbar_5.png");
 
     selectSkillGrid.setBorderWidth(0);
@@ -141,8 +145,9 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
     skillListBox.setVisibleItemCount(skillListBox.getItemCount());
     addedskillListBox.setVisibleItemCount(addedskillListBox.getItemCount());
 
-    Label skillLabel = new Label("Fertigkeiten wählen: ");
-    Label addedskillLabel = new Label("Ausgewählte Fertigkeiten: ");
+    
+    
+    
     // Label choosenskillLabel = new Label("Ausgewählte Fertigkeiten: ");
     selectSkillGrid.setWidget(0, 0, skillLabel);
     selectSkillGrid.setWidget(0, 12, addedskillLabel);
@@ -233,6 +238,16 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
 
         }
       }
+    }
+  }
+  
+  public void readyToSave() {
+    if (tlist.isEmpty()) {
+      addedskillLabel.setStyleName("labelColorRed");
+      nextButton.setEnabled(false);
+    }else{
+      addedskillLabel.setStyleName("labelColorGreen");
+      nextButton.setEnabled(true);
     }
   }
 }
