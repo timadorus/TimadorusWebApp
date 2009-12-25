@@ -49,6 +49,34 @@ public class Skill implements Serializable {
 
   @Persistent
   private String description = "";
+  
+  @Persistent
+  private int Cost = 0;
+  
+  @Persistent
+  private int Rank= 0;
+  
+  @Persistent
+  private int Rk_Bn = 0;
+  
+  @Persistent
+  private int Stat_Bn = 0;
+  
+  
+  @Persistent
+  private int Level_Bn = 0;
+  
+  @Persistent
+  private int Item = 0;
+  
+  @Persistent
+  private int Total = 0;
+  
+  @Persistent
+  private String[] gesamtInfo;
+  
+  
+  
 
   public Skill() {
     // TODO Auto-generated constructor stub
@@ -157,6 +185,87 @@ public class Skill implements Serializable {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+  
+  
+
+  public int getCost() {
+    return Cost;
+  }
+
+  public void setCost(int cost) {
+    Cost = cost;
+  }
+
+  public int getRank() {
+    return Rank;
+  }
+
+  public void setRank(int rank) {
+    Rank = rank;
+  }
+
+  public int getRk_Bn() {
+    return Rk_Bn;
+  }
+
+  public void setRk_Bn(int rkBn) {
+    Rk_Bn = rkBn;
+  }
+
+  public int getStat_Bn() {
+    return Stat_Bn;
+  }
+
+  public void setStat_Bn(int statBn) {
+    Stat_Bn = statBn;
+  }
+  
+  
+
+  public int getLevel_Bn() {
+    return Level_Bn;
+  }
+
+  public void setLevel_Bn(int levelBn) {
+    Level_Bn = levelBn;
+  }
+
+  public int getItem() {
+    return Item;
+  }
+
+  public void setItem(int item) {
+    Item = item;
+  }
+
+  public int getTotal() {
+    return Total;
+  }
+
+  public void setTotal(int total) {
+    Total = total;
+  }
+  
+  
+
+  public String[] getGesamtInfo() {
+    
+    //Skill                  Cost          Rank          Rk Bn         Stat B        Level Bn.     Item          Total  
+    gesamtInfo=new String[8];
+    gesamtInfo[0]=this.name;
+    gesamtInfo[1]=""+this.Cost;
+    gesamtInfo[2]=""+this.Rank;
+    gesamtInfo[3]=""+this.Rk_Bn;
+    gesamtInfo[4]=""+this.Stat_Bn;
+    gesamtInfo[5]=""+this.Level_Bn;
+    gesamtInfo[6]=""+this.Item;
+    gesamtInfo[7]=""+this.Total;
+    return gesamtInfo;
+  }
+
+  public void setGesamtInfo(String[] gesamtInfo) {
+    this.gesamtInfo = gesamtInfo;
   }
 
   @Override
