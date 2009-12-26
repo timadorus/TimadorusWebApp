@@ -78,6 +78,8 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
   FlexTable selectSkillGridBox = new FlexTable();
 
   Button resetPage = new Button("reset");
+  
+  List<Skill> backupList;//=new ArrayList<Skill>(entry.getTestValues().getSkills());
 
   // Map<String,TextBox[]> tbMap=new HashMap(); // Map lässt sich nicht Compilieren unter GWT 2.0
   List<TextBox[]> tbObjList = new ArrayList<TextBox[]>();
@@ -277,6 +279,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
   }
 
   public void skillCostTable() {
+    backupList=new ArrayList<Skill>(entry.getTestValues().getBackupSkills());
     Set<Skill> skillSet = new HashSet<Skill>();
 
     for (String skillName : tlist) {
@@ -452,6 +455,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
   }
   
   public void loadSelectSkillPanel() {
+    entry.getTestValues().setSkills(new ArrayList<Skill>(backupList));//reset to "Skill begin list"
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character));
   }

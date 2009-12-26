@@ -2,12 +2,12 @@ package org.timadorus.webapp.client.character;
 
 import java.io.Serializable;
 
-import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+
 @PersistenceCapable
-public class Skill implements Serializable {
+public class Skill implements Serializable, Cloneable {
 
   private static final long serialVersionUID = -5634375002626095838L;
 
@@ -106,6 +106,29 @@ public class Skill implements Serializable {
     setTotal("start");
     
   }
+  
+  public Skill(Skill skill) {
+
+this.action_type =skill. action_type;
+this.calc_type =skill. calc_type;
+this.def_label =skill. def_label;
+this.locale_desc_default =skill. locale_desc_default;
+this.locale_desc_label =skill. locale_desc_label;
+this.locale_desc_language =skill. locale_desc_language;
+this.lvl_bonus_cat =skill. lvl_bonus_cat;
+this.stat1 =skill. stat1;
+this.stat2 =skill. stat2;
+this.name =skill.locale_desc_label;
+this.description =skill. description;
+this.Cost=skill.Cost; 
+this.Rank=skill.Rank;
+this.Rk_Bn=skill.Rk_Bn;
+this.Stat_Bn=skill.Stat_Bn;
+this.Level_Bn=skill.Level_Bn;
+this.Item=skill.Item;
+setTotal("start");
+
+}
 
   public String getDef_label() {
     return def_label;
@@ -269,14 +292,29 @@ public class Skill implements Serializable {
     gesamtInfo[4]=""+this.Stat_Bn;
     gesamtInfo[5]=""+this.Level_Bn;
     gesamtInfo[6]=""+this.Item;
-    gesamtInfo[7]=""+this.Total;
+    gesamtInfo[7]=""+getTotal();
     return gesamtInfo;
   }
 
   public void setGesamtInfo(String[] gesamtInfo) {
     this.gesamtInfo = gesamtInfo;
   }
+  
+//  @Override
+//  public Skill clone(){
+//      
+//      try {
+//        return (Skill)clone();
+//    } catch (Exception e) {
+//        // TODO Auto-generated catch block
+//        e.printStackTrace();
+//        throw new InternalError();
+//    }
+////  return null;
+//  }
 
+  
+  
   @Override
   public String toString() {
 

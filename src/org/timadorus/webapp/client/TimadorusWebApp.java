@@ -43,7 +43,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
 
   private boolean loggedin = false;
   
-  public TestCharacterValues testValues;
+  public  TestCharacterValues testValues;
   
   
   public TimadorusWebApp() {
@@ -285,7 +285,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
     });
   }
 
-  public TestCharacterValues getTestValues() {
+  public  TestCharacterValues getTestValues() {
     return testValues;
   }
 

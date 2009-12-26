@@ -12,12 +12,14 @@ public class TestCharacterValues {
   List<Faction> factions = new ArrayList<Faction>();
 
   List<Skill> skills = new ArrayList<Skill>();
+  
+  List<Skill> backupSkills = new ArrayList<Skill>();
 
   public TestCharacterValues() {
     createTestCharacterValues();
   }
 
-  public void createTestCharacterValues() {
+  public void  createTestCharacterValues() {
     // create testfactions
     Faction fac1 = new Faction();
     fac1.setName("Skater");
@@ -248,6 +250,7 @@ public class TestCharacterValues {
     // label="Acrobatics" language="en-US" default="true"> </locale-desc> <locale-desc label="Akrobatik"
     // language="de-DE"
     // default="false"> </locale-desc> </skill-def>
+    
 
     Skill sk1 = new Skill(
                           "Acro",
@@ -268,6 +271,9 @@ public class TestCharacterValues {
      * language="de-DE" default="false"> </locale-desc> </skill-def>
      */
 
+   
+      
+    
     Skill sk2 = new Skill(
                           "Act",
                           "SUB",
@@ -291,14 +297,26 @@ public class TestCharacterValues {
                           "Riding Animals",
                           "en-US",
                           true,
-                          "They include equines such as horses, ponies, donkeys, and mules; elephants; ostriches[citation needed];yaks; and camels. Dromedaries (with one hump) live in arid areas of Australia, North Africa and the Middle East; the far rarer Bactrian camel inhabits central and East Asia; both are used for transportation and haulage.\n\nSome mythical creatures are believed to act as divine mounts, such as garuda in Hinduism and the winged horse Pegasus in Greek mythology. Source: http://en.wikipedia.org/wiki/Riding_animal#Riding_animals_or_mounts ",
+                          "They include equines such as horses, ponies, donkeys,\n and mules; elephants; ostriches[citation needed];\nyaks; and camels. Dromedaries (with one hump) live in arid areas of Australia, \nNorth Africa and the Middle East; the far rarer Bactrian camel \ninhabits central and East Asia; both are used for \ntransportation and haulage.\n\nSome mythical creatures \nare believed to act as divine mounts, such as \ngaruda in Hinduism and the winged horse Pegasus in \nGreek mythology. Source: http://en.wikipedia.org/wiki/Riding_animal#Riding_animals_or_mounts ",
                           11, 2, 6, 10, 3, 30);
 
-    skills.add(sk1);
-    skills.add(sk2);
-    skills.add(sk3);
+      
+    
+    skills.add(new Skill(sk1));
+    skills.add(new Skill(sk2));
+    skills.add(new Skill(sk3));
 
-  }
+    //clone() had not worked, this is why i choose this way of manual copy
+      backupSkills.add(new Skill(sk1));
+      backupSkills.add(new Skill(sk2));
+      backupSkills.add(new Skill(sk3));
+  
+//    backupSkills.add(sk1.clone());
+//    backupSkills.add(sk2.clone());
+//    backupSkills.add(sk3.clone());
+      
+    }
+
 
   public List<Faction> getFactions() {
     return factions;
@@ -335,5 +353,15 @@ public class TestCharacterValues {
   public void setSkills(List<Skill> skills) {
     this.skills = skills;
   }
+
+  public List<Skill> getBackupSkills() {
+    return backupSkills;
+  }
+
+  public void setBackupSkills(List<Skill> backupSkills) {
+    this.backupSkills = backupSkills;
+  }
+  
+ 
 
 }
