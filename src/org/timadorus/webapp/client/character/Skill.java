@@ -84,7 +84,7 @@ public class Skill implements Serializable {
 
   public Skill(String def_label, String lvl_bonus_cat, String stat1, String stat2, String action_type,
                String calc_type, String locale_desc_label, String locale_desc_language, boolean locale_desc_default,
-               String description) {
+               String description,int Cost, int Rank, int Rk_Bn, int Stat_Bn, int Level_Bn, int Item) {
 
     this.action_type = action_type;
     this.calc_type = calc_type;
@@ -97,6 +97,14 @@ public class Skill implements Serializable {
     this.stat2 = stat2;
     this.name = this.locale_desc_label;
     this.description = description;
+    this.Cost=Cost; 
+    this.Rank=Rank;
+    this.Rk_Bn=Rk_Bn;
+    this.Stat_Bn=Stat_Bn;
+    this.Level_Bn=Level_Bn;
+    this.Item=Item;
+    setTotal("start");
+    
   }
 
   public String getDef_label() {
@@ -243,8 +251,9 @@ public class Skill implements Serializable {
     return Total;
   }
 
-  public void setTotal(int total) {
-    Total = total;
+  public void setTotal(String update) {
+//    Total = total;
+    Total=getRk_Bn()+getStat_Bn();
   }
   
   

@@ -2,8 +2,10 @@ package org.timadorus.webapp.client.character;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Set;
 
 import org.timadorus.webapp.client.HistoryStates;
@@ -12,6 +14,7 @@ import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.character.SelectClassPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 
+import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -40,7 +43,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
 //ClassPanel allows you to choosing the Classes and Races of Character via Listbox
-public class SelectSkillPanel extends FormPanel implements HistoryStates {
+public class SelectSkillPanel extends FormPanel implements HistoryStates, ChangeHandler {
 
   final TimadorusWebApp entry;
 
@@ -73,6 +76,13 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
   FlexTable selectStatGrid = new FlexTable();
 
   FlexTable selectSkillGridBox = new FlexTable();
+
+  Button resetPage = new Button("reset");
+
+  // Map<String,TextBox[]> tbMap=new HashMap(); // Map lässt sich nicht Compilieren unter GWT 2.0
+  List<TextBox[]> tbObjList = new ArrayList<TextBox[]>();
+
+  private String[] titleList = { "Skill-Name", "Cost", "Rank", "Rk_Bn", "Stat_Bn", "Level_Bn", "Item", "Total" };
 
   public SelectSkillPanel(final TimadorusWebApp entry, final Character character) {
     super();
@@ -131,9 +141,12 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
 
           }
           readyToSave();
+        }else if (event.getSource().equals(resetPage)) {
+          loadSelectSkillPanel(); //reset Seite
         }
 
       }
+
     }
     addedskillLabel.setStyleName("labelColorRed");
     nextButton.setEnabled(false);
@@ -166,7 +179,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
 
-    selectStatGrid=getSkillCostTableLabel();
+    selectStatGrid = getSkillCostTableLabel();
 
     // Add it to the root panel.
 
@@ -199,6 +212,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
 
     // Add Handlers
     MyHandler handler = new MyHandler();
+
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
 
@@ -207,6 +221,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
 
     skillListBox.addClickHandler(handler);
     addedskillListBox.addClickHandler(handler);
+    resetPage.addClickHandler(handler);
 
   }
 
@@ -253,9 +268,11 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
     if (tlist.isEmpty()) {
       addedskillLabel.setStyleName("labelColorRed");
       nextButton.setEnabled(false);
+      resetPage.setEnabled(false);
     } else {
       addedskillLabel.setStyleName("labelColorGreen");
       nextButton.setEnabled(true);
+      resetPage.setEnabled(true);
     }
   }
 
@@ -276,32 +293,50 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
 
     }
     panel.remove(selectStatGrid);
+    // panel.remove(saveSkCostButton);
 
     selectStatGrid.removeAllRows();
     selectStatGrid = getSkillCostTableLabel();
 
     int j = 0;
-
+    TextBox[] tbArr = new TextBox[8];
     for (Skill skill : skillSet) {
 
+      tbArr = new TextBox[8];
       for (int i = 0; i < 8; i++) {
+       
+
         TextBox tb = new TextBox();
         if (i == 0)
           tb.setWidth("100");
         else
-          tb.setWidth("50");
+          tb.setWidth("60");
 
         tb.setText(skill.getGesamtInfo()[i]);
+        tb.setTitle(titleList[i]);
         selectStatGrid.setWidget(j + 1, i, tb);
+        tbArr[i] = tb;
+
+        tb.addChangeHandler(this);
       }
+      // tbMap.put(skill.getName(), tbArr); //merke zu jedem Skill die TextBox-Felder im Map
+      // tbArray[j]=tbArr; //merke zu jedem Skill die TextBox-Felder im Object-Array
+      tbObjList.add(tbArr); // merke zu jedem Skill die TextBox-Felder in einer Liste
       j++;
 
     }
+    if (skillSet.size() != 0) {
+      selectSkillGrid.setWidget(j + 1, 4, resetPage);
+    } else
+      selectSkillGrid.remove(resetPage);
+
     // panel = new VerticalPanel();
 
     panel.add(selectStatGrid);
 
     panel.add(selectSkillGridBox);
+
+    panel.add(resetPage);
 
     panel.add(buttonGrid);
 
@@ -316,26 +351,109 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates {
     selectStatGrid1.setStyleName("selectGrid");
 
     selectStatGrid1.setWidget(0, 0, new Label("Skill                 "));
-    selectStatGrid1.setWidget(0, 1, new Label("Cost     "));
-    selectStatGrid1.setWidget(0, 2, new Label("Rank     "));
+    selectStatGrid1.setWidget(0, 1, new Label("Cost   "));
+    selectStatGrid1.setWidget(0, 2, new Label("Rank   "));
     // selectStatGrid1.setWidget(0, 3, new Label(""));
-    selectStatGrid1.setWidget(0, 3, new Label("Rk Bn    "));
-    selectStatGrid1.setWidget(0, 4, new Label("Stat Bn  "));
-    selectStatGrid1.setWidget(0, 5, new Label("Level Bn."));
-    selectStatGrid1.setWidget(0, 6, new Label("Item     "));
-    selectStatGrid1.setWidget(0, 7, new Label("Total    "));
+    selectStatGrid1.setWidget(0, 3, new Label("Rk_Bn  "));
+    selectStatGrid1.setWidget(0, 4, new Label("Stat_Bn"));
+    selectStatGrid1.setWidget(0, 5, new Label("Level_Bn."));
+    selectStatGrid1.setWidget(0, 6, new Label("Item   "));
+    selectStatGrid1.setWidget(0, 7, new Label("Total"));
 
     for (int i = 0; i < 8; i++) {
       TextBox tb = new TextBox();
       if (i == 0)
         tb.setWidth("100");
       else
-        tb.setWidth("50");
+        tb.setWidth("60");
 
       selectStatGrid1.setWidget(1, i, tb);
     }
 
     return selectStatGrid1;
+  }
+
+  @Override
+  public void onChange(ChangeEvent event) {
+    System.out.println("\n" + ((TextBox) event.getSource()).getValue());
+//    Object otb = ((TextBox) event.getSource()).getValue();
+//    String evTexboxText=((TextBox) event.getSource()).getText(); 
+    String evTexboxID=""+((Object)(TextBox) event.getSource()).hashCode();
+    String[] skInfo = new String[3];
+    for (TextBox[] tb : tbObjList) {
+      String skillN="";
+//      String skillAttTotal="";
+      for (int i = 0; i < tb.length; i++) {
+        
+        if (tb[i] != null) {
+          
+          if (i==0) {
+             skillN=tb[i].getText();
+             //getRk_Bn()+getStat_Bn();
+             int m=Integer.valueOf(tb[3].getText()) +Integer.valueOf(tb[4].getText());//update "Total"-Cell
+             tb[7].setText(""+m);
+          }
+          
+//          String texbText=tb[i].getText();
+          String texBoxID=""+((Object)tb[i]).hashCode();
+          if (texBoxID.equals(evTexboxID)) {
+//          if (textBox.getText().equalsIgnoreCase(evTBSkName)) {
+//            String skillName = tb[i].getText();
+            String skAtt = ((TextBox) event.getSource()).getTitle();
+            String newAttrWert = ((TextBox) event.getSource()).getValue();
+            skInfo[0] = skillN;
+            skInfo[1] = skAtt;
+            skInfo[2] = newAttrWert;
+            // int Cost, int Rank, int Rk_Bn, int Stat_Bn, int Level_Bn, int Item, int Total) {
+
+          }
+          // System.out.println(((Object)textBox).hashCode());
+        }
+      }
+
+    }
+    List<Skill> skillList=entry.getTestValues().getSkills();
+    ListIterator<Skill> skillIterator = skillList.listIterator();
+    while(skillIterator.hasNext()) {
+      Skill skill = (Skill) skillIterator.next();
+      if (skill.getName().equals(skInfo[0])) {
+        if (skInfo[1].equalsIgnoreCase("Cost")) {
+          skill.setCost(Integer.valueOf(skInfo[2]));
+        }
+        if (skInfo[1].equalsIgnoreCase("Rank")) {
+          skill.setRank(Integer.valueOf(skInfo[2]));
+        }
+        if (skInfo[1].equalsIgnoreCase("Rk_Bn")) {
+          skill.setRk_Bn(Integer.valueOf(skInfo[2]));
+        }
+        if (skInfo[1].equalsIgnoreCase("Stat_Bn")) {
+          skill.setStat_Bn(Integer.valueOf(skInfo[2]));
+        }
+        if (skInfo[1].equalsIgnoreCase("Level_Bn")) {
+          skill.setLevel_Bn(Integer.valueOf(skInfo[2]));
+        }
+        if (skInfo[1].equalsIgnoreCase("Item")) {
+          skill.setItem(Integer.valueOf(skInfo[2]));
+        }
+        skill.setTotal("update");
+        skillList.remove(skill);
+        skillList.add(skill);
+        
+      }
+    }
+    entry.getTestValues().setSkills(skillList); //überschreibe alte originale Skill-Liste mit der über die GUI editierten Skill-Liste
+    
+    if (event.getSource().equals(prevButton)) {
+      // loadSelectStatsPanelS0();
+      // nextButton onclick
+    }
+    // else
+
+  }
+  
+  public void loadSelectSkillPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character));
   }
 
 }

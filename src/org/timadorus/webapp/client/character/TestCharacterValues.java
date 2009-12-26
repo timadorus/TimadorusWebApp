@@ -259,8 +259,9 @@ public class TestCharacterValues {
                           "Acrobatics",
                           "en-US",
                           true,
-                          "Acrobatic traditions are found in many Western cultures as well. Minoan art from circa 2000 BC contains depictions of acrobatic feats on the backs of bulls, which may have been a religious ritual.[3] The noble court displays of the European Middle Ages would often include acrobatic performances along with song, juggling and other activities. \nSource: http://en.wikipedia.org/wiki/Acrobatics");
-
+                          "Acrobatic traditions are found in many Western cultures as well. Minoan art from circa 2000 BC contains depictions of acrobatic feats on the backs of bulls, which may have been a religious ritual.[3] The noble court displays of the European Middle Ages would often include acrobatic performances along with song, juggling and other activities. \nSource: http://en.wikipedia.org/wiki/Acrobatics",
+                          5, 3, 6, 9, 10, 40);
+    // int Cost, int Rank, int Rk_Bn, int Stat_Bn, int Level_Bn, int Item, int Total) {
     /*
      * <skill-def label="Act" lvl-bonus-cat="SUB" stat1="PR" stat2="EM" action-type="SA" calc-type="Std"> <locale-desc
      * label="Acting" language="en-US" default="true"> </locale-desc> <locale-desc label="Schauspielern"
@@ -277,10 +278,25 @@ public class TestCharacterValues {
                           "Acting",
                           "en-US",
                           true,
-                          "Acting is the work of an actor or actress, which is a person in theatre or any other storytelling medium who tells the story by portraying a character and, usually, speaking or singing the written text or play. \nSource: http://en.wikipedia.org/wiki/Acting");
+                          "Acting is the work of an actor or actress, which is a person in theatre or any other storytelling medium who tells the story by portraying a character and, usually, speaking or singing the written text or play. \nSource: http://en.wikipedia.org/wiki/Acting",
+                          9, 6, 4, 10, 2, 40);
+
+    Skill sk3 = new Skill(
+                          "HRi",
+                          "SUB",
+                          "PR",
+                          "EM",
+                          "SA",
+                          "Std",
+                          "Riding Animals",
+                          "en-US",
+                          true,
+                          "They include equines such as horses, ponies, donkeys, and mules; elephants; ostriches[citation needed];yaks; and camels. Dromedaries (with one hump) live in arid areas of Australia, North Africa and the Middle East; the far rarer Bactrian camel inhabits central and East Asia; both are used for transportation and haulage.\n\nSome mythical creatures are believed to act as divine mounts, such as garuda in Hinduism and the winged horse Pegasus in Greek mythology. Source: http://en.wikipedia.org/wiki/Riding_animal#Riding_animals_or_mounts ",
+                          11, 2, 6, 10, 3, 30);
 
     skills.add(sk1);
     skills.add(sk2);
+    skills.add(sk3);
 
   }
 
