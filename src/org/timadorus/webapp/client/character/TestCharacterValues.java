@@ -143,9 +143,12 @@ public class TestCharacterValues {
     CClass c4 = new CClass(
                            "Underclass",
                            "Those with limited or no participation in the labor force. Reliant on government transfers. Some high school education. Source: http://en.wikipedia.org/wiki/Social_class");
-    c4.addFaction(fac7);
     c4.addFaction(fac4);
+    c4.addFaction(fac2);
     c4.addFaction(fac1);
+    c4.addFaction(fac5);
+    c4.addFaction(fac6);
+    c4.addFaction(fac3);
     classes.add(c1);
     classes.add(c2);
     classes.add(c3);
