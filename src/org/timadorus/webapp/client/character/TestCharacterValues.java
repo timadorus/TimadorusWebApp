@@ -125,20 +125,27 @@ public class TestCharacterValues {
     CClass c1 = new CClass(
                            "Capitalist class",
                            "Top-level executives, high-rung politicians, heirs. Ivy League education common. Source: http://en.wikipedia.org/wiki/Social_class");
+    c1.addFaction(fac7);
     c1.addFaction(fac4);
 
     CClass c2 = new CClass(
                            "Upper middle class",
                            "Highly educated (often with graduate degrees), most commonly salaried, professionals and middle management with large work autonomy. Source: http://en.wikipedia.org/wiki/Social_class");
     c2.addFaction(fac4);
+    c2.addFaction(fac7);
+    c2.addFaction(fac5);
     CClass c3 = new CClass(
                            "Working class",
                            "Clerical and most blue collar workers whose work is highly routinized. Standard of living varies depending on number of income earners, but is commonly just adequate. High school education. Source: http://en.wikipedia.org/wiki/Social_class");
     c3.addFaction(fac4);
+    c3.addFaction(fac2);
+    c3.addFaction(fac1);
     CClass c4 = new CClass(
                            "Underclass",
                            "Those with limited or no participation in the labor force. Reliant on government transfers. Some high school education. Source: http://en.wikipedia.org/wiki/Social_class");
+    c4.addFaction(fac7);
     c4.addFaction(fac4);
+    c4.addFaction(fac1);
     classes.add(c1);
     classes.add(c2);
     classes.add(c3);
@@ -218,12 +225,16 @@ public class TestCharacterValues {
                        "Race-Almas",
                        "The Almas, Mongolian for \"wild man,\" is a purported hominid cryptozoological species reputed to inhabit the Caucasus and Pamir Mountains of central Asia, and the Altai Mountains of southern Mongolia. Source: http://en.wikipedia.org/wiki/Almas_%28cryptozoology%29");
     r1.addClass(c1);
+    r1.addFaction(fac7);
+    r1.addFaction(fac6);
 
     Race r2 = new Race(
                        new Long(002),
                        "Race-Amomongo",
                        "The Amomongo is a creature of Philippine mythology described as hairy, man-sized and ape-like with long nails. Source: http://en.wikipedia.org/wiki/Amomongo");
     r2.addClass(c2);
+    r2.addFaction(fac5);
+    r2.addFaction(fac3);
 
     Race r3 = new Race(
                        new Long(003),
@@ -231,6 +242,8 @@ public class TestCharacterValues {
                        "Chuchunya is a hominid cryptid rumoured to exist in Siberia, Russia. It has been described as six to seven feet tall and covered with dark hair. Source: http://en.wikipedia.org/wiki/Tjutjuna");
 
     r3.addClass(c3);
+    r3.addFaction(fac1);
+    r3.addFaction(fac8);
 
     Race r4 = new Race(
                        new Long(004),
@@ -238,6 +251,8 @@ public class TestCharacterValues {
                        "The Yeti or Abominable Snowman is a creature and an ape-like cryptid said to inhabit the Himalayan region of Nepal and Tibet. The names Yeti and Meh-Teh are commonly used by the people indigenous to the region,[1] and are part of their history and mythology. Stories of the Yeti first emerged as a facet of Western popular culture in the 19th century. Source: http://en.wikipedia.org/wiki/Yeti");
 
     r4.addClass(c4);
+    r4.addFaction(fac8);
+    r4.addFaction(fac3);
 
     races.add(r1);
     races.add(r2);
