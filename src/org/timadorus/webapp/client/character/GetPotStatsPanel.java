@@ -60,22 +60,9 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   ListBox classListBox = new ListBox();
 
-  int statCosts = 1;
-
-  int statPoints = 420;
-
   List<Integer> tempStats = new ArrayList<Integer>();
-
-  List<Image> incStatButtons = new ArrayList<Image>();
-
-  List<Image> decStatButtons = new ArrayList<Image>();
-
-  List<Image> incTenStatButtons = new ArrayList<Image>();
-
-  List<Image> decTenStatButtons = new ArrayList<Image>();
-
-  List<HTML> statCostHTML = new ArrayList<HTML>();
-
+  
+  
   int i;
 
   boolean isReady = false;
@@ -91,19 +78,16 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
         if (event.getSource().equals(prevButton)) {
           loadSelectTempStatsPanel();
         } else if (event.getSource().equals(nextButton)) {
+          loadSelectSkillPanel();
         }       
       }
     }
 
-    HTML headline = new HTML("<h1>Temporäre Attribute verteilen</h1>");
+    HTML headline = new HTML("<h1>Potentielle Attribute erhalten</h1>");
 
-    Image progressBar = new Image("media/images/progressbar_4.png");
+    Image progressBar = new Image("media/images/progressbar_5.png");
 
     statPointGrid.setBorderWidth(0);
-
-    statPointViewLabel.setHTML("<h2>" + String.valueOf(statPoints) + "<h2>");
-    statPointViewLabel.setStyleName("labelColorGreen");
-    statPointLabel.setStyleName("labelColorGreen");
 
     statPointGrid.setWidget(0, 0, statPointLabel);
     statPointGrid.setWidget(0, 1, statPointViewLabel);
@@ -136,15 +120,14 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
     buttonGrid.setWidget(0, 0, prevButton);
-    buttonGrid.setWidget(0, 1, nextButton);
-    nextButton.setEnabled(false);
+    buttonGrid.setWidget(0, 1, nextButton);    
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
     panel.setWidth("100%");
 
     panel.add(progressBar);
-    panel.add(new Label("Schritt 5 von 6"));
+    panel.add(new Label("Schritt 5 von 7"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
     panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: "
         + character.getFaction().getName()));
@@ -177,6 +160,11 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
   public void loadSelectTempStatsPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
+  }
+  
+  public void loadSelectSkillPanel(){
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character));
   }
 
   public static GetPotStatsPanel getGetPotStatsPanel(TimadorusWebApp entry, Character character) {
