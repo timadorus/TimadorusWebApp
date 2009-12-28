@@ -64,7 +64,11 @@ public class Character implements Serializable {
   @NotPersistent
   List<Skill> skillList_Level_1 = new ArrayList<Skill>();
 
-
+  List<Integer> tempStats = new ArrayList<Integer>();
+  
+  List<Integer> potStats = new ArrayList<Integer>();
+  
+  
   private Character() {
     super();
   }
@@ -125,8 +129,6 @@ public class Character implements Serializable {
     this.gender = gender;
   }
 
-  List<Integer> tempStat;
-
   public Race getRace() {
     return race;
   }
@@ -179,11 +181,11 @@ public class Character implements Serializable {
   }
 
   public List<Integer> getTempStat() {
-    return tempStat;
+    return tempStats;
   }
 
   public void setTempStat(List<Integer> tempStat) {
-    this.tempStat = tempStat;
+    this.tempStats = tempStat;
   }
 
   public void setStatList(List<Stat> statList) {
