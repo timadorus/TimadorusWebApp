@@ -12,14 +12,14 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import com.google.gwt.junit.client.WithProperties.Property;
+//import com.google.gwt.junit.client.WithProperties.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 /**
- * @author maddin
+ * @author kilic_a, willat_j
  * 
  */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)

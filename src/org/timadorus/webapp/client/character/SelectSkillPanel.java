@@ -14,7 +14,7 @@ import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.character.SelectClassPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 
-import com.google.gwt.dev.util.collect.HashMap;
+//import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -298,7 +298,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
     panel.remove(selectStatGrid);
     // panel.remove(saveSkCostButton);
 
-    selectStatGrid.removeAllRows();
+    //selectStatGrid.removeAllRows();
     selectStatGrid = getSkillCostTableLabel();
 
     int j = 0;
