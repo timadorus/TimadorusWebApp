@@ -60,6 +60,9 @@ public class Character implements Serializable {
   
   @NotPersistent
   List<Skill> skillList = new ArrayList<Skill>();
+  
+  @NotPersistent
+  List<Skill> skillList_Level_1 = new ArrayList<Skill>();
 
 
   private Character() {
@@ -219,6 +222,29 @@ public class Character implements Serializable {
 
   public void setSkillList(List<Skill> skillList) {
     this.skillList = skillList;
+  }
+  
+  public String getSkillListNames() {
+    String s="";
+    for (Skill skill : skillList) {
+      s+=skill.getName()+", ";
+    }
+    if (! s.isEmpty()) {
+      s=s.substring(0, s.length()-2); //delete last ", " char  
+    }
+    
+    
+    return s;
+  }
+  
+  
+
+  public List<Skill> getSkillList_Level_1() {
+    return skillList_Level_1;
+  }
+
+  public void setSkillList_Level_1(List<Skill> skillListLevel_1) {
+    skillList_Level_1 = skillListLevel_1;
   }
 
   public String getStatListString() {

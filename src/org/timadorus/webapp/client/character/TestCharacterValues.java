@@ -14,6 +14,10 @@ public class TestCharacterValues {
   List<Skill> skills = new ArrayList<Skill>();
   
   List<Skill> backupSkills = new ArrayList<Skill>();
+  
+  List<Skill> skills_Level_1 = new ArrayList<Skill>();
+  
+  List<Skill> backupSkills_Level1 = new ArrayList<Skill>();
 
   public TestCharacterValues() {
     createTestCharacterValues();
@@ -323,15 +327,68 @@ public class TestCharacterValues {
     skills.add(new Skill(sk1));
     skills.add(new Skill(sk2));
     skills.add(new Skill(sk3));
-
+    
     //clone() had not worked, this is why i choose this way of manual copy
-      backupSkills.add(new Skill(sk1));
-      backupSkills.add(new Skill(sk2));
-      backupSkills.add(new Skill(sk3));
-  
-//    backupSkills.add(sk1.clone());
-//    backupSkills.add(sk2.clone());
-//    backupSkills.add(sk3.clone());
+    backupSkills.add(new Skill(sk1));
+    backupSkills.add(new Skill(sk2));
+    backupSkills.add(new Skill(sk3));
+
+//  backupSkills.add(sk1.clone());
+//  backupSkills.add(sk2.clone());
+//  backupSkills.add(sk3.clone());
+    
+    
+    //Skills für Level=1
+    Skill sk_l1_1 = new Skill(
+                          "SMan",
+                          "SUB",
+                          "PR",
+                          "EM",
+                          "SA",
+                          "Std",
+                          "Swordsmanship",
+                          "en-US",
+                          true,
+                          "Swordsmanship refers to the skills of a swordsman, a person versed in the art of the sword. The term is modern, and as such was mainly used to refer to smallsword fencing, but by extension it can also be applied to any martial art involving the use of a sword. The formation of the English word \"swordsman\" is parallel to the Latin word gladiator[1], a term for the professional fighters who fought against each other and a variety of other foes for the entertainment of spectators in the Roman Empire. The word gladiator itself comes from the Latin word gladius, meaning \"sword\"[1]. Source: http://en.wikipedia.org/wiki/Swordsmanship",
+                          12, 8, 4, 17, 22, 40);
+    
+    
+    Skill sk_l1_2 = new Skill(
+                            "RSC",
+                            "SUB",
+                            "PR",
+                            "EM",
+                            "SA",
+                            "Std",
+                            "Rüstungsschmiede",
+                            "de",
+                            true,
+                            "Rüstungsschmiede sind NSC, die für die Spieler Rüstungen herstellen. Sie können in den meisten Städten gefunden werden, wobei es aber auch einge gibt, die sich in Instanzen selbst aufhalten. Sie alle haben gemein, dass sie nur im Austausch gegen Gold und Handwerksmaterialien arbeiten. Dabei steigen die Kosten je nach Art der Rüstung stark an, was zum Teil auch von den Verwendeten Materialien abhängig ist. Source: http://www.guildwiki.de/wiki/R%C3%BCstungsschmied",
+                            20, 18, 14, 4, 12, 20);
+    
+
+    Skill sk_l1_3 = new Skill(
+                            "RSC",
+                            "SUB",
+                            "PR",
+                            "EM",
+                            "SA",
+                            "Std",
+                            "Zauberstabskämpfer",
+                            "de",
+                            true,
+                            "Ein Zauberstabskämpfer ist ein Kämpfer, der als Waffe Zauberstäbe einsetzt u. mit deren Magie umgehen kann.\nDer Zauberstab dient dem Magier im Ritual, die speziellen magischen Energien in die gewünschte Richtung zu lenken, z.b wird damit auf ein Foto der Person gezeigt die verzaubert werden soll. Außerdem symbolisiert der Zauberstab den Willen des Zaubernden. Source: http://de.wikipedia.org/wiki/Zauberstab",
+                            18, 22, 17, 10, 13, 30);
+    
+    skills_Level_1.add(new Skill(sk_l1_1));
+    skills_Level_1.add(new Skill(sk_l1_2));
+    skills_Level_1.add(new Skill(sk_l1_3));
+    
+    //clone() had not worked, this is why i choose this way of manual copy
+    backupSkills_Level1.add(new Skill(sk_l1_1));
+    backupSkills_Level1.add(new Skill(sk_l1_2));
+    backupSkills_Level1.add(new Skill(sk_l1_3));
+   
       
     }
 
@@ -379,6 +436,26 @@ public class TestCharacterValues {
   public void setBackupSkills(List<Skill> backupSkills) {
     this.backupSkills = backupSkills;
   }
+
+  public List<Skill> getSkills_Level_1() {
+    return skills_Level_1;
+  }
+
+  public void setSkills_Level_1(List<Skill> skillsLevel_1) {
+    skills_Level_1 = skillsLevel_1;
+  }
+
+  public List<Skill> getBackupSkills_Level1() {
+    return backupSkills_Level1;
+  }
+
+  public void setBackupSkills_Level1(List<Skill> backupSkillsLevel1) {
+    backupSkills_Level1 = backupSkillsLevel1;
+  }
+  
+  
+  
+  
   
  
 
