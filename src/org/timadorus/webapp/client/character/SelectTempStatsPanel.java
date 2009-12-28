@@ -91,9 +91,10 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
-        if (event.getSource().equals(prevButton)) {
+        if (event.getSource().equals(prevButton)) {         
           loadSelectFactionPanel();
         } else if (event.getSource().equals(nextButton)) {
+          saveTempStats();
           loadGetPotStatsPanel();
         } else {
           for (i = 0; i < decStatButtons.size(); i++) {
@@ -229,6 +230,14 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       decTenStatButtons.get(i).addClickHandler(handler);
     }
 
+  }
+  
+  public void saveTempStats(){
+    if (!tempStats.isEmpty()){
+      character.setTempStat(tempStats);
+    } else {
+      System.out.println("tempStats is empty");
+    }
   }
 
   public int getStatCosts(int currentStat) {
