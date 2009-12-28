@@ -92,30 +92,6 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     statPointGrid.setWidget(0, 0, statPointLabel);
     statPointGrid.setWidget(0, 1, statPointViewLabel);
 
-    selectStatGrid.setBorderWidth(0);
-    selectStatGrid.setStyleName("selectGrid");
-
-    selectStatGrid.setWidget(0, 0, new Label("Attribut"));
-    selectStatGrid.setWidget(0, 1, new Label("Stufe"));
-    selectStatGrid.setWidget(0, 2, new Label("Kosten"));
-    selectStatGrid.setWidget(0, 3, new Label(""));
-    selectStatGrid.setWidget(0, 4, new Label("-1"));
-    selectStatGrid.setWidget(0, 5, new Label("+1"));
-    selectStatGrid.setWidget(0, 6, new Label("-10"));
-    selectStatGrid.setWidget(0, 7, new Label("+10"));
-    for (int i = 0; i < 8; i++) {
-      selectStatGrid.getWidget(0, i).setStyleName("underlinedText");
-    }
-
-    // show stats
-    for (int i = 0; i < 11; i++) {
-      tempStats.add(character.getStatList().get(i).getTempStat());
-      selectStatGrid.setWidget(i + 1, 0, new Label(character.getStatList().get(i).getName()));    
-    }
-    tempStats.add(character.getStatList().get(11).getTempStat());
-    selectStatGrid.setWidget(12, 0, new Label(character.getStatList().get(11).getName()));
-    selectStatGrid.setWidget(12, 1, new Label(String.valueOf(tempStats.get(11))));
-
     
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
