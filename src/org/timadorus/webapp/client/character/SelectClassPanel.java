@@ -133,7 +133,7 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     panel.setWidth("100%");
 
     panel.add(progressBar);
-    panel.add(new Label("Schritt 2 von 6"));
+    panel.add(new Label("Schritt 2 von 7"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
 
     panel.add(headline);

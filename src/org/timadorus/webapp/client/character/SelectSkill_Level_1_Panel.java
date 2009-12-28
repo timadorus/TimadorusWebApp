@@ -152,7 +152,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
     }
     addedskillLabel.setStyleName("labelColorRed");
     nextButton.setEnabled(false);
-    Image progressBar = new Image("media/images/progressbar_5.png");
+    Image progressBar = new Image("media/images/progressbar_7.png");
 
     selectSkillGrid.setBorderWidth(0);
     selectSkillGrid.setStylePrimaryName("selectGrid");

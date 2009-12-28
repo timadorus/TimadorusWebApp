@@ -196,7 +196,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     panel.setWidth("100%");
 
     panel.add(progressBar);
-    panel.add(new Label("Schritt 4 von 6"));
+    panel.add(new Label("Schritt 4 von 7"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
     panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: "
         + character.getFaction().getName()));

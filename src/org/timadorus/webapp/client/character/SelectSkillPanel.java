@@ -98,7 +98,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
       public void onClick(ClickEvent event) {
         // prevButton onclick
         if (event.getSource().equals(prevButton)) {
-          loadSelectStatsPanelS0();
+          loadGetPotStatsPanel();
           // nextButton onclick
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedSkillsInCharacter();
@@ -153,7 +153,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
     }
     addedskillLabel.setStyleName("labelColorRed");
     nextButton.setEnabled(false);
-    Image progressBar = new Image("media/images/progressbar_5.png");
+    Image progressBar = new Image("media/images/progressbar_6.png");
 
     selectSkillGrid.setBorderWidth(0);
     selectSkillGrid.setStylePrimaryName("selectGrid");
@@ -228,9 +228,9 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
 
   }
 
-  public void loadSelectStatsPanelS0() {
+  public void loadGetPotStatsPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
+    RootPanel.get("content").add(GetPotStatsPanel.getGetPotStatsPanel(entry, character));
   }
 
   public Skill getSelectedSkill() {
