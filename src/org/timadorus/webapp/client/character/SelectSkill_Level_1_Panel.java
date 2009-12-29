@@ -112,6 +112,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedSkillsInCharacter();
           sendCharacterToServerToSave();
+         loadCharacterReadyPanel();
 
         } else if (event.getSource().equals(skillListBox)) {
           // show skill informations
@@ -469,6 +470,11 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
     entry.getTestValues().setSkills_Level_1(new ArrayList<Skill>(backupList));//reset to "Skill begin list"
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectSkill_Level_1_Panel.getSelectSkillLevel1Panel(entry, character));
+  }
+  
+  public void loadCharacterReadyPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(CharacterReadyPanel.getCharacterReadyPanel(entry, character));
   }
   
   private void sendCharacterToServerToSave() {
