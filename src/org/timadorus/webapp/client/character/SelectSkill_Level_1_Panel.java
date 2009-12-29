@@ -1,6 +1,7 @@
 package org.timadorus.webapp.client.character;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -10,11 +11,17 @@ import java.util.Set;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.register.RegisterPanel;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
+import org.timadorus.webapp.client.rpc.service.LoginService;
+import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
 import org.timadorus.webapp.client.character.SelectClassPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 
 //import com.google.gwt.dev.util.collect.HashMap;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,8 +29,10 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -102,6 +111,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
           // nextButton onclick
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedSkillsInCharacter();
+          sendCharacterToServerToSave();
 
         } else if (event.getSource().equals(skillListBox)) {
           // show skill informations
@@ -460,5 +470,24 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectSkill_Level_1_Panel.getSelectSkillLevel1Panel(entry, character));
   }
+  
+  private void sendCharacterToServerToSave() {
+    CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
 
+     AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+      
+      @Override
+      public void onFailure(Throwable caught) {
+        // TODO Auto-generated method stub
+        System.out.println("Client/Server Create Character Service Failure!");
+      }
+
+      @Override
+      public void onSuccess(String result) {
+        // TODO Auto-generated method stub
+        System.out.println(result);
+      }
+    };
+     createServiceAsync.createCharacter(character, asyncCallback);
+}
 }

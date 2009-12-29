@@ -18,7 +18,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 public class RegisteredUserList {
 
-  private static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
+  public static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
 
   private HashMap<String, User> users = new HashMap<String, User>();
 
@@ -136,7 +136,7 @@ public class RegisteredUserList {
    * @return false, wenn Username bereits vergeben, true sonst
    */
   public Boolean addUser(User user) {
-    addC(user);
+   // addC(user);
     if (usernameAvailable(user.getUsername())) {
       User u=new User();
       

@@ -12,11 +12,13 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+
+//import com.google.appengine.api.datastore.Text;
+
 //import com.google.gwt.junit.client.WithProperties.Property;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author kilic_a, willat_j
@@ -31,22 +33,22 @@ public class Character implements Serializable {
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   Long characterID = new Long(-1);
 
-  @Persistent
+  @NotPersistent
   Long userIF = new Long(-1);
 
   @Persistent
-  String name = "--";
+  String name = "Dummy-Character";
 
   @Persistent
-  String gender = "--";
+  String gender = "Dummy-Gender";
 
-  @Persistent
+  @NotPersistent
   Race race;
 
-  @Persistent
+  @NotPersistent
   CClass charClass;
 
-  @Persistent
+  @NotPersistent
   Faction faction;
 
   @NotPersistent
@@ -56,16 +58,19 @@ public class Character implements Serializable {
   boolean complete = false;
 
   @Persistent
-  String allAttrInfo = "--";
+  String allAttrInfo_Part1="--" ;//
+
+  @Persistent
+  String allAttrInfo_Part2="--";
   
   @NotPersistent
   List<Skill> skillList = new ArrayList<Skill>();
   
   @NotPersistent
   List<Skill> skillList_Level_1 = new ArrayList<Skill>();
-
+  @NotPersistent
   List<Integer> tempStats = new ArrayList<Integer>();
-  
+  @NotPersistent
   List<Integer> potStats = new ArrayList<Integer>();
   
   
@@ -109,6 +114,8 @@ public class Character implements Serializable {
 
     Character character = new Character();
     character.fillStats();
+    character.setAllAttrInfo_Part1();
+    character.setAllAttrInfo_Part2();
     return character;
 
   }
@@ -167,19 +174,32 @@ public class Character implements Serializable {
     this.complete = complete;
   }
 
-  public String getAllAttrInfo() {
-    return allAttrInfo;
+
+  public String getAllAttrInfo_Part1() {
+    return allAttrInfo_Part1;
   }
 
-  public void setAllAttrInfo(String allAttrInfo) {
-    this.allAttrInfo = allAttrInfo;
+  public void setAllAttrInfo_Part1() {
+    allAttrInfo_Part1 = this.toString();
+  }
+ 
+  //split Information-String in two Parts, because com.google.appengine.api.datastore.Text don't works on client side
+  public void setAllAttrInfo(){
+setAllAttrInfo_Part1();
+setAllAttrInfo_Part2();
+  }
+  
+
+  public String getAllAttrInfo_Part2() {
+    return allAttrInfo_Part2;
+  }
+
+  public void setAllAttrInfo_Part2() {
+    allAttrInfo_Part2 = this.toString_Part2();
   }
 
   /* Save Character-Relevance Info's as one-String-Object, for later saving as one-String-Object in AppEngine-JDO */
-  public void setAllAttrInfo() {
-    this.allAttrInfo = this.toString();
-  }
-
+  
   public List<Integer> getTempStat() {
     return tempStats;
   }
@@ -239,6 +259,32 @@ public class Character implements Serializable {
     return s;
   }
   
+  public String getSkillLevel1ListNames() {
+    String s="";
+    for (Skill skill : skillList_Level_1) {
+      s+=skill.getName()+", ";
+    }
+    if (! s.isEmpty()) {
+      s=s.substring(0, s.length()-2); //delete last ", " char  
+    }
+    
+    
+    return s;
+  }
+  
+  public String getPotStatListWerte() {
+    String s="";
+    for (Integer i : potStats) {
+      s+=i+", ";
+    }
+    if (! s.isEmpty()) {
+      s=s.substring(0, s.length()-2); //delete last ", " char  
+    }
+    
+    
+    return s;
+  }
+  
   
 
   public List<Skill> getSkillList_Level_1() {
@@ -257,6 +303,28 @@ public class Character implements Serializable {
 
     return s;
   }
+  
+  
+
+  public List<Integer> getTempStats() {
+    return tempStats;
+  }
+
+  public void setTempStats(List<Integer> tempStats) {
+    this.tempStats = tempStats;
+  }
+
+  public List<Integer> getPotStats() {
+    return potStats;
+  }
+
+  public void setPotStats(List<Integer> potStats) {
+    this.potStats = potStats;
+  }
+  
+  
+  
+  
 
   @Override
   public String toString() {
@@ -273,10 +341,33 @@ public class Character implements Serializable {
       s += "\n" + faction.toString();
     }
     if (getStatList() != null) {
-      s += "\nCharacter-Stat-Liste: " + getStatListString().toString();
+      s += "\nCharacter-Stat-Liste: " + getStatListString();
     }
+    
+    
     return s;
 
   }
+  
+  public String toString_Part2() {
+    String s = "";
+
+    
+    if (getSkillList() != null) {
+      s += "\nSkill-Liste: " + getSkillListNames();
+    }
+    
+    if (getSkillList_Level_1() != null) {
+      s += "\nSkill_Level1-Liste: " + getSkillLevel1ListNames();
+    }
+    
+    if (getPotStats() != null) {
+      s += "\nPot-Stat-Liste: " + getPotStatListWerte();
+    }
+    
+    return s;
+
+  }
+  
 
 }

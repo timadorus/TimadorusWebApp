@@ -16,7 +16,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
   private static RegisteredUserList userList = RegisteredUserList.getInstance();
 
   public String login(User tmpUser) {
-//    userList.addC();
+   // userList.addC(tmpUser); //
     System.out.println("Login aufgerufen");
     if (tmpUser == null) { return null; }
     if (userList.isValid(tmpUser)) {
