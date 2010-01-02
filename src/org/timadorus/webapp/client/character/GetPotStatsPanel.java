@@ -88,6 +88,8 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     getPotStatGrid.setHTML(0, 1, "TempStat");
     getPotStatGrid.setHTML(0, 2, "PotStat");
     
+    calculatePotStats();
+    
     for (int i = 0; i < 11; i++){
       getPotStatGrid.setHTML(i + 1, 0, character.getStatList().get(i).toString());
       getPotStatGrid.setHTML(i + 1, 1, character.getTempStats().get(i).toString());
@@ -132,6 +134,15 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   }
 
+  public void calculatePotStats(){
+    for (int i = 0; i < 11; i++){
+      //for future calculations
+      int tempStat = character.getTempStats().get(i);
+      //random w100 calculation for dummy tests
+      int potStat = (int) Math.floor((Math.random() * 100) + 1);
+      potStats.set(i, potStat);
+    }
+  }
 
 
   public void loadSelectTempStatsPanel() {

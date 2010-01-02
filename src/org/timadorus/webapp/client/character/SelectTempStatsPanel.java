@@ -78,8 +78,8 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   List<Image> decTenStatButtons = new ArrayList<Image>();
 
   List<HTML> statCostHTML = new ArrayList<HTML>();
-  
-  //for tests only
+
+  // for tests only
   Button testButton = new Button();
 
   int i;
@@ -94,12 +94,12 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
-        if (event.getSource().equals(prevButton)) {         
+        if (event.getSource().equals(prevButton)) {
           loadSelectFactionPanel();
         } else if (event.getSource().equals(nextButton)) {
           saveTempStats();
-          loadGetPotStatsPanel(); 
-        } else if (event.getSource().equals(testButton)){
+          loadGetPotStatsPanel();
+        } else if (event.getSource().equals(testButton)) {
           nextButton.setEnabled(true);
         } else {
           for (i = 0; i < decStatButtons.size(); i++) {
@@ -190,8 +190,6 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     selectStatGrid.setWidget(12, 1, new Label(String.valueOf(tempStats.get(11))));
 
     readyLabel.setStyleName("labelColorRed");
-    
-    
 
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
@@ -202,7 +200,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
     panel.setWidth("100%");
-    
+
     panel.add(progressBar);
     panel.add(new Label("Schritt 4 von 7"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
@@ -214,11 +212,11 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     panel.add(statPointGrid);
 
     panel.add(selectStatGrid);
-    
-  //for tests only
-  
+
+    // for tests only
+
     panel.add(testButton);
-    
+
     panel.add(buttonGrid);
 
     panel.add(readyLabel);
@@ -242,9 +240,9 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     }
 
   }
-  
-  public void saveTempStats(){
-    if (!tempStats.isEmpty()){
+
+  public void saveTempStats() {
+    if (!tempStats.isEmpty()) {
       character.setTempStat(tempStats);
     } else {
       System.out.println("tempStats is empty");
@@ -292,7 +290,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
   }
-   
+
   public void loadGetPotStatsPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(GetPotStatsPanel.getGetPotStatsPanel(entry, character));
