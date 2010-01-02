@@ -42,10 +42,6 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   final Character character;
 
-  HTML statPointLabel = new HTML("<h2>Verteilbare Punkte:</h2>");
-
-  HTML statPointViewLabel = new HTML();
-  
   Button nextButton = new Button("weiter");
 
   Button prevButton = new Button("zurück");
@@ -56,11 +52,9 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   FlexTable buttonGrid = new FlexTable();
 
-  FlexTable statPointGrid = new FlexTable();
+  FlexTable getPotStatGrid = new FlexTable();  
 
-  ListBox classListBox = new ListBox();
-
-  List<Integer> tempStats = new ArrayList<Integer>();
+  List<Integer> potStats = new ArrayList<Integer>();
   
   
   int i;
@@ -87,11 +81,18 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
     Image progressBar = new Image("media/images/progressbar_5.png");
 
-    statPointGrid.setBorderWidth(0);
-
-    statPointGrid.setWidget(0, 0, statPointLabel);
-    statPointGrid.setWidget(0, 1, statPointViewLabel);
-
+    getPotStatGrid.setBorderWidth(0);
+    getPotStatGrid.setStyleName("selectGrid");
+    
+    getPotStatGrid.setHTML(0, 0, "Attribut");
+    getPotStatGrid.setHTML(0, 1, "TempStat");
+    getPotStatGrid.setHTML(0, 2, "PotStat");
+    
+    for (int i = 0; i < 11; i++){
+      getPotStatGrid.setHTML(i + 1, 0, character.getStatList().get(i).toString());
+      getPotStatGrid.setHTML(i + 1, 1, character.getTempStats().get(i).toString());
+      getPotStatGrid.setHTML(i + 1, 2, potStats.get(i).toString());
+    }
     
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
@@ -110,7 +111,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
     panel.add(headline);
 
-    panel.add(statPointGrid);
+    panel.add(getPotStatGrid);
 
     panel.add(selectStatGrid);
 
