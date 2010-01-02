@@ -140,7 +140,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
       int tempStat = character.getTempStats().get(i);
       //random w100 calculation for dummy tests
       int potStat = (int) Math.floor((Math.random() * 100) + 1);
-      potStats.set(i, potStat);
+      potStats.add(i, potStat);
     }
   }
 
