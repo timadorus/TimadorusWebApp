@@ -1,6 +1,7 @@
 package org.timadorus.webapp.client.character;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -67,7 +68,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   int statPoints = 420;
 
-  List<Integer> tempStats = new ArrayList<Integer>();
+  LinkedList<Integer> tempStats = new LinkedList();
 
   List<Image> incStatButtons = new ArrayList<Image>();
 

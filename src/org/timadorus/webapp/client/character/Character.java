@@ -18,6 +18,7 @@ import javax.jdo.annotations.PrimaryKey;
 //import com.google.gwt.junit.client.WithProperties.Property;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -31,7 +32,10 @@ public class Character implements Serializable {
 
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long characterID = new Long(-1);
+  Long key; //art of Table-Key
+    
+  @Persistent
+  String characterID = "999";
 
   @NotPersistent
   Long userIF = new Long(-1);
@@ -52,7 +56,7 @@ public class Character implements Serializable {
   Faction faction;
 
   @NotPersistent
-  List<Stat> statList = new ArrayList<Stat>();
+  LinkedList<Stat> statList = new LinkedList<Stat>();
 
   @Persistent
   boolean complete = false;
@@ -71,7 +75,7 @@ public class Character implements Serializable {
   @NotPersistent
   List<Integer> tempStats = new ArrayList<Integer>();
   @NotPersistent
-  List<Integer> potStats = new ArrayList<Integer>();
+  LinkedList<Integer> potStats = new LinkedList();
   
   
   private Character() {
@@ -81,7 +85,7 @@ public class Character implements Serializable {
   void fillStats() {
 
     Stat s1 = new Stat("Konstitution", "Konsti");
-    statList = new ArrayList<Stat>();
+    statList = new LinkedList();
     statList.add(s1);
     Stat s2 = new Stat("Agilität", "Agi");
     statList.add(s2);
@@ -149,12 +153,26 @@ public class Character implements Serializable {
    * 
    * public void setProfession(String profession) { this.profession = profession; }
    */
+  
+  
 
-  public Long getCharacterID() {
+ 
+
+  public Long getKey() {
+    return key;
+  }
+
+  public void setKey(Long key) {
+    this.key = key;
+  }
+
+ 
+
+  public String getCharacterID() {
     return characterID;
   }
 
-  public void setCharacterID(Long characterID) {
+  public void setCharacterID(String characterID) {
     this.characterID = characterID;
   }
 
@@ -204,11 +222,11 @@ setAllAttrInfo_Part2();
     return tempStats;
   }
 
-  public void setTempStat(List<Integer> tempStat) {
+  public void setTempStat(LinkedList<Integer> tempStat) {
     this.tempStats = tempStat;
   }
 
-  public void setStatList(List<Stat> statList) {
+  public void setStatList(LinkedList<Stat> statList) {
     this.statList = statList;
   }
 
@@ -285,6 +303,19 @@ setAllAttrInfo_Part2();
     return s;
   }
   
+  public String getTempStatListWerte() {
+    String s="";
+    for (Integer i : tempStats) {
+      s+=i+", ";
+    }
+    if (! s.isEmpty()) {
+      s=s.substring(0, s.length()-2); //delete last ", " char  
+    }
+    
+    
+    return s;
+  }
+  
   
 
   public List<Skill> getSkillList_Level_1() {
@@ -318,7 +349,7 @@ setAllAttrInfo_Part2();
     return potStats;
   }
 
-  public void setPotStats(List<Integer> potStats) {
+  public void setPotStats(LinkedList<Integer> potStats) {
     this.potStats = potStats;
   }
   
@@ -330,7 +361,7 @@ setAllAttrInfo_Part2();
   public String toString() {
     String s = "";
 
-    s += "Character-ID: " + characterID + "\nCharacter-Name: " + name + "\nCharacter-Gender: " + gender;
+    s += "Character-ID: " + getCharacterID() + "\nCharacter-Name: " + getName() + "\nCharacter-Gender: " + getGender();
     if (race != null) {
       s += "\n" + race.toString();
     }
@@ -363,6 +394,10 @@ setAllAttrInfo_Part2();
     
     if (getPotStats() != null) {
       s += "\nPot-Stat-Liste: " + getPotStatListWerte();
+    }
+    
+    if (getTempStat()!= null) {
+      s += "\nTemp.-Stat-Liste: " + getTempStatListWerte();
     }
     
     return s;

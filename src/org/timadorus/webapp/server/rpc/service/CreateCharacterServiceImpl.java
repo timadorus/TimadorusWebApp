@@ -82,7 +82,7 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
     for (Character character: entries) {
       if (character.getName().equals(cname)) {
 //        System.out.println("YES ! Character-Object: \"" + cname+ "\" saved to Datastore and read from there !");
-        System.out.println("\n\n**********Read from DB FOLLOW CHARACTER-OBJECT*********\n: "+character.getAllAttrInfo_Part1()+"\n"+character.getAllAttrInfo_Part2()+"\n****************\n\n");
+        System.out.println("\n\n**********Read from DB FOLLOW CHARACTER-OBJECT*********\n"+character.getAllAttrInfo_Part1()+"\n"+character.getAllAttrInfo_Part2()+"\n****************\n\n");
         System.out.println("\n*********************************************************\n");
         
         pm.close();

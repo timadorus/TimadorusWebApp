@@ -1,6 +1,6 @@
 package org.timadorus.webapp.client.character;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -54,7 +54,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   FlexTable getPotStatGrid = new FlexTable();  
 
-  List<Integer> potStats = new ArrayList<Integer>();
+  LinkedList<Integer> potStats = new LinkedList();
   
   
   int i;
@@ -95,6 +95,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
       getPotStatGrid.setHTML(i + 1, 1, character.getTempStats().get(i).toString());
       getPotStatGrid.setHTML(i + 1, 2, potStats.get(i).toString());
     }
+    character.setPotStats(potStats);
     
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
