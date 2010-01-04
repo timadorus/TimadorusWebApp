@@ -9,10 +9,10 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class TimadorusWebApp implements EntryPoint, HistoryListener {
+
 	protected final String startState			= "start";
 	protected final String loginUserState		= "loginUser";
 	protected final String registerUserState	= "registerUser";
@@ -20,11 +20,14 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	protected final String logoutUserState		= "logoutUser";
 	protected final String showUserProfileState	= "showUserProfile";
 	protected final String showUserToonsState	= "showUserToons";
-	protected final String setToonState         = "setToonFeacture";
+	protected final String setToonLevel         = "setToonFeacture";
+	protected final String setToonRace          = "setToonRace";
+
 
 	//protected final String showToonsState		= "showToons";
 
 	private final SessionId sessionId = new SessionId();
+	private final ToonTestValue toonValue= new ToonTestValue();
 
 	private boolean userLoggedIn = false;
 	private int toonCreateIn = 0;
@@ -32,7 +35,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
 	private final UserServiceAsync userService	= GWT.create(UserService.class);
 	private final ToonServiceAsync toonService	= GWT.create(ToonService.class);
-
+	private Set<String> toonNameSet =new HashSet<String>();
 	private User loggedInUserObject	= null;
 	private  Toon toonToCreateInUserObject=null;
 	private Set<Toon> toonsOfLoggedInUser = new HashSet<Toon>();
@@ -99,9 +102,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		RootPanel.get("menu").add(new MenuPanel(this));
 	}
 
-	/**
-	 * 
-	 */
+
 	public void onHistoryChanged(String historyToken) {
 		RootPanel.get("content").clear();
 		RootPanel.get("error").clear();
@@ -118,9 +119,15 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 		if (historyToken.equals(createToonState))
 			RootPanel.get("content").add(new CreateToonPanel(this));
 
-		if(historyToken.equals(setToonState))
-			RootPanel.get("content").add(new SetToonStatePanel(this));
+		if(historyToken.equals(setToonLevel)){
+			RootPanel.get("content").add(new SetToonLevelPanel(this));
+		}
 		
+		if(historyToken.equals(setToonRace)){
+			RootPanel.get("content").add(new SetToonRacePanel(this));
+		}
+		
+
 		if (historyToken.equals(showUserProfileState))
 			RootPanel.get("content").add(new ShowUserProfilePanel(this));
 
@@ -202,15 +209,22 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 				System.out.println(caught.toString());
 			}
 			public void onSuccess(Boolean result) {			
-				//				Login success
+				
 				if (result)
 				{
 					toonCreateIn= 1;
 					onModuleLoad();
 					toonToCreateInUserObject= _toonObj;
+					if(toonNameSet.contains(_toonObj.getName()))
+					{
+						showError("Toon name is already used, Please choice a new name for Your Toon");
+					}else
+					{
+						toonNameSet.add(_toonObj.getName());
+					}		
 
 				}else{
-					showError(" could'not created  new Toon!");
+					showError("Toon name is already used, Please choice a new name for Your Toon");
 					toonCreateIn=-1;
 				}
 			}
@@ -231,15 +245,15 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 				System.out.println(caught.toString());
 			}
 			public void onSuccess(Boolean result) {			
-
 				if (result)
 				{
+
 					if (toonCreateIn==1)
 					{
 						toonCreateIn=2;
 						onModuleLoad();
 						toonToCreateInUserObject = toonObj ;
-						//getToonInformation(toonObj.getName());
+
 					}
 
 				}else{
@@ -248,7 +262,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 			}
 		};
 
-		this.toonService.createToon(toonObj, callback);//???
+		this.toonService.setToonFeacture(toonObj, callback);//???
 	}
 
 	public void getToonInformation( final String toonname) {
@@ -306,7 +320,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 			public void onSuccess(Set<Toon> result)
 			{
 				for (Toon tmp : result)					
-				toonsOfLoggedInUser.add(tmp);
+					toonsOfLoggedInUser.add(tmp);
 			}
 		};
 		this.toonService.getToonsOfUser(_userName, callback);
@@ -324,5 +338,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener {
 	 */
 	public Set<Toon> getToonsOfLoggedInUser() {
 		return this.toonsOfLoggedInUser;
+	}
+
+	public ToonTestValue getToonValue() {
+		return toonValue;
 	}
 }

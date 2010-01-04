@@ -1,6 +1,8 @@
 	package org.timadorus.webapp.client;
 
     import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 	
 	
@@ -13,6 +15,9 @@
 	
 	private static final long serialVersionUID = 1L;
 
+	private Map<String, String> levelMap= new HashMap<String, String>();
+	
+
 	public Level() throws Exception {
 		throw new Exception("No parameter set");
 	}
@@ -22,6 +27,7 @@
 	
 	  this.name = name;
 	  this.description = description;
+	  levelMap.put(name, description);
 	
 	}
 	
@@ -41,5 +47,8 @@
 	  this.description = description;
 	}
 	
+	public Map<String, String> getLevelMap() {
+		return levelMap;
+	}
 
 	}

@@ -3,11 +3,16 @@ package org.timadorus.webapp.client;
 /**
  * @author Manto Mireille
 
+
  *
  */
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
@@ -168,7 +173,7 @@ public class Toon implements IsSerializable {
 	 private  boolean isCommitFlag = false;
 	 private String username="";
 	 private Integer reasoning=null;
-	 
+	 private List<Level>leveList= new LinkedList<Level>();
 	 public Toon() {
 		 
 	 }
@@ -203,7 +208,10 @@ public class Toon implements IsSerializable {
 	public String getFraction() {
 		return fraction;
 	}
-
+	 
+   public List<Level>getLevelList(){
+	   return leveList;
+   }
 	public String getRace() {
 		return race;
 	}
@@ -224,7 +232,8 @@ public class Toon implements IsSerializable {
 		return selfDiscipline;
 	}
 
-	public Integer getMemory() {
+	public Integer getMemory()
+	{
 		return memory;
 	}
 
@@ -334,6 +343,11 @@ public class Toon implements IsSerializable {
 	
 	public  String  toString(){
 		return name;
+		
+	}
+
+	public void setLevellist(List<Level> levelList) {
+		this.leveList=levelList;
 		
 	}
 	

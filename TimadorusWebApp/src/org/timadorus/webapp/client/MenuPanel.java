@@ -1,6 +1,7 @@
 package org.timadorus.webapp.client;
 
 import com.google.gwt.user.client.ui.HTML;
+
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -36,13 +37,14 @@ public class MenuPanel extends VerticalPanel {
 		
 		 if(this.appReference.getUserLoggedIn()&& this.appReference.getToonCreateIn()==1)
 		 {
-			 this.add(new Hyperlink("Toon Feactures ", this.appReference.setToonState));
+			 this.add(new Hyperlink("SetToonLevel ", this.appReference.setToonLevel));
 		 }
+		 
 		 
 		 if(this.appReference.getUserLoggedIn()&& this.appReference.getToonCreateIn()==2)
 		 {
-			 System.out.println("hhhhhhhhhhhhhhhhh");
-			 this.add(new HTML("Toon is saved"));
+			
+			 this.add(new Hyperlink("SetToonRace ", this.appReference.setToonRace));
 		 }
 		 
 	}

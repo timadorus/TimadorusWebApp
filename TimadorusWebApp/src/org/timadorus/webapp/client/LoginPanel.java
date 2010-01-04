@@ -46,4 +46,8 @@ public class LoginPanel extends VerticalPanel {
 		this.add(new HTML("<h2>User login</h2>"));
 		this.add(loginGrid);
 	}
+
+public TimadorusWebApp getappReference() {
+    return appReference;
+  }
 }

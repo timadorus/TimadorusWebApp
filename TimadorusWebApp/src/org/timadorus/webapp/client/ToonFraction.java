@@ -1,6 +1,7 @@
 package org.timadorus.webapp.client;
 
 	import java.io.Serializable;
+import java.util.ArrayList;
 
 	import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Persistent;
@@ -10,7 +11,9 @@ import javax.jdo.annotations.Persistent;
 		 * 
 		 */
 	  private static final long serialVersionUID = 1L;
-	  @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	
+	  private ArrayList <String>  fractionList =  new ArrayList<String>();
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	  private Long fractionID=null;
 	  private  String names=null;
 	  private String description=null;
@@ -21,8 +24,9 @@ import javax.jdo.annotations.Persistent;
 		 
 		
 
-	  ToonFraction( String racename) {
-	     names= racename;
+	  ToonFraction( String fractioname) {
+	     names= fractioname;
+	     fractionList.add(fractioname);
 	  }
 
 	
@@ -50,5 +54,8 @@ import javax.jdo.annotations.Persistent;
 	  public void setdescription(String description) {
 	    this.description = description;
 	  }
-
+	 
+	  public ArrayList<String> getFractionList() {
+		return fractionList;
+	}
 	}

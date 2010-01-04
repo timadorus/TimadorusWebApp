@@ -6,9 +6,11 @@ package org.timadorus.webapp.client;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
+
 
 /**
  * @author Manto Mireille
@@ -21,7 +23,7 @@ public class ToonRace implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
+	private ArrayList <String>  raceList =  new ArrayList<String>();
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Long _raceID= null;
 	private String _toonRaceNamen= null;
@@ -34,6 +36,8 @@ public class ToonRace implements Serializable{
 	 
 	 public ToonRace( String racename) {
 		         _toonRaceNamen = racename;
+		         raceList.add(racename);
+		         
 		 }
 		 
 	
@@ -66,6 +70,8 @@ public class ToonRace implements Serializable{
 	this._description = description;
 	}
 
-
+	  public ArrayList<String> getraceList() {
+			return raceList;
+		}
 
 }
