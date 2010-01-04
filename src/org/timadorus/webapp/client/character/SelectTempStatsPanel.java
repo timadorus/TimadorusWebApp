@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -76,7 +75,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     this.entry = entry;
     this.character = character;
 
-    // Create a handler for the sendButton and nameField
+    // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
         // handles prev button

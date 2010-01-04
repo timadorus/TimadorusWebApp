@@ -1,43 +1,26 @@
 package org.timadorus.webapp.client.character;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.ListIterator;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.register.RegisterPanel;
-import org.timadorus.webapp.client.character.SelectFactionPanel;
-import org.timadorus.webapp.client.character.CClass;
 
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.HistoryListener;
+
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FormPanel;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
-//ClassPanel allows you to choosing the Classes and Races of Character via Listbox
+//Panel for selecting characters Faction
 public class SelectFactionPanel extends FormPanel implements HistoryStates {
 
   TimadorusWebApp entry;
@@ -50,27 +33,29 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
 
   VerticalPanel panel = new VerticalPanel();
 
-  FlexTable selectFactionGrid = new FlexTable();
+  FlexTable selectFactionGrid = new FlexTable(); // grid for handling selections
 
-  FlexTable buttonGrid = new FlexTable();
+  FlexTable buttonGrid = new FlexTable(); // grid for next/prev buttons
 
-  ListBox factionListBox = new ListBox();
+  ListBox factionListBox = new ListBox(); //listbox for available faction
 
   public SelectFactionPanel(final TimadorusWebApp entry, Character character) {
     super();
     this.entry = entry;
     this.character = character;
 
-    // Create a handler for the sendButton and nameField
+    // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
+        // handles prev button
         if (event.getSource().equals(prevButton)) {
           loadSelectClassPanel();
+          // handles next button
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedFaction();
-          loadSelectStatsPanelS0();
+          loadSelectTempStatsPanel();
         }else if(event.getSource().equals(selectFactionGrid)){
-
+          //handles changing "information" #div
           String factionName = factionListBox.getValue(factionListBox.getSelectedIndex());
           ListIterator<Faction> factionIterator = entry.getTestValues().getFactions().listIterator();
           RootPanel.get("information").clear();
@@ -90,10 +75,13 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
         
       }
     }
+    
+    //headline
+    HTML headline = new HTML("<h1>Fraktion wählen</h1>");
+    //progress bar picture
     Image progressBar = new Image("media/images/progressbar_3.png");
 
-    HTML headline = new HTML("<h1>Fraktion wählen</h1>");
-
+    // setting properties for selectfactiongrid
     selectFactionGrid.setBorderWidth(0);
     selectFactionGrid.setStylePrimaryName("selectGrid");
 
@@ -114,29 +102,30 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
 
     factionListBox.setVisibleItemCount(factionListBox.getItemCount());
 
+    //set properties of buttongrid
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
-
+    // setting properties of the main panel
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
     panel.setWidth("100%");
-
+    // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 3 von 7"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
     panel.add(new Label("Klasse: " + character.getCharClass().getName()));
 
-    panel.add(headline);
-    
+    panel.add(headline);    
     panel.add(selectFactionGrid);
-
     panel.add(buttonGrid);
 
+    // clearing "information" #div and adding actual informations for this panel
     RootPanel.get("information").clear();
     RootPanel.get("information").add(getInformation());
 
+    // clearing "content" #div and adding this mainpanel to this #div
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
 
@@ -148,10 +137,12 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
 
   }
 
+  //save selected factions
   public void saveSelectedFaction() {
     character.setFaction(getSelectedFaction());
   }
   
+  //returns currently select faction from the listbox
   public Faction getSelectedFaction() {
     ListIterator<Faction> factionIterator = entry.getTestValues().getFactions().listIterator();
     while (factionIterator.hasNext()) {
@@ -161,29 +152,21 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     return null;
   }
   
-  
+  // clear "content" #div and add Class SelectClassPanel to it
   public void loadSelectClassPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character));
   }
-  
-  public void loadSelectStatsPanelS0() {
+  //clear "content" #div and add Class SelectTempStats to it
+  public void loadSelectTempStatsPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
   }
-
-  public void loadSelectSkillPanel() {
-    // todo: creating SelectSkillPanel
-  }
-
+  //creates a new SelectTempStats instance
   public static SelectFactionPanel getSelectFactionPanel(TimadorusWebApp entry, Character character) {
-    // if (characterPanel == null) {
-    // characterPanel = new CharacterPanel(entry);
-    // }
-    // return characterPanel;
     return new SelectFactionPanel(entry, character);
   }
-
+  //return current panel information
   private static final HTML getInformation() {
     HTML information = new HTML(
                                 "<h1>Fraktionen wählen</h1><p>Wählen sie hier die Fraktionen ihres Charakteres. Beachten sie, dass bestimmte Fraktionen nur von bestimmten Rassen sowie Klassen gewählt werden können.</p>");
