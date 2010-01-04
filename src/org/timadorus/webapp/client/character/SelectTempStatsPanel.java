@@ -3,40 +3,24 @@ package org.timadorus.webapp.client.character;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FormPanel;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
-//ClassPanel allows you to choosing the Classes and Races of Character via Listbox
+// Panel for selecting TempStats
 public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   final TimadorusWebApp entry;
@@ -56,20 +40,20 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   VerticalPanel panel = new VerticalPanel();
 
-  FlexTable selectStatGrid = new FlexTable();
+  FlexTable selectStatGrid = new FlexTable(); // grid for handling selections
 
-  FlexTable buttonGrid = new FlexTable();
+  FlexTable buttonGrid = new FlexTable(); // grid for next/prev buttons
 
-  FlexTable statPointGrid = new FlexTable();
-
-  ListBox classListBox = new ListBox();
+  FlexTable statPointGrid = new FlexTable(); // grid for available statpoints
 
   int statCosts = 1;
 
   int statPoints = 420;
 
-  LinkedList<Integer> tempStats = new LinkedList();
+  // list for handling tempstats
+  LinkedList<Integer> tempStats = new LinkedList<Integer>();
 
+  // lists for buttons
   List<Image> incStatButtons = new ArrayList<Image>();
 
   List<Image> decStatButtons = new ArrayList<Image>();
@@ -80,7 +64,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   List<HTML> statCostHTML = new ArrayList<HTML>();
 
-  // for tests only
+  // for tests only - enables next button
   Button testButton = new Button();
 
   int i;
@@ -95,14 +79,18 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
+        // handles prev button
         if (event.getSource().equals(prevButton)) {
           loadSelectFactionPanel();
+          // handles next button
         } else if (event.getSource().equals(nextButton)) {
           saveTempStats();
           loadGetPotStatsPanel();
+          // handles testbutton - for testcases only!
         } else if (event.getSource().equals(testButton)) {
           nextButton.setEnabled(true);
         } else {
+          // handles inc/dec statbuttons
           for (i = 0; i < decStatButtons.size(); i++) {
             if (event.getSource().equals(decStatButtons.get(i))) {
               decStat(i);
@@ -117,10 +105,12 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
                 incStat(i);
               }
             }
+            // print stat changes to panel
             statPointViewLabel.setHTML("<h2>" + String.valueOf(statPoints) + "</h2>");
             selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
             statCostHTML.get(i).setHTML(String.valueOf(getStatCosts(tempStats.get(i) + 1)));
-
+            // check if nextbutton is enabled after stat changes, alter colors of available statpoint and set helptext +
+            // color
             setReadyStatus();
           }
           // handle StatCostsLabelColor for each increase/decrease event
@@ -138,11 +128,12 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       }
 
     }
-
+    // headline
     HTML headline = new HTML("<h1>Temporäre Attribute verteilen</h1>");
-
+    // progressbar picure
     Image progressBar = new Image("media/images/progressbar_4.png");
 
+    // setting properties for statpointgrid
     statPointGrid.setBorderWidth(0);
 
     statPointViewLabel.setHTML("<h2>" + String.valueOf(statPoints) + "<h2>");
@@ -152,6 +143,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     statPointGrid.setWidget(0, 0, statPointLabel);
     statPointGrid.setWidget(0, 1, statPointViewLabel);
 
+    // setting properties for selectstatgrid
     selectStatGrid.setBorderWidth(0);
     selectStatGrid.setStyleName("selectGrid");
 
@@ -163,11 +155,12 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     selectStatGrid.setWidget(0, 5, new Label("+1"));
     selectStatGrid.setWidget(0, 6, new Label("-10"));
     selectStatGrid.setWidget(0, 7, new Label("+10"));
+    // change css class for selectstatgrid to "underlinedText"
     for (int i = 0; i < 8; i++) {
       selectStatGrid.getWidget(0, i).setStyleName("underlinedText");
     }
 
-    // show stats
+    // filling the selectstatgrid
     for (int i = 0; i < 11; i++) {
       tempStats.add(character.getStatList().get(i).getTempStat());
       selectStatGrid.setWidget(i + 1, 0, new Label(character.getStatList().get(i).getName()));
@@ -190,18 +183,23 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     selectStatGrid.setWidget(12, 0, new Label(character.getStatList().get(11).getName()));
     selectStatGrid.setWidget(12, 1, new Label(String.valueOf(tempStats.get(11))));
 
+    // setting properties of readylabel
     readyLabel.setStyleName("labelColorRed");
 
+    // setting properties of buttongrid
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
+    // disable nextbutton
     nextButton.setEnabled(false);
 
+    // setting properties of the main panel
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
     panel.setWidth("100%");
 
+    // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 4 von 7"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
@@ -222,13 +220,15 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
     panel.add(readyLabel);
 
+    // clearing "information" #div and adding actual informations for this panel
     RootPanel.get("information").clear();
     RootPanel.get("information").add(getInformation());
 
+    // clearing "content" #div and adding this mainpanel to this #div
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
 
-    // Add Handlers
+    // add handlers
     MyHandler handler = new MyHandler();
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
@@ -242,6 +242,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   }
 
+  // saving tempstats
   public void saveTempStats() {
     if (!tempStats.isEmpty()) {
       character.setTempStat(tempStats);
@@ -250,6 +251,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     }
   }
 
+  // calculates current statcost for stat i
   public int getStatCosts(int currentStat) {
     int cost = 1;
     if (currentStat > 90)
@@ -257,6 +259,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     return cost;
   }
 
+  // increases the stat i
   public void incStat(int i) {
     if (((tempStats.get(i)) < 100) && (statPoints >= (getStatCosts(tempStats.get(i) + 1)))) {
       decStatPoints(getStatCosts(tempStats.get(i) + 1));
@@ -265,6 +268,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       System.out.print("maximal 100");
   }
 
+  // decreases the stat i
   public void decStat(int i) {
     if (((tempStats.get(i)) > 30) && (statPoints < 750)) {
       incStatPoints(getStatCosts(tempStats.get(i)));
@@ -273,6 +277,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       System.out.print("minimal 30");
   }
 
+  // increase available stat points
   public void incStatPoints(int costs) {
     if (statPoints < 420)
       statPoints = statPoints + costs;
@@ -280,6 +285,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       System.out.print("maximal 420");
   }
 
+  // decreases available stat points
   public void decStatPoints(int costs) {
     if (statPoints > 0) {
       statPoints = statPoints - costs;
@@ -287,24 +293,24 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       System.out.print("minimal 0");
   }
 
+  // clear "content" #div and add Class SelectFactionPanel to it
   public void loadSelectFactionPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
   }
 
+  // clear "content" #div and add Class GetPotStatsPanel to it
   public void loadGetPotStatsPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(GetPotStatsPanel.getGetPotStatsPanel(entry, character));
   }
 
+  // creates a new SelectTempStats instance
   public static SelectTempStatsPanel getSelectTempStatsPanel(TimadorusWebApp entry, Character character) {
-    // if (characterPanel == null) {
-    // characterPanel = new CharacterPanel(entry);
-    // }
-    // return characterPanel;
     return new SelectTempStatsPanel(entry, character);
   }
 
+  // return current panel information
   private static final HTML getInformation() {
     HTML information = new HTML(
                                 "<h1>Attribute Verteilen</h1><p>Hier können sie die Attribute ihres Charakteres anpassen. Ihnen stehen dafür 420 freie Punkte zur Verfügung.</p><p>Jeder Attributspunkt bis einschließlich Stufe 90 kostet sie einen freien Punkt. Ab Stufe 90 zahlen sie 10 freie Punkte");
