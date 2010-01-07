@@ -95,6 +95,11 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
       getPotStatGrid.setHTML(i + 1, 1, character.getTempStats().get(i).toString());
       getPotStatGrid.setHTML(i + 1, 2, potStats.get(i).toString());
     }
+    
+    for (int i = 0; i < 11; i++) {
+      selectStatGrid.getWidget(i + 1, 2).setStyleName("labelColorGreen");
+    }
+    
     character.setPotStats(potStats);
     
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
