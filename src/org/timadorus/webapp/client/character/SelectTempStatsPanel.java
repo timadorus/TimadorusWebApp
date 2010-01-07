@@ -63,8 +63,7 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
   List<HTML> statCostHTML = new ArrayList<HTML>();
 
-  // for tests only - enables next button
-  Button testButton = new Button();
+ 
 
   int i;
 
@@ -85,9 +84,6 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
         } else if (event.getSource().equals(nextButton)) {
           saveTempStats();
           loadGetPotStatsPanel();
-          // handles testbutton - for testcases only!
-        } else if (event.getSource().equals(testButton)) {
-          nextButton.setEnabled(true);
         } else {
           // handles inc/dec statbuttons
           for (i = 0; i < decStatButtons.size(); i++) {
@@ -210,10 +206,6 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     panel.add(statPointGrid);
 
     panel.add(selectStatGrid);
-
-    // for tests only
-
-    panel.add(testButton);
 
     panel.add(buttonGrid);
 
