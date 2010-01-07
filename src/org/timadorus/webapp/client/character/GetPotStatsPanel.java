@@ -54,7 +54,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   FlexTable getPotStatGrid = new FlexTable();  
 
-  LinkedList<Integer> potStats = new LinkedList();
+  LinkedList<Integer> potStats = new LinkedList<Integer>();
   
   
   int i;
