@@ -7,7 +7,10 @@ import java.util.ListIterator;
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -17,6 +20,7 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -36,7 +40,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
 //ClassPanel allows you to choosing the Classes and Races of Character via Listbox
-public class selectNamePanel extends FormPanel implements HistoryStates {
+public class SelectNamePanel extends FormPanel implements HistoryStates {
 
   final TimadorusWebApp entry;
 
@@ -48,11 +52,13 @@ public class selectNamePanel extends FormPanel implements HistoryStates {
 
   VerticalPanel panel = new VerticalPanel();
 
-  FlexTable selectClassGrid = new FlexTable();
+  FlexTable selectNameGrid = new FlexTable();
 
   FlexTable buttonGrid = new FlexTable();
 
-  public selectNamePanel(final TimadorusWebApp entry, final Character character) {
+  TextBox nameTextBox = new TextBox();
+
+  public SelectNamePanel(final TimadorusWebApp entry, final Character character) {
     super();
     this.entry = entry;
     this.character = character;
@@ -61,29 +67,29 @@ public class selectNamePanel extends FormPanel implements HistoryStates {
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
-          loadSelectRacePanel();
+          loadSelectSkillLvl1Panel();
         } else if (event.getSource().equals(nextButton)) {
-          saveSelectedClass();
-          loadSelectFactionPanel();
-        } else if (event.getSource().equals(selectClassGrid)) {
-          
+          saveSelectedName();
+          sendCharacterToServerToSave();
+          loadSelectCharacterReadyPanel();
+        } else if (event.getSource().equals(selectNameGrid)) {
+
         }
 
       }
     }
 
-    HTML headline = new HTML("<h1>Klasse wählen</h1>");
+    HTML headline = new HTML("<h1>Namen wählen</h1>");
 
-    Image progressBar = new Image("media/images/progressbar_2.png");
+    Image progressBar = new Image("media/images/progressbar_7.png");
 
-    selectClassGrid.setBorderWidth(0);
-    selectClassGrid.setStylePrimaryName("selectGrid");
+    selectNameGrid.setBorderWidth(0);
+    selectNameGrid.setStylePrimaryName("selectGrid");
 
-    
-    Label classLabel = new Label("Klasse wählen: ");
+    Label nameLabel = new Label("Namen wählen");
 
-
-
+    selectNameGrid.setWidget(0, 0, nameLabel);
+    selectNameGrid.setWidget(0, 1, nameTextBox);
 
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
@@ -100,7 +106,7 @@ public class selectNamePanel extends FormPanel implements HistoryStates {
 
     panel.add(headline);
 
-    panel.add(selectClassGrid);
+    panel.add(selectNameGrid);
 
     panel.add(buttonGrid);
 
@@ -114,12 +120,12 @@ public class selectNamePanel extends FormPanel implements HistoryStates {
     MyHandler handler = new MyHandler();
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
-    selectClassGrid.addClickHandler(handler);
+    selectNameGrid.addClickHandler(handler);
 
   }
 
   public void saveSelectedName() {
-    //to do
+    character.setName(nameTextBox.getText());
   }
 
   public void loadSelectSkillLvl1Panel() {
@@ -132,17 +138,13 @@ public class selectNamePanel extends FormPanel implements HistoryStates {
     RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
   }
 
-  public static selectNamePanel getSelectClassPanel(TimadorusWebApp entry, Character character) {
-    // if (characterPanel == null) {
-    // characterPanel = new CharacterPanel(entry);
-    // }
-    // return characterPanel;
-    return new selectNamePanel(entry, character);
+  public static SelectNamePanel getSelectNamePanel(TimadorusWebApp entry, Character character) {
+    return new SelectNamePanel(entry, character);
   }
 
   private static final HTML getInformation() {
     HTML information = new HTML(
-                                "<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können.</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie Fraktionen wählen können.</p>");
+                                "<h1>Namen wählen</h1><p>Wählen sie hier den Namen ihres Charakters. Erlaubt ist was gefällt</p>");
 
     return information;
   }
@@ -150,4 +152,24 @@ public class selectNamePanel extends FormPanel implements HistoryStates {
   public TimadorusWebApp getEntry() {
     return entry;
   }
+  
+  private void sendCharacterToServerToSave() {
+    CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
+
+     AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+      
+      @Override
+      public void onFailure(Throwable caught) {
+        // TODO Auto-generated method stub
+        System.out.println("Client/Server Create Character Service Failure!");
+      }
+
+      @Override
+      public void onSuccess(String result) {
+        // TODO Auto-generated method stub
+        System.out.println(result);
+      }
+    };
+     createServiceAsync.createCharacter(character, asyncCallback);
+}
 }

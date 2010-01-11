@@ -35,7 +35,7 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
-//ClassPanel allows you to choosing the Classes and Races of Character via Listbox
+//
 public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   final TimadorusWebApp entry;
@@ -140,6 +140,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   }
 
+  //calculates potStats
   public void calculatePotStats(){
     for (int i = 0; i < 11; i++){
       //for future calculations
@@ -161,11 +162,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character));
   }
 
-  public static GetPotStatsPanel getGetPotStatsPanel(TimadorusWebApp entry, Character character) {
-    // if (characterPanel == null) {
-    // characterPanel = new CharacterPanel(entry);
-    // }
-    // return characterPanel;
+  public static GetPotStatsPanel getGetPotStatsPanel(TimadorusWebApp entry, Character character) {  
     return new GetPotStatsPanel(entry, character);
   }
 

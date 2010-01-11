@@ -111,8 +111,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
           // nextButton onclick
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedSkillsInCharacter();
-          sendCharacterToServerToSave();
-         loadCharacterReadyPanel();
+          loadSelectNamePanel();
 
         } else if (event.getSource().equals(skillListBox)) {
           // show skill informations
@@ -472,28 +471,9 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
     RootPanel.get("content").add(SelectSkill_Level_1_Panel.getSelectSkillLevel1Panel(entry, character));
   }
   
-  public void loadCharacterReadyPanel() {
+  public void loadSelectNamePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(CharacterReadyPanel.getCharacterReadyPanel(entry, character));
+    RootPanel.get("content").add(SelectNamePanel.getSelectNamePanel(entry, character));
   }
   
-  private void sendCharacterToServerToSave() {
-    CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
-
-     AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-      
-      @Override
-      public void onFailure(Throwable caught) {
-        // TODO Auto-generated method stub
-        System.out.println("Client/Server Create Character Service Failure!");
-      }
-
-      @Override
-      public void onSuccess(String result) {
-        // TODO Auto-generated method stub
-        System.out.println(result);
-      }
-    };
-     createServiceAsync.createCharacter(character, asyncCallback);
-}
 }
