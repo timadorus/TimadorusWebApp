@@ -16,7 +16,7 @@ import org.timadorus.webapp.server.RegisteredUserList;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 
-
+// Implementing CreateCharacterService according to GWT-RPC-Plumbing-diagramm
 public class CreateCharacterServiceImpl extends RemoteServiceServlet implements CreateCharacterService {
 
   private static final PersistenceManagerFactory PMF = RegisteredUserList.PMF;

@@ -51,7 +51,7 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
-//ClassPanel allows you to choosing the Classes and Races of Character via Listbox
+//FormPanel for selecting Skill-Level-1 items of a Character-Object
 public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryStates, ChangeHandler {
 
   final TimadorusWebApp entry;

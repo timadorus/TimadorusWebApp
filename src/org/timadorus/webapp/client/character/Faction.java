@@ -7,6 +7,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+//This class represents a Faction, which will related to the Character-Object
 @PersistenceCapable
 public class Faction implements Serializable {
 

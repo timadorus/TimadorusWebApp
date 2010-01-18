@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
+//FormPanel for Registering
 @SuppressWarnings("deprecation")
 public class RegisterPanel extends FormPanel implements HistoryListener, HistoryStates {
 

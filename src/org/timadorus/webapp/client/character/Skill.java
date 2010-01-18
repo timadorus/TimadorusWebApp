@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
-
+// This class represents a Skill of a Character-Object
 @PersistenceCapable
 public class Skill implements Serializable, Cloneable {
 

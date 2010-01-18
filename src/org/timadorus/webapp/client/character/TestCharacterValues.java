@@ -3,6 +3,7 @@ package org.timadorus.webapp.client.character;
 import java.util.ArrayList;
 import java.util.List;
 
+//This class serves dummy-Values for create-Character-progress
 public class TestCharacterValues {
 
   List<CClass> classes = new ArrayList<CClass>();

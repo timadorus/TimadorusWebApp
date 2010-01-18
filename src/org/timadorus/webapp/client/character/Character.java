@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * @author kilic_a, willat_j
- * 
+ * This class represents a Character-Object, which will build at the client-Side and afterward it will be send to Server for Storing in JDO-DB
  */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Character implements Serializable {

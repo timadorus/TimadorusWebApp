@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
-//ClassPanel allows you to choosing the Classes and Races of Character via Listbox
+//FormPanel for selecting Race of a Character-Object
 public class SelectRacePanel extends FormPanel implements HistoryStates {
 
   final TimadorusWebApp entry;

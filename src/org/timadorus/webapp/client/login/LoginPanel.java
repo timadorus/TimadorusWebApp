@@ -32,6 +32,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
+//FormPanel for Login
 @SuppressWarnings("deprecation")
 public class LoginPanel extends FormPanel implements HistoryListener, HistoryStates {
 

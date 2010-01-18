@@ -34,6 +34,7 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
+//This is the FormPanel for the End of creating-Character-Object-procedure
 public class CharacterReadyPanel extends FormPanel implements HistoryStates {
 
   TimadorusWebApp entry;

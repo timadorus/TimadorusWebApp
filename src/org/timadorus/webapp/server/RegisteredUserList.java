@@ -16,6 +16,7 @@ import org.timadorus.webapp.client.character.Character;
 
 import com.google.appengine.api.datastore.KeyFactory;
 
+// includes some user data for login
 public class RegisteredUserList {
 
   public static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");

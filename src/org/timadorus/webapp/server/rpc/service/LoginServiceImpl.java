@@ -9,6 +9,7 @@ import org.timadorus.webapp.server.RegisteredUserList;
 import com.google.appengine.api.users.UserService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+//Implementing LoginService according to GWT-RPC-Plumbing-diagramm
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
 
   private static final long serialVersionUID = 270628040929463623L;

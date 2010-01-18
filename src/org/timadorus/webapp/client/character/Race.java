@@ -18,8 +18,8 @@ import javax.jdo.annotations.PrimaryKey;
 
 
 /**
- * @author maddin
- * 
+ * @author maddin, kilic, willat
+ *  This class represents a Race, which will related to the Character-Object
  */
 @PersistenceCapable
 public class Race implements Serializable {

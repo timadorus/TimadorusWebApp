@@ -4,6 +4,7 @@ import org.timadorus.webapp.client.character.Character;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+//Interface for Asyncronous "createCharacter"-Method-Calls (RPC-calls) between client and server
 public interface CreateCharacterServiceAsync {
 //  void createCharacter(String input, AsyncCallback<Character> callback);
 
