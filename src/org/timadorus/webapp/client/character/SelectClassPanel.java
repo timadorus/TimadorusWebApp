@@ -35,7 +35,7 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
-//ClassPanel allows you to choosing the Classes and Races of Character via Listbox
+//Panel for selecting characters Class
 public class SelectClassPanel extends FormPanel implements HistoryStates {
 
   final TimadorusWebApp entry;
@@ -48,25 +48,28 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
 
   VerticalPanel panel = new VerticalPanel();
 
-  FlexTable selectClassGrid = new FlexTable();
+  FlexTable selectClassGrid = new FlexTable(); // grid for handling selections
 
-  FlexTable buttonGrid = new FlexTable();
+  FlexTable buttonGrid = new FlexTable(); // grid for next/prev buttons
 
-  ListBox classListBox = new ListBox();
+  ListBox classListBox = new ListBox();  //listbox for available classes
 
   public SelectClassPanel(final TimadorusWebApp entry, final Character character) {
     super();
     this.entry = entry;
     this.character = character;
 
-    // Create a handler for the sendButton and nameField
+    // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
+        //handles prev button
         if (event.getSource().equals(prevButton)) {
           loadSelectRacePanel();
+          //handles next button
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedClass();
           loadSelectFactionPanel();
+          //handles changing "information" #div
         } else if (event.getSource().equals(selectClassGrid)) {
           String className = classListBox.getValue(classListBox.getSelectedIndex());
           ListIterator<CClass> classIterator = entry.getTestValues().getClasses().listIterator();
@@ -78,7 +81,7 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
                                                new HTML("<h1>" + newClass.getName() + "</h1><p>"
                                                    + newClass.getDescription() + "</p>"));
 
-              // Show available Factions
+              //Show available Factions in "information" #div
               RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
               ListIterator<Faction> factionIterator = newClass.getAvailableFactions().listIterator();
               String availableFactions3 = new String("<ul>");
@@ -101,13 +104,15 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
       }
     }
 
+    // headline
     HTML headline = new HTML("<h1>Klasse wählen</h1>");
-
+    // progress bar picture
     Image progressBar = new Image("media/images/progressbar_2.png");
-
+    
+    // setting properties for selectClassGrid
     selectClassGrid.setBorderWidth(0);
     selectClassGrid.setStylePrimaryName("selectGrid");
-
+    // filling the list with available classes
     ListIterator<CClass> classIterator = entry.getTestValues().getClasses().listIterator();
     while (classIterator.hasNext()) {
       CClass newClass = (CClass) classIterator.next();
@@ -123,28 +128,30 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
 
     classListBox.setVisibleItemCount(classListBox.getItemCount());
 
+    // set properties of buttongrid
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
-
+    // setting properties of the main panel
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
     panel.setWidth("100%");
-
+    
+    // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 2 von 7"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
 
     panel.add(headline);
-
     panel.add(selectClassGrid);
-
     panel.add(buttonGrid);
-
+    
+    // clearing "information" #div and adding actual informations for this panel
     RootPanel.get("information").clear();
     RootPanel.get("information").add(getInformation());
 
+    // clearing "content" #div and adding this mainpanel to this #div
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
 
@@ -156,10 +163,12 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
 
   }
 
+  //saves selected character class
   public void saveSelectedClass() {
     character.setCharClass(getSelectedClass());
   }
 
+  //returns currently select class from the listbox
   public CClass getSelectedClass() {
     ListIterator<CClass> classIterator = entry.getTestValues().getClasses().listIterator();
     while (classIterator.hasNext()) {
@@ -169,24 +178,24 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     return null;
   }
 
+  //clear "content" #div and add Class SelectRacePanel to it
   public void loadSelectRacePanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, character));
   }
 
+  //clear "content" #div and add Class SelectFactionPanel to it
   public void loadSelectFactionPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
   }
 
+  //creates a new SelectClassPanel instance
   public static SelectClassPanel getSelectClassPanel(TimadorusWebApp entry, Character character) {
-    // if (characterPanel == null) {
-    // characterPanel = new CharacterPanel(entry);
-    // }
-    // return characterPanel;
     return new SelectClassPanel(entry, character);
   }
 
+  //returns and hols current panel information
   private static final HTML getInformation() {
     HTML information = new HTML(
                                 "<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können.</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie Fraktionen wählen können.</p>");

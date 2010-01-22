@@ -84,7 +84,7 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     // setting properties for selectfactiongrid
     selectFactionGrid.setBorderWidth(0);
     selectFactionGrid.setStylePrimaryName("selectGrid");
-
+    //filling the grid with available factions
     ListIterator<Faction> factionIterator = entry.getTestValues().getFactions().listIterator();
     while (factionIterator.hasNext()) {
       Faction newFaction = (Faction) factionIterator.next();      
@@ -162,11 +162,11 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
   }
-  //creates a new SelectTempStats instance
+  //creates a new SelectFactionPanel instance
   public static SelectFactionPanel getSelectFactionPanel(TimadorusWebApp entry, Character character) {
     return new SelectFactionPanel(entry, character);
   }
-  //return current panel information
+  //returns and hols current panel information
   private static final HTML getInformation() {
     HTML information = new HTML(
                                 "<h1>Fraktionen wählen</h1><p>Wählen sie hier die Fraktionen ihres Charakteres. Beachten sie, dass bestimmte Fraktionen nur von bestimmten Rassen sowie Klassen gewählt werden können.</p>");

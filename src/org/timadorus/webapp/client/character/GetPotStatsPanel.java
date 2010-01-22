@@ -35,7 +35,7 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
-//
+//Panel for showing potential stats
 public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   final TimadorusWebApp entry;
@@ -46,49 +46,48 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   Button prevButton = new Button("zurück");
 
-  VerticalPanel panel = new VerticalPanel();
-
-  FlexTable selectStatGrid = new FlexTable();
-
-  FlexTable buttonGrid = new FlexTable();
-
-  FlexTable getPotStatGrid = new FlexTable();  
-
-  LinkedList<Integer> potStats = new LinkedList<Integer>();
+  VerticalPanel panel = new VerticalPanel(); // main panel 
   
+  FlexTable buttonGrid = new FlexTable(); // grid for next/prev buttons
+
+  FlexTable getPotStatGrid = new FlexTable(); //grid for showing pot stats
+
+  LinkedList<Integer> potStats = new LinkedList<Integer>(); //list holding characters potstats
   
-  int i;
-
-  boolean isReady = false;
-
   public GetPotStatsPanel(final TimadorusWebApp entry, final Character character) {
     super();
     this.entry = entry;
     this.character = character;
 
-    // Create a handler for the sendButton and nameField
+    // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
+        // handles prev button
         if (event.getSource().equals(prevButton)) {
           loadSelectTempStatsPanel();
+          // handles next button
         } else if (event.getSource().equals(nextButton)) {
           loadSelectSkillPanel();
         }       
       }
     }
 
+    //headline
     HTML headline = new HTML("<h1>Potentielle Attribute erhalten</h1>");
-
+    //progressbar picture
     Image progressBar = new Image("media/images/progressbar_5.png");
 
+    // setting properties for potStatGrid
     getPotStatGrid.setBorderWidth(0);
     getPotStatGrid.setStyleName("selectGrid");
+        
+    //calculating potential stats
+    calculatePotStats();
     
+    //filling potStatGrid
     getPotStatGrid.setHTML(0, 0, "Attribut");
     getPotStatGrid.setHTML(0, 1, "TempStat");
     getPotStatGrid.setHTML(0, 2, "PotStat");
-    
-    calculatePotStats();
     
     for (int i = 0; i < 11; i++){
       getPotStatGrid.setHTML(i + 1, 0, character.getStatList().get(i).toString());
@@ -100,17 +99,21 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
       selectStatGrid.getWidget(i + 1, 2).setStyleName("labelColorGreen");
     }
     
+    //saving potential stats to character
     character.setPotStats(potStats);
     
+    //set properties of buttongrid
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
     buttonGrid.setWidget(0, 0, prevButton);
-    buttonGrid.setWidget(0, 1, nextButton);    
-
+    buttonGrid.setWidget(0, 1, nextButton);  
+    
+    // setting properties of the main panel
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
     panel.setWidth("100%");
 
+    // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 5 von 7"));
     panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
@@ -118,18 +121,15 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
         + character.getFaction().getName()));
 
     panel.add(headline);
-
     panel.add(getPotStatGrid);
-
     panel.add(selectStatGrid);
-
     panel.add(buttonGrid);
-
     
-
+    // clearing "information" #div and adding actual informations for this panel
     RootPanel.get("information").clear();
     RootPanel.get("information").add(getInformation());
-
+    
+    // clearing "content" #div and adding this mainpanel to this #div
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
 
@@ -151,21 +151,23 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     }
   }
 
-
+  // clear "content" #div and add Class SelectTempStats to it
   public void loadSelectTempStatsPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
   }
-  
+  // clear "content" #div and add Class SelectSkillPanel to it
   public void loadSelectSkillPanel(){
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character));
   }
 
+  //returns a new instance of GetPotStatsPanel
   public static GetPotStatsPanel getGetPotStatsPanel(TimadorusWebApp entry, Character character) {  
     return new GetPotStatsPanel(entry, character);
   }
 
+  //returns and hols current panel information
   private static final HTML getInformation() {
     HTML information = new HTML(
                                 "<h1>Attribute bekommen</h1><p>Ausgehend von ihren Wahl der temporären Attribute, erhalten sie hier zusätzliche Punkte.</p><p>Diese Punkte werden anhand einer Tabelle ausgewürfelt.</p>");
