@@ -96,7 +96,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     }
     
     for (int i = 0; i < 11; i++) {
-      selectStatGrid.getWidget(i + 1, 2).setStyleName("labelColorGreen");
+      getPotStatGrid.getWidget(i + 1, 2).setStyleName("labelColorGreen");
     }
     
     //saving potential stats to character
@@ -122,7 +122,6 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
     panel.add(headline);
     panel.add(getPotStatGrid);
-    panel.add(selectStatGrid);
     panel.add(buttonGrid);
     
     // clearing "information" #div and adding actual informations for this panel

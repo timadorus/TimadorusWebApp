@@ -125,13 +125,13 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
           selectHunter.setValue(true);
           // handles next button
         } else if (event.getSource().equals(nextButton)) {          
-          if (selectHunter.getValue()) {
-            character = Character.getHunter();
-          } else if (selectWizzard.getValue()) {
-            character = Character.getWizzard();
-          } else if (selectBarbarian.getValue()) {
-            character = Character.getBarbarian();
-          }
+//          if (selectHunter.getValue()) {
+//            character = Character.getHunter();
+//          } else if (selectWizzard.getValue()) {
+//            character = Character.getWizzard();
+//          } else if (selectBarbarian.getValue()) {
+//            character = Character.getBarbarian();
+//          }
           loadCharacterReadyPanel(character);
           // handles prev button
         } else if (event.getSource().equals(prevButton)) {
