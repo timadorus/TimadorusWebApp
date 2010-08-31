@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="TimadorusWebApp">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="C:/Program Files (x86)/eclipse-jee-galileo-win32/eclipse"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="GWT SDK [gwt-2.0.3 - 2.0.3].libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.gwt.eclipse.sdkbundle.2.0.3_2.0.3.v201002191036/gwt-2.0.3/gwt-user.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.gwt.eclipse.sdkbundle.2.0.3_2.0.3.v201002191036/gwt-2.0.3/gwt-dev.jar"/>
+    </path>
+    <path id="App Engine SDK [App Engine (2) - 1.3.6].libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/shared/appengine-local-runtime-shared.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/shared/geronimo-el_1.0_spec-1.0.1.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/shared/geronimo-jsp_2.1_spec-1.0.1.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/shared/geronimo-servlet_2.5_spec-1.2.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/shared/jsp/repackaged-appengine-ant-1.7.1.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/shared/jsp/repackaged-appengine-ant-launcher-1.7.1.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/shared/jsp/repackaged-appengine-commons-el-1.0.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/shared/jsp/repackaged-appengine-commons-logging-1.1.1.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/shared/jsp/repackaged-appengine-jasper-compiler-5.0.28.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/shared/jsp/repackaged-appengine-jasper-runtime-5.0.28.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/user/appengine-api-1.0-sdk-1.3.6.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/user/appengine-api-labs-1.3.6.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/user/appengine-jsr107cache-1.3.6.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/user/jsr107cache-1.1.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/user/orm/datanucleus-appengine-1.0.7.final.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/user/orm/datanucleus-core-1.1.5.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/user/orm/datanucleus-jpa-1.1.5.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/user/orm/geronimo-jpa_3.0_spec-1.1.1.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/user/orm/geronimo-jta_1.1_spec-1.1.1.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/user/orm/jdo2-api-2.3-eb.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.appengine.eclipse.sdkbundle.1.3.6_1.3.6.v201008132009/appengine-java-sdk-1.3.6/lib/appengine-tools-api.jar"/>
+    </path>
+    <path id="TimadorusWebApp.classpath">
+        <path refid="GWT SDK [gwt-2.0.3 - 2.0.3].libraryclasspath"/>
+        <pathelement location="war/WEB-INF/classes"/>
+        <path refid="App Engine SDK [App Engine (2) - 1.3.6].libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="war/WEB-INF/classes"/>
+        <copy includeemptydirs="false" todir="war/WEB-INF/classes">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="war/WEB-INF/classes"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="war/WEB-INF/classes" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="TimadorusWebApp.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+</project>
