@@ -2,5 +2,6 @@
     <info organisation="timadorus" module="web-app"/>
     <dependencies>
 		<dependency org="com.google" name="gwt" rev="2.0.4" />
+		<dependency org="org.datanucleus" name="datanucleus-rdbms" rev="2.2.0-m1" conf="*->provided"/>
     </dependencies>
 </ivy-module>
