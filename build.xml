@@ -63,7 +63,6 @@
     <target name="build-subprojects"/>
 
 	<target name="java-compile" depends="init">
-        <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="war/WEB-INF/classes" source="${source}" target="${target}">
             <src path="src"/>
             <classpath refid="TimadorusWebApp.classpath"/>
