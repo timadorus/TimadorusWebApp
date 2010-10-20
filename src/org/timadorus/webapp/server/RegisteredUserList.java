@@ -6,15 +6,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.jdo.*;
-
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
+import javax.jdo.Extent;
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 
 import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.character.Character;
-
-import com.google.appengine.api.datastore.KeyFactory;
 
 // includes some user data for login
 public class RegisteredUserList {
