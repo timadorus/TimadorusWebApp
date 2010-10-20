@@ -6,7 +6,6 @@ import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.LoginService;
 import org.timadorus.webapp.server.RegisteredUserList;
 
-import com.google.appengine.api.users.UserService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 //Implementing LoginService according to GWT-RPC-Plumbing-diagramm
