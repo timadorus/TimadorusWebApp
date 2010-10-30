@@ -1,0 +1,91 @@
+.gwt-TextBox,
+.gwt-PasswordTextBox {
+	width:150px;
+}
+.formPanel {
+	margin:5px;
+}
+.error {
+	color:#F00;
+}
+.info {
+	border:1px solid #6AF;
+	background:#CEF;
+}
+
+.panel {
+	text-align: justify;
+	padding: 20px;
+}
+
+.selectGrid {
+	margin-top: 20px;
+	margin-bottom: 30px;	
+	text-align: center;
+}
+
+.labelColorRed {
+	color: #FF0000;
+}
+
+.labelColorGreen {
+	color: #00CD00;
+}
+
+.underlinedText {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+body {
+    background: red;
+}
+
+#menu {  
+	background: #EEE8CD;
+	width: 150;
+    float: left;
+    text-align: center;
+    paddin-top: 20px;
+}
+
+#content {
+	background: #FFEFD5;
+	width: 550px;	
+    float: left;
+}
+
+#content h1{
+    font-weight: bold;
+    font-size: medium;
+    text-decoration: underline;
+}
+
+#content h2{
+	font-size: medium;
+	font-weight: bold;
+}
+
+#information {
+	background: #EEE8CD;
+    width: 200px;
+    heigth: 100%;
+    margin-left: 750px; 
+    padding: 10px;    
+}
+
+#information p{
+	
+}
+
+#information h1{
+	font-weight: bold;
+	font-size: medium;
+	text-decoration: underline;
+}
+
+#information h2{
+    font-weight: normal;
+    font-size: medium;
+    text-decoration: underline;
+}
