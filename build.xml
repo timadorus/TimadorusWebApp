@@ -76,5 +76,5 @@
 		</datanucleusenhancer>
 	</target>
 
-	<target name="build" depends="resolve,java-compile" />
+	<target name="build" depends="resolve,java-compile,enhance" />
 </project>
