@@ -9,6 +9,7 @@
 	<property environment="env" />
 	<property name="ECLIPSE_HOME" value="C:/Program Files (x86)/eclipse-jee-galileo-win32/eclipse" />
 	<property name="debuglevel" value="source,lines,vars" />
+	<property name="sourceDir" value="src" />
 	<property name="destination" value="war/WEB-INF/classes" />
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
@@ -17,17 +18,12 @@
 	<property name="ivy.settings.file" value="${ivy.dir}/ivysettings.xml" />
 	<property name="ivy.cache.dir" value="${ivy.dir}/cache" />
 
-	<path id="GWT SDK [gwt-2.0.3 - 2.0.3].libraryclasspath">
-		<fileset dir="${ivy.cache.dir}">
-			<include name="**/*.jar" />
-		</fileset>
-	</path>
 	<path id="TimadorusWebApp.classpath">
-		<path refid="GWT SDK [gwt-2.0.3 - 2.0.3].libraryclasspath" />
-		<fileset dir="war/WEB-INF/lib/">
+		<pathelement location="${sourceDir}" />
+		<fileset dir="lib/">
 			<include name="*.jar" />
 		</fileset>
-		<pathelement location="war/WEB-INF/classes" />
+		<pathelement location="${destination}" />
 	</path>
 
 	<!-- =================================  
@@ -41,8 +37,8 @@
 	</target>
 
 	<target name="init">
-		<mkdir dir="war/WEB-INF/classes" />
-		<copy includeemptydirs="false" todir="war/WEB-INF/classes">
+		<mkdir dir="${destination}" />
+		<copy includeemptydirs="false" todir="${destination}">
 			<fileset dir="src">
 				<exclude name="**/*.launch" />
 				<exclude name="**/*.java" />
@@ -51,7 +47,7 @@
 	</target>
 
 	<target name="clean">
-		<delete dir="war/WEB-INF/classes" />
+		<delete dir="${destination}" />
 	</target>
 
 	<target depends="clean" name="cleanall" />
@@ -76,5 +72,19 @@
 		</datanucleusenhancer>
 	</target>
 
-	<target name="build" depends="resolve,java-compile,enhance" />
+	<target name="gwt-compile" depends="init">
+		<gwtCompile module="org.timadorus.webapp.TimadorusWebApp" classpathref="TimadorusWebApp.classpath" />
+	</target>
+
+	<macrodef name="gwtCompile">
+		<attribute name="module" />
+		<attribute name="classpathref" default="TimadorusWebApp.classpath" />
+		<sequential>
+			<java classpathref="@{classpathref}" classname="com.google.gwt.dev.Compiler" fork="true">
+				<arg value="@{module}" />
+			</java>
+		</sequential>
+	</macrodef>
+
+	<target name="build" depends="resolve,gwt-compile,enhance" />
 </project>
