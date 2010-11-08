@@ -1,0 +1,6 @@
+<ivy-module version="2.0">
+	<info organisation="timadorus" module="webapp" />
+	<dependencies>
+		<dependency org="com.google" name="gwt" rev="2.0.4" />
+	</dependencies>
+</ivy-module>
