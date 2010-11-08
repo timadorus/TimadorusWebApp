@@ -33,7 +33,6 @@
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/google-collections-1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-dev-2.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-servlet-2.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-user-2.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/hsqldb-1.8.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jdo-api-3.0.0.jar"/>
