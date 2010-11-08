@@ -86,5 +86,5 @@
 		</sequential>
 	</macrodef>
 
-	<target name="build" depends="resolve,gwt-compile,enhance" />
+	<target name="build" depends="resolve,java-compile,gwt-compile,enhance" />
 </project>

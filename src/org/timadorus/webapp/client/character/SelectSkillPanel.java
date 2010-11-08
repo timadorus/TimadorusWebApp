@@ -61,7 +61,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
 
   ListBox skillListBox = new ListBox();
 
-  Button hinzufügenButton = new Button("+");
+  Button hinzufuegenButton = new Button("+");
 
   Button entferneButton = new Button("-");
 
@@ -120,7 +120,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
             }
           }
 
-        } else if (event.getSource().equals(hinzufügenButton)) {
+        } else if (event.getSource().equals(hinzufuegenButton)) {
 
           String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
 
@@ -173,7 +173,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
     selectSkillGrid.setWidget(0, 12, addedskillLabel);
     // selectSkillGrid.setWidget(1, 1, choosenskillLabel);
     selectSkillGrid.setWidget(1, 0, skillListBox);
-    selectSkillGrid.setWidget(1, 8, hinzufügenButton);
+    selectSkillGrid.setWidget(1, 8, hinzufuegenButton);
     selectSkillGrid.setWidget(2, 8, entferneButton);
     selectSkillGrid.setWidget(1, 12, addedskillListBox);
 
@@ -219,7 +219,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
 
-    hinzufügenButton.addClickHandler(handler);
+    hinzufuegenButton.addClickHandler(handler);
     entferneButton.addClickHandler(handler);
 
     skillListBox.addClickHandler(handler);
