@@ -7,40 +7,41 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="lib/asm-3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-dbcp-1.2.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-pool-1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-cache-2.1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-connectionpool-2.0.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-core-2.1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-enhancer-2.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-googlecollections-2.1.0-release.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-javaxtime-2.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-jodatime-2.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-jpa-2.1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-management-1.0.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-rdbms-2.1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-spatial-2.1.0-release.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/datanucleus-xmltypeoracle-2.0.0-release.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/derby.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/derbyclient.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/derbynet.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/derbytools.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/ehcache-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-jpa_2.0_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-jta_1.1_spec-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/google-collections-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/gwt-servlet.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hsqldb-1.8.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jdo-api-3.0.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jdo2-api-2.3-eb.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/joda-time-1.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jsr107cache-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.14.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/time-api-0.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/gwt-dev-2.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/gwt-servlet-2.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/gwt-user-2.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/asm-3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/commons-collections-3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/commons-dbcp-1.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/commons-pool-1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-cache-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-connectionpool-2.0.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-core-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-enhancer-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-googlecollections-2.1.0-release.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-javaxtime-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-jodatime-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-jpa-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-management-1.0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-rdbms-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-spatial-2.1.0-release.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-xmltypeoracle-2.0.0-release.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/derby.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/derbyclient.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/derbynet.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/derbytools.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/ehcache-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/geronimo-jpa_2.0_spec-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/google-collections-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-dev-2.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-servlet-2.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-user-2.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/hsqldb-1.8.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jdo-api-3.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jdo2-api-2.3-eb.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/joda-time-1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jsr107cache-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/log4j-1.2.14.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/time-api-0.6.jar"/>
+	<classpathentry kind="con" path="DERBY_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

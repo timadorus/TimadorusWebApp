@@ -1,7 +1,0 @@
-<factorypath>
-    <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="WKSPJAR" id="/TimadorusWebApp/war/WEB-INF/lib/asm-3.1.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="WKSPJAR" id="/TimadorusWebApp/war/WEB-INF/lib/datanucleus-core-2.1.2.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="WKSPJAR" id="/TimadorusWebApp/war/WEB-INF/lib/datanucleus-enhancer-2.1.1.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="WKSPJAR" id="/TimadorusWebApp/war/WEB-INF/lib/jdo-api-3.0.0.jar" enabled="true" runInBatchMode="false"/>
-</factorypath>
