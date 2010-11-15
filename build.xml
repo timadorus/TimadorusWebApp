@@ -10,7 +10,9 @@
 	<property name="ECLIPSE_HOME" value="C:/Program Files (x86)/eclipse-jee-galileo-win32/eclipse" />
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="sourceDir" value="src" />
-	<property name="destination" value="war/WEB-INF/classes" />
+	<property name="to" value="war/WEB-INF" />
+	<property name="destination" value="${tp}/classes" />
+	<property name="destinationLib" value="${to}/lib" />
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
 
@@ -44,10 +46,16 @@
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
+		
+		<mkdir dir="${destinationLib}" />
+		<copy includeemptydirs="false" todir="${destinationLib}">
+			<fileset dir="lib" />
+		</copy>
 	</target>
 
 	<target name="clean">
 		<delete dir="${destination}" />
+		<delete dir="${destinationLib}" />
 	</target>
 
 	<target depends="clean" name="cleanall" />
