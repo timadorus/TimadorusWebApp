@@ -50,7 +50,7 @@
 
 	<target name="clean">
 		<delete dir="${destination}" />
-		<delete dir="${destinationLib}" />
+		<delete dir="${destinationLib}" failonerror="false" />
 	</target>
 
 	<target depends="clean" name="cleanall" />
