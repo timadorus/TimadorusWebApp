@@ -31,7 +31,6 @@
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-servlet-2.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-user-2.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jdo-api-3.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jdo2-api-2.3-eb.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/joda-time-1.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jsr107cache-1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/log4j-1.2.14.jar"/>
