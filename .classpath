@@ -19,7 +19,6 @@
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-googlecollections-2.1.0-release.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-javaxtime-2.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-jodatime-2.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-jpa-2.1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-management-1.0.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-rdbms-2.1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-spatial-2.1.0-release.jar"/>
@@ -29,14 +28,11 @@
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/derbynet.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/derbytools.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/ehcache-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/geronimo-jpa_2.0_spec-1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/google-collections-1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-dev-2.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-servlet-2.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-user-2.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/hsqldb-1.8.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jdo-api-3.0.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jdo-api-3.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jdo2-api-2.3-eb.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/joda-time-1.6.jar"/>
