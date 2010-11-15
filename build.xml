@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. -->
 <project basedir="." default="build" name="TimadorusWebApp" xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property environment="env" />
@@ -11,7 +6,7 @@
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="sourceDir" value="src" />
 	<property name="to" value="war/WEB-INF" />
-	<property name="destination" value="${tp}/classes" />
+	<property name="destination" value="${to}/classes" />
 	<property name="destinationLib" value="${to}/lib" />
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
