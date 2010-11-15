@@ -55,7 +55,7 @@
 
 	<target name="build-subprojects" />
 
-	<target name="java-compile" depends="init">
+	<target name="java-compile" depends="clean,init">
 		<javac debug="true" debuglevel="${debuglevel}" destdir="${destination}" source="${source}" target="${target}">
 			<src path="src" />
 			<classpath refid="TimadorusWebApp.classpath" />
@@ -72,7 +72,7 @@
 		</datanucleusenhancer>
 	</target>
 
-	<target name="gwt-compile" depends="init">
+	<target name="gwt-compile">
 		<gwtCompile module="org.timadorus.webapp.TimadorusWebApp" classpathref="TimadorusWebApp.classpath" />
 	</target>
 
