@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Class-Path: derbyLocale_cs.jar derbyLocale_de_DE.jar derbyLocale_es.ja
+ r derbyLocale_fr.jar derbyLocale_hu.jar derbyLocale_it.jar derbyLocal
+ e_ja_JP.jar derbyLocale_ko_KR.jar derbyLocale_pl.jar derbyLocale_pt_B
+ R.jar derbyLocale_ru.jar derbyLocale_zh_CN.jar derbyLocale_zh_TW.jar
+Created-By: 2.4 (IBM Corporation)
+
+
+### OSGi information
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.apache.derby.impl.tools.ij
+Bundle-Description: derbytools
+Bundle-Name: derbytools
+Bundle-Version: 0.0.0
+Export-Package: org.apache.derby.iapi.reference,org.apache.derby.iapi.
+ services.info,org.apache.derby.iapi.tools.i18n,org.apache.derby.impl.
+ tools.dblook;uses:="org.apache.derby.tools",org.apache.derby.impl.too
+ ls.ij;uses:="org.apache.derby.iapi.services.info,org.apache.derby.iap
+ i.tools.i18n,org.apache.derby.tools",org.apache.derby.impl.tools.sysi
+ nfo;uses:="org.apache.derby.iapi.services.info,org.apache.derby.iapi.
+ tools.i18n",org.apache.derby.tools;uses:="org.apache.derby.iapi.servi
+ ces.info,org.apache.derby.iapi.tools.i18n,org.apache.derby.impl.tools
+ .dblook,org.apache.derby.impl.tools.ij,org.apache.derby.impl.tools.sy
+ sinfo,org.apache.derby.jdbc"
+Import-Package: java.io,java.lang,java.lang.reflect,java.math,java.net
+ ,java.security,java.sql,java.text,java.util;version="0.0.0",java.util
+ .zip,javax.sql,javax.transaction.xa;version="0.0.0",org.apache.derby.
+ jdbc;version="0.0.0"

@@ -1,0 +1,10 @@
+digraph datanucleus_management_1_0_2_package_dependencies {
+  node [shape = box, fontsize=10.0];
+  org_datanucleus_management_mx4j -> mx4j_tools_naming;
+  org_datanucleus_management_mx4j -> org_datanucleus_exceptions;
+  org_datanucleus_management_mx4j -> org_datanucleus_management;
+  org_datanucleus_management_mx4j -> org_datanucleus_util;
+  org_datanucleus_management_platform -> org_datanucleus_exceptions;
+  org_datanucleus_management_platform -> org_datanucleus_management;
+  org_datanucleus_management_platform -> org_datanucleus_util;
+}

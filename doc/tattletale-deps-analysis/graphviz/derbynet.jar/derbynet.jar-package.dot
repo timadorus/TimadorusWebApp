@@ -1,0 +1,33 @@
+digraph derbynet_package_dependencies {
+  node [shape = box, fontsize=10.0];
+  org_apache_derby_drda -> javax_servlet;
+  org_apache_derby_drda -> javax_servlet_http;
+  org_apache_derby_drda -> org_apache_derby_iapi_services_property;
+  org_apache_derby_drda -> org_apache_derby_iapi_tools_i18n;
+  org_apache_derby_drda -> org_apache_derby_impl_drda;
+  org_apache_derby_impl_drda -> javax_crypto;
+  org_apache_derby_impl_drda -> javax_crypto_interfaces;
+  org_apache_derby_impl_drda -> javax_crypto_spec;
+  org_apache_derby_impl_drda -> javax_net;
+  org_apache_derby_impl_drda -> javax_net_ssl;
+  org_apache_derby_impl_drda -> org_apache_derby_catalog;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_db;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_error;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_jdbc;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_services_i18n;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_services_info;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_services_jmx;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_services_monitor;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_services_property;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_services_stream;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_store_access_xa;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_tools_i18n;
+  org_apache_derby_impl_drda -> org_apache_derby_iapi_util;
+  org_apache_derby_impl_drda -> org_apache_derby_impl_jdbc;
+  org_apache_derby_impl_drda -> org_apache_derby_impl_tools_sysinfo;
+  org_apache_derby_impl_drda -> org_apache_derby_jdbc;
+  org_apache_derby_impl_drda -> org_apache_derby_mbeans_drda;
+  org_apache_derby_impl_drda -> org_apache_derby_security;
+  org_apache_derby_impl_tools_sysinfo -> org_apache_derby_iapi_services_info;
+  org_apache_derby_impl_tools_sysinfo -> org_apache_derby_iapi_tools_i18n;
+}

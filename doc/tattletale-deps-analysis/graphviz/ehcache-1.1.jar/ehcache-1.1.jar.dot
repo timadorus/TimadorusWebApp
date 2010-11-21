@@ -1,0 +1,5 @@
+digraph ehcache_1_1_dependencies {
+  node [shape = box, fontsize=10.0];
+  ehcache_1_1 -> commons_collections_3_1;
+  ehcache_1_1 -> gwt_dev_2_0_4;
+}

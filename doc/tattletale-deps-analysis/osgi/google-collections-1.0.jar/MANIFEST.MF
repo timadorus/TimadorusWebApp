@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Build-Jdk: 1.6.0_01
+Built-By: jlevy
+Created-By: Apache Maven
+Archiver-Version: Plexus Archiver
+
+
+### OSGi information
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.google.common.collect
+Bundle-Description: google-collections-1.0
+Bundle-Name: google-collections-1.0
+Bundle-Version: 0.0.0
+Export-Package: com.google.common.annotations,com.google.common.base;u
+ ses:="com.google.common.annotations,javax.annotation",com.google.comm
+ on.base.internal,com.google.common.collect;uses:="com.google.common.a
+ nnotations,com.google.common.base,javax.annotation"
+Import-Package: java.io,java.lang,java.lang.annotation,java.lang.ref,j
+ ava.lang.reflect,java.net,java.util,java.util.concurrent,java.util.co
+ ncurrent.atomic,java.util.concurrent.locks,java.util.logging,javax.an
+ notation

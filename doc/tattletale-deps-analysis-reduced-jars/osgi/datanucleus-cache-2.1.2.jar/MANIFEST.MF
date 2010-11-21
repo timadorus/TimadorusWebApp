@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Built-By: andy
+Bundle-Name: DataNucleus Cache
+Bundle-Localization: plugin
+Created-By: Apache Maven
+Require-Bundle: org.datanucleus;bundle-version="2.1.0.release"
+Bundle-Vendor: DataNucleus
+Build-Jdk: 1.6.0_18
+Bundle-Version: 2.1.2
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.datanucleus.cache;singleton:=true
+Import-Package: com.opensymphony.oscache.base;resolution:=optional,com
+ .opensymphony.oscache.base.algorithm;resolution:=optional,com.opensym
+ phony.oscache.base.events;resolution:=optional,com.opensymphony.oscac
+ he.base.persistence;resolution:=optional,com.opensymphony.oscache.ext
+ ra;resolution:=optional,com.opensymphony.oscache.general;resolution:=
+ optional,com.opensymphony.oscache.plugins.clustersupport;resolution:=
+ optional,com.opensymphony.oscache.plugins.diskpersistence;resolution:
+ =optional,com.opensymphony.oscache.util;resolution:=optional,com.open
+ symphony.oscache.web;resolution:=optional,com.opensymphony.oscache.we
+ b.filter;resolution:=optional,com.opensymphony.oscache.web.tag;resolu
+ tion:=optional,com.tangosol.net;resolution:=optional,javax.cache;reso
+ lution:=optional,net.sf.ehcache;resolution:=optional,net.sf.ehcache.c
+ onfig;resolution:=optional,net.sf.ehcache.hibernate;resolution:=optio
+ nal,net.sf.ehcache.store;resolution:=optional,net.sf.swarmcache;resol
+ ution:=optional,net.spy.memcached;resolution:=optional,net.spy.memcac
+ hed.compat;resolution:=optional,net.spy.memcached.compat.log;resoluti
+ on:=optional,net.spy.memcached.ops;resolution:=optional,net.spy.memca
+ ched.protocol;resolution:=optional,net.spy.memcached.protocol.ascii;r
+ esolution:=optional,net.spy.memcached.protocol.binary;resolution:=opt
+ ional,net.spy.memcached.transcoders;resolution:=optional
+Archiver-Version: Plexus Archiver
+

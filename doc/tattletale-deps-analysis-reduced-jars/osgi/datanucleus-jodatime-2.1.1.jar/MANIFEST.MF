@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Built-By: andy
+Bundle-Name: DataNucleus JodaTime
+Bundle-Localization: plugin
+Created-By: Apache Maven
+Require-Bundle: org.datanucleus;bundle-version="2.1.0.release",org.dat
+ anucleus.store.rdbms;bundle-version="2.1.0.release";resolution:=optio
+ nal
+Bundle-Vendor: DataNucleus
+Build-Jdk: 1.6.0_18
+Bundle-Version: 2.1.1
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.datanucleus.store.types.jodatime;singleton:=t
+ rue
+Import-Package: org.joda.time;resolution:=optional,org.joda.time.base,
+ org.joda.time.chrono,org.joda.time.convert,org.joda.time.field,org.jo
+ da.time.format,org.joda.time.tz
+Archiver-Version: Plexus Archiver
+

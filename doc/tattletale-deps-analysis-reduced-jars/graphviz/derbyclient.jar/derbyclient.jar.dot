@@ -1,0 +1,5 @@
+digraph derbyclient_dependencies {
+  node [shape = box, fontsize=10.0];
+  derbyclient -> geronimo_jta_1_1_spec_1_1;
+  derbyclient -> time_api_0_6;
+}

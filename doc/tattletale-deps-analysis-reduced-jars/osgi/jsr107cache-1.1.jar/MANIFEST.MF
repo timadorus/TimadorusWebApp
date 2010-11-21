@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Build-Jdk: 1.5.0_16
+Built-By: gluck
+Created-By: Apache Maven
+Archiver-Version: Plexus Archiver
+
+
+### OSGi information
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: net.sf.jsr107cache
+Bundle-Description: jsr107cache-1.1
+Bundle-Name: jsr107cache-1.1
+Bundle-Version: 0.0.0
+Export-Package: net.sf.jsr107cache
+Import-Package: java.io,java.lang,java.util

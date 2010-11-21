@@ -1,0 +1,25 @@
+digraph datanucleus_connectionpool_2_0_3_package_dependencies {
+  node [shape = box, fontsize=10.0];
+  org_datanucleus_store_rdbms_datasource_bonecp -> com_jolbox_bonecp;
+  org_datanucleus_store_rdbms_datasource_bonecp -> org_datanucleus;
+  org_datanucleus_store_rdbms_datasource_bonecp -> org_datanucleus_store;
+  org_datanucleus_store_rdbms_datasource_bonecp -> org_datanucleus_store_rdbms_datasource;
+  org_datanucleus_store_rdbms_datasource_bonecp -> org_datanucleus_util;
+  org_datanucleus_store_rdbms_datasource_c3p0 -> com_mchange_v2_c3p0;
+  org_datanucleus_store_rdbms_datasource_c3p0 -> org_datanucleus;
+  org_datanucleus_store_rdbms_datasource_c3p0 -> org_datanucleus_store;
+  org_datanucleus_store_rdbms_datasource_c3p0 -> org_datanucleus_store_rdbms_datasource;
+  org_datanucleus_store_rdbms_datasource_c3p0 -> org_datanucleus_util;
+  org_datanucleus_store_rdbms_datasource_dbcp -> org_apache_commons_dbcp;
+  org_datanucleus_store_rdbms_datasource_dbcp -> org_apache_commons_pool;
+  org_datanucleus_store_rdbms_datasource_dbcp -> org_apache_commons_pool_impl;
+  org_datanucleus_store_rdbms_datasource_dbcp -> org_datanucleus;
+  org_datanucleus_store_rdbms_datasource_dbcp -> org_datanucleus_store;
+  org_datanucleus_store_rdbms_datasource_dbcp -> org_datanucleus_store_rdbms_datasource;
+  org_datanucleus_store_rdbms_datasource_dbcp -> org_datanucleus_util;
+  org_datanucleus_store_rdbms_datasource_proxool -> org_datanucleus;
+  org_datanucleus_store_rdbms_datasource_proxool -> org_datanucleus_store;
+  org_datanucleus_store_rdbms_datasource_proxool -> org_datanucleus_store_rdbms_datasource;
+  org_datanucleus_store_rdbms_datasource_proxool -> org_datanucleus_util;
+  org_datanucleus_store_rdbms_datasource_proxool -> org_logicalcobwebs_proxool;
+}

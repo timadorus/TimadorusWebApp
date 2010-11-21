@@ -1,0 +1,4 @@
+digraph commons_pool_1_2_dependencies {
+  node [shape = box, fontsize=10.0];
+  commons_pool_1_2 -> commons_collections_3_1;
+}

@@ -1,0 +1,6 @@
+digraph datanucleus_spatial_2_1_0_release_dependencies {
+  node [shape = box, fontsize=10.0];
+  datanucleus_spatial_2_1_0_release -> datanucleus_core_2_1_3;
+  datanucleus_spatial_2_1_0_release -> datanucleus_rdbms_2_1_2;
+  datanucleus_spatial_2_1_0_release -> jdo_api_3_0_0;
+}

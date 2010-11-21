@@ -1,0 +1,8 @@
+digraph datanucleus_rdbms_2_1_2_dependencies {
+  node [shape = box, fontsize=10.0];
+  datanucleus_rdbms_2_1_2 -> datanucleus_core_2_1_3;
+  datanucleus_rdbms_2_1_2 -> geronimo_jta_1_1_spec_1_1;
+  datanucleus_rdbms_2_1_2 -> gwt_dev_2_0_4;
+  datanucleus_rdbms_2_1_2 -> jdo_api_3_0;
+  datanucleus_rdbms_2_1_2 -> time_api_0_6;
+}

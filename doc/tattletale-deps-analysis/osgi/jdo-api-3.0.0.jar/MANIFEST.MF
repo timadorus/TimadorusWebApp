@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Export-Package: javax.jdo;version="3.0.0",javax.jdo.annotations;versio
+ n="3.0.0",javax.jdo.datastore;version="3.0.0",javax.jdo.identity;vers
+ ion="3.0.0",javax.jdo.listener;version="3.0.0",javax.jdo.spi;version=
+ "3.0.0",javax.jdo.metadata;version="3.0.0"
+Bundle-Vendor: Apache
+Bundle-Version: 3.0.0
+Bundle-Name: Java Data Objects
+Bundle-Localization: plugin
+Bundle-ManifestVersion: 2
+Created-By: 1.6.0_18 (Sun Microsystems Inc.)
+Specification-Version: JDO 3.0
+Bundle-SymbolicName: javax.jdo
+Import-Package: javax.transaction;resolution:=optional,javax.persisten
+ ce;resolution:=optional
+

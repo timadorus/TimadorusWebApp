@@ -1,0 +1,14 @@
+digraph jdo_api_3_0_package_dependencies {
+  node [shape = box, fontsize=10.0];
+  javax_jdo -> javax_jdo_datastore;
+  javax_jdo -> javax_jdo_listener;
+  javax_jdo -> javax_jdo_metadata;
+  javax_jdo -> javax_jdo_spi;
+  javax_jdo -> javax_persistence;
+  javax_jdo -> javax_transaction;
+  javax_jdo_identity -> javax_jdo;
+  javax_jdo_identity -> javax_jdo_spi;
+  javax_jdo_listener -> javax_jdo_spi;
+  javax_jdo_metadata -> javax_jdo_annotations;
+  javax_jdo_spi -> javax_jdo;
+}

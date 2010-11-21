@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Implementation-Version: 1.2
+Built-By: dirkv
+Specification-Vendor: The Apache Software Foundation
+Package: org.apache.commons.pool
+Created-By: Apache Jakarta Maven
+Ant-Version: Apache Ant 1.5.3 
+Implementation-Vendor: The Apache Software Foundation
+Implementation-Vendor-Id: 
+Build-Jdk: 1.4.1_02
+Specification-Title: Commons Object Pooling Library
+Specification-Version: 
+Extension-Name: commons-pool
+
+
+### OSGi information
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.apache.commons.pool.impl
+Bundle-Description: commons-pool-1.2
+Bundle-Name: commons-pool-1.2
+Bundle-Version: 0.0.0
+Export-Package: org.apache.commons.pool,org.apache.commons.pool.impl;u
+ ses:="org.apache.commons.collections,org.apache.commons.pool"
+Import-Package: java.lang,java.lang.ref,java.util,org.apache.commons.c
+ ollections;version="3.1"

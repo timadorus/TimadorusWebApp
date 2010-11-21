@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Built-By: andy
+Bundle-Name: DataNucleus XMLTypeOracle
+Bundle-Localization: plugin
+Created-By: Apache Maven
+Require-Bundle: org.datanucleus;bundle-version="2.0.0.m1",org.datanucl
+ eus.store.rdbms;bundle-version="2.0.0.m1"
+Bundle-Vendor: DataNucleus
+Build-Jdk: 1.6.0_14
+Bundle-Version: 2.0.0.release
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.datanucleus.store.rdbms.mapping.xmltypeoracle
+ ;singleton:=true
+Import-Package: javax.jdo,javax.jdo.datastore,javax.jdo.identity,javax
+ .jdo.listener,javax.jdo.spi,oracle.sql,oracle.sql.converter,oracle.xd
+ b,oracle.xdb.bean,oracle.xdb.dom,oracle.xdb.servlet,oracle.xdb.spi
+Archiver-Version: Plexus Archiver
+

@@ -1,0 +1,51 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.6.5
+Created-By: 1.3.1_18-b01 (Sun Microsystems Inc.)
+
+Name: org/apache/log4j/
+Implementation-Vendor: "Apache Software Foundation"
+Implementation-Title: log4j
+Implementation-Version: 1.2.14
+
+
+### OSGi information
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.apache.log4j.lf5.viewer
+Bundle-Description: log4j-1.2.14
+Bundle-Name: log4j-1.2.14
+Bundle-Version: 1.2.14
+Export-Package: org.apache.log4j;uses:="org.apache.log4j.config,org.ap
+ ache.log4j.helpers,org.apache.log4j.or,org.apache.log4j.spi",org.apac
+ he.log4j.chainsaw;uses:="org.apache.log4j,org.apache.log4j.spi",org.a
+ pache.log4j.config;uses:="org.apache.log4j,org.apache.log4j.helpers,o
+ rg.apache.log4j.spi",org.apache.log4j.helpers;uses:="org.apache.log4j
+ ,org.apache.log4j.spi",org.apache.log4j.jdbc;uses:="org.apache.log4j,
+ org.apache.log4j.spi",org.apache.log4j.jmx;uses:="com.sun.jdmk.comm,o
+ rg.apache.log4j,org.apache.log4j.helpers,org.apache.log4j.spi",org.ap
+ ache.log4j.lf5;uses:="org.apache.log4j,org.apache.log4j.lf5.viewer,or
+ g.apache.log4j.spi",org.apache.log4j.lf5.util;uses:="org.apache.log4j
+ .lf5,org.apache.log4j.lf5.viewer",org.apache.log4j.lf5.viewer;uses:="
+ org.apache.log4j.lf5,org.apache.log4j.lf5.util,org.apache.log4j.lf5.v
+ iewer.categoryexplorer,org.apache.log4j.lf5.viewer.configure",org.apa
+ che.log4j.lf5.viewer.categoryexplorer;uses:="org.apache.log4j.lf5",or
+ g.apache.log4j.lf5.viewer.configure;uses:="org.apache.log4j.lf5,org.a
+ pache.log4j.lf5.viewer,org.apache.log4j.lf5.viewer.categoryexplorer",
+ org.apache.log4j.net;uses:="javax.jms,javax.mail,javax.mail.internet,
+ org.apache.log4j,org.apache.log4j.helpers,org.apache.log4j.spi,org.ap
+ ache.log4j.xml",org.apache.log4j.nt;uses:="org.apache.log4j,org.apach
+ e.log4j.helpers,org.apache.log4j.spi",org.apache.log4j.or;uses:="org.
+ apache.log4j,org.apache.log4j.helpers,org.apache.log4j.spi",org.apach
+ e.log4j.or.jms;uses:="javax.jms,org.apache.log4j.helpers,org.apache.l
+ og4j.or",org.apache.log4j.or.sax;uses:="org.apache.log4j.or",org.apac
+ he.log4j.spi;uses:="org.apache.log4j,org.apache.log4j.helpers,org.apa
+ che.log4j.or",org.apache.log4j.varia;uses:="org.apache.log4j,org.apac
+ he.log4j.helpers,org.apache.log4j.spi",org.apache.log4j.xml;uses:="or
+ g.apache.log4j,org.apache.log4j.config,org.apache.log4j.helpers,org.a
+ pache.log4j.or,org.apache.log4j.spi"
+Import-Package: com.sun.jdmk.comm,java.awt,java.awt.event,java.beans,j
+ ava.io,java.lang,java.lang.reflect,java.net,java.sql,java.text,java.u
+ til;version="0.0.0",javax.jms,javax.mail,javax.mail.internet,javax.ma
+ nagement;version="0.0.0",javax.naming,javax.swing,javax.swing.border,
+ javax.swing.event,javax.swing.table,javax.swing.text,javax.swing.tree
+ ,javax.xml.parsers;version="0.0.0",org.w3c.dom;version="0.0.0",org.xm
+ l.sax;version="0.0.0",org.xml.sax.helpers;version="0.0.0"

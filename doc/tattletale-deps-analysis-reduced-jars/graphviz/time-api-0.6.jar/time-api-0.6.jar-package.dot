@@ -1,0 +1,31 @@
+digraph time_api_0_6_package_dependencies {
+  node [shape = box, fontsize=10.0];
+  java_util -> javax_time;
+  java_util -> javax_time_calendar;
+  javax_time -> javax_time_calendar;
+  javax_time -> javax_time_calendar_format;
+  javax_time_calendar -> javax_time;
+  javax_time_calendar -> javax_time_calendar_format;
+  javax_time_calendar -> javax_time_calendar_zone;
+  javax_time_calendar -> javax_time_period;
+  javax_time_calendar_field -> javax_time;
+  javax_time_calendar_field -> javax_time_calendar;
+  javax_time_calendar_format -> javax_time;
+  javax_time_calendar_format -> javax_time_calendar;
+  javax_time_calendar_format -> javax_time_calendar_zone;
+  javax_time_calendar_zone -> javax_time;
+  javax_time_calendar_zone -> javax_time_calendar;
+  javax_time_calendar_zone -> javax_time_calendar_format;
+  javax_time_calendar_zone -> javax_time_period;
+  javax_time_i18n -> javax_time;
+  javax_time_i18n -> javax_time_calendar;
+  javax_time_i18n -> javax_time_calendar_format;
+  javax_time_i18n -> javax_time_period;
+  javax_time_period -> javax_time;
+  javax_time_period -> javax_time_calendar;
+  javax_time_period -> javax_time_calendar_format;
+  javax_time_period_field -> javax_time;
+  javax_time_period_field -> javax_time_calendar;
+  javax_time_period_field -> javax_time_period;
+  javax_time_scales -> javax_time;
+}

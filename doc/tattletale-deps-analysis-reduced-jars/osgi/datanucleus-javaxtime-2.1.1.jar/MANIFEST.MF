@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Built-By: andy
+Bundle-Name: DataNucleus javax.time
+Bundle-Localization: plugin
+Created-By: Apache Maven
+Require-Bundle: org.datanucleus;bundle-version="2.1.0.release",org.dat
+ anucleus.store.rdbms;bundle-version="2.1.0.release";resolution:=optio
+ nal
+Bundle-Vendor: DataNucleus
+Build-Jdk: 1.6.0_18
+Bundle-Version: 2.1.1
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.datanucleus.store.types.javaxtime;singleton:=
+ true
+Import-Package: javax.time.calendar
+Archiver-Version: Plexus Archiver
+

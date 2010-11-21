@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Export-Package: javax.jdo,javax.jdo.annotations,javax.jdo.datastore,ja
+ vax.jdo.identity,javax.jdo.listener,javax.jdo.spi,javax.jdo.metadata
+Maven-Version: 1.1
+Built-By: clr
+Bundle-Name: Java Data Objects
+Bundle-Localization: plugin
+Created-By: 1.5.0_24-149 (Apple Inc.)
+Ant-Version: Apache Ant 1.6.5
+Bundle-Vendor: Apache
+Bundle-Version: 3.0.0
+Bundle-ManifestVersion: 2
+Import-Package: javax.transaction;resolution:=optional,javax.persisten
+ ce;resolution:=optional
+Specification-Version: JDO 3.0
+Bundle-SymbolicName: javax.jdo
+
+Name: javax/jdo
+Implementation-Vendor: Apache Software Foundation
+Implementation-Title: javax.jdo
+Implementation-Version: 3.0
+Specification-Vendor: Apache Software Foundation
+Specification-Title: Java Data Objects (JDO) API
+Specification-Version: 3.0
+Extension-name: javax.jdo
+

@@ -1,0 +1,8 @@
+digraph google_collections_1_0_package_dependencies {
+  node [shape = box, fontsize=10.0];
+  com_google_common_base -> com_google_common_annotations;
+  com_google_common_base -> javax_annotation;
+  com_google_common_collect -> com_google_common_annotations;
+  com_google_common_collect -> com_google_common_base;
+  com_google_common_collect -> javax_annotation;
+}

@@ -1,0 +1,58 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Class-Path: derby.jar
+Sealed: true
+Created-By: 2.4 (IBM Corporation)
+Main-Class: org.apache.derby.drda.NetworkServerControl
+
+Name: org/apache/derby/tools/
+Sealed: false
+
+Name: org/apache/derby/loc/
+Sealed: false
+
+Name: org/apache/derby/impl/drda/
+Sealed: false
+
+Name: org/apache/derby/impl/tools/sysinfo/
+Sealed: false
+
+
+### OSGi information
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.apache.derby.impl.drda
+Bundle-Description: derbynet
+Bundle-Name: derbynet
+Bundle-Version: 0.0.0
+Export-Package: org.apache.derby.drda;uses:="javax.servlet,javax.servl
+ et.http,org.apache.derby.iapi.services.property,org.apache.derby.iapi
+ .tools.i18n,org.apache.derby.impl.drda",org.apache.derby.impl.drda;us
+ es:="javax.crypto,javax.crypto.interfaces,javax.crypto.spec,javax.net
+ ,javax.net.ssl,org.apache.derby.catalog,org.apache.derby.iapi.db,org.
+ apache.derby.iapi.error,org.apache.derby.iapi.jdbc,org.apache.derby.i
+ api.services.i18n,org.apache.derby.iapi.services.info,org.apache.derb
+ y.iapi.services.jmx,org.apache.derby.iapi.services.monitor,org.apache
+ .derby.iapi.services.property,org.apache.derby.iapi.services.stream,o
+ rg.apache.derby.iapi.store.access.xa,org.apache.derby.iapi.tools.i18n
+ ,org.apache.derby.iapi.util,org.apache.derby.impl.jdbc,org.apache.der
+ by.impl.tools.sysinfo,org.apache.derby.jdbc,org.apache.derby.mbeans.d
+ rda,org.apache.derby.security",org.apache.derby.impl.tools.sysinfo;us
+ es:="org.apache.derby.iapi.services.info,org.apache.derby.iapi.tools.
+ i18n",org.apache.derby.mbeans.drda
+Import-Package: java.io,java.lang,java.lang.reflect,java.math,java.net
+ ,java.nio,java.nio.charset,java.security,java.security.cert,java.secu
+ rity.spec,java.sql,java.util;version="0.0.0",java.util.zip,javax.cryp
+ to,javax.crypto.interfaces,javax.crypto.spec,javax.net,javax.net.ssl,
+ javax.servlet;version="0.0.0",javax.servlet.http;version="0.0.0",java
+ x.sql,javax.transaction.xa;version="0.0.0",org.apache.derby.catalog;v
+ ersion="0.0.0",org.apache.derby.iapi.db;version="0.0.0",org.apache.de
+ rby.iapi.error;version="0.0.0",org.apache.derby.iapi.jdbc;version="0.
+ 0.0",org.apache.derby.iapi.services.i18n;version="0.0.0",org.apache.d
+ erby.iapi.services.info;version="0.0.0",org.apache.derby.iapi.service
+ s.jmx;version="0.0.0",org.apache.derby.iapi.services.monitor;version=
+ "0.0.0",org.apache.derby.iapi.services.property;version="0.0.0",org.a
+ pache.derby.iapi.services.stream;version="0.0.0",org.apache.derby.iap
+ i.store.access.xa;version="0.0.0",org.apache.derby.iapi.tools.i18n;ve
+ rsion="0.0.0",org.apache.derby.iapi.util;version="0.0.0",org.apache.d
+ erby.impl.jdbc;version="0.0.0",org.apache.derby.jdbc;version="0.0.0",
+ org.apache.derby.security;version="0.0.0"

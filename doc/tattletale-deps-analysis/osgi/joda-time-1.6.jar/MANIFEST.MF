@@ -1,0 +1,40 @@
+Manifest-Version: 1.0
+Export-Package: org.joda.time;version=1.6,org.joda.time.chrono;version
+ =1.6,org.joda.time.format;version=1.6
+Implementation-Title: org.joda.time
+Implementation-Version: 1.6
+Specification-Vendor: Joda.org
+Package: org.joda.time
+Bundle-Name: Joda-Time
+Created-By: 1.4.2_13-b06 (Sun Microsystems Inc.)
+Bundle-RequiredExecutionEnvironment: J2SE-1.3
+Ant-Version: Apache Ant 1.6.5
+Implementation-Vendor: Joda.org
+Implementation-Vendor-Id: org.joda
+Bundle-Version: 1.6
+Specification-Title: Joda-Time
+Bundle-ManifestVersion: 2
+Bundle-License: Apache 2.0
+Bundle-Symbolicname: joda-time
+Specification-Version: 1.6
+Extension-Name: joda-time
+
+
+### OSGi information
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.joda.time
+Bundle-Description: joda-time-1.6
+Bundle-Name: joda-time-1.6
+Bundle-Version: 1.6
+Export-Package: org.joda.time;uses:="org.joda.time.base,org.joda.time.
+ chrono,org.joda.time.convert,org.joda.time.field,org.joda.time.format
+ ,org.joda.time.tz",org.joda.time.base;uses:="org.joda.time,org.joda.t
+ ime.chrono,org.joda.time.convert,org.joda.time.field,org.joda.time.fo
+ rmat",org.joda.time.chrono;uses:="org.joda.time,org.joda.time.field,o
+ rg.joda.time.format",org.joda.time.convert;uses:="org.joda.time,org.j
+ oda.time.chrono,org.joda.time.field,org.joda.time.format",org.joda.ti
+ me.field;uses:="org.joda.time",org.joda.time.format;uses:="org.joda.t
+ ime,org.joda.time.field",org.joda.time.tz;uses:="org.joda.time,org.jo
+ da.time.chrono,org.joda.time.format"
+Import-Package: java.io,java.lang,java.lang.ref,java.security,java.tex
+ t,java.util;version="0.0.0"

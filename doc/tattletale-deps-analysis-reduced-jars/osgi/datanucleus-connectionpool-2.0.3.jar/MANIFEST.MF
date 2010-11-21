@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Export-Package: org.datanucleus.store.rdbms.datasource.c3p0,org.datanu
+ cleus.store.rdbms.datasource.dbcp,org.datanucleus.store.rdbms.datasou
+ rce.proxool
+Built-By: andy
+Bundle-Name: DataNucleus ConnectionPool
+Bundle-Localization: plugin
+Created-By: Apache Maven
+Require-Bundle: org.datanucleus;bundle-version="2.0.2",org.datanucleus
+ .store.rdbms;bundle-version="2.0.2"
+Bundle-Vendor: DataNucleus
+Build-Jdk: 1.6.0_18
+Bundle-Version: 2.0.3
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.datanucleus.store.rdbms.connectionpool;single
+ ton:=true
+Import-Package: com.jolbox.bonecp;resolution:=optional,com.mchange.v2.
+ c3p0;resolution:=optional,org.apache.commons.dbcp;resolution:=optiona
+ l,org.apache.commons.pool;resolution:=optional,org.apache.commons.poo
+ l.impl;resolution:=optional,org.logicalcobwebs.proxool;resolution:=op
+ tional
+Archiver-Version: Plexus Archiver
+
