@@ -3,12 +3,10 @@ package org.timadorus.webapp.server.rpc.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
-import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.server.RegisteredUserList;
@@ -53,10 +51,8 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
        System.out.println("\n"+character.getAllAttrInfo_Part1()+"\n"+character.getAllAttrInfo_Part2());
        System.out.println("\n*********************************************************\n");
        
-      Character c2= getCharObjectFromAppEngine("Dummy-Character");
       pm.close();
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
@@ -90,7 +86,6 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
       }
     }
   } catch (Exception e) {
-    // TODO Auto-generated catch block
     e.printStackTrace();
   }
 

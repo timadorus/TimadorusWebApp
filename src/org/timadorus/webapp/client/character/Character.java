@@ -75,7 +75,7 @@ public class Character implements Serializable {
   @NotPersistent
   List<Integer> tempStats = new ArrayList<Integer>();
   @NotPersistent
-  LinkedList<Integer> potStats = new LinkedList();
+  LinkedList<Integer> potStats = new LinkedList<Integer>();
   
   
   private Character() {
@@ -85,7 +85,7 @@ public class Character implements Serializable {
   void fillStats() {
 
     Stat s1 = new Stat("Konstitution", "Konsti");
-    statList = new LinkedList();
+    statList = new LinkedList<Stat>();
     statList.add(s1);
     Stat s2 = new Stat("Agilität", "Agi");
     statList.add(s2);

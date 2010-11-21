@@ -1,13 +1,9 @@
 package org.timadorus.webapp.client.character;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-
-import com.google.gwt.user.client.ui.Button;
 
 @PersistenceCapable
 public class Stat implements Serializable {

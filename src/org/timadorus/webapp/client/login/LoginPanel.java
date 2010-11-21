@@ -132,7 +132,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
         }
       }
       
-      public void sendToServerLogout(){
+      /*public void sendToServerLogout(){
         LoginServiceAsync loginServiceAsync = GWT.create(LoginService.class);
 
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
@@ -163,7 +163,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
         };
 
         loginServiceAsync.logout(user, asyncCallback);
-      }
+      }*/
 
       /**
        * Username und Passwort an Server senden

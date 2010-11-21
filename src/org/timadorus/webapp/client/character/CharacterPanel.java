@@ -1,41 +1,23 @@
 package org.timadorus.webapp.client.character;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.character.PremadeCharacterPanel;
 import org.timadorus.webapp.client.character.SelectRacePanel;
 import org.timadorus.webapp.client.character.Character;
 
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FormPanel;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
 public class CharacterPanel extends FormPanel implements HistoryStates {
 
@@ -58,8 +40,6 @@ public class CharacterPanel extends FormPanel implements HistoryStates {
   Image selectCustomImage = new Image("media/images/characterCustom.png");
 
   Image selectPremadeImage = new Image("media/images/characterPremade.png");
-
-  private static CharacterPanel characterPanel;
 
   public CharacterPanel(TimadorusWebApp entry) {
     super();

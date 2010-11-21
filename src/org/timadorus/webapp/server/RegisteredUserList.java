@@ -165,10 +165,8 @@ public class RegisteredUserList {
       
 
        pm.makePersistent(c);
-      Character c2= getCharObjectFromAppEngine("MyCharacter1");
       pm.close();
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
@@ -206,7 +204,6 @@ public class RegisteredUserList {
         }
       }
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
@@ -236,7 +233,6 @@ public class RegisteredUserList {
           }
         }
       } catch (Exception e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
   

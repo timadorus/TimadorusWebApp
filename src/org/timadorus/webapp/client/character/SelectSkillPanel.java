@@ -2,45 +2,29 @@ package org.timadorus.webapp.client.character;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 import java.util.Set;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.register.RegisterPanel;
-import org.timadorus.webapp.client.character.SelectClassPanel;
-import org.timadorus.webapp.client.character.TestCharacterValues;
 
 //import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FormPanel;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
 //FormPanel for selecting Skill-Level-0 items of a Character-Object
 public class SelectSkillPanel extends FormPanel implements HistoryStates, ChangeHandler {
@@ -67,7 +51,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
 
   ListBox addedskillListBox = new ListBox();
 
-  private Set<String> tlist = new HashSet();
+  private Set<String> tlist = new HashSet<String>();
 
   Label skillLabel = new Label("Fertigkeiten wählen: ");
 
@@ -132,7 +116,6 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
           readyToSave();
 
         } else if (event.getSource().equals(entferneButton)) {
-          int i = addedskillListBox.getItemCount();
           String skillName = addedskillListBox.getValue(addedskillListBox.getSelectedIndex());
           int ind = addedskillListBox.getSelectedIndex();
           if (addedskillListBox.getItemCount() > 0) {
