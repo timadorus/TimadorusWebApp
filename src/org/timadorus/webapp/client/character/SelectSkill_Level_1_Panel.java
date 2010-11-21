@@ -1,55 +1,30 @@
 package org.timadorus.webapp.client.character;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 import java.util.Set;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.User;
-import org.timadorus.webapp.client.register.RegisterPanel;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
-import org.timadorus.webapp.client.rpc.service.LoginService;
-import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
-import org.timadorus.webapp.client.character.SelectClassPanel;
-import org.timadorus.webapp.client.character.TestCharacterValues;
 
 //import com.google.gwt.dev.util.collect.HashMap;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.HistoryListener;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FormPanel;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
 //FormPanel for selecting Skill-Level-1 items of a Character-Object
 public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryStates, ChangeHandler {
@@ -70,13 +45,13 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
 
   ListBox skillListBox = new ListBox();
 
-  Button hinzufügenButton = new Button("+");
+  Button hinzufuegenButton = new Button("+");
 
   Button entferneButton = new Button("-");
 
   ListBox addedskillListBox = new ListBox();
 
-  private Set<String> tlist = new HashSet();
+  private Set<String> tlist = new HashSet<String>();
 
   Label skillLabel = new Label("L1 Fertigkeiten wählen: ");
 
@@ -129,7 +104,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
             }
           }
 
-        } else if (event.getSource().equals(hinzufügenButton)) {
+        } else if (event.getSource().equals(hinzufuegenButton)) {
 
           String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
 
@@ -141,7 +116,6 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
           readyToSave();
 
         } else if (event.getSource().equals(entferneButton)) {
-          int i = addedskillListBox.getItemCount();
           String skillName = addedskillListBox.getValue(addedskillListBox.getSelectedIndex());
           int ind = addedskillListBox.getSelectedIndex();
           if (addedskillListBox.getItemCount() > 0) {
@@ -182,7 +156,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
     selectSkillGrid.setWidget(0, 12, addedskillLabel);
     // selectSkillGrid.setWidget(1, 1, choosenskillLabel);
     selectSkillGrid.setWidget(1, 0, skillListBox);
-    selectSkillGrid.setWidget(1, 8, hinzufügenButton);
+    selectSkillGrid.setWidget(1, 8, hinzufuegenButton);
     selectSkillGrid.setWidget(2, 8, entferneButton);
     selectSkillGrid.setWidget(1, 12, addedskillListBox);
 
@@ -229,7 +203,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
 
-    hinzufügenButton.addClickHandler(handler);
+    hinzufuegenButton.addClickHandler(handler);
     entferneButton.addClickHandler(handler);
 
     skillListBox.addClickHandler(handler);
