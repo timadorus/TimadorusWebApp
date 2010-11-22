@@ -1,7 +1,0 @@
-digraph derbynet_dependencies {
-  node [shape = box, fontsize=10.0];
-  derbynet -> derby;
-  derbynet -> geronimo_jta_1_1_spec_1_1;
-  derbynet -> gwt_dev_2_0_4;
-  derbynet -> time_api_0_6;
-}

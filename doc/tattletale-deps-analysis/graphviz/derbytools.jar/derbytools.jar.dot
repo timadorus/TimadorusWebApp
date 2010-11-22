@@ -1,6 +1,0 @@
-digraph derbytools_dependencies {
-  node [shape = box, fontsize=10.0];
-  derbytools -> derby;
-  derbytools -> geronimo_jta_1_1_spec_1_1;
-  derbytools -> time_api_0_6;
-}

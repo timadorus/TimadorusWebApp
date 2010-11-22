@@ -1,7 +1,0 @@
-digraph commons_dbcp_1_2_1_dependencies {
-  node [shape = box, fontsize=10.0];
-  commons_dbcp_1_2_1 -> commons_collections_3_1;
-  commons_dbcp_1_2_1 -> commons_pool_1_2;
-  commons_dbcp_1_2_1 -> gwt_dev_2_0_4;
-  commons_dbcp_1_2_1 -> time_api_0_6;
-}

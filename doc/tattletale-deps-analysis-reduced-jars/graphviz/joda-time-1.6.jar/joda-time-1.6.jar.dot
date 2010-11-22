@@ -1,4 +1,0 @@
-digraph joda_time_1_6_dependencies {
-  node [shape = box, fontsize=10.0];
-  joda_time_1_6 -> time_api_0_6;
-}

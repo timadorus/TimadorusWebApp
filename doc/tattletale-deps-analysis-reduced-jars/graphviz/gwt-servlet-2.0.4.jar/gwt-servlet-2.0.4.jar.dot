@@ -1,6 +1,0 @@
-digraph gwt_servlet_2_0_4_dependencies {
-  node [shape = box, fontsize=10.0];
-  gwt_servlet_2_0_4 -> gwt_dev_2_0_4;
-  gwt_servlet_2_0_4 -> gwt_user_2_0_4;
-  gwt_servlet_2_0_4 -> time_api_0_6;
-}

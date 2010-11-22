@@ -1,7 +1,0 @@
-digraph jdo_api_3_0_0_dependencies {
-  node [shape = box, fontsize=10.0];
-  jdo_api_3_0_0 -> geronimo_jpa_2_0_spec_1_0;
-  jdo_api_3_0_0 -> geronimo_jta_1_1_spec_1_1;
-  jdo_api_3_0_0 -> gwt_dev_2_0_4;
-  jdo_api_3_0_0 -> time_api_0_6;
-}

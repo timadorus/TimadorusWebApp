@@ -1,5 +1,0 @@
-digraph datanucleus_xmltypeoracle_2_0_0_release_dependencies {
-  node [shape = box, fontsize=10.0];
-  datanucleus_xmltypeoracle_2_0_0_release -> datanucleus_core_2_1_3;
-  datanucleus_xmltypeoracle_2_0_0_release -> datanucleus_rdbms_2_1_2;
-}

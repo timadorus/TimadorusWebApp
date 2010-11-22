@@ -1,5 +1,0 @@
-digraph gwt_dev_2_0_4_dependencies {
-  node [shape = box, fontsize=10.0];
-  gwt_dev_2_0_4 -> log4j_1_2_14;
-  gwt_dev_2_0_4 -> time_api_0_6;
-}
