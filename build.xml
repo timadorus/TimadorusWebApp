@@ -29,7 +29,7 @@
 	     let ivy handle depencies to other projects                   
 	     ================================= -->
 	<target name="resolve" description="--> retrieve dependencies with ivy">
-		<ivy:cleancache />
+		<!--ivy:cleancache /-->
 		<ivy:settings file="${ivy.settings.file}" />
 		<ivy:retrieve />
 	</target>
