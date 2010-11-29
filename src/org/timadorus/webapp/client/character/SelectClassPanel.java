@@ -38,10 +38,10 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
 
   ListBox classListBox = new ListBox();  //listbox for available classes
 
-  public SelectClassPanel(final TimadorusWebApp entry, final Character character) {
+  public SelectClassPanel(final TimadorusWebApp entryIn, final Character characterIn) {
     super();
-    this.entry = entry;
-    this.character = character;
+    this.entry = entryIn;
+    this.character = characterIn;
 
     // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
@@ -56,7 +56,7 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
           //handles changing "information" #div
         } else if (event.getSource().equals(selectClassGrid)) {
           String className = classListBox.getValue(classListBox.getSelectedIndex());
-          ListIterator<CClass> classIterator = entry.getTestValues().getClasses().listIterator();
+          ListIterator<CClass> classIterator = entryIn.getTestValues().getClasses().listIterator();
           RootPanel.get("information").clear();
           while (classIterator.hasNext()) {
             CClass newClass = (CClass) classIterator.next();
@@ -73,7 +73,7 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
               while (factionIterator.hasNext()) {
                 Faction newFaction = (Faction) factionIterator.next();
                 nextFaction = newFaction.getName();
-                if (character.getRace().getAvailableFactions().contains(newFaction)) {
+                if (characterIn.getRace().getAvailableFactions().contains(newFaction)) {
                   availableFactions3 = availableFactions3 + "<li>" + nextFaction + "</li>";
                 }
               }
@@ -97,10 +97,10 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     selectClassGrid.setBorderWidth(0);
     selectClassGrid.setStylePrimaryName("selectGrid");
     // filling the list with available classes
-    ListIterator<CClass> classIterator = entry.getTestValues().getClasses().listIterator();
+    ListIterator<CClass> classIterator = entryIn.getTestValues().getClasses().listIterator();
     while (classIterator.hasNext()) {
       CClass newClass = (CClass) classIterator.next();
-      if (character.getRace().getAvailableClasses().contains(newClass)) {
+      if (characterIn.getRace().getAvailableClasses().contains(newClass)) {
         classListBox.addItem(newClass.getName());
       }
     }
@@ -125,7 +125,7 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 2 von 7"));
-    panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
 
     panel.add(headline);
     panel.add(selectClassGrid);

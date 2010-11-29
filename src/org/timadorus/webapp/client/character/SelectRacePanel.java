@@ -45,10 +45,10 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
 
   ListBox raceListBox = new ListBox();
 
-  public SelectRacePanel(final TimadorusWebApp entry, final Character character) {
+  public SelectRacePanel(final TimadorusWebApp entryIn, final Character characterIn) {
     super();
-    this.entry = entry;
-    this.character = character;
+    this.entry = entryIn;
+    this.character = characterIn;
 
     // TestValues
 
@@ -67,7 +67,7 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
         } else if (event.getSource().equals(raceListBox)) {
           // show race informations
           String raceName = raceListBox.getValue(raceListBox.getSelectedIndex());
-          ListIterator<Race> raceIterator = entry.getTestValues().getRaces().listIterator();
+          ListIterator<Race> raceIterator = entryIn.getTestValues().getRaces().listIterator();
           RootPanel.get("information").clear();
           while (raceIterator.hasNext()) {
             Race newRace = (Race) raceIterator.next();
@@ -127,7 +127,7 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     selectRaceGrid.setBorderWidth(0);
     selectRaceGrid.setStylePrimaryName("selectGrid");
 
-    ListIterator<Race> raceIterator = entry.getTestValues().getRaces().listIterator();
+    ListIterator<Race> raceIterator = entryIn.getTestValues().getRaces().listIterator();
     while (raceIterator.hasNext()) {
       Race newRace = (Race) raceIterator.next();
       raceListBox.addItem(newRace.getName());

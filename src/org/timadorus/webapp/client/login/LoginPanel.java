@@ -57,16 +57,16 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
 
   private TimadorusWebApp entry;
 
-  private final static long TWO_MIN = 1000 * 60 * 2;
+  private static final long TWO_MIN = 1000 * 60 * 2;
 
   private int logincounter;
 
   private static LoginPanel loginPanel;
 
-  public LoginPanel(SessionId session, TimadorusWebApp entry) {
+  public LoginPanel(SessionId session, TimadorusWebApp entryIn) {
     super();
 
-    this.entry = entry;
+    this.entry = entryIn;
     setUser(new User());
     logincounter = 0;
     setupHistory();
@@ -287,7 +287,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
     return user;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public void setUser(User userIn) {
+    this.user = userIn;
   }
 }

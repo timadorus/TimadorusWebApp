@@ -42,11 +42,11 @@ public class Race implements Serializable {
     super();
   }
 
-  public Race(Long raceID, String name, String description) {
+  public Race(Long raceIDIn, String nameIn, String descriptionIn) {
 
-    this.raceID = raceID;
-    this.name = name;
-    this.description = description;
+    this.raceID = raceIDIn;
+    this.name = nameIn;
+    this.description = descriptionIn;
 
   }
   
@@ -54,32 +54,32 @@ public class Race implements Serializable {
     return raceID;
   }
 
-  public void setRaceID(Long raceID) {
-    this.raceID = raceID;
+  public void setRaceID(Long raceIDIn) {
+    this.raceID = raceIDIn;
   }
 
   public String getName() {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String nameIn) {
+    this.name = nameIn;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setdescription(String description) {
-    this.description = description;
+  public void setdescription(String descriptionIn) {
+    this.description = descriptionIn;
   }
   
   public List<CClass> getAvailableClasses() {
     return availableClasses;
   }
   
-  public void setAvailableClasses(List<CClass> availableClasses) {
-    this.availableClasses = availableClasses;
+  public void setAvailableClasses(List<CClass> availableClassesIn) {
+    this.availableClasses = availableClassesIn;
   }
   
   public void addClass(CClass newClass){
@@ -104,12 +104,12 @@ public class Race implements Serializable {
     return availableFactions2;
   }
 
-  public void setAvailableFactions2(List<Faction> availableFactions2) {
-    this.availableFactions2 = availableFactions2;
+  public void setAvailableFactions2(List<Faction> availableFactions2In) {
+    this.availableFactions2 = availableFactions2In;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescription(String descriptionIn) {
+    this.description = descriptionIn;
   }
   
   

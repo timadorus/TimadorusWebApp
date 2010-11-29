@@ -22,9 +22,9 @@ public class CharacterReadyPanel extends FormPanel implements HistoryStates {
 
   FlexTable selectGrid = new FlexTable();
 
-  public CharacterReadyPanel(TimadorusWebApp entry, Character character) {
+  public CharacterReadyPanel(TimadorusWebApp entryIn, Character characterIn) {
     super();
-    this.entry = entry;
+    this.entry = entryIn;
     HTML congratulationLabel = new HTML(
                                         "<p>Herzlichen Glückwunsch.</p><p>Ihr Charakter wurde gespeichert. Loggen sie sich auf dem Client mit ihren Accountdaten ein");
 

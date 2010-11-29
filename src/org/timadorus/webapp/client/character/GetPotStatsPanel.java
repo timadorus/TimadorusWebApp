@@ -37,10 +37,10 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   LinkedList<Integer> potStats = new LinkedList<Integer>(); //list holding characters potstats
   
-  public GetPotStatsPanel(final TimadorusWebApp entry, final Character character) {
+  public GetPotStatsPanel(final TimadorusWebApp entryIn, final Character characterIn) {
     super();
-    this.entry = entry;
-    this.character = character;
+    this.entry = entryIn;
+    this.character = characterIn;
 
     // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
@@ -73,8 +73,8 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     getPotStatGrid.setHTML(0, 2, "PotStat");
     
     for (int i = 0; i < 11; i++){
-      getPotStatGrid.setHTML(i + 1, 0, character.getStatList().get(i).toString());
-      getPotStatGrid.setHTML(i + 1, 1, character.getTempStats().get(i).toString());
+      getPotStatGrid.setHTML(i + 1, 0, characterIn.getStatList().get(i).toString());
+      getPotStatGrid.setHTML(i + 1, 1, characterIn.getTempStats().get(i).toString());
       getPotStatGrid.setHTML(i + 1, 2, potStats.get(i).toString());
     }
     
@@ -83,7 +83,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     }
     
     //saving potential stats to character
-    character.setPotStats(potStats);
+    characterIn.setPotStats(potStats);
     
     //set properties of buttongrid
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
@@ -99,9 +99,9 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 5 von 7"));
-    panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
-    panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: "
-        + character.getFaction().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
+    panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
+        + characterIn.getFaction().getName()));
 
     panel.add(headline);
     panel.add(getPotStatGrid);

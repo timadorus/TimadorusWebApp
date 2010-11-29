@@ -398,24 +398,24 @@ public class TestCharacterValues {
     return factions;
   }
 
-  public void setFactions(List<Faction> factions) {
-    this.factions = factions;
+  public void setFactions(List<Faction> factionsIn) {
+    this.factions = factionsIn;
   }
 
   public List<CClass> getClasses() {
     return classes;
   }
 
-  public void setClasses(List<CClass> classes) {
-    this.classes = classes;
+  public void setClasses(List<CClass> classesIn) {
+    this.classes = classesIn;
   }
 
   public List<Race> getRaces() {
     return races;
   }
 
-  public void setRaces(List<Race> races) {
-    this.races = races;
+  public void setRaces(List<Race> racesIn) {
+    this.races = racesIn;
   }
 
   public TestCharacterValues getTestCharacterValues() {
@@ -426,16 +426,16 @@ public class TestCharacterValues {
     return skills;
   }
 
-  public void setSkills(List<Skill> skills) {
-    this.skills = skills;
+  public void setSkills(List<Skill> skillsIn) {
+    this.skills = skillsIn;
   }
 
   public List<Skill> getBackupSkills() {
     return backupSkills;
   }
 
-  public void setBackupSkills(List<Skill> backupSkills) {
-    this.backupSkills = backupSkills;
+  public void setBackupSkills(List<Skill> backupSkillsIn) {
+    this.backupSkills = backupSkillsIn;
   }
 
   public List<Skill> getSkills_Level_1() {

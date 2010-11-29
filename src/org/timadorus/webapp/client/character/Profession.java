@@ -36,16 +36,16 @@ public class Profession implements Serializable {
     return rasseID;
   }
 
-  public void setRasseID(Long rasseID) {
-    this.rasseID = rasseID;
+  public void setRasseID(Long rasseIDIn) {
+    this.rasseID = rasseIDIn;
   }
 
   public String getNamen() {
     return namen;
   }
 
-  public void setNamen(String namen) {
-    this.namen = namen;
+  public void setNamen(String namenIn) {
+    this.namen = namenIn;
   }
 
   public String getBeschreibung() {

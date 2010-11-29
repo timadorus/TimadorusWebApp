@@ -28,10 +28,10 @@ public class Stat implements Serializable {
 
   }
 
-  public Stat(String name, String description) {
+  public Stat(String nameIn, String descriptionIn) {
 
-    this.name = name;
-    this.description = description;
+    this.name = nameIn;
+    this.description = descriptionIn;
     this.tempStat = 30;
     this.potStat = 0;
   }
@@ -40,32 +40,32 @@ public class Stat implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String nameIn) {
+    this.name = nameIn;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescription(String descriptionIn) {
+    this.description = descriptionIn;
   }
 
   public Integer getTempStat() {
     return tempStat;
   }
 
-  public void setTempStat(Integer tempStat) {
-    this.tempStat = tempStat;
+  public void setTempStat(Integer tempStatIn) {
+    this.tempStat = tempStatIn;
   }
 
   public Integer getPotStat() {
     return potStat;
   }
 
-  public void setPotStat(Integer potStat) {
-    this.potStat = potStat;
+  public void setPotStat(Integer potStatIn) {
+    this.potStat = potStatIn;
   } 
   
   @Override

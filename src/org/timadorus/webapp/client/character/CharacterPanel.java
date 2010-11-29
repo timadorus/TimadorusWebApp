@@ -41,9 +41,9 @@ public class CharacterPanel extends FormPanel implements HistoryStates {
 
   Image selectPremadeImage = new Image("media/images/characterPremade.png");
 
-  public CharacterPanel(TimadorusWebApp entry) {
+  public CharacterPanel(TimadorusWebApp entryIn) {
     super();
-    this.entry = entry;
+    this.entry = entryIn;
 
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {

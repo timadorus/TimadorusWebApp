@@ -40,10 +40,10 @@ public class SelectNamePanel extends FormPanel implements HistoryStates {
 
   TextBox nameTextBox = new TextBox();
 
-  public SelectNamePanel(final TimadorusWebApp entry, final Character character) {
+  public SelectNamePanel(final TimadorusWebApp entryIn, final Character characterIn) {
     super();
-    this.entry = entry;
-    this.character = character;
+    this.entry = entryIn;
+    this.character = characterIn;
 
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
@@ -84,7 +84,7 @@ public class SelectNamePanel extends FormPanel implements HistoryStates {
 
     panel.add(progressBar);
     panel.add(new Label("Schritt 2 von 7"));
-    panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
 
     panel.add(headline);
 

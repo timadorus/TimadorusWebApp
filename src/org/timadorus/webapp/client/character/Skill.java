@@ -82,27 +82,27 @@ public class Skill implements Serializable, Cloneable {
     // TODO Auto-generated constructor stub
   }
 
-  public Skill(String def_label, String lvl_bonus_cat, String stat1, String stat2, String action_type,
-               String calc_type, String locale_desc_label, String locale_desc_language, boolean locale_desc_default,
-               String description,int Cost, int Rank, int Rk_Bn, int Stat_Bn, int Level_Bn, int Item) {
+  public Skill(String def_labelIn, String lvl_bonus_catIn, String stat1In, String stat2In, String action_typeIn,
+               String calc_typeIn, String locale_desc_labelIn, String locale_desc_languageIn, boolean locale_desc_defaultIn,
+               String descriptionIn, int costIn, int rankIn, int rk_bnIn, int stat_bnIn, int level_bnIn, int itemIn) {
 
-    this.action_type = action_type;
-    this.calc_type = calc_type;
-    this.def_label = def_label;
-    this.locale_desc_default = locale_desc_default;
-    this.locale_desc_label = locale_desc_label;
-    this.locale_desc_language = locale_desc_language;
-    this.lvl_bonus_cat = lvl_bonus_cat;
-    this.stat1 = stat1;
-    this.stat2 = stat2;
+    this.action_type = action_typeIn;
+    this.calc_type = calc_typeIn;
+    this.def_label = def_labelIn;
+    this.locale_desc_default = locale_desc_defaultIn;
+    this.locale_desc_label = locale_desc_labelIn;
+    this.locale_desc_language = locale_desc_languageIn;
+    this.lvl_bonus_cat = lvl_bonus_catIn;
+    this.stat1 = stat1In;
+    this.stat2 = stat2In;
     this.name = this.locale_desc_label;
-    this.description = description;
-    this.Cost=Cost; 
+    this.description = descriptionIn;
+    this.Cost=costIn; 
     this.Rank=Rank;
-    this.Rk_Bn=Rk_Bn;
-    this.Stat_Bn=Stat_Bn;
-    this.Level_Bn=Level_Bn;
-    this.Item=Item;
+    this.Rk_Bn=rk_bnIn;
+    this.Stat_Bn=stat_bnIn;
+    this.Level_Bn=level_bnIn;
+    this.Item=itemIn;
     setTotal("start");
     
   }
@@ -150,16 +150,16 @@ setTotal("start");
     return stat1;
   }
 
-  public void setStat1(String stat1) {
-    this.stat1 = stat1;
+  public void setStat1(String stat1In) {
+    this.stat1 = stat1In;
   }
 
   public String getStat2() {
     return stat2;
   }
 
-  public void setStat2(String stat2) {
-    this.stat2 = stat2;
+  public void setStat2(String stat2In) {
+    this.stat2 = stat2In;
   }
 
   public String getAction_type() {
@@ -206,16 +206,16 @@ setTotal("start");
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String nameIn) {
+    this.name = nameIn;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescription(String descriptionIn) {
+    this.description = descriptionIn;
   }
   
   
@@ -296,8 +296,8 @@ setTotal("start");
     return gesamtInfo;
   }
 
-  public void setGesamtInfo(String[] gesamtInfo) {
-    this.gesamtInfo = gesamtInfo;
+  public void setGesamtInfo(String[] gesamtInfoIn) {
+    this.gesamtInfo = gesamtInfoIn;
   }
   
 //  @Override

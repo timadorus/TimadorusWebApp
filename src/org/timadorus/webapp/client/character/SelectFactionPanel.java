@@ -39,10 +39,10 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
 
   ListBox factionListBox = new ListBox(); //listbox for available faction
 
-  public SelectFactionPanel(final TimadorusWebApp entry, Character character) {
+  public SelectFactionPanel(final TimadorusWebApp entryIn, Character characterIn) {
     super();
-    this.entry = entry;
-    this.character = character;
+    this.entry = entryIn;
+    this.character = characterIn;
 
     // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
@@ -57,7 +57,7 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
         }else if(event.getSource().equals(selectFactionGrid)){
           //handles changing "information" #div
           String factionName = factionListBox.getValue(factionListBox.getSelectedIndex());
-          ListIterator<Faction> factionIterator = entry.getTestValues().getFactions().listIterator();
+          ListIterator<Faction> factionIterator = entryIn.getTestValues().getFactions().listIterator();
           RootPanel.get("information").clear();
           while (factionIterator.hasNext()) {
             Faction newFaction = (Faction) factionIterator.next();
@@ -85,11 +85,11 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     selectFactionGrid.setBorderWidth(0);
     selectFactionGrid.setStylePrimaryName("selectGrid");
     //filling the grid with available factions
-    ListIterator<Faction> factionIterator = entry.getTestValues().getFactions().listIterator();
+    ListIterator<Faction> factionIterator = entryIn.getTestValues().getFactions().listIterator();
     while (factionIterator.hasNext()) {
       Faction newFaction = (Faction) factionIterator.next();      
-      if (character.getCharClass().getAvailableFactions().contains(newFaction)) {
-        if (character.getRace().getAvailableFactions().contains(newFaction)) {
+      if (characterIn.getCharClass().getAvailableFactions().contains(newFaction)) {
+        if (characterIn.getRace().getAvailableFactions().contains(newFaction)) {
           factionListBox.addItem(newFaction.getName());
         }
       }
@@ -114,8 +114,8 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 3 von 7"));
-    panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
-    panel.add(new Label("Klasse: " + character.getCharClass().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
+    panel.add(new Label("Klasse: " + characterIn.getCharClass().getName()));
 
     panel.add(headline);    
     panel.add(selectFactionGrid);

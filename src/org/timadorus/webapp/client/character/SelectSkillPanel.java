@@ -70,10 +70,10 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
 
   private String[] titleList = { "Skill-Name", "Cost", "Rank", "Rk_Bn", "Stat_Bn", "Level_Bn", "Item", "Total" };
 
-  public SelectSkillPanel(final TimadorusWebApp entry, final Character character) {
+  public SelectSkillPanel(final TimadorusWebApp entryIn, final Character characterIn) {
     super();
-    this.entry = entry;
-    this.character = character;
+    this.entry = entryIn;
+    this.character = characterIn;
 
     // TestValues
 
@@ -91,7 +91,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
         } else if (event.getSource().equals(skillListBox)) {
           // show skill informations
           String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
-          ListIterator<Skill> skillIterator = entry.getTestValues().getSkills().listIterator();
+          ListIterator<Skill> skillIterator = entryIn.getTestValues().getSkills().listIterator();
           RootPanel.get("information").clear();
           while (skillIterator.hasNext()) {
             Skill newSkill = (Skill) skillIterator.next();
@@ -141,7 +141,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
     selectSkillGrid.setBorderWidth(0);
     selectSkillGrid.setStylePrimaryName("selectGrid");
 
-    ListIterator<Skill> skillIterator = entry.getTestValues().getSkills().listIterator();
+    ListIterator<Skill> skillIterator = entryIn.getTestValues().getSkills().listIterator();
     while (skillIterator.hasNext()) {
       Skill newSkill = (Skill) skillIterator.next();
       skillListBox.addItem(newSkill.getName());
@@ -177,9 +177,9 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
 
     panel.add(progressBar);
     panel.add(new Label("Schritt 6 von 7"));
-    panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
-    panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: "
-        + character.getFaction().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
+    panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
+        + characterIn.getFaction().getName()));
     panel.add(headline);
 
     panel.add(selectSkillGrid);

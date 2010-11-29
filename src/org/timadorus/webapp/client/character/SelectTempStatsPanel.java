@@ -65,14 +65,14 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
  
 
-  int i;
+  int incremented;
 
   boolean isReady = false;
 
-  public SelectTempStatsPanel(final TimadorusWebApp entry, final Character character) {
+  public SelectTempStatsPanel(final TimadorusWebApp entryIn, final Character characterIn) {
     super();
-    this.entry = entry;
-    this.character = character;
+    this.entry = entryIn;
+    this.character = characterIn;
 
     // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
@@ -86,35 +86,35 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
           loadGetPotStatsPanel();
         } else {
           // handles inc/dec statbuttons
-          for (i = 0; i < decStatButtons.size(); i++) {
-            if (event.getSource().equals(decStatButtons.get(i))) {
-              decStat(i);
-            } else if (event.getSource().equals(incStatButtons.get(i))) {
-              incStat(i);
-            } else if (event.getSource().equals(decTenStatButtons.get(i))) {
+          for (incremented = 0; incremented < decStatButtons.size(); incremented++) {
+            if (event.getSource().equals(decStatButtons.get(incremented))) {
+              decStat(incremented);
+            } else if (event.getSource().equals(incStatButtons.get(incremented))) {
+              incStat(incremented);
+            } else if (event.getSource().equals(decTenStatButtons.get(incremented))) {
               for (int j = 0; j < 10; j++) {
-                decStat(i);
+                decStat(incremented);
               }
-            } else if (event.getSource().equals(incTenStatButtons.get(i))) {
+            } else if (event.getSource().equals(incTenStatButtons.get(incremented))) {
               for (int j = 0; j < 10; j++) {
-                incStat(i);
+                incStat(incremented);
               }
             }
             // print stat changes to panel
             statPointViewLabel.setHTML("<h2>" + String.valueOf(statPoints) + "</h2>");
-            selectStatGrid.setText(i + 1, 1, String.valueOf(tempStats.get(i)));
-            statCostHTML.get(i).setHTML(String.valueOf(getStatCosts(tempStats.get(i) + 1)));
+            selectStatGrid.setText(incremented + 1, 1, String.valueOf(tempStats.get(incremented)));
+            statCostHTML.get(incremented).setHTML(String.valueOf(getStatCosts(tempStats.get(incremented) + 1)));
             // check if nextbutton is enabled after stat changes, alter colors of available statpoint and set helptext +
             // color
             setReadyStatus();
           }
           // handle StatCostsLabelColor for each increase/decrease event
-          for (i = 0; i < decStatButtons.size(); i++) {
-            int nextCost = getStatCosts(tempStats.get(i) + 1);
-            if ((nextCost > statPoints) || ((tempStats.get(i)) == 100)) {
-              statCostHTML.get(i).setStyleName("labelColorRed");
+          for (incremented = 0; incremented < decStatButtons.size(); incremented++) {
+            int nextCost = getStatCosts(tempStats.get(incremented) + 1);
+            if ((nextCost > statPoints) || ((tempStats.get(incremented)) == 100)) {
+              statCostHTML.get(incremented).setStyleName("labelColorRed");
             } else {
-              statCostHTML.get(i).setStyleName("labelColorGreen");
+              statCostHTML.get(incremented).setStyleName("labelColorGreen");
             }
           }
 
@@ -157,8 +157,8 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
 
     // filling the selectstatgrid
     for (int i = 0; i < 11; i++) {
-      tempStats.add(character.getStatList().get(i).getTempStat());
-      selectStatGrid.setWidget(i + 1, 0, new Label(character.getStatList().get(i).getName()));
+      tempStats.add(characterIn.getStatList().get(i).getTempStat());
+      selectStatGrid.setWidget(i + 1, 0, new Label(characterIn.getStatList().get(i).getName()));
       selectStatGrid.setWidget(i + 1, 1, new Label(String.valueOf(tempStats.get(i))));
       statCostHTML.add(new HTML(String.valueOf(statCosts)));
       statCostHTML.get(i).setStyleName("labelColorGreen");
@@ -174,8 +174,8 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
       selectStatGrid.setWidget(i + 1, 7, incTenStatButtons.get(i));
 
     }
-    tempStats.add(character.getStatList().get(11).getTempStat());
-    selectStatGrid.setWidget(12, 0, new Label(character.getStatList().get(11).getName()));
+    tempStats.add(characterIn.getStatList().get(11).getTempStat());
+    selectStatGrid.setWidget(12, 0, new Label(characterIn.getStatList().get(11).getName()));
     selectStatGrid.setWidget(12, 1, new Label(String.valueOf(tempStats.get(11))));
 
     // setting properties of readylabel
@@ -197,9 +197,9 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 4 von 7"));
-    panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
-    panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: "
-        + character.getFaction().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
+    panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
+        + characterIn.getFaction().getName()));
 
     panel.add(headline);
 
@@ -224,11 +224,11 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
 
-    for (i = 0; i < incStatButtons.size(); i++) {
-      incStatButtons.get(i).addClickHandler(handler);
-      decStatButtons.get(i).addClickHandler(handler);
-      incTenStatButtons.get(i).addClickHandler(handler);
-      decTenStatButtons.get(i).addClickHandler(handler);
+    for (incremented = 0; incremented < incStatButtons.size(); incremented++) {
+      incStatButtons.get(incremented).addClickHandler(handler);
+      decStatButtons.get(incremented).addClickHandler(handler);
+      incTenStatButtons.get(incremented).addClickHandler(handler);
+      decTenStatButtons.get(incremented).addClickHandler(handler);
     }
 
   }

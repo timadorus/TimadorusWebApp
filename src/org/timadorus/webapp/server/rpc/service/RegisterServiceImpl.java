@@ -20,13 +20,13 @@ public class RegisterServiceImpl extends RemoteServiceServlet implements Registe
 
   private User data;
 
-  public String register(User data) {
+  public String register(User dataIn) {
     System.out.println("Register aufgerufen");
-    this.data = data;
+    this.data = dataIn;
     int value = isValid();
     if (value == User.OK) {
       RegisteredUserList userList = RegisteredUserList.getInstance();
-      Boolean added = userList.addUser(data);
+      Boolean added = userList.addUser(dataIn);
       if (!added) {
         value = User.USERNAME_FAULT;
       }

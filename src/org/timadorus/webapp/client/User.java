@@ -13,21 +13,21 @@ import javax.jdo.annotations.Unique;
 public class User implements Serializable {
   private static final long serialVersionUID = 2126117484936404051L;
 
-  public final static int OK = 0;
+  public static final int OK = 0;
 
-  public final static int GEBURTSTAG_FAULT = 1;
+  public static final int GEBURTSTAG_FAULT = 1;
 
-  public final static int GEBURTSTAG_FORMAT = 2;
+  public static final int GEBURTSTAG_FORMAT = 2;
 
-  public final static int GEBURTSTAG_AGE = 4;
+  public static final int GEBURTSTAG_AGE = 4;
 
-  public final static int EMAIL_FAULT = 8;
+  public static final int EMAIL_FAULT = 8;
 
   public static final int EMAIL_FORMAT = 16;
 
-  public final static int USERNAME_FAULT = 32;
+  public static final int USERNAME_FAULT = 32;
 
-  public final static int PASSWORD_FAULT = 64;
+  public static final int PASSWORD_FAULT = 64;
 
   public static final int VORNAME_NACHNAME_EMPTY = 128;
 
@@ -84,44 +84,44 @@ public class User implements Serializable {
     super();
   }
 
-  public User(String vorname, String nachname, String geburtstag, String email, String username, String password) {
+  public User(String vornameIn, String nachnameIn, String geburtstagIn, String emailIn, String usernameIn, String passwordIn) {
     super();
-    this.vorname = vorname;
-    this.nachname = nachname;
-    this.geburtstag = geburtstag;
-    this.email = email;
-    this.username = username.toLowerCase();
-    this.displayname = username;
-    this.password = password;
+    this.vorname = vornameIn;
+    this.nachname = nachnameIn;
+    this.geburtstag = geburtstagIn;
+    this.email = emailIn;
+    this.username = usernameIn.toLowerCase();
+    this.displayname = usernameIn;
+    this.password = passwordIn;
   }
 
   public String getVorname() {
     return vorname;
   }
 
-  public void setVorname(String vorname) {
-    this.vorname = vorname;
+  public void setVorname(String vornameIn) {
+    this.vorname = vornameIn;
   }
 
-  public void setNachname(String nachname) {
-    this.nachname = nachname;
+  public void setNachname(String nachnameIn) {
+    this.nachname = nachnameIn;
   }
 
-  public void setGeburtstag(String geburtstag) {
-    this.geburtstag = geburtstag;
+  public void setGeburtstag(String geburtstagIn) {
+    this.geburtstag = geburtstagIn;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setEmail(String emailIn) {
+    this.email = emailIn;
   }
 
-  public void setUsername(String username) {
-    this.username = username.toLowerCase();
-    this.displayname = username;
+  public void setUsername(String usernameIn) {
+    this.username = usernameIn.toLowerCase();
+    this.displayname = usernameIn;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setPassword(String passwordIn) {
+    this.password = passwordIn;
   }
 
   public String getNachname() {
@@ -148,8 +148,8 @@ public class User implements Serializable {
     return password;
   }
 
-  public void setActive(Boolean active) {
-    this.active = active;
+  public void setActive(Boolean activeIn) {
+    this.active = activeIn;
   }
 
   public Boolean getActive() {

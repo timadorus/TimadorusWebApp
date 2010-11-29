@@ -39,10 +39,10 @@ public class CClass implements Serializable {
 
   }
 
-  public CClass(String name, String description) {
+  public CClass(String nameIn, String descriptionIn) {
 
-    this.name = name;
-    this.description = description;
+    this.name = nameIn;
+    this.description = descriptionIn;
 
   }
 
@@ -50,16 +50,16 @@ public class CClass implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String nameIn) {
+    this.name = nameIn;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescription(String descriptionIn) {
+    this.description = descriptionIn;
   }
 
   public List<Faction> getAvailableFactions() {
@@ -74,16 +74,16 @@ public class CClass implements Serializable {
     return race;
   }
 
-  public void setRace(Race race) {
-    this.race = race;
+  public void setRace(Race raceIn) {
+    this.race = raceIn;
   }
 
   public Long getClassID() {
     return classID;
   }
 
-  public void setClassID(Long classID) {
-    this.classID = classID;
+  public void setClassID(Long classIDIn) {
+    this.classID = classIDIn;
   }
 
   public void setAvailableFactions(List<Faction> availableFactions) {
@@ -94,8 +94,8 @@ public class CClass implements Serializable {
     return availableFactions1;
   }
 
-  public void setAvailableFactions1(List<Faction> availableFactions1) {
-    this.availableFactions1 = availableFactions1;
+  public void setAvailableFactions1(List<Faction> availableFactions1In) {
+    this.availableFactions1 = availableFactions1In;
   }
 
   @Override

@@ -12,11 +12,11 @@ this.sessionId="";
 
   private String sessionId = "";
 
-  public void setSessionId(String sessionId) {
-    if (sessionId == null)
+  public void setSessionId(String sessionIdIn) {
+    if (sessionIdIn == null)
       this.sessionId = "";
     else
-      this.sessionId = sessionId;
+      this.sessionId = sessionIdIn;
   }// end setSessionId
 
   public String getSessionId() {

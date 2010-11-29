@@ -79,8 +79,8 @@ public class RegisterPanel extends FormPanel implements HistoryListener, History
     return registerPanel;
   }
 
-  public void setRegisterPanel(RegisterPanel registerPanel) {
-    RegisterPanel.registerPanel = registerPanel;
+  public void setRegisterPanel(RegisterPanel registerPanelIn) {
+    RegisterPanel.registerPanel = registerPanelIn;
   }
 
   private void setupHistory() {

@@ -51,9 +51,9 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
 
   Character character;
 
-  public PremadeCharacterPanel(TimadorusWebApp entry) {
+  public PremadeCharacterPanel(TimadorusWebApp entryIn) {
     super();
-    this.entry = entry;
+    this.entry = entryIn;
 
     // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
@@ -185,9 +185,9 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
   }
   
   //clear "content" #div and add Class CharacterReadyPanel to it
-  public void loadCharacterReadyPanel(Character character) {
+  public void loadCharacterReadyPanel(Character characterIn) {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(CharacterReadyPanel.getCharacterReadyPanel(entry, character));
+    RootPanel.get("content").add(CharacterReadyPanel.getCharacterReadyPanel(entry, characterIn));
   }
   //clear "content" #div and add Class CharacterPanel to it  
   public void loadCharacterPanel() {

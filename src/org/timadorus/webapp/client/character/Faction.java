@@ -33,32 +33,32 @@ public class Faction implements Serializable {
     return fractionID;
   }
 
-  public void setFractionID(Long fractionID) {
-    this.fractionID = fractionID;
+  public void setFractionID(Long fractionIDIn) {
+    this.fractionID = fractionIDIn;
   }
 
   public String getName() {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String nameIn) {
+    this.name = nameIn;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescription(String descriptionIn) {
+    this.description = descriptionIn;
   }
 
   public Race getRace() {
     return race;
   }
 
-  public void setRace(Race race) {
-    this.race = race;
+  public void setRace(Race raceIn) {
+    this.race = raceIn;
   }
   
   @Override

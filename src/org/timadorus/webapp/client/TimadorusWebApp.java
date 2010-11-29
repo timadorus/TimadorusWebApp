@@ -289,7 +289,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
     return testValues;
   }
 
-  public void setTestValues(TestCharacterValues testValues) {
-    this.testValues = testValues;
+  public void setTestValues(TestCharacterValues testValuesIn) {
+    this.testValues = testValuesIn;
   }
 }

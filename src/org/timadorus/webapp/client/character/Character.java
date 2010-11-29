@@ -26,7 +26,7 @@ import java.util.List;
  * This class represents a Character-Object, which will build at the client-Side and afterward it will be send to Server for Storing in JDO-DB
  */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Character implements Serializable {
+public final class Character implements Serializable {
 
   private static final long serialVersionUID = -5074030667922748006L;
 
@@ -128,24 +128,24 @@ public class Character implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String nameIn) {
+    this.name = nameIn;
   }
 
   public String getGender() {
     return gender;
   }
 
-  public void setGender(String gender) {
-    this.gender = gender;
+  public void setGender(String genderIn) {
+    this.gender = genderIn;
   }
 
   public Race getRace() {
     return race;
   }
 
-  public void setRace(Race race) {
-    this.race = race;
+  public void setRace(Race raceIn) {
+    this.race = raceIn;
   }
 
   /*
@@ -162,8 +162,8 @@ public class Character implements Serializable {
     return key;
   }
 
-  public void setKey(Long key) {
-    this.key = key;
+  public void setKey(Long keyIn) {
+    this.key = keyIn;
   }
 
  
@@ -172,24 +172,24 @@ public class Character implements Serializable {
     return characterID;
   }
 
-  public void setCharacterID(String characterID) {
-    this.characterID = characterID;
+  public void setCharacterID(String characterIDIn) {
+    this.characterID = characterIDIn;
   }
 
   public Long getUserIF() {
     return userIF;
   }
 
-  public void setUserIF(Long userIF) {
-    this.userIF = userIF;
+  public void setUserIF(Long userIFIn) {
+    this.userIF = userIFIn;
   }
 
   public boolean isComplete() {
     return complete;
   }
 
-  public void setComplete(boolean complete) {
-    this.complete = complete;
+  public void setComplete(boolean completeIn) {
+    this.complete = completeIn;
   }
 
 
@@ -226,16 +226,16 @@ setAllAttrInfo_Part2();
     this.tempStats = tempStat;
   }
 
-  public void setStatList(LinkedList<Stat> statList) {
-    this.statList = statList;
+  public void setStatList(LinkedList<Stat> statListIn) {
+    this.statList = statListIn;
   }
 
   public CClass getCharClass() {
     return charClass;
   }
 
-  public void setCharClass(CClass charClass) {
-    this.charClass = charClass;
+  public void setCharClass(CClass charClassIn) {
+    this.charClass = charClassIn;
   }
 
   public List<Stat> getStatList() {
@@ -250,8 +250,8 @@ setAllAttrInfo_Part2();
     return faction;
   }
 
-  public void setFaction(Faction faction) {
-    this.faction = faction;
+  public void setFaction(Faction factionIn) {
+    this.faction = factionIn;
   }
   
   
@@ -260,8 +260,8 @@ setAllAttrInfo_Part2();
     return skillList;
   }
 
-  public void setSkillList(List<Skill> skillList) {
-    this.skillList = skillList;
+  public void setSkillList(List<Skill> skillListIn) {
+    this.skillList = skillListIn;
   }
   
   public String getSkillListNames() {
@@ -341,16 +341,16 @@ setAllAttrInfo_Part2();
     return tempStats;
   }
 
-  public void setTempStats(List<Integer> tempStats) {
-    this.tempStats = tempStats;
+  public void setTempStats(List<Integer> tempStatsIn) {
+    this.tempStats = tempStatsIn;
   }
 
   public List<Integer> getPotStats() {
     return potStats;
   }
 
-  public void setPotStats(LinkedList<Integer> potStats) {
-    this.potStats = potStats;
+  public void setPotStats(LinkedList<Integer> potStatsIn) {
+    this.potStats = potStatsIn;
   }
   
   
