@@ -7,20 +7,21 @@ public class SessionId implements Serializable {
   private static final long serialVersionUID = 4637358200152132934L;
   
   public SessionId() {
-this.sessionId="";
+    this.sessionId = "";
 }
 
   private String sessionId = "";
 
   public void setSessionId(String sessionIdIn) {
-    if (sessionIdIn == null)
+    if (sessionIdIn == null) {
       this.sessionId = "";
-    else
+    } else {
       this.sessionId = sessionIdIn;
-  }// end setSessionId
+    }
+  } // end setSessionId
 
   public String getSessionId() {
     return sessionId;
-  }// end getSessionId
+  } // end getSessionId
 
 }

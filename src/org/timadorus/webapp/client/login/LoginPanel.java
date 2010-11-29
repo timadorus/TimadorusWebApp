@@ -181,7 +181,10 @@ public class LoginPanel extends FormPanel implements HistoryListener, HistorySta
                     .get("content")
                     .add(
                          new HTML(
-                                  "<div id=\"info\" class=\"info\">Der angegebene User ist deaktiviert. Das kann mehrere Gr�nde haben<br />(Anmerkung vom Programmierer: Welche denn? Gesperrt durch Admin oder sowas ? Oder ist damit gemeint 'Registriert, aber Mail noch nicht verifiziert' ? Oder beides ?)</div>"));
+                                  "<div id=\"info\" class=\"info\">Der angegebene User ist deaktiviert. " 
+                                  + "Das kann mehrere Gruende haben<br />(Anmerkung vom Programmierer: Welche denn? "
+                                  + "Gesperrt durch Admin oder sowas? Oder ist damit gemeint 'Registriert, aber Mail "
+                                  + "noch nicht verifiziert'? Oder beides?) </div>"));
 
                 submit.setEnabled(true);
                 gettimadorus().setLoggedin(false);

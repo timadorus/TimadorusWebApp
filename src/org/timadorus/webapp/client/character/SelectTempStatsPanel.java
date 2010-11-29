@@ -31,7 +31,8 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   HTML statPointViewLabel = new HTML();
 
   HTML readyLabel = new HTML(
-                             "Bevor sie ihre Charaktererstellung fortsetzen können, vergeben sie ihre freien Attributspunkte");
+                             "Bevor sie ihre Charaktererstellung fortsetzen können, vergeben sie ihre freien "
+                             + "Attributspunkte");
 
   Button nextButton = new Button("weiter");
 
@@ -245,8 +246,9 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   // calculates current statcost for stat i
   public int getStatCosts(int currentStat) {
     int cost = 1;
-    if (currentStat > 90)
+    if (currentStat > 90) {
       cost = 10;
+    }
     return cost;
   }
 
@@ -255,8 +257,9 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     if (((tempStats.get(i)) < 100) && (statPoints >= (getStatCosts(tempStats.get(i) + 1)))) {
       decStatPoints(getStatCosts(tempStats.get(i) + 1));
       tempStats.set(i, (tempStats.get(i) + 1));
-    } else
+    } else {
       System.out.print("maximal 100");
+    }
   }
 
   // decreases the stat i
@@ -264,24 +267,27 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
     if (((tempStats.get(i)) > 30) && (statPoints < 750)) {
       incStatPoints(getStatCosts(tempStats.get(i)));
       tempStats.set(i, (tempStats.get(i) - 1));
-    } else
+    } else {
       System.out.print("minimal 30");
+    }
   }
 
   // increase available stat points
   public void incStatPoints(int costs) {
-    if (statPoints < 420)
+    if (statPoints < 420) {
       statPoints = statPoints + costs;
-    else
+    } else {
       System.out.print("maximal 420");
+    }
   }
 
   // decreases available stat points
   public void decStatPoints(int costs) {
     if (statPoints > 0) {
       statPoints = statPoints - costs;
-    } else
+    } else {
       System.out.print("minimal 0");
+    }
   }
 
   // clear "content" #div and add Class SelectFactionPanel to it
@@ -304,7 +310,10 @@ public class SelectTempStatsPanel extends FormPanel implements HistoryStates {
   // return current panel information
   private static final HTML getInformation() {
     HTML information = new HTML(
-                                "<h1>Attribute Verteilen</h1><p>Hier können sie die Attribute ihres Charakteres anpassen. Ihnen stehen dafür 420 freie Punkte zur Verfügung.</p><p>Jeder Attributspunkt bis einschließlich Stufe 90 kostet sie einen freien Punkt. Ab Stufe 90 zahlen sie 10 freie Punkte");
+                                "<h1>Attribute Verteilen</h1><p>Hier können sie die Attribute ihres Charakteres "
+                                + "anpassen. Ihnen stehen dafür 420 freie Punkte zur Verfügung.</p><p>Jeder "
+                                + "Attributspunkt bis einschließlich Stufe 90 kostet sie einen freien Punkt. Ab Stufe "
+                                + "90 zahlen sie 10 freie Punkte");
 
     return information;
   }

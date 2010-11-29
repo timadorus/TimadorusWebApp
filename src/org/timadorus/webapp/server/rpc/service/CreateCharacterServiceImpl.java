@@ -25,12 +25,14 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
   public String createCharacter(Character character) {
 //    Character char1 = Character.getInstance();
 //    return char1;
-    if (character!=null) {
-      System.out.println("\n\n**********"+character.toString()+"\n"+character.toString_Part2()+"\n****************\n\n");
+    if (character != null) {
+      System.out.println("\n\n**********" + character.toString() + "\n" + character.toString_Part2()
+                         + "\n****************\n\n");
       saveCharacterToDB(character);
       return "SUCCESS";
-    }else
+    } else {
       return "FAILURE";
+    }
     
   }
   
@@ -48,7 +50,7 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
 
        pm.makePersistent(character);
        System.out.println("\n\n******WRITE TO DB FOLLOW CHARACTER-OBJECT **********");
-       System.out.println("\n"+character.getAllAttrInfo_Part1()+"\n"+character.getAllAttrInfo_Part2());
+       System.out.println("\n" + character.getAllAttrInfo_Part1() + "\n" + character.getAllAttrInfo_Part2());
        System.out.println("\n*********************************************************\n");
        
       pm.close();
@@ -75,10 +77,12 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
 
 //    pm.close();
 
-    for (Character character: entries) {
+    for (Character character : entries) {
       if (character.getName().equals(cname)) {
 //        System.out.println("YES ! Character-Object: \"" + cname+ "\" saved to Datastore and read from there !");
-        System.out.println("\n\n**********Read from DB FOLLOW CHARACTER-OBJECT*********\n"+character.getAllAttrInfo_Part1()+"\n"+character.getAllAttrInfo_Part2()+"\n****************\n\n");
+        System.out.println("\n\n**********Read from DB FOLLOW CHARACTER-OBJECT*********\n" 
+                           + character.getAllAttrInfo_Part1() + "\n" + character.getAllAttrInfo_Part2() 
+                           + "\n****************\n\n");
         System.out.println("\n*********************************************************\n");
         
         pm.close();
