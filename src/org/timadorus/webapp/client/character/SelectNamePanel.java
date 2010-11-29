@@ -111,7 +111,7 @@ public class SelectNamePanel extends FormPanel implements HistoryStates {
 
   public void loadSelectSkillLvl1Panel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkill_Level_1_Panel.getSelectSkillLevel1Panel(entry, character));
+    RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(entry, character));
   }
 
   public void loadSelectCharacterReadyPanel() {
