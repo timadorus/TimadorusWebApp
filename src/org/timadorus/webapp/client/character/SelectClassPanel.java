@@ -4,7 +4,6 @@ import java.util.ListIterator;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -49,11 +48,13 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
         //handles prev button
         if (event.getSource().equals(prevButton)) {
           loadSelectRacePanel();
-          //handles next button
+          
+        //handles next button
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedClass();
           loadSelectFactionPanel();
-          //handles changing "information" #div
+          
+        //handles changing "information" #div
         } else if (event.getSource().equals(selectClassGrid)) {
           String className = classListBox.getValue(classListBox.getSelectedIndex());
           ListIterator<CClass> classIterator = entryIn.getTestValues().getClasses().listIterator();
@@ -79,12 +80,9 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
               }
               availableFactions3 = availableFactions3 + "</ul>";
               RootPanel.get("information").add(new HTML(availableFactions3));
-
             }
-
           }
         }
-
       }
     }
 
@@ -157,7 +155,9 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
     ListIterator<CClass> classIterator = entry.getTestValues().getClasses().listIterator();
     while (classIterator.hasNext()) {
       CClass selectedClass = classIterator.next();
-      if (selectedClass.getName().equals(classListBox.getValue(classListBox.getSelectedIndex()))) { return selectedClass; }
+      if (selectedClass.getName().equals(classListBox.getValue(classListBox.getSelectedIndex()))) { 
+        return selectedClass;
+      }
     }
     return null;
   }
@@ -181,9 +181,9 @@ public class SelectClassPanel extends FormPanel implements HistoryStates {
 
   //returns and hols current panel information
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können.</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie Fraktionen wählen können.</p>");
-
+    HTML information = new HTML("<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. Die Klasse "
+                                + "bestimmt wie gut sie bestimmte Fähigkeiten lernen können.</p><p>Beachten sie, dass "
+                                + "bestimmte Klassen nur bestimmte Rassen sowie Fraktionen wählen können.</p>");
     return information;
   }
 

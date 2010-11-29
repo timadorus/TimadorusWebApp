@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.timadorus.webapp.client.character;
 
 import java.io.Serializable;
@@ -11,7 +8,6 @@ import javax.jdo.annotations.Persistent;
 
 /**
  * @author maddin
- * 
  */
 @PersistenceCapable
 public class Profession implements Serializable {
@@ -20,46 +16,44 @@ public class Profession implements Serializable {
 
   
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long rasseID=new Long(-1);
+  Long raceID = new Long(-1);
 
   @Persistent
-  String namen="--";
+  String name = "--";
 
   @Persistent
-  String Beschreibung="--";
+  String description = "--";
 
   public Profession() {
     super();
   }
 
-  public Long getRasseID() {
-    return rasseID;
+  public Long getRaceID() {
+    return raceID;
   }
 
-  public void setRasseID(Long rasseIDIn) {
-    this.rasseID = rasseIDIn;
+  public void setRaceID(Long raceIDIn) {
+    this.raceID = raceIDIn;
   }
 
-  public String getNamen() {
-    return namen;
+  public String getName() {
+    return name;
   }
 
-  public void setNamen(String namenIn) {
-    this.namen = namenIn;
+  public void setName(String nameIn) {
+    this.name = nameIn;
   }
 
-  public String getBeschreibung() {
-    return Beschreibung;
+  public String getDescription() {
+    return description;
   }
 
-  public void setBeschreibung(String beschreibung) {
-    Beschreibung = beschreibung;
+  public void setDescription(String descriptionIn) {
+    this.description = descriptionIn;
   }
 
   @Override
   public String toString() {
-  
-    return "Faction-Name: "+namen;
+    return "Faction-Name: " + name;
   }
-  
 }

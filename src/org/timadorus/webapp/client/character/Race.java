@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.timadorus.webapp.client.character;
 
 import java.io.Serializable;
@@ -12,8 +9,6 @@ import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
-
-
 /**
  * @author maddin, kilic, willat
  *  This class represents a Race, which will related to the Character-Object
@@ -24,13 +19,13 @@ public class Race implements Serializable {
   private static final long serialVersionUID = 1841788742607089967L;
 
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long raceID=new Long(-1);
+  Long raceID = new Long(-1);
 
   @Persistent
-  String name="--";
+  String name = "--";
 
   @Persistent
-  String description="--";
+  String description = "--";
   
   @NotPersistent
   List<CClass> availableClasses = new ArrayList<CClass>();
@@ -70,7 +65,7 @@ public class Race implements Serializable {
     return description;
   }
 
-  public void setdescription(String descriptionIn) {
+  public void setDescription(String descriptionIn) {
     this.description = descriptionIn;
   }
   
@@ -82,22 +77,16 @@ public class Race implements Serializable {
     this.availableClasses = availableClassesIn;
   }
   
-  public void addClass(CClass newClass){
+  public void addClass(CClass newClass) {
     availableClasses.add(newClass);    
   }
   
-  public List<Faction> getAvailableFactions(){
+  public List<Faction> getAvailableFactions() {
     return availableFactions2;
   }
   
-  public void addFaction(Faction faction){
+  public void addFaction(Faction faction) {
     availableFactions2.add(faction);
-  }
-  
-  @Override
-  public String toString() {
-  
-    return "Race-Name: "+name;
   }
 
   public List<Faction> getAvailableFactions2() {
@@ -107,10 +96,9 @@ public class Race implements Serializable {
   public void setAvailableFactions2(List<Faction> availableFactions2In) {
     this.availableFactions2 = availableFactions2In;
   }
-
-  public void setDescription(String descriptionIn) {
-    this.description = descriptionIn;
+  
+  @Override
+  public String toString() {
+    return "Race-Name: " + name;
   }
-  
-  
 }

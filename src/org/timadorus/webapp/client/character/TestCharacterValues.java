@@ -173,7 +173,7 @@ public class TestCharacterValues {
 
     Race race1 = new Race();
     race1.setName("Witzbold");
-    race1.setdescription("Der Witzbold ist ein Witzbolt");
+    race1.setDescription("Der Witzbold ist ein Witzbolt");
     race1.addClass(class1);
     race1.addClass(class3);
     race1.addFaction(fac3);
@@ -184,7 +184,7 @@ public class TestCharacterValues {
 
     Race race2 = new Race();
     race2.setName("Laufbursche");
-    race2.setdescription("Er läuft und läuft und läuft");
+    race2.setDescription("Er läuft und läuft und läuft");
     race2.addClass(class2);
     race2.addClass(class4);
     race2.addFaction(fac4);
@@ -195,7 +195,7 @@ public class TestCharacterValues {
 
     Race race3 = new Race();
     race3.setName("Mächtiger Winzer");
-    race3.setdescription("Keiner macht so guten Wein wie er");
+    race3.setDescription("Keiner macht so guten Wein wie er");
     race3.addClass(class1);
     race3.addClass(class4);
     race3.addClass(class5);
@@ -207,7 +207,7 @@ public class TestCharacterValues {
 
     Race race4 = new Race();
     race4.setName("Terrorgnom");
-    race4.setdescription("Für den kleinen Hunger zwischendurch");
+    race4.setDescription("Für den kleinen Hunger zwischendurch");
     race4.addClass(class1);
     race4.addClass(class2);
     race4.addClass(class4);
@@ -220,7 +220,7 @@ public class TestCharacterValues {
 
     Race race5 = new Race();
     race5.setName("Lausbub");
-    race5.setdescription("Ja nu, irgendwas muss hier ja stehen");
+    race5.setDescription("Ja nu, irgendwas muss hier ja stehen");
     race5.addClass(class1);
     race5.addClass(class3);
     race5.addClass(class5);

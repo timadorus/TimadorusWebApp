@@ -2,7 +2,6 @@ package org.timadorus.webapp.client.character;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
@@ -50,14 +49,15 @@ public class SelectNamePanel extends FormPanel implements HistoryStates {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
           loadSelectSkillLvl1Panel();
+          
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedName();
           sendCharacterToServerToSave();
           loadSelectCharacterReadyPanel();
+          
         } else if (event.getSource().equals(selectNameGrid)) {
 
         }
-
       }
     }
 
@@ -103,7 +103,6 @@ public class SelectNamePanel extends FormPanel implements HistoryStates {
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
     selectNameGrid.addClickHandler(handler);
-
   }
 
   public void saveSelectedName() {
@@ -125,9 +124,8 @@ public class SelectNamePanel extends FormPanel implements HistoryStates {
   }
 
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Namen wählen</h1><p>Wählen sie hier den Namen ihres Charakters. Erlaubt ist was gefällt</p>");
-
+    HTML information = new HTML("<h1>Namen wählen</h1><p>Wählen sie hier den Namen ihres Charakters. Erlaubt ist was "
+                                + "gefällt</p>");
     return information;
   }
 
@@ -137,8 +135,8 @@ public class SelectNamePanel extends FormPanel implements HistoryStates {
   
   private void sendCharacterToServerToSave() {
     CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
-
-     AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+    
+    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
       
       @Override
       public void onFailure(Throwable caught) {
@@ -152,6 +150,7 @@ public class SelectNamePanel extends FormPanel implements HistoryStates {
         System.out.println(result);
       }
     };
-     createServiceAsync.createCharacter(character, asyncCallback);
-}
+    
+    createServiceAsync.createCharacter(character, asyncCallback);
+  }
 }

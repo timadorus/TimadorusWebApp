@@ -4,7 +4,6 @@ import java.util.ListIterator;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.character.SelectClassPanel;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -50,20 +49,20 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     this.entry = entryIn;
     this.character = characterIn;
 
-    // TestValues
-
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
         // prevButton onclick
         if (event.getSource().equals(prevButton)) {
           loadCharacterPanel();
-          // nextButton onclick
+          
+        // nextButton onclick
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedRace();
           saveSelectedGender();
           loadSelectClassPanel();
-          // racelistitem onclick
+          
+        // racelistitem onclick
         } else if (event.getSource().equals(raceListBox)) {
           // show race informations
           String raceName = raceListBox.getValue(raceListBox.getSelectedIndex());
@@ -72,9 +71,8 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
           while (raceIterator.hasNext()) {
             Race newRace = (Race) raceIterator.next();
             if (newRace.getName().equals(raceName)) {
-              RootPanel.get("information").add(
-                                               new HTML("<h1>" + newRace.getName() + "</h1><p>"
-                                                   + newRace.getDescription() + "</p>"));
+              RootPanel.get("information").add(new HTML("<h1>" + newRace.getName() + "</h1><p>"
+                                                        + newRace.getDescription() + "</p>"));
 
               // Show available Classes
               RootPanel.get("information").add(new HTML("<h2>Wählbare Klassen</h2>"));
@@ -103,10 +101,8 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
               }
               availableFactions4 = availableFactions4 + "</ul>";
               RootPanel.get("information").add(new HTML(availableFactions4));
-
             }
           }
-
         }
       }
     }
@@ -145,7 +141,6 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     buttonGrid.setWidget(0, 1, nextButton);
 
     // Add it to the root panel.
-
     HTML headline = new HTML("<h1>Geschlecht und Rasse wählen</h1>");
 
     panel.setStyleName("panel");
@@ -174,7 +169,6 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
     prevButton.addClickHandler(handler);
 
     raceListBox.addClickHandler(handler);
-
   }
 
   public void loadCharacterPanel() {
@@ -211,14 +205,13 @@ public class SelectRacePanel extends FormPanel implements HistoryStates {
   }
 
   public static SelectRacePanel getSelectRacePanel(TimadorusWebApp entry, Character character) {
-
     return new SelectRacePanel(entry, character);
   }
 
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Rasse und Geschlecht wählen</h1><p>Wählen sie hier das Geschlecht und die Rasse ihres Charakteres. Beachten sie, dass bestimmte Rassen nur bestimmte Klassen sowie Fraktionen wählen können.</p>");
-
+    HTML information = new HTML("<h1>Rasse und Geschlecht wählen</h1><p>Wählen sie hier das Geschlecht und die Rasse "
+                                + "ihres Charakteres. Beachten sie, dass bestimmte Rassen nur bestimmte Klassen sowie "
+                                + "Fraktionen wählen können.</p>");
     return information;
   }
 

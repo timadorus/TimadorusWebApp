@@ -33,11 +33,14 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
 
   VerticalPanel panel = new VerticalPanel();
 
-  FlexTable selectFactionGrid = new FlexTable(); // grid for handling selections
+  //grid for handling selections
+  FlexTable selectFactionGrid = new FlexTable();
+  
+  //grid for next/prev buttons
+  FlexTable buttonGrid = new FlexTable();
 
-  FlexTable buttonGrid = new FlexTable(); // grid for next/prev buttons
-
-  ListBox factionListBox = new ListBox(); //listbox for available faction
+  //listbox for available faction
+  ListBox factionListBox = new ListBox(); 
 
   public SelectFactionPanel(final TimadorusWebApp entryIn, Character characterIn) {
     super();
@@ -50,11 +53,13 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
         // handles prev button
         if (event.getSource().equals(prevButton)) {
           loadSelectClassPanel();
-          // handles next button
+          
+        // handles next button
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedFaction();
           loadSelectTempStatsPanel();
-        }else if(event.getSource().equals(selectFactionGrid)){
+          
+        } else if (event.getSource().equals(selectFactionGrid)) {
           //handles changing "information" #div
           String factionName = factionListBox.getValue(factionListBox.getSelectedIndex());
           ListIterator<Faction> factionIterator = entryIn.getTestValues().getFactions().listIterator();
@@ -62,28 +67,26 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
           while (factionIterator.hasNext()) {
             Faction newFaction = (Faction) factionIterator.next();
             if (newFaction.getName().equals(factionName)) {
-              RootPanel.get("information").add(
-                                               new HTML("<h1>" + newFaction.getName() + "</h1><p>"
-                                                   + newFaction.getDescription() + "</p>"));
+              RootPanel.get("information").add(new HTML("<h1>" + newFaction.getName() + "</h1><p>"
+                                                        + newFaction.getDescription() + "</p>"));
 
 
             }
-
           }
-        
         }
-        
       }
     }
     
     //headline
     HTML headline = new HTML("<h1>Fraktion wählen</h1>");
+    
     //progress bar picture
     Image progressBar = new Image("media/images/progressbar_3.png");
 
     // setting properties for selectfactiongrid
     selectFactionGrid.setBorderWidth(0);
     selectFactionGrid.setStylePrimaryName("selectGrid");
+    
     //filling the grid with available factions
     ListIterator<Faction> factionIterator = entryIn.getTestValues().getFactions().listIterator();
     while (factionIterator.hasNext()) {
@@ -107,10 +110,12 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     buttonGrid.setWidth("350px");
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
+    
     // setting properties of the main panel
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
     panel.setWidth("100%");
+    
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 3 von 7"));
@@ -134,7 +139,6 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
     selectFactionGrid.addClickHandler(handler);
-
   }
 
   //save selected factions
@@ -147,7 +151,9 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     ListIterator<Faction> factionIterator = entry.getTestValues().getFactions().listIterator();
     while (factionIterator.hasNext()) {
       Faction selectedClass = factionIterator.next();
-      if (selectedClass.getName().equals(factionListBox.getValue(factionListBox.getSelectedIndex()))) { return selectedClass; }
+      if (selectedClass.getName().equals(factionListBox.getValue(factionListBox.getSelectedIndex()))) {
+        return selectedClass;
+      }
     }
     return null;
   }
@@ -157,20 +163,23 @@ public class SelectFactionPanel extends FormPanel implements HistoryStates {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character));
   }
+  
   //clear "content" #div and add Class SelectTempStats to it
   public void loadSelectTempStatsPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
   }
+  
   //creates a new SelectFactionPanel instance
   public static SelectFactionPanel getSelectFactionPanel(TimadorusWebApp entry, Character character) {
     return new SelectFactionPanel(entry, character);
   }
+  
   //returns and hols current panel information
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Fraktionen wählen</h1><p>Wählen sie hier die Fraktionen ihres Charakteres. Beachten sie, dass bestimmte Fraktionen nur von bestimmten Rassen sowie Klassen gewählt werden können.</p>");
-
+    HTML information = new HTML("<h1>Fraktionen wählen</h1><p>Wählen sie hier die Fraktionen ihres Charakteres. "
+                                + "Beachten sie, dass bestimmte Fraktionen nur von bestimmten Rassen sowie Klassen "
+                                + "gewählt werden können.</p>");
     return information;
   }
 
