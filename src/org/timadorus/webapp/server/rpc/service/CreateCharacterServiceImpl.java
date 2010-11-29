@@ -25,9 +25,8 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
   public String createCharacter(Character character) {
 //    Character char1 = Character.getInstance();
 //    return char1;
-    if (character != null) {
-      System.out.println("\n\n**********" + character.toString() + "\n" + character.toString_Part2()
-                         + "\n****************\n\n");
+    if (character!=null) {
+      System.out.println("\n\n**********"+character.toString()+"\n"+character.toStringPart2()+"\n****************\n\n");
       saveCharacterToDB(character);
       return "SUCCESS";
     } else {

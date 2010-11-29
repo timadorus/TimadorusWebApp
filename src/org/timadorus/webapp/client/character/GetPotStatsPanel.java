@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -72,7 +71,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     getPotStatGrid.setHTML(0, 1, "TempStat");
     getPotStatGrid.setHTML(0, 2, "PotStat");
     
-    for (int i = 0; i < 11; i++){
+    for (int i = 0; i < 11; i++) {
       getPotStatGrid.setHTML(i + 1, 0, characterIn.getStatList().get(i).toString());
       getPotStatGrid.setHTML(i + 1, 1, characterIn.getTempStats().get(i).toString());
       getPotStatGrid.setHTML(i + 1, 2, potStats.get(i).toString());
@@ -101,7 +100,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     panel.add(new Label("Schritt 5 von 7"));
     panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
     panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
-        + characterIn.getFaction().getName()));
+                        + characterIn.getFaction().getName()));
 
     panel.add(headline);
     panel.add(getPotStatGrid);
@@ -123,7 +122,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
   }
 
   //calculates potStats
-  public void calculatePotStats(){
+  public void calculatePotStats() {
     for (int i = 0; i < 11; i++){
       //random w100 calculation for dummy tests
       int potStat = (int) Math.floor((Math.random() * 100) + 1);
@@ -137,7 +136,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
     RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
   }
   // clear "content" #div and add Class SelectSkillPanel to it
-  public void loadSelectSkillPanel(){
+  public void loadSelectSkillPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character));
   }
@@ -149,9 +148,9 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   //returns and hols current panel information
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Attribute bekommen</h1><p>Ausgehend von ihren Wahl der temporären Attribute, erhalten sie hier zusätzliche Punkte.</p><p>Diese Punkte werden anhand einer Tabelle ausgewürfelt.</p>");
-
+    HTML information = new HTML("<h1>Attribute bekommen</h1><p>Ausgehend von ihren Wahl der temporären Attribute, "
+                                + "erhalten sie hier zusätzliche Punkte.</p><p>Diese Punkte werden anhand einer Tabelle"
+                                + " ausgewürfelt.</p>");
     return information;
   }
 

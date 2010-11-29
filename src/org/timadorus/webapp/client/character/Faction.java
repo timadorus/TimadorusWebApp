@@ -14,15 +14,15 @@ public class Faction implements Serializable {
 
 
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long fractionID=new Long(-1);
+  Long fractionID = new Long(-1);
 
   @Persistent
-  String name="--";
+  String name = "--";
 
   @Persistent
-  String description="--";
+  String description = "--";
   
-  @Persistent ////braucht JDO für 1-to-n Relationship, beginnend von Race-Klasse
+  @Persistent
   Race race;
 
   Faction() {
@@ -63,9 +63,6 @@ public class Faction implements Serializable {
   
   @Override
   public String toString() {
-  
-    return "Faction-Name: "+name;
+    return "Faction-Name: " + name;
   }
-  
-
 }

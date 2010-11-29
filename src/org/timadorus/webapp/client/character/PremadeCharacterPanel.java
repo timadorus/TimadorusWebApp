@@ -63,47 +63,56 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getBarbarianInformation());
           selectBarbarian.setValue(true);
-          // showing information for wizzard
+          
+        // showing information for wizzard
         } else if (event.getSource().equals(selectWizzardImage)) {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getWizzardInformation());
           selectWizzard.setValue(true);
-          // showing information for hunter
+          
+        // showing information for hunter
         } else if (event.getSource().equals(selectHunterImage)) {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getHunterInformation());
           selectHunter.setValue(true);
-          // showing information for barbarian
+          
+        // showing information for barbarian
         } else if (event.getSource().equals(selectBarbarian)) {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getBarbarianInformation());
           selectBarbarian.setValue(true);
-          // showing information for wizzard
+          
+        // showing information for wizzard
         } else if (event.getSource().equals(selectWizzard)) {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getWizzardInformation());
           selectWizzard.setValue(true);
-          // showing information for hunter
+          
+        // showing information for hunter
         } else if (event.getSource().equals(selectHunter)) {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getHunterInformation());
           selectHunter.setValue(true);
-          // showing information for barbarian
+          
+        // showing information for barbarian
         } else if (event.getSource().equals(barbarianLabel)) {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getBarbarianInformation());
           selectBarbarian.setValue(true);
-          // showing information for wizzard
+          
+        // showing information for wizzard
         } else if (event.getSource().equals(wizzardLabel)) {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getWizzardInformation());
           selectWizzard.setValue(true);
-          // showing information for hunter
+          
+        // showing information for hunter
         } else if (event.getSource().equals(hunterLabel)) {
           RootPanel.get("information").clear();
           RootPanel.get("information").add(getHunterInformation());
           selectHunter.setValue(true);
-          // handles next button
+          
+        // handles next button
         } else if (event.getSource().equals(nextButton)) {          
 //          if (selectHunter.getValue()) {
 //            character = Character.getHunter();
@@ -113,7 +122,8 @@ public class PremadeCharacterPanel extends FormPanel implements HistoryStates {
 //            character = Character.getBarbarian();
 //          }
           loadCharacterReadyPanel(character);
-          // handles prev button
+          
+        // handles prev button
         } else if (event.getSource().equals(prevButton)) {
           loadCharacterPanel();
         }

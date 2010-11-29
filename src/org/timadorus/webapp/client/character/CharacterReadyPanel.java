@@ -25,8 +25,8 @@ public class CharacterReadyPanel extends FormPanel implements HistoryStates {
   public CharacterReadyPanel(TimadorusWebApp entryIn, Character characterIn) {
     super();
     this.entry = entryIn;
-    HTML congratulationLabel = new HTML(
-                                        "<p>Herzlichen Glückwunsch.</p><p>Ihr Charakter wurde gespeichert. Loggen sie sich auf dem Client mit ihren Accountdaten ein");
+    HTML congratulationLabel = new HTML("<p>Herzlichen Glückwunsch.</p><p>Ihr Charakter wurde gespeichert. Loggen sie "
+                                        + "sich auf dem Client mit ihren Accountdaten ein");
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -47,8 +47,8 @@ public class CharacterReadyPanel extends FormPanel implements HistoryStates {
   }
 
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Charakter erstellt</h1><p>Herzlichen Glückwunsch. Sie können nun den Client starten und ihren neuen Charakter ausprobieren!");
+    HTML information = new HTML("<h1>Charakter erstellt</h1><p>Herzlichen Glückwunsch. Sie können nun den Client "
+                                + "starten und ihren neuen Charakter ausprobieren!");
     return information;
   }
 
