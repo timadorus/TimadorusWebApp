@@ -9,100 +9,98 @@ import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
-//This Class represents a Character-Class-Object, which is related to a Character-Object 
+//This Class represents a Character-Class-Object, which is related to a
+//Character-Object
 @PersistenceCapable
 public class CClass implements Serializable {
 
   /**
-   * 
+   * Serial ID.
    */
   private static final long serialVersionUID = -9162491221927969566L;
-  
+
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long classID=new Long(-1);
+  private Long classID = new Long(-1);
 
   @Persistent
-  String name="--";
+  private String name = "--";
 
   @Persistent
-  String description="--";
+  private String description = "--";
 
   @NotPersistent
-  List<Faction> availableFactions1 = new ArrayList<Faction>();
-  
-  @Persistent //braucht JDO für 1-to-n Relationship, beginnend von Race-Klasse
-  Race race;
+  private List<Faction> availableFactions1 = new ArrayList<Faction>();
 
+  @Persistent //braucht JDO für 1-to-n Relationship, beginnend von Race-Klasse
+  private Race race;
 
 
   public CClass() {
 
   }
 
-  public CClass(String nameIn, String descriptionIn) {
-
+  public CClass(final String nameIn, final String descriptionIn) {
     this.name = nameIn;
     this.description = descriptionIn;
 
   }
 
-  public String getName() {
+  public final String getName() {
     return name;
   }
 
-  public void setName(String nameIn) {
+  public final void setName(final String nameIn) {
     this.name = nameIn;
   }
 
-  public String getDescription() {
+  public final String getDescription() {
     return description;
   }
 
-  public void setDescription(String descriptionIn) {
+  public final void setDescription(final String descriptionIn) {
     this.description = descriptionIn;
   }
 
-  public List<Faction> getAvailableFactions() {
+  public final List<Faction> getAvailableFactions() {
     return availableFactions1;
   }
 
-  public void addFaction(Faction faction) {
-    availableFactions1.add(faction);
+  public final void addFaction(final Faction faction) {
+    this.availableFactions1.add(faction);
   }
 
-  public Race getRace() {
+  public final Race getRace() {
     return race;
   }
 
-  public void setRace(Race raceIn) {
+  public final void setRace(final Race raceIn) {
     this.race = raceIn;
   }
 
-  public Long getClassID() {
+  public final Long getClassID() {
     return classID;
   }
 
-  public void setClassID(Long classIDIn) {
+  public final void setClassID(final Long classIDIn) {
     this.classID = classIDIn;
   }
 
-  public void setAvailableFactions(List<Faction> availableFactions) {
+  public final void setAvailableFactions(
+      final List<Faction> availableFactions) {
     this.availableFactions1 = availableFactions;
   }
-  
-  public List<Faction> getAvailableFactions1() {
+
+  public final List<Faction> getAvailableFactions1() {
     return availableFactions1;
   }
 
-  public void setAvailableFactions1(List<Faction> availableFactions1In) {
+  public final void setAvailableFactions1(
+      final List<Faction> availableFactions1In) {
     this.availableFactions1 = availableFactions1In;
   }
 
   @Override
-  public String toString() {
-  
-    return "Character-Class-Name: "+name;
+  public final String toString() {
+    return "Character-Class-Name: " + name;
   }
-  
-
 }

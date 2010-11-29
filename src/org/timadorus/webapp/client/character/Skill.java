@@ -11,17 +11,11 @@ public class Skill implements Serializable, Cloneable {
 
   private static final long serialVersionUID = -5634375002626095838L;
 
-  /*
-   * 
-   * <skill-def label="Acro" lvl-bonus-cat="ATH" stat1="AG" stat2="QU" action-type="MM" calc-type="Std"> <locale-desc
-   * label="Acrobatics" language="en-US" default="true"> </locale-desc> <locale-desc label="Akrobatik" language="de-DE"
-   * default="false"> </locale-desc> </skill-def>
-   */
   @Persistent
-  private String def_label = "";
+  private String defLabel = "";
 
   @Persistent
-  private String lvl_bonus_cat = "";
+  private String lvlBonusCat = "";
 
   @Persistent
   private String stat1 = "";
@@ -30,279 +24,287 @@ public class Skill implements Serializable, Cloneable {
   private String stat2 = "";
 
   @Persistent
-  private String action_type = "";
+  private String actionType = "";
 
   @Persistent
-  private String calc_type = "";
+  private String calcType = "";
 
   @Persistent
-  private String locale_desc_label = "";
+  private String localeDescLabel = "";
 
   @Persistent
-  private String locale_desc_language = "";
+  private String localeDescLanguage = "";
 
   @Persistent
-  private boolean locale_desc_default = false;
+  private boolean localeDescDefault = false;
 
   @Persistent
   private String name = "";
 
   @Persistent
   private String description = "";
-  
+
   @Persistent
-  private int Cost = 0;
-  
+  private int cost = 0;
+
   @Persistent
-  private int Rank= 0;
-  
+  private int rank = 0;
+
   @Persistent
-  private int Rk_Bn = 0;
-  
+  private int rkBn = 0;
+
   @Persistent
-  private int Stat_Bn = 0;
-  
-  
+  private int statBn = 0;
+
   @Persistent
-  private int Level_Bn = 0;
-  
+  private int levelBn = 0;
+
   @Persistent
-  private int Item = 0;
-  
+  private int item = 0;
+
   @Persistent
-  private int Total = 0;
-  
+  private int total = 0;
+
   @Persistent
-  private String[] gesamtInfo;
-  
-  
-  
+  private String[] overallInformation;
+
+
+
 
   public Skill() {
     // TODO Auto-generated constructor stub
   }
 
-  public Skill(String def_labelIn, String lvl_bonus_catIn, String stat1In, String stat2In, String action_typeIn,
-               String calc_typeIn, String locale_desc_labelIn, String locale_desc_languageIn, boolean locale_desc_defaultIn,
-               String descriptionIn, int costIn, int rankIn, int rk_bnIn, int stat_bnIn, int level_bnIn, int itemIn) {
+  public Skill(final String defLabelIn,
+                final String lvlBonusCatIn,
+                final String stat1In,
+                final String stat2In,
+                final String actionTypeIn,
+                final String calcTypeIn,
+                final String localeDescLabelIn,
+                final String localeDescLanguageIn,
+                final boolean localeDescDefaultIn,
+                final String descriptionIn,
+                final int costIn,
+                final int rankIn,
+                final int rkBnIn,
+                final int statBnIn,
+                final int levelBnIn,
+                final int itemIn) {
 
-    this.action_type = action_typeIn;
-    this.calc_type = calc_typeIn;
-    this.def_label = def_labelIn;
-    this.locale_desc_default = locale_desc_defaultIn;
-    this.locale_desc_label = locale_desc_labelIn;
-    this.locale_desc_language = locale_desc_languageIn;
-    this.lvl_bonus_cat = lvl_bonus_catIn;
+    this.actionType = actionTypeIn;
+    this.calcType = calcTypeIn;
+    this.defLabel = defLabelIn;
+    this.localeDescDefault = localeDescDefaultIn;
+    this.localeDescLabel = localeDescLabelIn;
+    this.localeDescLanguage = localeDescLanguageIn;
+    this.lvlBonusCat = lvlBonusCatIn;
     this.stat1 = stat1In;
     this.stat2 = stat2In;
-    this.name = this.locale_desc_label;
+    this.name = this.localeDescLabel;
     this.description = descriptionIn;
-    this.Cost=costIn; 
-    this.Rank=Rank;
-    this.Rk_Bn=rk_bnIn;
-    this.Stat_Bn=stat_bnIn;
-    this.Level_Bn=level_bnIn;
-    this.Item=itemIn;
+    this.cost = costIn;
+    this.rank = rankIn;
+    this.rkBn = rkBnIn;
+    this.statBn = statBnIn;
+    this.levelBn = levelBnIn;
+    this.item = itemIn;
+
     setTotal("start");
-    
   }
-  
-  public Skill(Skill skill) {
 
-this.action_type =skill. action_type;
-this.calc_type =skill. calc_type;
-this.def_label =skill. def_label;
-this.locale_desc_default =skill. locale_desc_default;
-this.locale_desc_label =skill. locale_desc_label;
-this.locale_desc_language =skill. locale_desc_language;
-this.lvl_bonus_cat =skill. lvl_bonus_cat;
-this.stat1 =skill. stat1;
-this.stat2 =skill. stat2;
-this.name =skill.locale_desc_label;
-this.description =skill. description;
-this.Cost=skill.Cost; 
-this.Rank=skill.Rank;
-this.Rk_Bn=skill.Rk_Bn;
-this.Stat_Bn=skill.Stat_Bn;
-this.Level_Bn=skill.Level_Bn;
-this.Item=skill.Item;
-setTotal("start");
+  public Skill(final Skill skillIn) {
+    this.actionType = skillIn.actionType;
+    this.calcType = skillIn.calcType;
+    this.defLabel = skillIn.defLabel;
+    this.localeDescDefault = skillIn.localeDescDefault;
+    this.localeDescLabel = skillIn.localeDescLabel;
+    this.localeDescLanguage = skillIn.localeDescLanguage;
+    this.lvlBonusCat = skillIn.lvlBonusCat;
+    this.stat1 = skillIn.stat1;
+    this.stat2 = skillIn.stat2;
+    this.name = skillIn.localeDescLabel;
+    this.description = skillIn.description;
+    this.cost = skillIn.cost;
+    this.rank = skillIn.rank;
+    this.rkBn = skillIn.rkBn;
+    this.statBn = skillIn.statBn;
+    this.levelBn = skillIn.levelBn;
+    this.item = skillIn.item;
 
+    setTotal("start");
 }
 
-  public String getDef_label() {
-    return def_label;
+  public final String getDefLabel() {
+    return defLabel;
   }
 
-  public void setDef_label(String defLabel) {
-    def_label = defLabel;
+  public final void setDefLabel(final String defLabelIn) {
+    this.defLabel = defLabelIn;
   }
 
-  public String getLvl_bonus_cat() {
-    return lvl_bonus_cat;
+  public final String getLvlBonusCat() {
+    return lvlBonusCat;
   }
 
-  public void setLvl_bonus_cat(String lvlBonusCat) {
-    lvl_bonus_cat = lvlBonusCat;
+  public final void setLvlBonusCat(final String lvlBonusCatIn) {
+    this.lvlBonusCat = lvlBonusCatIn;
   }
 
-  public String getStat1() {
+  public final String getStat1() {
     return stat1;
   }
 
-  public void setStat1(String stat1In) {
+  public final void setStat1(final String stat1In) {
     this.stat1 = stat1In;
   }
 
-  public String getStat2() {
+  public final String getStat2() {
     return stat2;
   }
 
-  public void setStat2(String stat2In) {
+  public final void setStat2(final String stat2In) {
     this.stat2 = stat2In;
   }
 
-  public String getAction_type() {
-    return action_type;
+  public final String getActionType() {
+    return actionType;
   }
 
-  public void setAction_type(String actionType) {
-    action_type = actionType;
+  public final void setActionType(final String actionTypeIn) {
+    this.actionType = actionTypeIn;
   }
 
-  public String getCalc_type() {
-    return calc_type;
+  public final String getCalcType() {
+    return calcType;
   }
 
-  public void setCalc_type(String calcType) {
-    calc_type = calcType;
+  public final void setCalcType(final String calcTypeIn) {
+    this.calcType = calcTypeIn;
   }
 
-  public String getLocale_desc_label() {
-    return locale_desc_label;
+  public final String getLocaleDescLabel() {
+    return localeDescLabel;
   }
 
-  public void setLocale_desc_label(String localeDescLabel) {
-    locale_desc_label = localeDescLabel;
+  public final void setLocaleDescLabel(final String localeDescLabelIn) {
+    this.localeDescLabel = localeDescLabelIn;
   }
 
-  public String getLocale_desc_language() {
-    return locale_desc_language;
+  public final String getLocaleDescLanguage() {
+    return localeDescLanguage;
   }
 
-  public void setLocale_desc_language(String localeDescLanguage) {
-    locale_desc_language = localeDescLanguage;
+  public final void setLocaleDescLanguage(final String localeDescLanguageIn) {
+    this.localeDescLanguage = localeDescLanguageIn;
   }
 
-  public boolean isLocale_desc_default() {
-    return locale_desc_default;
+  public final boolean isLocaleDescDefault() {
+    return localeDescDefault;
   }
 
-  public void setLocale_desc_default(boolean localeDescDefault) {
-    locale_desc_default = localeDescDefault;
+  public final void setLocaleDescDefault(final boolean localeDescDefaultIn) {
+    this.localeDescDefault = localeDescDefaultIn;
   }
 
-  public String getName() {
+  public final String getName() {
     return name;
   }
 
-  public void setName(String nameIn) {
+  public final void setName(String nameIn) {
     this.name = nameIn;
   }
 
-  public String getDescription() {
+  public final String getDescription() {
     return description;
   }
 
-  public void setDescription(String descriptionIn) {
+  public final void setDescription(String descriptionIn) {
     this.description = descriptionIn;
   }
-  
-  
 
-  public int getCost() {
-    return Cost;
+  public final int getCost() {
+    return cost;
   }
 
-  public void setCost(int cost) {
-    Cost = cost;
+  public final void setCost(final int costIn) {
+    this.cost = costIn;
   }
 
-  public int getRank() {
-    return Rank;
+  public final int getRank() {
+    return rank;
   }
 
-  public void setRank(int rank) {
-    Rank = rank;
+  public final void setRank(final int rankIn) {
+    this.rank = rankIn;
   }
 
-  public int getRk_Bn() {
-    return Rk_Bn;
+  public final int getRkBn() {
+    return rkBn;
   }
 
-  public void setRk_Bn(int rkBn) {
-    Rk_Bn = rkBn;
+  public final void setRk_Bn(final int rkBnIn) {
+    this.rkBn = rkBnIn;
   }
 
-  public int getStat_Bn() {
-    return Stat_Bn;
+  public final int getStatBn() {
+    return statBn;
   }
 
-  public void setStat_Bn(int statBn) {
-    Stat_Bn = statBn;
-  }
-  
-  
-
-  public int getLevel_Bn() {
-    return Level_Bn;
+  public final void setStat_Bn(final int statBnIn) {
+    this.statBn = statBnIn;
   }
 
-  public void setLevel_Bn(int levelBn) {
-    Level_Bn = levelBn;
+  public final int getLevelBn() {
+    return levelBn;
   }
 
-  public int getItem() {
-    return Item;
+  public final void setLevel_Bn(final int levelBnIn) {
+    this.levelBn = levelBnIn;
   }
 
-  public void setItem(int item) {
-    Item = item;
+  public final int getItem() {
+    return item;
   }
 
-  public int getTotal() {
-    return Total;
+  public final void setItem(final int itemIn) {
+    this.item = itemIn;
   }
 
-  public void setTotal(String update) {
-//    Total = total;
-    Total=getRk_Bn()+getStat_Bn();
-  }
-  
-  
-
-  public String[] getGesamtInfo() {
-    
-    //Skill                  Cost          Rank          Rk Bn         Stat B        Level Bn.     Item          Total  
-    gesamtInfo=new String[8];
-    gesamtInfo[0]=this.name;
-    gesamtInfo[1]=""+this.Cost;
-    gesamtInfo[2]=""+this.Rank;
-    gesamtInfo[3]=""+this.Rk_Bn;
-    gesamtInfo[4]=""+this.Stat_Bn;
-    gesamtInfo[5]=""+this.Level_Bn;
-    gesamtInfo[6]=""+this.Item;
-    gesamtInfo[7]=""+getTotal();
-    return gesamtInfo;
+  public final int getTotal() {
+    return total;
   }
 
-  public void setGesamtInfo(String[] gesamtInfoIn) {
-    this.gesamtInfo = gesamtInfoIn;
+  /**
+   * TODO! evaluate the update parameter??
+   *
+   * @param update ??
+   */
+  public final void setTotal(final String update) {
+    this.total = getRkBn() + getStatBn();
   }
-  
+
+  public final String[] getGesamtInfo() {
+    int i = 0;
+    overallInformation = new String[8];
+    overallInformation[i++] = this.name;
+    overallInformation[i++] = "" + this.cost;
+    overallInformation[i++] = "" + this.rank;
+    overallInformation[i++] = "" + this.rkBn;
+    overallInformation[i++] = "" + this.statBn;
+    overallInformation[i++] = "" + this.levelBn;
+    overallInformation[i++] = "" + this.item;
+    overallInformation[i++] = "" + getTotal();
+    return overallInformation;
+  }
+
+  public final void setGesamtInfo(final String[] gesamtInfoIn) {
+    this.overallInformation = gesamtInfoIn;
+  }
+
 //  @Override
 //  public Skill clone(){
-//      
+//
 //      try {
 //        return (Skill)clone();
 //    } catch (Exception e) {
@@ -313,19 +315,15 @@ setTotal("start");
 ////  return null;
 //  }
 
-  
-  
   @Override
-  public String toString() {
-
-    String s = "";
-
-    s += "<br>Skill-Name: " + name + "<br>Level-Bonus-Cat: " + lvl_bonus_cat + "<br>Stat1: " + stat1 + "<br>Stat2: " + stat2
-        + "<br>Action-Type: " + action_type + "<br>Calc-Type: " + calc_type + "<br>Local-Desc-Language: "
-        + locale_desc_language + "<br>Local-Desc-Default: " + locale_desc_default;
+  public final String toString() {
+    String s = "<br>Skill-Name: " + name + "<br>Level-Bonus-Cat: "
+               + lvlBonusCat + "<br>Stat1: " + stat1 + "<br>Stat2: " + stat2
+               + "<br>Action-Type: " + actionType + "<br>Calc-Type: " + calcType
+               + "<br>Local-Desc-Language: " + localeDescLanguage
+               + "<br>Local-Desc-Default: " + localeDescDefault;
 
     return s;
 
   }
-
 }
