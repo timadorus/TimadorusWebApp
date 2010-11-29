@@ -19,7 +19,7 @@ public class SessionServiceImpl extends RemoteServiceServlet implements SessionS
         sessionId.setSessionId("");
       }
       return sessionId;
-    }// end if(result == null)
+    } // end if(result == null)
     return null;
-  }// end session
+  } // end session
 }

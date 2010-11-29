@@ -125,7 +125,7 @@ public final class RegisteredUserList {
       System.out.println("Datastore: '" + found.getDisplayname() + "' wurde geladen...");
       return found;
     }
-    return new User();// "leerer" User; isValid liefert "false";
+    return new User(); // "leerer" User; isValid liefert "false";
   }
 
   /**
@@ -138,7 +138,7 @@ public final class RegisteredUserList {
   public Boolean addUser(User user) {
    // addC(user);
     if (usernameAvailable(user.getUsername())) {
-      User u=new User();
+      User u = new User();
       
       PersistenceManager pm = PMF.getPersistenceManager();
       pm = PMF.getPersistenceManager();
@@ -157,7 +157,7 @@ public final class RegisteredUserList {
     PersistenceManager pm = PMF.getPersistenceManager();
 
     try {
-       Character c = Character.getInstance();//
+       Character c = Character.getInstance(); //
        c.setName("MyCharacter1");
        c.setAllAttrInfo();
 //       User us=new User("testx", "testx", "testx", "testx", "testx", "testx");
@@ -196,9 +196,9 @@ public final class RegisteredUserList {
 
 //      pm.close();
 
-      for (Character character: entries) {
+      for (Character character : entries) {
         if (character.getName().equals(cname)) {
-          System.out.println("YES ! Character-Object: \"" + cname+ "\" saved to Datastore and read from there !");
+          System.out.println("YES ! Character-Object: \"" + cname + "\" saved to Datastore and read from there !");
           pm.close();
           return character;
         }
