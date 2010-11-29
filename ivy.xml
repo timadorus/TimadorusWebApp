@@ -10,19 +10,16 @@
 		<dependency org="com.google" name="gwt" rev="2.0.4" />
 
 		<!-- DataNucleus -->
-		<dependency org="org.datanucleus" name="datanucleus-enhancer"
-			rev="2.1.2" conf="*->default" />
-		<dependency org="org.datanucleus" name="datanucleus-rdbms"
-			rev="2.1.2" conf="*->default,provided" />
+		<dependency org="org.datanucleus" name="datanucleus-enhancer" rev="2.1.2" conf="*->default" />
+		<dependency org="org.datanucleus" name="datanucleus-rdbms" rev="2.1.2" conf="*->default,provided" />
 
 		<!-- Apache Derby -->
-		<dependency org="org.apache.derby" name="derby" rev="10.6.2.1"
-			conf="*->default" />
-		<dependency org="org.apache.derby" name="derbyclient" rev="10.6.2.1"
-			conf="*->default" />
-		<dependency org="org.apache.derby" name="derbynet" rev="10.6.2.1"
-			conf="*->default" />
-		<dependency org="org.apache.derby" name="derbytools" rev="10.6.2.1"
-			conf="*->default" />
+		<dependency org="org.apache.derby" name="derby" rev="10.6.2.1" conf="*->default" />
+		<dependency org="org.apache.derby" name="derbyclient" rev="10.6.2.1" conf="*->default" />
+		<dependency org="org.apache.derby" name="derbynet" rev="10.6.2.1" conf="*->default" />
+		<dependency org="org.apache.derby" name="derbytools" rev="10.6.2.1" conf="*->default" />
+		
+		<!-- Checkstyle -->
+		<dependency org="checkstyle" name="checkstyle" rev="5.1" />
 	</dependencies>
 </ivy-module>
