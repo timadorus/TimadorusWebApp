@@ -213,7 +213,7 @@ public class RegisterPanel extends FormPanel implements HistoryListener, History
         RegisterServiceAsync registerServiceAsync = GWT.create(RegisterService.class);
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
           public void onSuccess(String result) {
-            if (result != null) {// &&
+            if (result != null) { // &&
               // result.equals(String.valueOf(Registration.OK))){
               int value = Integer.parseInt(result);
               if (value == User.OK) {

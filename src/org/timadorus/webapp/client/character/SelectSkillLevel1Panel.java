@@ -364,7 +364,7 @@ public class SelectSkillLevel1Panel extends FormPanel implements HistoryStates, 
           if (i == 0) {
              skillN = tb[i].getText();
              //getRk_Bn() + getStat_Bn();
-             int m = Integer.valueOf(tb[3].getText()) +Integer.valueOf(tb[4].getText()); //update "Total"-Cell
+             int m = Integer.valueOf(tb[3].getText()) + Integer.valueOf(tb[4].getText()); //update "Total"-Cell
              tb[7].setText("" + m);
           }
           

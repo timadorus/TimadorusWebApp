@@ -12,16 +12,16 @@ public class Stat implements Serializable {
 
   
   @Persistent
-  String name="--";
+  String name = "--";
 
   @Persistent
-  String description="--";
+  String description = "--";
   
   @Persistent
-  Integer tempStat=new Integer(-1);
+  Integer tempStat = new Integer(-1);
   
   @Persistent
-  Integer potStat=new Integer(-1);
+  Integer potStat = new Integer(-1);
   
 
   public Stat() {
@@ -71,7 +71,7 @@ public class Stat implements Serializable {
   @Override
   public String toString() {
   
-    return "Stat-Name: "+name;
+    return "Stat-Name: " + name;
   }
   
 }

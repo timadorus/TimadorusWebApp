@@ -63,7 +63,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
 
   Button resetPage = new Button("reset");
   
-  List<Skill> backupList;//=new ArrayList<Skill>(entry.getTestValues().getSkills());
+  List<Skill> backupList; //=new ArrayList<Skill>(entry.getTestValues().getSkills());
 
   // Map<String,TextBox[]> tbMap=new HashMap(); // Map lässt sich nicht Compilieren unter GWT 2.0
   List<TextBox[]> tbObjList = new ArrayList<TextBox[]>();
@@ -127,7 +127,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
 
           }
           readyToSave();
-        }else if (event.getSource().equals(resetPage)) {
+        } else if (event.getSource().equals(resetPage)) {
           loadSelectSkillPanel(); //reset Seite
         }
 
@@ -227,9 +227,9 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
   }
 
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Fertigkeiten Wählen</h1><p>Wählen sie hier die Fertigkeiten ihres Charakteres. Beachten Sie, dass bestimmte Fertigkeiten ab bestimmten Level-Grad zu beziehen sind.</p>");
-
+    HTML information = new HTML("<h1>Fertigkeiten Wählen</h1><p>Wählen sie hier die Fertigkeiten ihres Charakteres. "
+                                + "Beachten Sie, dass bestimmte Fertigkeiten ab bestimmten Level-Grad zu beziehen "
+                                + "sind.</p>");
     return information;
   }
 
@@ -264,7 +264,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
   }
 
   public void skillCostTable() {
-    backupList=new ArrayList<Skill>(entry.getTestValues().getBackupSkills());
+    backupList = new ArrayList<Skill>(entry.getTestValues().getBackupSkills());
     Set<Skill> skillSet = new HashSet<Skill>();
 
     for (String skillName : tlist) {
@@ -295,10 +295,11 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
        
 
         TextBox tb = new TextBox();
-        if (i == 0)
+        if (i == 0) {
           tb.setWidth("100");
-        else
+        } else {
           tb.setWidth("60");
+        }
 
         tb.setText(skill.getGesamtInfo()[i]);
         tb.setTitle(titleList[i]);
@@ -315,8 +316,9 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
     }
     if (skillSet.size() != 0) {
       selectSkillGrid.setWidget(j + 1, 4, resetPage);
-    } else
+    } else {
       selectSkillGrid.remove(resetPage);
+    }
 
     // panel = new VerticalPanel();
 
@@ -350,10 +352,11 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
 
     for (int i = 0; i < 8; i++) {
       TextBox tb = new TextBox();
-      if (i == 0)
+      if (i == 0) {
         tb.setWidth("100");
-      else
+      } else {
         tb.setWidth("60");
+      }
 
       selectStatGrid1.setWidget(1, i, tb);
     }
@@ -366,24 +369,24 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
     System.out.println("\n" + ((TextBox) event.getSource()).getValue());
 //    Object otb = ((TextBox) event.getSource()).getValue();
 //    String evTexboxText=((TextBox) event.getSource()).getText(); 
-    String evTexboxID=""+((Object)(TextBox) event.getSource()).hashCode();
+    String evTexboxID = "" + ((Object) (TextBox) event.getSource()).hashCode();
     String[] skInfo = new String[3];
     for (TextBox[] tb : tbObjList) {
-      String skillN="";
+      String skillN = "";
 //      String skillAttTotal="";
       for (int i = 0; i < tb.length; i++) {
         
         if (tb[i] != null) {
           
-          if (i==0) {
-             skillN=tb[i].getText();
+          if (i == 0) {
+             skillN = tb[i].getText();
              //getRk_Bn()+getStat_Bn();
-             int m=Integer.valueOf(tb[3].getText()) +Integer.valueOf(tb[4].getText());//update "Total"-Cell
-             tb[7].setText(""+m);
+             int m = Integer.valueOf(tb[3].getText()) + Integer.valueOf(tb[4].getText()); //update "Total"-Cell
+             tb[7].setText("" + m);
           }
           
 //          String texbText=tb[i].getText();
-          String texBoxID=""+((Object)tb[i]).hashCode();
+          String texBoxID = "" + ((Object) tb[i]).hashCode();
           if (texBoxID.equals(evTexboxID)) {
 //          if (textBox.getText().equalsIgnoreCase(evTBSkName)) {
 //            String skillName = tb[i].getText();
@@ -400,9 +403,9 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
       }
 
     }
-    List<Skill> skillList=entry.getTestValues().getSkills();
+    List<Skill> skillList = entry.getTestValues().getSkills();
     ListIterator<Skill> skillIterator = skillList.listIterator();
-    while(skillIterator.hasNext()) {
+    while (skillIterator.hasNext()) {
       Skill skill = (Skill) skillIterator.next();
       if (skill.getName().equals(skInfo[0])) {
         if (skInfo[1].equalsIgnoreCase("Cost")) {
@@ -429,7 +432,8 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
         
       }
     }
-    entry.getTestValues().setSkills(skillList); //überschreibe alte originale Skill-Liste mit der über die GUI editierten Skill-Liste
+    // überschreibe alte originale Skill-Liste mit der über die GUI editierten Skill-Liste
+    entry.getTestValues().setSkills(skillList);
     
     if (event.getSource().equals(prevButton)) {
       // loadSelectStatsPanelS0();
@@ -440,7 +444,7 @@ public class SelectSkillPanel extends FormPanel implements HistoryStates, Change
   }
   
   public void loadSelectSkillPanel() {
-    entry.getTestValues().setSkills(new ArrayList<Skill>(backupList));//reset to "Skill begin list"
+    entry.getTestValues().setSkills(new ArrayList<Skill>(backupList)); //reset to "Skill begin list"
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character));
   }

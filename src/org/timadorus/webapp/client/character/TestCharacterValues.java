@@ -255,18 +255,17 @@ public class TestCharacterValues {
     r2.addFaction(fac5);
     r2.addFaction(fac3);
 
-    Race r3 = new Race(
-                       new Long(003),
+    Race r3 = new Race(new Long(003),
                        "Race-Chuchunya",
                        "Chuchunya is a hominid cryptid rumoured to exist in Siberia, Russia. It has been described as "
-                       + "six to seven feet tall and covered with dark hair. Source: http://en.wikipedia.org/wiki/Tjutjuna");
+                       + "six to seven feet tall and covered with dark hair. Source: "
+                       + "http://en.wikipedia.org/wiki/Tjutjuna");
 
     r3.addClass(c3);
     r3.addFaction(fac1);
     r3.addFaction(fac8);
 
-    Race r4 = new Race(
-                       new Long(004),
+    Race r4 = new Race(new Long(004),
                        "Race-Yeti",
                        "The Yeti or Abominable Snowman is a creature and an ape-like cryptid said to inhabit the "
                        + "Himalayan region of Nepal and Tibet. The names Yeti and Meh-Teh are commonly used by the "
@@ -329,7 +328,7 @@ public class TestCharacterValues {
                           true,
                           "Acting is the work of an actor or actress, which is a person in theatre or any other "
                           + "storytelling medium who tells the story by portraying a character and, usually, speaking "
-                          +	"or singing the written text or play. \nSource: http://en.wikipedia.org/wiki/Acting",
+                          + "or singing the written text or play. \nSource: http://en.wikipedia.org/wiki/Acting",
                           9, 6, 4, 10, 2, 40);
 
     Skill sk3 = new Skill(
@@ -346,9 +345,9 @@ public class TestCharacterValues {
                           + "ostriches[citation needed];\nyaks; and camels. Dromedaries (with one hump) live in arid "
                           + "areas of Australia, \nNorth Africa and the Middle East; the far rarer Bactrian camel "
                           + "\ninhabits central and East Asia; both are used for \ntransportation and haulage."
-                          +	"\n\nSome mythical creatures \nare believed to act as divine mounts, such as \ngaruda "
+                          + "\n\nSome mythical creatures \nare believed to act as divine mounts, such as \ngaruda "
                           + "in Hinduism and the winged horse Pegasus in \nGreek mythology. "
-                          +	"Source: http://en.wikipedia.org/wiki/Riding_animal#Riding_animals_or_mounts ",
+                          + "Source: http://en.wikipedia.org/wiki/Riding_animal#Riding_animals_or_mounts ",
                           11, 2, 6, 10, 3, 30);
 
       
@@ -381,11 +380,11 @@ public class TestCharacterValues {
                           "Swordsmanship refers to the skills of a swordsman, a person versed in the art of the sword. "
                           + "The term is modern, and as such was mainly used to refer to smallsword fencing, but by "
                           + "extension it can also be applied to any martial art involving the use of a sword. "
-                          +	"The formation of the English word \"swordsman\" is parallel to the Latin word "
-                          +	"gladiator[1], a term for the professional fighters who fought against each other and a "
+                          + "The formation of the English word \"swordsman\" is parallel to the Latin word "
+                          + "gladiator[1], a term for the professional fighters who fought against each other and a "
                           + "variety of other foes for the entertainment of spectators in the Roman Empire. "
-                          +	"The word gladiator itself comes from the Latin word gladius, meaning \"sword\"[1]. "
-                          +	"Source: http://en.wikipedia.org/wiki/Swordsmanship",
+                          + "The word gladiator itself comes from the Latin word gladius, meaning \"sword\"[1]. "
+                          + "Source: http://en.wikipedia.org/wiki/Swordsmanship",
                           12, 8, 4, 17, 22, 40);
     
     
@@ -486,8 +485,8 @@ public class TestCharacterValues {
     return skillsLevel1;
   }
 
-  public void setSkillsLevel1(List<Skill> skillsLevel_1) {
-    skillsLevel1 = skillsLevel_1;
+  public void setSkillsLevel1(List<Skill> skillsLevel1In) {
+    skillsLevel1 = skillsLevel1In;
   }
 
   public List<Skill> getBackupSkills_Level1() {

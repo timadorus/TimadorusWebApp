@@ -123,7 +123,7 @@ public class GetPotStatsPanel extends FormPanel implements HistoryStates {
 
   //calculates potStats
   public void calculatePotStats() {
-    for (int i = 0; i < 11; i++){
+    for (int i = 0; i < 11; i++) {
       //random w100 calculation for dummy tests
       int potStat = (int) Math.floor((Math.random() * 100) + 1);
       potStats.add(i, potStat);
