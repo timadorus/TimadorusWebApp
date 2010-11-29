@@ -1,74 +1,120 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build" name="TimadorusWebApp" xmlns:ivy="antlib:org.apache.ivy.ant">
 
+	<!-- Beschreibt die Umgebung für die diese Datei verwendet wird -->
 	<property environment="env" />
-	<property name="ECLIPSE_HOME" value="C:/Program Files (x86)/eclipse-jee-galileo-win32/eclipse" />
+
+	<!-- Angaben zum Debuglevel -->
 	<property name="debuglevel" value="source,lines,vars" />
+
+	<!-- Pfad zu den Java Quelldateien -->
 	<property name="sourceDir" value="src" />
+
+	<!-- Pfad zum Zielordner der WebApp -->
 	<property name="to" value="war/WEB-INF" />
+
+	<!-- Pfad zum Zielordner der Klassenkompilierung der WebApp -->
 	<property name="destination" value="${to}/classes" />
+
+	<!-- Pfad zu dem Ordner in welchen die JAR’s kopiert werden -->
 	<property name="destinationLib" value="${to}/lib" />
+
+	<!-- Angaben zur Version -->
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
 
+	<!-- Pfad zum Ivy Arbeitsverzeichnis -->
 	<property name="ivy.dir" value="${basedir}/ivy" />
+
+	<!-- Pfad zur Datei mit den Ivy Einstellungen -->
 	<property name="ivy.settings.file" value="${ivy.dir}/ivysettings.xml" />
+
+	<!-- Pfad zum Cache von Ivy -->
 	<property name="ivy.cache.dir" value="${ivy.dir}/cache" />
 
+
+	<!-- Definition der im Classpath enthaltenen Dateien -->
 	<path id="TimadorusWebApp.classpath">
+
+		<!-- Quell und Ziel Java-Dateien -->
+		<pathelement location="${destination}" />
 		<pathelement location="${sourceDir}" />
-		<fileset dir="war/WEB-INF/lib/">
+
+		<!-- Alle JAR’s aus dem Lib-Ordner des WebApp -->
+		<fileset dir="${destinationLib}">
 			<include name="*.jar" />
 		</fileset>
-		<pathelement location="${destination}" />
 	</path>
 
-	<!-- =================================  
-	          target: resolve
-	     
-	     let ivy handle depencies to other projects                   
-	     ================================= -->
-	<target name="resolve" description="--> retrieve dependencies with ivy">
+
+	<!-- Task:resolve | Löse Abhängigkeiten mit Ivy auf -->
+	<target name="resolve" description="-> handle dependencies with ivy">
+		<!-- Cache von Ivy löschen um Neues herunterladen zu erzwingen -->
 		<!--ivy:cleancache /-->
+
+		<!-- Ivy Einstellungen einbinden -->
 		<ivy:settings file="${ivy.settings.file}" />
+
+		<!-- Abhängigkeiten auflösen -->
 		<ivy:retrieve />
 	</target>
 
+
+	<!-- Task:clean | Löschen von Zielordnern -->
+	<target name="clean">
+		<delete dir="${destination}" />
+		<delete dir="${destinationLib}" failonerror="false" />
+	</target>
+
+
+	<!-- Task:init | Erstellen von Zielordnern, Umkopieren von Dateien und Libraries -->
 	<target name="init">
+
+		<!-- Erstellen eines Ordners -->
 		<mkdir dir="${destination}" />
+
+		<!-- Umkopieren von Einstellungsdateien aus src/ -->
 		<copy includeemptydirs="false" todir="${destination}">
 			<fileset dir="src">
 				<exclude name="**/*.launch" />
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
-		
+
 		<mkdir dir="${destinationLib}" />
+
+		<!-- Umkopieren der JAR’s -->
 		<copy includeemptydirs="false" todir="${destinationLib}">
 			<fileset dir="lib" />
 		</copy>
 	</target>
 
-	<target name="clean">
-		<delete dir="${destination}" />
-		<delete dir="${destinationLib}" failonerror="false" />		
-	</target>
 
-	<target depends="clean" name="cleanall" />
-
-
-	<target name="build-subprojects" />
-
+	<!-- Task:java-compile | Kompilieren der Javaklassen (führt vorher die Tasks clean und init aus) -->
 	<target name="java-compile" depends="clean,init">
+
+		<!-- Aufruf zum Kompilieren -->
 		<javac debug="true" debuglevel="${debuglevel}" destdir="${destination}" source="${source}" target="${target}">
+
+			<!-- Quellordner -->
 			<src path="src" />
+
+			<!-- Zugehöriger Classpath (Definition siehe oben) -->
 			<classpath refid="TimadorusWebApp.classpath" />
 		</javac>
 	</target>
 
+
+	<!-- Task:enhance | Führt ein Byte-Enhancement auf die kompilierten Javaklassen aus -->
 	<target name="enhance" description="DataNucleus enhancement">
+
+		<!-- Gib den Enhancement-Task bekannt -->
 		<taskdef name="datanucleusenhancer" classpathref="TimadorusWebApp.classpath" classname="org.datanucleus.enhancer.tools.EnhancerTask" />
+
+		<!-- Führt die Enhancement-Task aus -->
 		<datanucleusenhancer failonerror="true" verbose="true">
+
+			<!-- Pfad zu den Klassen die enhanced werden sollen -->
 			<fileset dir="${destination}">
 				<include name="**/*.class" />
 			</fileset>
@@ -76,19 +122,32 @@
 		</datanucleusenhancer>
 	</target>
 
+
+	<!-- Task:gwt-compile | Kompiliert die Javaklassen in Javascript-Code -->
 	<target name="gwt-compile">
+
+		<!-- Ruft das Makro auf in welchem das Kompilieren definiert ist -->
 		<gwtCompile module="org.timadorus.webapp.TimadorusWebApp" classpathref="TimadorusWebApp.classpath" />
 	</target>
 
+	<!-- Makro:gwtCompile | Definiert wie die Klassen mit GWT kompiliert werden sollen -->
 	<macrodef name="gwtCompile">
+
+		<!-- Parameter die beim Aufruf angegeben werden -->
 		<attribute name="module" />
 		<attribute name="classpathref" default="TimadorusWebApp.classpath" />
+
+		<!-- Sequenz für die Ausführung des Makros -->
 		<sequential>
+
+			<!-- Ruft den GWT-Compiler unter Angabe des Entrypoints auf -->
 			<java classpathref="@{classpathref}" classname="com.google.gwt.dev.Compiler" fork="true">
 				<arg value="@{module}" />
 			</java>
 		</sequential>
 	</macrodef>
 
+
+	<!-- Task:build | Definiert den Ablauf der Taskaufrufe für den Build -->
 	<target name="build" depends="resolve,java-compile,enhance,gwt-compile" />
 </project>
