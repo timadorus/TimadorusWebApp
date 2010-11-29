@@ -23,7 +23,8 @@ import java.util.List;
 
 /**
  * @author kilic_a, willat_j
- * This class represents a Character-Object, which will build at the client-Side and afterward it will be send to Server for Storing in JDO-DB
+ * This class represents a Character-Object, which will build at the client-Side and afterward it will be send to
+ * Server for Storing in JDO-DB
  */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public final class Character implements Serializable {
@@ -32,7 +33,7 @@ public final class Character implements Serializable {
 
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long key; //art of Table-Key
+  Long key;
     
   @Persistent
   String characterID = "999";
@@ -62,18 +63,20 @@ public final class Character implements Serializable {
   boolean complete = false;
 
   @Persistent
-  String allAttrInfo_Part1="--" ;//
+  String allAttrInfoPart1 = "--";
 
   @Persistent
-  String allAttrInfo_Part2="--";
+  String allAttrInfoPart2 = "--";
   
   @NotPersistent
   List<Skill> skillList = new ArrayList<Skill>();
   
   @NotPersistent
-  List<Skill> skillList_Level_1 = new ArrayList<Skill>();
+  List<Skill> skillListLevel1 = new ArrayList<Skill>();
+  
   @NotPersistent
   List<Integer> tempStats = new ArrayList<Integer>();
+  
   @NotPersistent
   LinkedList<Integer> potStats = new LinkedList<Integer>();
   
@@ -83,9 +86,9 @@ public final class Character implements Serializable {
   }
 
   void fillStats() {
-
-    Stat s1 = new Stat("Konstitution", "Konsti");
     statList = new LinkedList<Stat>();
+    
+    Stat s1 = new Stat("Konstitution", "Konsti");
     statList.add(s1);
     Stat s2 = new Stat("Agilität", "Agi");
     statList.add(s2);
@@ -108,20 +111,18 @@ public final class Character implements Serializable {
     Stat s11 = new Stat("Empathie", "Emp");
     statList.add(s11);
     Stat s12 = new Stat("Aussehen", "aussehen");
+    
     int randomInt = (int) Math.floor((Math.random() * 100) + 1);
     s12.setTempStat(randomInt);
     statList.add(s12);
-
   }
 
   public static Character getInstance() {
-
     Character character = new Character();
     character.fillStats();
     character.setAllAttrInfo_Part1();
     character.setAllAttrInfo_Part2();
     return character;
-
   }
 
   public String getName() {
@@ -146,17 +147,7 @@ public final class Character implements Serializable {
 
   public void setRace(Race raceIn) {
     this.race = raceIn;
-  }
-
-  /*
-   * public String getProfession() { return profession; }
-   * 
-   * public void setProfession(String profession) { this.profession = profession; }
-   */
-  
-  
-
- 
+  } 
 
   public Long getKey() {
     return key;
@@ -194,26 +185,26 @@ public final class Character implements Serializable {
 
 
   public String getAllAttrInfo_Part1() {
-    return allAttrInfo_Part1;
+    return allAttrInfoPart1;
   }
 
   public void setAllAttrInfo_Part1() {
-    allAttrInfo_Part1 = this.toString();
+    allAttrInfoPart1 = this.toString();
   }
  
   //split Information-String in two Parts, because com.google.appengine.api.datastore.Text don't works on client side
-  public void setAllAttrInfo(){
-setAllAttrInfo_Part1();
-setAllAttrInfo_Part2();
+  public void setAllAttrInfo() {
+    setAllAttrInfo_Part1();
+    setAllAttrInfo_Part2();
   }
   
 
   public String getAllAttrInfo_Part2() {
-    return allAttrInfo_Part2;
+    return allAttrInfoPart2;
   }
 
   public void setAllAttrInfo_Part2() {
-    allAttrInfo_Part2 = this.toString_Part2();
+    allAttrInfoPart2 = this.toStringPart2();
   }
 
   /* Save Character-Relevance Info's as one-String-Object, for later saving as one-String-Object in AppEngine-JDO */
@@ -265,65 +256,63 @@ setAllAttrInfo_Part2();
   }
   
   public String getSkillListNames() {
-    String s="";
+    String s = "";
     for (Skill skill : skillList) {
-      s+=skill.getName()+", ";
+      s += skill.getName() + ", ";
     }
-    if (! s.isEmpty()) {
-      s=s.substring(0, s.length()-2); //delete last ", " char  
+    if (!s.isEmpty()) {
+      //delete last ", " char
+      s = s.substring(0, s.length() - 2);   
     }
-    
     
     return s;
   }
   
   public String getSkillLevel1ListNames() {
-    String s="";
-    for (Skill skill : skillList_Level_1) {
-      s+=skill.getName()+", ";
+    String s = "";
+    for (Skill skill : skillListLevel1) {
+      s += skill.getName() + ", ";
     }
-    if (! s.isEmpty()) {
-      s=s.substring(0, s.length()-2); //delete last ", " char  
+    if (!s.isEmpty()) {
+      //delete last ", " char
+      s = s.substring(0, s.length() - 2);  
     }
-    
     
     return s;
   }
   
   public String getPotStatListWerte() {
-    String s="";
+    String s = "";
     for (Integer i : potStats) {
-      s+=i+", ";
+      s += i + ", ";
     }
-    if (! s.isEmpty()) {
-      s=s.substring(0, s.length()-2); //delete last ", " char  
+    if (!s.isEmpty()) {
+      //delete last ", " char
+      s = s.substring(0, s.length() - 2);   
     }
-    
     
     return s;
   }
   
   public String getTempStatListWerte() {
-    String s="";
+    String s = "";
     for (Integer i : tempStats) {
-      s+=i+", ";
+      s += i + ", ";
     }
-    if (! s.isEmpty()) {
-      s=s.substring(0, s.length()-2); //delete last ", " char  
+    if (!s.isEmpty()) {
+      //delete last ", " char
+      s = s.substring(0, s.length() - 2);  
     }
-    
     
     return s;
   }
-  
-  
 
-  public List<Skill> getSkillList_Level_1() {
-    return skillList_Level_1;
+  public List<Skill> getSkillListLevel1() {
+    return skillListLevel1;
   }
 
-  public void setSkillList_Level_1(List<Skill> skillListLevel_1) {
-    skillList_Level_1 = skillListLevel_1;
+  public void setSkillListLevel1(List<Skill> skillListLevel1In) {
+    this.skillListLevel1 = skillListLevel1In;
   }
 
   public String getStatListString() {
@@ -335,8 +324,6 @@ setAllAttrInfo_Part2();
     return s;
   }
   
-  
-
   public List<Integer> getTempStats() {
     return tempStats;
   }
@@ -353,10 +340,6 @@ setAllAttrInfo_Part2();
     this.potStats = potStatsIn;
   }
   
-  
-  
-  
-
   @Override
   public String toString() {
     String s = "";
@@ -375,12 +358,10 @@ setAllAttrInfo_Part2();
       s += "\nCharacter-Stat-Liste: " + getStatListString();
     }
     
-    
     return s;
-
   }
   
-  public String toString_Part2() {
+  public String toStringPart2() {
     String s = "";
 
     
@@ -388,7 +369,7 @@ setAllAttrInfo_Part2();
       s += "\nSkill-Liste: " + getSkillListNames();
     }
     
-    if (getSkillList_Level_1() != null) {
+    if (getSkillListLevel1() != null) {
       s += "\nSkill_Level1-Liste: " + getSkillLevel1ListNames();
     }
     
@@ -396,13 +377,10 @@ setAllAttrInfo_Part2();
       s += "\nPot-Stat-Liste: " + getPotStatListWerte();
     }
     
-    if (getTempStat()!= null) {
+    if (getTempStat() != null) {
       s += "\nTemp.-Stat-Liste: " + getTempStatListWerte();
     }
     
     return s;
-
   }
-  
-
 }

@@ -244,7 +244,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
       while (skillIterator.hasNext()) {
         Skill sk1 = (Skill) skillIterator.next();
         if (sk1.getName().equals(skillName)) {
-          character.getSkillList_Level_1().add(sk1);
+          character.getSkillListLevel1().add(sk1);
 
         }
       }
