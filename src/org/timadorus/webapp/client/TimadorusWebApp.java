@@ -50,13 +50,13 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
     
     this.sessionId = new SessionId();
 
-    this.loginlink=new Hyperlink("login", LOGIN_STATE);
+    this.loginlink = new Hyperlink("login", LOGIN_STATE);
 
-    this.logoutlink=new Hyperlink("logout", LOGOUT_STATE);
+    this.logoutlink = new Hyperlink("logout", LOGOUT_STATE);
 
-    this.createCharacterlink=new Hyperlink("create Character", CREATE_CHARACTER_STATE);
+    this.createCharacterlink = new Hyperlink("create Character", CREATE_CHARACTER_STATE);
 
-    this.registerlink=new Hyperlink("register", REGISTER_STATE);    
+    this.registerlink = new Hyperlink("register", REGISTER_STATE);    
 
     this.loggedin = false;
     
@@ -195,14 +195,15 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
     RootPanel.get("content").add(LoginPanel.getLoginPanel(sessionId, this));
   }
   
-  public void loadLogoutPanel(){
+  public void loadLogoutPanel() {
 
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die Möglichkeit, sich wieder einzuloggen:"));
+    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die Möglichkeit, sich wieder " 
+                                           + "einzuloggen:"));
     /* getLoginPanel().setStylePrimaryName("loginpanel"); */
     
     RootPanel.get("content").add(LoginPanel.getLoginPanel(new SessionId(), new TimadorusWebApp()));
-    loggedin=false;
+    loggedin = false;
     System.out.println("Login status " + isLoggedin());
     RootPanel.get("menu").clear();
     RootPanel.get("menu").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));
@@ -243,11 +244,11 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
   }
 
   /**
-   * @param loggedin
+   * @param loggedinIn
    *          the loggedin to set
    */
-  public void setLoggedin(boolean _loggedin) {
-    this.loggedin = _loggedin;
+  public void setLoggedin(boolean loggedinIn) {
+    this.loggedin = loggedinIn;
   }
 
   /**
