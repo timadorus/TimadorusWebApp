@@ -91,7 +91,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
         } else if (event.getSource().equals(skillListBox)) {
           // show skill informations
           String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
-          ListIterator<Skill> skillIterator = entryIn.getTestValues().getSkills_Level_1().listIterator();
+          ListIterator<Skill> skillIterator = entryIn.getTestValues().getSkillsLevel1().listIterator();
           RootPanel.get("information").clear();
           while (skillIterator.hasNext()) {
             Skill newSkill = (Skill) skillIterator.next();
@@ -141,7 +141,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
     selectSkillGrid.setBorderWidth(0);
     selectSkillGrid.setStylePrimaryName("selectGrid");
 
-    ListIterator<Skill> skillIterator = entryIn.getTestValues().getSkills_Level_1().listIterator();
+    ListIterator<Skill> skillIterator = entryIn.getTestValues().getSkillsLevel1().listIterator();
     while (skillIterator.hasNext()) {
       Skill newSkill = (Skill) skillIterator.next();
       skillListBox.addItem(newSkill.getName());
@@ -218,7 +218,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
   }
 
   public Skill getSelectedSkill() {
-    Skill skill = entry.getTestValues().getSkills_Level_1().get(skillListBox.getSelectedIndex());
+    Skill skill = entry.getTestValues().getSkillsLevel1().get(skillListBox.getSelectedIndex());
     return skill;
   }
 
@@ -240,7 +240,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
 
   public void saveSelectedSkillsInCharacter() {
     for (String skillName : tlist) {
-      ListIterator<Skill> skillIterator = entry.getTestValues().getSkills_Level_1().listIterator();
+      ListIterator<Skill> skillIterator = entry.getTestValues().getSkillsLevel1().listIterator();
       while (skillIterator.hasNext()) {
         Skill sk1 = (Skill) skillIterator.next();
         if (sk1.getName().equals(skillName)) {
@@ -269,7 +269,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
 
     for (String skillName : tlist) {
 
-      ListIterator<Skill> skillIterator = entry.getTestValues().getSkills_Level_1().listIterator();
+      ListIterator<Skill> skillIterator = entry.getTestValues().getSkillsLevel1().listIterator();
       while (skillIterator.hasNext()) {
         Skill newSkill = (Skill) skillIterator.next();
         if (newSkill.getName().equals(skillName)) {
@@ -400,7 +400,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
       }
 
     }
-    List<Skill> skillList=entry.getTestValues().getSkills_Level_1();
+    List<Skill> skillList=entry.getTestValues().getSkillsLevel1();
     ListIterator<Skill> skillIterator = skillList.listIterator();
     while(skillIterator.hasNext()) {
       Skill skill = (Skill) skillIterator.next();
@@ -440,7 +440,7 @@ public class SelectSkill_Level_1_Panel extends FormPanel implements HistoryState
   }
   
   public void loadSelectSkillLevel1Panel() {
-    entry.getTestValues().setSkills_Level_1(new ArrayList<Skill>(backupList));//reset to "Skill begin list"
+    entry.getTestValues().setSkillsLevel1(new ArrayList<Skill>(backupList));//reset to "Skill begin list"
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectSkill_Level_1_Panel.getSelectSkillLevel1Panel(entry, character));
   }
