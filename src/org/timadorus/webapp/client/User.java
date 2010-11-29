@@ -76,15 +76,16 @@ public class User implements Serializable {
   @Persistent
   private Boolean active = false;
 
-  public Long getId() {
-    return id;
-  }
-
   public User() {
     super();
   }
 
-  public User(String vornameIn, String nachnameIn, String geburtstagIn, String emailIn, String usernameIn, String passwordIn) {
+  public User(final String vornameIn,
+              final String nachnameIn,
+              final String geburtstagIn,
+              final String emailIn,
+              final String usernameIn,
+              final String passwordIn) {
     super();
     this.vorname = vornameIn;
     this.nachname = nachnameIn;
@@ -95,7 +96,7 @@ public class User implements Serializable {
     this.password = passwordIn;
   }
 
-  public String getVorname() {
+  public final String getVorname() {
     return vorname;
   }
 
@@ -154,6 +155,10 @@ public class User implements Serializable {
 
   public Boolean getActive() {
     return active;
+  }
+
+  public final Long getId() {
+    return id;
   }
 
   public Boolean isValid() {
