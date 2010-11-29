@@ -101,7 +101,8 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
       System.out.println("Login status " + isLoggedin());
       RootPanel.get("menu").add(
                                 new Label("Du bist als "
-                                    + LoginPanel.getLoginPanel(sessionId, this).getUser().getDisplayname() + " angemeldet"));
+                                    + LoginPanel.getLoginPanel(sessionId, this).getUser().getDisplayname() 
+                                    + " angemeldet"));
       if (!LoginPanel.getLoginPanel(sessionId, this).getUser().getActive()) {
         RootPanel.get("menu").add(new Label("Dein Account wurde noch nicht aktiviert"));
       }
