@@ -2,7 +2,6 @@ package org.timadorus.webapp.client.character;
 
 import java.util.ListIterator;
 
-import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -20,7 +19,7 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 
 //FormPanel for selecting Race of a Character-Object
-public class SelectRacePanel extends FormPanel implements HistoryStates {
+public class SelectRacePanel extends FormPanel {
 
   final TimadorusWebApp entry;
 

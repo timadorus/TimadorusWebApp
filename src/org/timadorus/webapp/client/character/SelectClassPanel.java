@@ -2,7 +2,6 @@ package org.timadorus.webapp.client.character;
 
 import java.util.ListIterator;
 
-import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -19,7 +18,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Image;
 
 //Panel for selecting characters Class
-public class SelectClassPanel extends FormPanel implements HistoryStates {
+public class SelectClassPanel extends FormPanel {
 
   final TimadorusWebApp entry;
 

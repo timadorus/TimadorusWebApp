@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
-import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 
 //import com.google.gwt.dev.util.collect.HashMap;
@@ -27,7 +26,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Image;
 
 //FormPanel for selecting Skill-Level-1 items of a Character-Object
-public class SelectSkillLevel1Panel extends FormPanel implements HistoryStates, ChangeHandler {
+public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
 
   final TimadorusWebApp entry;
 

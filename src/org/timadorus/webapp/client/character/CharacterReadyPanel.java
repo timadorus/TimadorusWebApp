@@ -1,6 +1,5 @@
 package org.timadorus.webapp.client.character;
 
-import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 
 import com.google.gwt.user.client.ui.Button;
@@ -12,7 +11,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 
 //This is the FormPanel for the End of creating-Character-Object-procedure
-public class CharacterReadyPanel extends FormPanel implements HistoryStates {
+public class CharacterReadyPanel extends FormPanel {
 
   TimadorusWebApp entry;
 

@@ -1,6 +1,5 @@
 package org.timadorus.webapp.client.character;
 
-import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
@@ -21,7 +20,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Image;
 
 //FormPanel for setting name of Character-Object
-public class SelectNamePanel extends FormPanel implements HistoryStates {
+public class SelectNamePanel extends FormPanel {
 
   final TimadorusWebApp entry;
 

@@ -2,7 +2,6 @@ package org.timadorus.webapp.client.login;
 
 import java.util.Date;
 
-import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.SessionId;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.User;
@@ -34,7 +33,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 //FormPanel for Login
 @SuppressWarnings("deprecation")
-public class LoginPanel extends FormPanel implements HistoryListener, HistoryStates {
+public class LoginPanel extends FormPanel implements HistoryListener {
 
 
   private Grid grid = new Grid(4, 2);

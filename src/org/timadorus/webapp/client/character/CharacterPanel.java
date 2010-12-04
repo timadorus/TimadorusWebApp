@@ -1,6 +1,5 @@
 package org.timadorus.webapp.client.character;
 
-import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -16,7 +15,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 
-public class CharacterPanel extends FormPanel implements HistoryStates {
+public class CharacterPanel extends FormPanel {
 
   TimadorusWebApp entry;
 

@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 
 @SuppressWarnings("deprecation")
-public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStates  {
+public class TimadorusWebApp implements EntryPoint, HistoryListener {
 
   private static final long serialVersionUID = -5138823406762920058L;
 
@@ -50,13 +50,13 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
     
     this.sessionId = new SessionId();
 
-    this.loginlink = new Hyperlink("login", LOGIN_STATE);
+    this.loginlink = new Hyperlink("login", HistoryStates.LOGIN_STATE);
 
-    this.logoutlink = new Hyperlink("logout", LOGOUT_STATE);
+    this.logoutlink = new Hyperlink("logout", HistoryStates.LOGOUT_STATE);
 
-    this.createCharacterlink = new Hyperlink("create Character", CREATE_CHARACTER_STATE);
+    this.createCharacterlink = new Hyperlink("create Character", HistoryStates.CREATE_CHARACTER_STATE);
 
-    this.registerlink = new Hyperlink("register", REGISTER_STATE);    
+    this.registerlink = new Hyperlink("register", HistoryStates.REGISTER_STATE);    
 
     this.loggedin = false;
     
@@ -150,14 +150,14 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
   @Override
   public void onHistoryChanged(String historyToken) {
 
-    if (LOGIN_STATE.equals(historyToken)) {
+    if (HistoryStates.LOGIN_STATE.equals(historyToken)) {
       loadLoginPanel();
-    } else if (LOGOUT_STATE.equals(historyToken)) {
+    } else if (HistoryStates.LOGOUT_STATE.equals(historyToken)) {
       loadLogoutPanel();
-    } else if (WELCOME_STATE.equals(historyToken)) {
+    } else if (HistoryStates.WELCOME_STATE.equals(historyToken)) {
       loadWelcomePanel();
 
-    } else if (CREATE_CHARACTER_STATE.equals(historyToken)) {
+    } else if (HistoryStates.CREATE_CHARACTER_STATE.equals(historyToken)) {
       if (isLoggedin()) {
         loadCreateCharacter();
       } else {
@@ -165,7 +165,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
         showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
         History.newItem("welcome");
       }
-    } else if (REGISTER_STATE.equals(historyToken)) {
+    } else if (HistoryStates.REGISTER_STATE.equals(historyToken)) {
       loadRegisterPanel();
     }
   }
@@ -215,21 +215,21 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
 
   public Hyperlink getLogoutlink() {
     if (logoutlink == null) {
-      logoutlink = new Hyperlink("logout", LOGOUT_STATE);
+      logoutlink = new Hyperlink("logout", HistoryStates.LOGOUT_STATE);
     }
     return logoutlink;
   }
 
   public Hyperlink getLoginlink() {
     if (loginlink == null) {
-      loginlink = new Hyperlink("login", LOGIN_STATE);
+      loginlink = new Hyperlink("login", HistoryStates.LOGIN_STATE);
     }
     return loginlink;
   }
 
   public Hyperlink getCreateCharacterlink() {
     if (createCharacterlink == null) {
-      createCharacterlink = new Hyperlink("create Character", CREATE_CHARACTER_STATE);
+      createCharacterlink = new Hyperlink("create Character", HistoryStates.CREATE_CHARACTER_STATE);
 
     }
 
@@ -238,7 +238,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, HistoryStat
 
   public Hyperlink getRegisterlink() {
     if (registerlink == null) {
-      registerlink = new Hyperlink("register", REGISTER_STATE);
+      registerlink = new Hyperlink("register", HistoryStates.REGISTER_STATE);
     }
     return registerlink;
   }

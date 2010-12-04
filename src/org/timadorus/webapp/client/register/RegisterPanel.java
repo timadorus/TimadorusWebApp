@@ -1,6 +1,5 @@
 package org.timadorus.webapp.client.register;
 
-import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.RegisterService;
@@ -26,7 +25,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 //FormPanel for Registering
 @SuppressWarnings("deprecation")
-public class RegisterPanel extends FormPanel implements HistoryListener, HistoryStates {
+public class RegisterPanel extends FormPanel implements HistoryListener {
 
   Grid grid = new Grid(9, 3);
 
