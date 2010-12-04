@@ -112,7 +112,8 @@ public final class Character implements Serializable {
     statList.add(s11);
     Stat s12 = new Stat("Aussehen", "aussehen");
     
-    int randomInt = (int) Math.floor((Math.random() * 100) + 1);
+    final int times = 100;
+    int randomInt = (int) Math.floor((Math.random() * times) + 1);
     s12.setTempStat(randomInt);
     statList.add(s12);
   }

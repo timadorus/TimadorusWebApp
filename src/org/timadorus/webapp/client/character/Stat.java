@@ -23,6 +23,8 @@ public class Stat implements Serializable {
   @Persistent
   Integer potStat = new Integer(-1);
   
+  private final int initialTempStat = 30;
+  
 
   public Stat() {
 
@@ -32,7 +34,7 @@ public class Stat implements Serializable {
 
     this.name = nameIn;
     this.description = descriptionIn;
-    this.tempStat = 30;
+    this.tempStat = this.initialTempStat;
     this.potStat = 0;
   }
 

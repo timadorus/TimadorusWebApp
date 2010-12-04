@@ -35,8 +35,11 @@ import com.google.gwt.user.client.ui.TextBox;
 @SuppressWarnings("deprecation")
 public class LoginPanel extends FormPanel implements HistoryListener {
 
-
-  private Grid grid = new Grid(4, 2);
+  private final int rows = 4;
+  
+  private final int columns = 2;
+  
+  private Grid grid = new Grid(rows, columns);
 
   private TextBox userBox = new TextBox();
 
@@ -172,6 +175,7 @@ public class LoginPanel extends FormPanel implements HistoryListener {
 
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
           public void onSuccess(String result) {
+            final int maxAttempts = 4;
             if (result != null) {
               if (result.equals(User.USER_INACTIVE)) {
                 loginInvalid("User ist deaktiviert!");
@@ -195,7 +199,7 @@ public class LoginPanel extends FormPanel implements HistoryListener {
 
                 gettimadorus().setLoggedin(false);
                 System.out.println("logincounter " + logincounter);
-                if (logincounter < 4) {
+                if (logincounter < maxAttempts) {
                   History.newItem("login");
                 } else {
                   History.newItem("welcome");

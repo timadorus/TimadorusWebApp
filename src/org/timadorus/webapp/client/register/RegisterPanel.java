@@ -26,8 +26,12 @@ import com.google.gwt.user.client.ui.TextBox;
 //FormPanel for Registering
 @SuppressWarnings("deprecation")
 public class RegisterPanel extends FormPanel implements HistoryListener {
+  
+  private final int rows = 9;
+  
+  private final int columns = 3;
 
-  Grid grid = new Grid(9, 3);
+  Grid grid = new Grid(rows, columns);
 
   Button submit = new Button("Registrieren");
 

@@ -286,7 +286,8 @@ public class Skill implements Serializable, Cloneable {
 
   public final String[] getGesamtInfo() {
     int i = 0;
-    overallInformation = new String[8];
+    final int arraySize = 8;
+    overallInformation = new String[arraySize];
     overallInformation[i++] = this.name;
     overallInformation[i++] = "" + this.cost;
     overallInformation[i++] = "" + this.rank;

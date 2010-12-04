@@ -7,7 +7,16 @@
 <suppressions>
     <!-- Big testing methods -->
     <suppress checks="ExecutableStatementCount" files="TestCharacterValues.java" />
-	    
-    <!-- the StatRecord structure needs a fully initializing CTOR -->
-    <suppress checks="ParameterNumber" files="Skill.java" />
+    
+    <!-- All the numbers are IDs and levels -->
+    <suppress checks="MagicNumber" files="TestCharacterValues.java" />
+    
+    <!-- All the numbers are rows, columns, positions, sizes -->
+    <suppress checks="MagicNumber" files="RegisterPanel.java" />
+    <suppress checks="MagicNumber" files="LoginPanel.java" />
+    <suppress checks="MagicNumber" files="SelectTempStatsPanel.java" />
+    <suppress checks="MagicNumber" files="SelectSkillPanel.java" />
+    <suppress checks="MagicNumber" files="SelectSkillLevel1Panel.java" />
+    <suppress checks="MagicNumber" files="GetPotStatsPanel.java" />
+
 </suppressions>

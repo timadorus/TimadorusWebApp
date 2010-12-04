@@ -124,7 +124,8 @@ public class GetPotStatsPanel extends FormPanel {
   public void calculatePotStats() {
     for (int i = 0; i < 11; i++) {
       //random w100 calculation for dummy tests
-      int potStat = (int) Math.floor((Math.random() * 100) + 1);
+      final int times = 100;
+      int potStat = (int) Math.floor((Math.random() * times) + 1);
       potStats.add(i, potStat);
     }
   }
