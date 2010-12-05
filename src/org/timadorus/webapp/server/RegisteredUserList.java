@@ -27,12 +27,7 @@ public final class RegisteredUserList {
   /**
    * Konstruktor muss PRIVATE bleiben -> Singelton-Pattern
    */
-  private RegisteredUserList() {
-    addUser(new User("test", "test", "test", "test", "test", "test"));
-    User test2 = new User("test2", "test2", "test2", "test2", "test2", "test2");
-    test2.setActive(true);
-    addUser(test2);
-  }
+  private RegisteredUserList() { }
 
   /**
    * Singelton-Pattern
@@ -136,15 +131,11 @@ public final class RegisteredUserList {
    * @return false, wenn Username bereits vergeben, true sonst
    */
   public Boolean addUser(User user) {
-   // addC(user);
     if (usernameAvailable(user.getUsername())) {
-      User u = new User();
-      
       PersistenceManager pm = PMF.getPersistenceManager();
       pm = PMF.getPersistenceManager();
       user.setActive(true);
       pm.makePersistent(user);
-      pm.makePersistent(u);
       System.out.println("Datastore: '" + user.getDisplayname() + "' hinzugefügt...");
       users.put(user.getUsername(), user);
       return true;
