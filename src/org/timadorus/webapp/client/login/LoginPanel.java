@@ -180,7 +180,7 @@ public class LoginPanel extends FormPanel implements HistoryListener {
               if (result.equals(User.USER_INACTIVE)) {
                 loginInvalid("User ist deaktiviert!");
                 History.newItem("welcome");
-                RootPanel.get("content").add( 
+                RootPanel.get("content").add(
                          new HTML("<div id=\"info\" class=\"info\">Der angegebene User ist deaktiviert. " 
                                   + "Das kann mehrere Gruende haben<br />(Anmerkung vom Programmierer: Welche denn? "
                                   + "Gesperrt durch Admin oder sowas? Oder ist damit gemeint 'Registriert, aber Mail "
