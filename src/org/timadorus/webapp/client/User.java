@@ -7,7 +7,6 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-import javax.jdo.annotations.Unique;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class User implements Serializable {
@@ -64,7 +63,6 @@ public class User implements Serializable {
   private String email = "";
 
   @Persistent
-  @Unique
   private String username = "";
 
   @Persistent
