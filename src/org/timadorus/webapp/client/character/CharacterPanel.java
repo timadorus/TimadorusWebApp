@@ -156,35 +156,39 @@ public class CharacterPanel extends FormPanel {
   }
 
   private static final HTML getCustomInformation() {
-    HTML information = new HTML("<h1>Eigener Charakter</h1><p>Die Wilden Lande sind eine raue Welt der Entbehrungen und"
-                                + "Gefahren, aber auch der Wunder und der Schönheit. Schroffe Felsen, schnee­bedeckte "
-                                + "Berge, reißende Flüsse, tiefe Wälder, feuerspuckende Vulkane, brodelnde Geysire, " 
-                                + "geheimnisvolle Tempel und furchtein­flößende Raubtiere wirst du hier finden. "
-                                + "Drachen, urtümliche Bestien von grausamer Kraft. Zurückgezogene Sippen wunderschöner"
-                                + ", tödlicher Amazonen. Und natürlich die Stämme der Barbaren, ihre Bündnisse und "
-                                + "Fehden, ihre Bruderkriege und Feldzüge in fremde Lande, ihre Fruchtbarkeitsfeste und"
-                                + " ihre große Drachenjagd.</p>Quelle: http://www.wildelande.de/spiel.html");
-    return information;
-  }
-
-  private static final HTML getPremadeInformation() {
-    HTML information = new HTML("<h1>Vorgefertigter Charakter</h1><p>Du bist ein echter MANN. Deine Arme sind dick wie "
-                                + "junge Bäume, dein Schwert kriegen die meisten nicht mal vom Boden hoch, und dein "
-                                + "Schwanz ist 25 cm lang. Kein Scheiß! Du durchschwimmst reißende Flüsse, erkletterst "
-                                + "Berge und jagst Tiger und Bären in den tiefen Wäldern deiner Heimat. Du metzelst "
-                                + "deine Feinde nieder wie Vieh und watest knöcheltief in ihrem Blut, und du fürchtest "
-                                + "keinen Gegner. Nach gewonnener Schlacht lässt du dich mit Met vollaufen und suchst "
-                                + "dir ein Weib, das dir einen bläst. Kurz: Du bist ein BARBAR!</p> Quelle: "
+    HTML information = new HTML("<h1>Eigener Charakter</h1><p>Die Wilden Lande sind eine raue Welt der "
+                                + "Entbehrungen und Gefahren, aber auch der Wunder und der Schönheit. "
+                                + "Schroffe Felsen, schnee­bedeckte Berge, reißende Flüsse, tiefe Wälder,"
+                                + "feuerspuckende Vulkane, brodelnde Geysire, geheimnisvolle Tempel und "
+                                + "furchtein­flößende Raubtiere wirst du hier finden. Drachen, urtümliche"
+                                + " Bestien von grausamer Kraft. Zurückgezogene Sippen wunderschöner"
+                                + ", tödlicher Amazonen. Und natürlich die Stämme der Barbaren, ihre "
+                                + "Bündnisse und Fehden, ihre Bruderkriege und Feldzüge in fremde Lande, "
+                                + "ihre Fruchtbarkeitsfeste und ihre große Drachenjagd.</p>Quelle: "
                                 + "http://www.wildelande.de/spiel.html");
     return information;
   }
 
+  private static final HTML getPremadeInformation() {
+    HTML information = new HTML("<h1>Vorgefertigter Charakter</h1><p>Du bist ein echter MANN. Deine Arme "
+                                + "sind dick wie junge Bäume, dein Schwert kriegen die meisten nicht mal "
+                                + "vom Boden hoch, und dein Schwanz ist 25 cm lang. Kein Scheiß! Du "
+                                + "durchschwimmst reißende Flüsse, erkletterst Berge und jagst Tiger und "
+                                + "Bären in den tiefen Wäldern deiner Heimat. Du metzelst deine Feinde "
+                                + "nieder wie Vieh und watest knöcheltief in ihrem Blut, und du fürchtest "
+                                + "keinen Gegner. Nach gewonnener Schlacht lässt du dich mit Met vollaufen "
+                                + "und suchst dir ein Weib, das dir einen bläst. Kurz: Du bist ein "
+                                + "BARBAR!</p> Quelle: http://www.wildelande.de/spiel.html");
+    return information;
+  }
+
   private static final HTML getInformation() {
-    HTML information = new HTML("<h1>Charaktervorauswahl</h1><p>Wähle zwischen einem von drei vorgefertigten "
-                                + "Charakteren oder wage das Abenteuer und erstelle deinen eigenen Charakter!</p><p>"
-                                + "Erstellen dir deinen eigenen Charkter. Wähle aus über 10 Rassen, 50 Klassen und über"
-                                + " 100 Fähigkeiten diejenigen aus, die deinen Charakter am besten stehen.</p><p>Oder "
-                                + "wähle einen der vorgefertigten Charaktere und beginne dein Abenteuer sofort</p><p>Es"
+    HTML information = new HTML("<h1>Charaktervorauswahl</h1><p>Wähle zwischen einem von drei "
+                                + "vorgefertigten Charakteren oder wage das Abenteuer und erstelle deinen "
+                                + "eigenen Charakter!</p><p> Erstellen dir deinen eigenen Charkter. Wähle "
+                                + "aus über 10 Rassen, 50 Klassen und über 100 Fähigkeiten diejenigen aus, "
+                                + "die deinen Charakter am besten stehen.</p><p>Oder wähle einen der "
+                                + "vorgefertigten Charaktere und beginne dein Abenteuer sofort</p><p>Es"
                                 + " ist deine Entscheidung!</p>");
     return information;
   }

@@ -210,26 +210,27 @@ public class PremadeCharacterPanel extends FormPanel {
 
   //return and stores information for this panel
   private static final HTML getBarbarianInformation() {
-    HTML information = new HTML("<h1>Der Barbar</h1><p>Die Wilden Lande sind eine raue Welt der Entbehrungen und "
-                                + "Gefahren, aber auch der Wunder und der Schönheit. Schroffe Felsen, schnee­bedeckte "
-                                + "Berge, reißende Flüsse, tiefe Wälder, feuerspuckende Vulkane, brodelnde Geysire, "
-                                + "geheimnisvolle Tempel und furchtein­flößende Raubtiere wirst du hier finden. "
-                                + "Drachen, urtümliche Bestien von grausamer Kraft. Zurückgezogene Sippen "
-                                + "wunderschöner, tödlicher Amazonen. Und natürlich die Stämme der Barbaren, ihre "
-                                + "Bündnisse und Fehden, ihre Bruderkriege und Feldzüge in fremde Lande, ihre "
-                                + "Fruchtbarkeitsfeste und ihre große Drachenjagd.</p>Quelle: "
-                                + "http://www.wildelande.de/spiel.html");
+    HTML information = new HTML("<h1>Der Barbar</h1><p>Die Wilden Lande sind eine raue Welt der Entbehrungen "
+                                + "und Gefahren, aber auch der Wunder und der Schönheit. Schroffe Felsen, "
+                                + "schnee­bedeckte Berge, reißende Flüsse, tiefe Wälder, feuerspuckende "
+                                + "Vulkane, brodelnde Geysire, geheimnisvolle Tempel und furchtein­flößende "
+                                + "Raubtiere wirst du hier finden. Drachen, urtümliche Bestien von grausamer "
+                                + "Kraft. Zurückgezogene Sippen wunderschöner, tödlicher Amazonen. Und "
+                                + "natürlich die Stämme der Barbaren, ihre Bündnisse und Fehden, ihre "
+                                + "Bruderkriege und Feldzüge in fremde Lande, ihre Fruchtbarkeitsfeste "
+                                + "und ihre große Drachenjagd.</p>Quelle: http://www.wildelande.de/spiel.html");
     return information;
   }
   
   //returns and stores information about class wizzard
   private static final HTML getWizzardInformation() {
-    HTML information = new HTML("<h1>Der Zauberer</h1><p>Du bist ein echter MANN. Deine Arme sind dick wie junge Bäume,"
-                                + " dein Schwert kriegen die meisten nicht mal vom Boden hoch, und dein Schwanz ist 25 "
-                                + "cm lang. Kein Scheiß! Du durchschwimmst reißende Flüsse, erkletterst Berge und jagst"
-                                + " Tiger und Bären in den tiefen Wäldern deiner Heimat. Du metzelst deine Feinde "
-                                + "nieder wie Vieh und watest knöcheltief in ihrem Blut, und du fürchtest keinen "
-                                + "Gegner. Nach gewonnener Schlacht lässt du dich mit Met vollaufen und suchst dir ein "
+    HTML information = new HTML("<h1>Der Zauberer</h1><p>Du bist ein echter MANN. Deine Arme sind dick wie "
+                                + "junge Bäume, dein Schwert kriegen die meisten nicht mal vom Boden hoch, "
+                                + "und dein Schwanz ist 25cm lang. Kein Scheiß! Du durchschwimmst reißende "
+                                + "Flüsse, erkletterst Berge und jagst Tiger und Bären in den tiefen "
+                                + "Wäldern deiner Heimat. Du metzelst deine Feinde nieder wie Vieh und "
+                                + "watest knöcheltief in ihrem Blut, und du fürchtest keinen Gegner. Nach "
+                                + "gewonnener Schlacht lässt du dich mit Met vollaufen und suchst dir ein "
                                 + "Weib, das dir einen bläst. Kurz: Du bist ein BARBAR!</p> "
                                 + "Quelle: http://www.wildelande.de/spiel.html");
     return information;

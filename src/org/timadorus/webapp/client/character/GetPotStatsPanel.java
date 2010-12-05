@@ -149,8 +149,8 @@ public class GetPotStatsPanel extends FormPanel {
   //returns and hols current panel information
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Attribute bekommen</h1><p>Ausgehend von ihren Wahl der temporären Attribute, "
-                                + "erhalten sie hier zusätzliche Punkte.</p><p>Diese Punkte werden anhand einer Tabelle"
-                                + " ausgewürfelt.</p>");
+                                + "erhalten sie hier zusätzliche Punkte.</p><p>Diese Punkte werden anhand einer "
+                                + "Tabelle ausgewürfelt.</p>");
     return information;
   }
 

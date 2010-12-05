@@ -70,8 +70,8 @@ public class TestCharacterValues {
     CClass class1 = new CClass();
     class1.setName("Gärtner");
     class1
-        .setDescription("Der Garten ist dein Leben. Keine Straßen, keine Autos, kein Lärm. Nur Bäume und Gräser und "
-                        + "so.");
+        .setDescription("Der Garten ist dein Leben. Keine Straßen, keine Autos, kein Lärm. Nur Bäume und "
+                        + "Gräser und so.");
     class1.addFaction(fac8);
     class1.addFaction(fac7);
     class1.addFaction(fac6);
@@ -81,8 +81,8 @@ public class TestCharacterValues {
     CClass class2 = new CClass();
     class2.setName("Hühnerdieb");
     class2
-        .setDescription("Hühnerdiebe sind enorm schnelle Viecher, die vorwiegen in Hühnerstellen rumhängen oder an " 
-                        + "Grillimbissen");
+        .setDescription("Hühnerdiebe sind enorm schnelle Viecher, die vorwiegen in Hühnerstellen rumhängen "
+                        + "oder an Grillimbissen");
     class2.addFaction(fac1);
     class2.addFaction(fac2);
     class2.addFaction(fac4);
@@ -138,24 +138,26 @@ public class TestCharacterValues {
 
     CClass c2 = new CClass(
                            "Upper middle class",
-                           "Highly educated (often with graduate degrees), most commonly salaried, professionals and "
-                           + "middle management with large work autonomy. "
+                           "Highly educated (often with graduate degrees), most commonly salaried, "
+                           + "professionals and middle management with large work autonomy. "
                            + "Source: http://en.wikipedia.org/wiki/Social_class");
     c2.addFaction(fac4);
     c2.addFaction(fac7);
     c2.addFaction(fac5);
     CClass c3 = new CClass(
                            "Working class",
-                           "Clerical and most blue collar workers whose work is highly routinized. Standard of living "
-                           + "varies depending on number of income earners, but is commonly just adequate. High school "
-                           + "education. Source: http://en.wikipedia.org/wiki/Social_class");
+                           "Clerical and most blue collar workers whose work is highly routinized. "
+                           + "Standard of living varies depending on number of income earners, but "
+                           + "is commonly just adequate. High school education. Source: "
+                           + "http://en.wikipedia.org/wiki/Social_class");
     c3.addFaction(fac4);
     c3.addFaction(fac2);
     c3.addFaction(fac1);
     CClass c4 = new CClass(
                            "Underclass",
-                           "Those with limited or no participation in the labor force. Reliant on government transfers."
-                           + " Some high school education. Source: http://en.wikipedia.org/wiki/Social_class");
+                           "Those with limited or no participation in the labor force. Reliant on "
+                           + "government transfers. Some high school education. Source: "
+                           + "http://en.wikipedia.org/wiki/Social_class");
     c4.addFaction(fac4);
     c4.addFaction(fac2);
     c4.addFaction(fac1);
@@ -239,9 +241,10 @@ public class TestCharacterValues {
     Race r1 = new Race(
                        new Long(001),
                        "Race-Almas",
-                       "The Almas, Mongolian for \"wild man,\" is a purported hominid cryptozoological species reputed"
-                       + " to inhabit the Caucasus and Pamir Mountains of central Asia, and the Altai Mountains of "
-                       + "southern Mongolia. Source: http://en.wikipedia.org/wiki/Almas_%28cryptozoology%29");
+                       "The Almas, Mongolian for \"wild man,\" is a purported hominid cryptozoological "
+                       + "species reputed to inhabit the Caucasus and Pamir Mountains of central Asia, "
+                       + "and the Altai Mountains of southern Mongolia. "
+                       + "Source: http://en.wikipedia.org/wiki/Almas_%28cryptozoology%29");
     r1.addClass(c1);
     r1.addFaction(fac7);
     r1.addFaction(fac6);
@@ -249,16 +252,16 @@ public class TestCharacterValues {
     Race r2 = new Race(
                        new Long(002),
                        "Race-Amomongo",
-                       "The Amomongo is a creature of Philippine mythology described as hairy, man-sized and ape-like "
-                       + "with long nails. Source: http://en.wikipedia.org/wiki/Amomongo");
+                       "The Amomongo is a creature of Philippine mythology described as hairy, man-sized "
+                       + "and ape-like with long nails. Source: http://en.wikipedia.org/wiki/Amomongo");
     r2.addClass(c2);
     r2.addFaction(fac5);
     r2.addFaction(fac3);
 
     Race r3 = new Race(new Long(003),
                        "Race-Chuchunya",
-                       "Chuchunya is a hominid cryptid rumoured to exist in Siberia, Russia. It has been described as "
-                       + "six to seven feet tall and covered with dark hair. Source: "
+                       "Chuchunya is a hominid cryptid rumoured to exist in Siberia, Russia. It has been "
+                       + "described as six to seven feet tall and covered with dark hair. Source: "
                        + "http://en.wikipedia.org/wiki/Tjutjuna");
 
     r3.addClass(c3);
@@ -267,10 +270,11 @@ public class TestCharacterValues {
 
     Race r4 = new Race(new Long(004),
                        "Race-Yeti",
-                       "The Yeti or Abominable Snowman is a creature and an ape-like cryptid said to inhabit the "
-                       + "Himalayan region of Nepal and Tibet. The names Yeti and Meh-Teh are commonly used by the "
-                       + "people indigenous to the region,[1] and are part of their history and mythology. Stories of "
-                       + "the Yeti first emerged as a facet of Western popular culture in the 19th century. "
+                       "The Yeti or Abominable Snowman is a creature and an ape-like cryptid said to "
+                       + "inhabit the Himalayan region of Nepal and Tibet. The names Yeti and Meh-Teh "
+                       + "are commonly used by the people indigenous to the region,[1] and are part "
+                       + "of their history and mythology. Stories of the Yeti first emerged as a facet "
+                       + "of Western popular culture in the 19th century. "
                        + "Source: http://en.wikipedia.org/wiki/Yeti");
 
     r4.addClass(c4);
@@ -300,10 +304,11 @@ public class TestCharacterValues {
                           "Acrobatics",
                           "en-US",
                           true,
-                          "Acrobatic traditions are found in many Western cultures as well. Minoan art from circa 2000 "
-                          + "BC contains depictions of acrobatic feats on the backs of bulls, which may have been a "
-                          + "religious ritual.[3] The noble court displays of the European Middle Ages would often "
-                          + "include acrobatic performances along with song, juggling and other activities. "
+                          "Acrobatic traditions are found in many Western cultures as well. Minoan art "
+                          + "from circa 2000 BC contains depictions of acrobatic feats on the backs of "
+                          + "bulls, which may have been a religious ritual.[3] The noble court displays "
+                          + "of the European Middle Ages would often include acrobatic performances "
+                          + "along with song, juggling and other activities. "
                           + "\nSource: http://en.wikipedia.org/wiki/Acrobatics",
                           5, 3, 6, 9, 10, 40);
     // int Cost, int Rank, int Rk_Bn, int Stat_Bn, int Level_Bn, int Item, int Total) {
@@ -326,9 +331,10 @@ public class TestCharacterValues {
                           "Acting",
                           "en-US",
                           true,
-                          "Acting is the work of an actor or actress, which is a person in theatre or any other "
-                          + "storytelling medium who tells the story by portraying a character and, usually, speaking "
-                          + "or singing the written text or play. \nSource: http://en.wikipedia.org/wiki/Acting",
+                          "Acting is the work of an actor or actress, which is a person in theatre "
+                          + "or any other storytelling medium who tells the story by portraying a "
+                          + "character and, usually, speaking or singing the written text or play. "
+                          + "\nSource: http://en.wikipedia.org/wiki/Acting",
                           9, 6, 4, 10, 2, 40);
 
     Skill sk3 = new Skill(
@@ -342,11 +348,12 @@ public class TestCharacterValues {
                           "en-US",
                           true,
                           "They include equines such as horses, ponies, donkeys,\n and mules; elephants; "
-                          + "ostriches[citation needed];\nyaks; and camels. Dromedaries (with one hump) live in arid "
-                          + "areas of Australia, \nNorth Africa and the Middle East; the far rarer Bactrian camel "
-                          + "\ninhabits central and East Asia; both are used for \ntransportation and haulage."
-                          + "\n\nSome mythical creatures \nare believed to act as divine mounts, such as \ngaruda "
-                          + "in Hinduism and the winged horse Pegasus in \nGreek mythology. "
+                          + "ostriches[citation needed];\nyaks; and camels. Dromedaries (with one hump) "
+                          + "live in arid areas of Australia, \nNorth Africa and the Middle East; the "
+                          + "far rarer Bactrian camel \ninhabits central and East Asia; both are used "
+                          + "for \ntransportation and haulage.\n\nSome mythical creatures \nare believed "
+                          + "to act as divine mounts, such as \ngaruda in Hinduism and the winged horse "
+                          + "Pegasus in \nGreek mythology. "
                           + "Source: http://en.wikipedia.org/wiki/Riding_animal#Riding_animals_or_mounts ",
                           11, 2, 6, 10, 3, 30);
 
@@ -377,13 +384,14 @@ public class TestCharacterValues {
                           "Swordsmanship",
                           "en-US",
                           true,
-                          "Swordsmanship refers to the skills of a swordsman, a person versed in the art of the sword. "
-                          + "The term is modern, and as such was mainly used to refer to smallsword fencing, but by "
-                          + "extension it can also be applied to any martial art involving the use of a sword. "
-                          + "The formation of the English word \"swordsman\" is parallel to the Latin word "
-                          + "gladiator[1], a term for the professional fighters who fought against each other and a "
-                          + "variety of other foes for the entertainment of spectators in the Roman Empire. "
-                          + "The word gladiator itself comes from the Latin word gladius, meaning \"sword\"[1]. "
+                          "Swordsmanship refers to the skills of a swordsman, a person versed in the "
+                          + "art of the sword. The term is modern, and as such was mainly used to refer "
+                          + "to smallsword fencing, but by extension it can also be applied to any martial "
+                          + "art involving the use of a sword. The formation of the English word "
+                          + "\"swordsman\" is parallel to the Latin word gladiator[1], a term for the "
+                          + "professional fighters who fought against each other and a variety of other "
+                          + "foes for the entertainment of spectators in the Roman Empire. The word "
+                          + "gladiator itself comes from the Latin word gladius, meaning \"sword\"[1]. "
                           + "Source: http://en.wikipedia.org/wiki/Swordsmanship",
                           12, 8, 4, 17, 22, 40);
     
@@ -398,12 +406,12 @@ public class TestCharacterValues {
                             "Rüstungsschmiede",
                             "de",
                             true,
-                            "Rüstungsschmiede sind NSC, die für die Spieler Rüstungen herstellen. Sie können in den "
-                            + "meisten Städten gefunden werden, wobei es aber auch einge gibt, die sich in Instanzen "
-                            + "selbst aufhalten. Sie alle haben gemein, dass sie nur im Austausch gegen Gold und "
-                            + "Handwerksmaterialien arbeiten. Dabei steigen die Kosten je nach Art der Rüstung stark "
-                            + "an, was zum Teil auch von den Verwendeten Materialien abhängig ist. "
-                            + "Source: http://www.guildwiki.de/wiki/R%C3%BCstungsschmied",
+                            "Rüstungsschmiede sind NSC, die für die Spieler Rüstungen herstellen. Sie können "
+                            + "in den meisten Städten gefunden werden, wobei es aber auch einge gibt, die sich "
+                            + "in Instanzen selbst aufhalten. Sie alle haben gemein, dass sie nur im Austausch "
+                            + "gegen Gold und Handwerksmaterialien arbeiten. Dabei steigen die Kosten je nach "
+                            + "Art der Rüstung stark an, was zum Teil auch von den Verwendeten Materialien "
+                            + "abhängig ist. Source: http://www.guildwiki.de/wiki/R%C3%BCstungsschmied",
                             20, 18, 14, 4, 12, 20);
     
 
@@ -418,10 +426,11 @@ public class TestCharacterValues {
                             "de",
                             true,
                             "Ein Zauberstabskämpfer ist ein Kämpfer, der als Waffe Zauberstäbe einsetzt u. mit "
-                            + "deren Magie umgehen kann.\nDer Zauberstab dient dem Magier im Ritual, die speziellen "
-                            + "magischen Energien in die gewünschte Richtung zu lenken, z.b wird damit auf ein Foto "
-                            + "der Person gezeigt die verzaubert werden soll. Außerdem symbolisiert der Zauberstab "
-                            + "den Willen des Zaubernden. Source: http://de.wikipedia.org/wiki/Zauberstab",
+                            + "deren Magie umgehen kann.\nDer Zauberstab dient dem Magier im Ritual, die "
+                            + "speziellen magischen Energien in die gewünschte Richtung zu lenken, z.b wird damit "
+                            + "auf ein Foto der Person gezeigt die verzaubert werden soll. Außerdem symbolisiert "
+                            + "der Zauberstab den Willen des Zaubernden. "
+                            + "Source: http://de.wikipedia.org/wiki/Zauberstab",
                             18, 22, 17, 10, 13, 30);
     
     skillsLevel1.add(new Skill(skl11));

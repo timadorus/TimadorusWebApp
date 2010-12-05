@@ -104,6 +104,22 @@
 		</javac>
 	</target>
 
+	<!-- Task:test-checkstyle | Führt einen Checkstyle test aus -->
+	<taskdef resource="checkstyletask.properties" classpath="lib/checkstyle-5.2-all.jar" />
+	
+	<!-- Task:test-checkstyle | Führt einen Checkstyle test aus -->
+    <target name="test-checkstyle">
+    	<sequential>
+			<mkdir dir="${basedir}/test-results"/>
+            <checkstyle config="${basedir}/checkstyle.xml" failOnViolation="true">
+				<formatter type="plain" />
+    	        <formatter type="xml" toFile="${basedir}/test-results/checkstyle-log.xml" />
+    	        <fileset dir="${sourceDir}" includes="**/*.java" />
+    	        <!--property key="checkstyle.cache.file" file="${build.dir}/checkstyle-cache" /-->
+    	    </checkstyle>
+    	</sequential>
+    </target>
+
 
 	<!-- Task:enhance | Führt ein Byte-Enhancement auf die kompilierten Javaklassen aus -->
 	<target name="enhance" description="DataNucleus enhancement">
@@ -149,5 +165,5 @@
 
 
 	<!-- Task:build | Definiert den Ablauf der Taskaufrufe für den Build -->
-	<target name="build" depends="resolve,java-compile,enhance,gwt-compile" />
+	<target name="build" depends="resolve,java-compile,test-checkstyle,enhance,gwt-compile" />
 </project>

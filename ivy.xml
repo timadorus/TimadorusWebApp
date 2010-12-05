@@ -2,6 +2,13 @@
 
 	<!-- Name der Organisation und des Moduls -->
 	<info organisation="timadorus" module="webapp" />
+    
+    <!-- Erreichbare Konfigurationen -->
+    <configurations>
+     	<conf name="compile"/>
+     	<conf name="runtime"/>
+     	<conf name="testing" visibility="private" extends="compile"/>
+    </configurations>    
 
 	<!-- Hier beschreiben wir die Abhängigkeiten -->
 	<dependencies>
@@ -20,6 +27,6 @@
 		<dependency org="org.apache.derby" name="derbytools" rev="10.6.2.1" conf="*->default" />
 		
 		<!-- Checkstyle -->
-		<dependency org="checkstyle" name="checkstyle" rev="5.1" />
+		<dependency org="checkstyle" name="checkstyle" rev="5.1" conf="testing->runtime" />
 	</dependencies>
 </ivy-module>
