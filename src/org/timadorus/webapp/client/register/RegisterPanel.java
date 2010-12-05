@@ -216,23 +216,17 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
         RegisterServiceAsync registerServiceAsync = GWT.create(RegisterService.class);
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
           public void onSuccess(String result) {
-            if (result != null) { // &&
-              // result.equals(String.valueOf(Registration.OK))){
+            if (result != null) {
               int value = Integer.parseInt(result);
               if (value == User.OK) {
                 RootPanel.get("content").clear();
-                // RootPanel.get("content").add(new
-                // Label("Registriert..."));
                 History.newItem("welcome");
               } else {
                 if (value >= User.PASSWORD_FAULT) {
                   value -= User.PASSWORD_FAULT;
-                  // Derzeit nicht genutzt; darf nicht
-                  // vorkommen
-                  // registerInvalid("");
                 }
                 if (value >= User.USERNAME_FAULT) {
-                  value -= User.USERNAME_FAULT;
+                  value -= User.USERNAME_FAULT; 
                   registerInvalid(User.USERNAME_FAULT);
                 }
                 if (value >= User.EMAIL_FORMAT) {

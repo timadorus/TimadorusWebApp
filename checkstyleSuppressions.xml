@@ -5,6 +5,13 @@
     "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
 
 <suppressions>
+	<!-- Ajax-Communication requires that big inner classes containing the callback function for Async-Response -->
+    <suppress checks="AnonInnerLength" files="RegisterPanel.java" />
+    <suppress checks="AnonInnerLength" files="LoginPanel.java" />
+
+	<!-- Constructor method requires all Parameters for simple test creation -->
+    <suppress checks="ParameterNumber" files="Skill.java" />
+
     <!-- Big testing methods -->
     <suppress checks="ExecutableStatementCount" files="TestCharacterValues.java" />
     
