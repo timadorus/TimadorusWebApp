@@ -2,6 +2,7 @@ package org.timadorus.webapp.client;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -47,30 +48,47 @@ public class User implements Serializable {
 
   public static final String USER_INACTIVE = "INACTIVE";
 
+  private final int nameSize = 50;
+  
+  private final int passwordSize = 50;
+  
+  private final int dateSize = 10;
+  
+  private final int emailSize = 50;
+  
+  private final int usernameSize = 20;
+  
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   private Long id;
 
   @Persistent
+  @Column(length = nameSize)
   private String vorname = "";
 
   @Persistent
+  @Column(length = nameSize)
   private String nachname = "";
 
   @Persistent
+  @Column(length = dateSize)
   private String geburtstag = "";
 
   @Persistent
+  @Column(length = emailSize)
   private String email = "";
 
   @Unique
   @Persistent
+  @Column(length = usernameSize)
   private String username = "";
 
   @Persistent
-  private String displayname = "";
-
+  @Column(length = usernameSize)
+  private String displayname = "";  
+  
   @Persistent
+  @Column(length = passwordSize)
   private String password = "";
 
   @Persistent
