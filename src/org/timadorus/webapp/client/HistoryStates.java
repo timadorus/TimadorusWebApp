@@ -2,11 +2,11 @@ package org.timadorus.webapp.client;
 
 // States of the Browsing history
 // Status für nächste Seite
-public final class HistoryStates {
-  
-  private HistoryStates() {
-    
-  }
+
+// Turn checkstyle off, because this design pattern is necessary for
+// this project
+// CHECKSTYLE OFF
+interface HistoryStates {
   
   public static final String LOGIN_STATE = "login";
 
@@ -19,3 +19,4 @@ public final class HistoryStates {
   public static final String LOGOUT_STATE = "logout";
   
 }
+// CHECKSTYLE ON
