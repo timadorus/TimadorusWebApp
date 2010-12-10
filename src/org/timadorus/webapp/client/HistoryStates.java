@@ -18,5 +18,7 @@ interface HistoryStates {
   
   public static final String LOGOUT_STATE = "logout";
   
+  public static final String PROFILE_STATE = "profile";
+  
 }
 // CHECKSTYLE ON

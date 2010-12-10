@@ -3,6 +3,7 @@ package org.timadorus.webapp.client;
 import org.timadorus.webapp.client.character.CharacterPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 import org.timadorus.webapp.client.login.LoginPanel;
+import org.timadorus.webapp.client.profile.ProfilePanel;
 import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.rpc.service.SessionService;
 import org.timadorus.webapp.client.rpc.service.SessionServiceAsync;
@@ -40,6 +41,8 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   private Hyperlink createCharacterlink;
 
   private Hyperlink registerlink;
+  
+  private Hyperlink profilelink;
 
   private boolean loggedin = false;
   
@@ -50,13 +53,15 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     
     this.sessionId = new SessionId();
 
-    this.loginlink = new Hyperlink("login", LOGIN_STATE);
+    this.loginlink = new Hyperlink("Einloggen", LOGIN_STATE);
 
-    this.logoutlink = new Hyperlink("logout", LOGOUT_STATE);
+    this.logoutlink = new Hyperlink("Ausloggen", LOGOUT_STATE);
 
-    this.createCharacterlink = new Hyperlink("create Character", CREATE_CHARACTER_STATE);
+    this.createCharacterlink = new Hyperlink("Charakter erstellen", CREATE_CHARACTER_STATE);
 
-    this.registerlink = new Hyperlink("register", REGISTER_STATE);    
+    this.registerlink = new Hyperlink("Account registrieren", REGISTER_STATE); 
+    
+    this.profilelink = new Hyperlink("Profil bearbeiten", PROFILE_STATE);
 
     this.loggedin = false;
     
@@ -106,14 +111,15 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
       if (!LoginPanel.getLoginPanel(sessionId, this).getUser().getActive()) {
         RootPanel.get("menu").add(new Label("Dein Account wurde noch nicht aktiviert"));
       }
-      RootPanel.get("menu").add(getLogoutlink());
       RootPanel.get("menu").add(getCreateCharacterlink());
-      RootPanel.get("menu").add(getRegisterlink());
+      RootPanel.get("menu").add(getProfilelink());
+      //RootPanel.get("menu").add(getRegisterlink());
+      RootPanel.get("menu").add(getLogoutlink());
     } else {
       System.out.println("Login status " + isLoggedin());
       RootPanel.get("menu").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));
       RootPanel.get("menu").add(getLoginlink());
-      RootPanel.get("menu").add(getCreateCharacterlink());
+      //RootPanel.get("menu").add(getCreateCharacterlink());
       RootPanel.get("menu").add(getRegisterlink());
     }
   }
@@ -154,6 +160,8 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
       loadLoginPanel();
     } else if (LOGOUT_STATE.equals(historyToken)) {
       loadLogoutPanel();
+    } else if (PROFILE_STATE.equals(historyToken)) {
+      loadProfilePanel();      
     } else if (WELCOME_STATE.equals(historyToken)) {
       loadWelcomePanel();
 
@@ -168,6 +176,13 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     } else if (REGISTER_STATE.equals(historyToken)) {
       loadRegisterPanel();
     }
+  }
+
+  private void loadProfilePanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Profil bearbeiten"));
+    RootPanel.get("content").add(ProfilePanel
+                                 .getProfilePanel(this, LoginPanel.getLoginPanel(sessionId, this).getUser()));
   }
 
   /**
@@ -218,6 +233,13 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
       logoutlink = new Hyperlink("logout", LOGOUT_STATE);
     }
     return logoutlink;
+  }
+  
+  public Hyperlink getProfilelink() {
+    if (profilelink == null) {
+      profilelink = new Hyperlink("profile", PROFILE_STATE);
+    }
+    return profilelink;
   }
 
   public Hyperlink getLoginlink() {
