@@ -1,8 +1,13 @@
 package org.timadorus.webapp.server.rpc.service;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import javax.jdo.Extent;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 
 import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.DeleteUserService;
@@ -17,8 +22,23 @@ public class DeleteUserServiceImpl  extends RemoteServiceServlet implements Dele
 
   public String delete(User user) {
     PersistenceManager pm = PMF.getPersistenceManager();
-    pm.deletePersistent(user);
-    System.out.println(user + " has been deleted from database");
+    
+    Extent<User> extent = pm.getExtent(User.class, true);
+
+    Query query = pm.newQuery(extent, "username == name");
+    query.declareParameters("String name");
+    
+    User found = null;
+
+    Iterator<User> iterator = ((Collection<User>) query.execute(user.getUsername())).iterator();
+    if (iterator.hasNext()) {
+      found = iterator.next();      
+    }
+    
+    pm.deletePersistent(found);
+    
+    System.out.println(found.getDisplayname() + " has been deleted from database!");
+    
     return String.valueOf(0);
   }
 
