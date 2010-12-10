@@ -11,14 +11,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class DeleteUserServiceImpl  extends RemoteServiceServlet implements DeleteUserService {
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = -2215579735797066083L;
   
   public static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
 
-  @Override
   public String delete(User user) {
     PersistenceManager pm = PMF.getPersistenceManager();
     pm.deletePersistent(user);
