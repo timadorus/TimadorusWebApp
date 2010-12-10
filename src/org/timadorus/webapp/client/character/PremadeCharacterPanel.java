@@ -1,9 +1,14 @@
 package org.timadorus.webapp.client.character;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -120,6 +125,31 @@ public class PremadeCharacterPanel extends FormPanel {
 //          } else if (selectBarbarian.getValue()) {
 //            character = Character.getBarbarian();
 //          }
+          character = new Character();
+          character.setName("Test");
+          character.setCharacterID("123");
+          character.setCharClass(new CClass("Class", "A Class"));
+          Faction fac = new Faction();
+          fac.setDescription("Bla");
+          final long fracId = (long) 111;
+          fac.setFractionID(fracId);
+          fac.setName("Faction");
+          final long raceId = (long) 222;
+          fac.setRace(new Race(raceId, "Race", "A Race"));
+          character.setFaction(fac);
+          character.setGender("Male");
+          final long key = (long) 333;
+          character.setKey(key);
+//          character.setPotStats(potStats);
+//          character.setSkillList(skillListIn);
+//          character.setSkillListLevel1(skillListLevel1In);
+//          character.setStatList(statListIn);
+//          character.setTempStat(tempStat);
+//          character.setTempStats(tempStatsIn);
+//          character.setUserIF(userIFIn);
+          character.setComplete(true);
+          character.setAllAttrInfo();          
+          sendToServer(character);
           loadCharacterReadyPanel(character);
           
         // handles prev button
@@ -129,6 +159,8 @@ public class PremadeCharacterPanel extends FormPanel {
 
       }
     }
+    
+    
 
     // headline
     HTML headline = new HTML("<h1>Charakterauswahl</h1>");
@@ -190,6 +222,23 @@ public class PremadeCharacterPanel extends FormPanel {
     wizzardLabel.addClickHandler(handler);
     hunterLabel.addClickHandler(handler);
 
+  }
+  
+  private void sendToServer(Character character) {
+    CreateCharacterServiceAsync createCharacterServiceAsync = GWT.create(CreateCharacterService.class);
+    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+      
+      public void onSuccess(String result) {
+        if (result != null) {         
+            History.newItem("welcome");
+        }
+      }
+      
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
+    };
+    createCharacterServiceAsync.createCharacter(character, asyncCallback);
   }
   
   //clear "content" #div and add Class CharacterReadyPanel to it

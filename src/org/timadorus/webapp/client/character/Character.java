@@ -27,7 +27,7 @@ import java.util.List;
  * Server for Storing in JDO-DB
  */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public final class Character implements Serializable {
+public class Character implements Serializable {
 
   private static final long serialVersionUID = -5074030667922748006L;
 
@@ -81,7 +81,7 @@ public final class Character implements Serializable {
   LinkedList<Integer> potStats = new LinkedList<Integer>();
   
   
-  private Character() {
+  Character() {
     super();
   }
 
