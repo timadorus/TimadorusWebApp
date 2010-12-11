@@ -142,6 +142,28 @@ public final class RegisteredUserList {
     }
     return false;
   }
+  
+  public Boolean deleteUser(User user) {
+    PersistenceManager pm = PMF.getPersistenceManager();    
+    Extent<User> extent = pm.getExtent(User.class, true);
+    Query query = pm.newQuery(extent, "username == name");
+    query.declareParameters("String name");    
+    User found = null;
+    Iterator<User> iterator = ((Collection<User>) query.execute(user.getUsername())).iterator();
+    if (iterator.hasNext()) {
+      found = iterator.next();      
+    }   
+    if (found == null) {
+      System.out.println("User " + found + " not found in database!");
+      return false;
+    } else {
+      pm.deletePersistent(found);
+      users.remove(user.getUsername());
+      // TODO: Delete user's characters    
+      System.out.println(found.getDisplayname() + " has been deleted from database!");    
+      return true;
+    }    
+  }
 
   public void addC(User u) {
 
