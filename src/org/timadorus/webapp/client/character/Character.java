@@ -12,6 +12,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.timadorus.webapp.client.User;
+
 
 //import com.google.appengine.api.datastore.Text;
 
@@ -38,8 +40,8 @@ public class Character implements Serializable {
   @Persistent
   String characterID = "999";
 
-  @NotPersistent
-  Long userIF = new Long(-1);
+  @Persistent
+  User user;
 
   @Persistent
   String name = "Dummy-Character";
@@ -47,37 +49,37 @@ public class Character implements Serializable {
   @Persistent
   String gender = "Dummy-Gender";
 
-  @NotPersistent
+  @Persistent
   Race race;
 
-  @NotPersistent
+  @Persistent
   CClass charClass;
 
-  @NotPersistent
+  @Persistent
   Faction faction;
 
-  @NotPersistent
+  @Persistent
   LinkedList<Stat> statList = new LinkedList<Stat>();
 
   @Persistent
   boolean complete = false;
 
-  @Persistent
+  @NotPersistent
   String allAttrInfoPart1 = "--";
 
-  @Persistent
+  @NotPersistent
   String allAttrInfoPart2 = "--";
   
-  @NotPersistent
+  @Persistent
   List<Skill> skillList = new ArrayList<Skill>();
   
-  @NotPersistent
+  @Persistent
   List<Skill> skillListLevel1 = new ArrayList<Skill>();
   
-  @NotPersistent
+  @Persistent
   List<Integer> tempStats = new ArrayList<Integer>();
   
-  @NotPersistent
+  @Persistent
   LinkedList<Integer> potStats = new LinkedList<Integer>();
   
   
@@ -168,12 +170,12 @@ public class Character implements Serializable {
     this.characterID = characterIDIn;
   }
 
-  public Long getUserIF() {
-    return userIF;
+  public User getUser() {
+    return user;
   }
 
-  public void setUserIF(Long userIFIn) {
-    this.userIF = userIFIn;
+  public void setUser(User userIn) {
+    this.user = userIn;
   }
 
   public boolean isComplete() {

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
@@ -28,11 +27,11 @@ public class CClass implements Serializable {
   @Persistent
   private String description = "--";
 
-  @NotPersistent
+  @Persistent
   private List<Faction> availableFactions1 = new ArrayList<Faction>();
 
-  @Persistent //braucht JDO für 1-to-n Relationship, beginnend von Race-Klasse
-  private Race race;
+//  @Persistent //braucht JDO für 1-to-n Relationship, beginnend von Race-Klasse
+//  private Race race;
 
 
   public CClass() {
@@ -69,13 +68,13 @@ public class CClass implements Serializable {
     this.availableFactions1.add(faction);
   }
 
-  public final Race getRace() {
-    return race;
-  }
-
-  public final void setRace(final Race raceIn) {
-    this.race = raceIn;
-  }
+//  public final Race getRace() {
+//    return race;
+//  }
+//
+//  public final void setRace(final Race raceIn) {
+//    this.race = raceIn;
+//  }
 
   public final Long getClassID() {
     return classID;

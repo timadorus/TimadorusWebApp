@@ -2,6 +2,7 @@ package org.timadorus.webapp.client.character;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
@@ -65,7 +66,9 @@ public class Skill implements Serializable, Cloneable {
   @Persistent
   private int total = 0;
 
-  @Persistent
+//  @Serialized
+//  @Persistent
+  @NotPersistent
   private String[] overallInformation;
 
 
