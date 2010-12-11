@@ -119,10 +119,10 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
           
           public void onSuccess(String result) {
             if (result != null) {
-              if (result == User.USER_INVALID) {
+              if (result.equals(User.USER_INVALID)) {
                 System.out.println("Unsuccessfully deleted");                
               }
-              if (result == String.valueOf(User.OK)) {
+              if (result.equals(String.valueOf(User.OK))) {
                 System.out.println("Successfully deleted");
               }
               History.newItem("welcome");
