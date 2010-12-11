@@ -19,7 +19,7 @@ public class CClass implements Serializable {
   private static final long serialVersionUID = -9162491221927969566L;
 
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  private Long classID = new Long(-1);
+  private Long cclassID = new Long(-1);
 
   @Persistent
   private String name = "--";
@@ -77,11 +77,11 @@ public class CClass implements Serializable {
 //  }
 
   public final Long getClassID() {
-    return classID;
+    return cclassID;
   }
 
   public final void setClassID(final Long classIDIn) {
-    this.classID = classIDIn;
+    this.cclassID = classIDIn;
   }
 
   public final void setAvailableFactions(

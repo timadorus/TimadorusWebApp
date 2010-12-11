@@ -14,7 +14,7 @@ public class Faction implements Serializable {
 
 
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  Long fractionID = new Long(-1);
+  Long factionID = new Long(-1);
 
   @Persistent
   String name = "--";
@@ -30,11 +30,11 @@ public class Faction implements Serializable {
   }
 
   public Long getFractionID() {
-    return fractionID;
+    return factionID;
   }
 
   public void setFractionID(Long fractionIDIn) {
-    this.fractionID = fractionIDIn;
+    this.factionID = fractionIDIn;
   }
 
   public String getName() {
