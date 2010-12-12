@@ -3,6 +3,7 @@ package org.timadorus.webapp.client.character;
 import java.util.ListIterator;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.User;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -24,6 +25,8 @@ public class SelectRacePanel extends FormPanel {
   final TimadorusWebApp entry;
 
   final Character character;
+  
+  User user;
 
   Button nextButton = new Button("weiter");
 
@@ -43,10 +46,11 @@ public class SelectRacePanel extends FormPanel {
 
   ListBox raceListBox = new ListBox();
 
-  public SelectRacePanel(final TimadorusWebApp entryIn, final Character characterIn) {
+  public SelectRacePanel(final TimadorusWebApp entryIn, final Character characterIn, User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
+    this.user = user;
 
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
@@ -172,7 +176,7 @@ public class SelectRacePanel extends FormPanel {
 
   public void loadCharacterPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(CharacterPanel.getCharacterPanel(entry));
+    RootPanel.get("content").add(CharacterPanel.getCharacterPanel(entry, user));
   }
 
   public void saveSelectedRace() {
@@ -185,7 +189,7 @@ public class SelectRacePanel extends FormPanel {
 
   public void loadSelectClassPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character));
+    RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character, user));
   }
 
   public Race getSelectedRace() {
@@ -203,8 +207,8 @@ public class SelectRacePanel extends FormPanel {
     return gender;
   }
 
-  public static SelectRacePanel getSelectRacePanel(TimadorusWebApp entry, Character character) {
-    return new SelectRacePanel(entry, character);
+  public static SelectRacePanel getSelectRacePanel(TimadorusWebApp entry, Character character, User user) {
+    return new SelectRacePanel(entry, character, user);
   }
 
   private static final HTML getInformation() {

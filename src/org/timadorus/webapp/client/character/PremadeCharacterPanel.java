@@ -28,6 +28,8 @@ import com.google.gwt.user.client.ui.Image;
 public class PremadeCharacterPanel extends FormPanel {
 
   TimadorusWebApp entry;
+  
+  User user;
 
   Button nextButton = new Button("weiter");
 
@@ -59,9 +61,10 @@ public class PremadeCharacterPanel extends FormPanel {
 
   Character character;
 
-  public PremadeCharacterPanel(TimadorusWebApp entryIn) {
+  public PremadeCharacterPanel(TimadorusWebApp entryIn, User user) {
     super();
     this.entry = entryIn;
+    this.user = user;
 
     // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
@@ -253,8 +256,7 @@ public class PremadeCharacterPanel extends FormPanel {
     character.setTempStats(tempStat);
     character.setComplete(true);
     character.setAllAttrInfo();
-    User user = new User("Vor", "Nach", "01.01.2001", "vornach@test.de", "vornach", "pass");
-    character.setUser(user);
+    character.setUsername(user.getUsername());
     return character;
   }
 
@@ -283,12 +285,12 @@ public class PremadeCharacterPanel extends FormPanel {
   //clear "content" #div and add Class CharacterPanel to it  
   public void loadCharacterPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(CharacterPanel.getCharacterPanel(entry));
+    RootPanel.get("content").add(CharacterPanel.getCharacterPanel(entry, user));
   }
 
   //return a new instance of PremadeCharacterPanel
-  public static PremadeCharacterPanel getPremadeCharacterPanel(TimadorusWebApp entry) {
-    return new PremadeCharacterPanel(entry);
+  public static PremadeCharacterPanel getPremadeCharacterPanel(TimadorusWebApp entry, User user) {
+    return new PremadeCharacterPanel(entry, user);
   }
 
   //return and stores information for this panel

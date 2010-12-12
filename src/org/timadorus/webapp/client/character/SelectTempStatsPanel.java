@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.User;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -24,6 +25,8 @@ public class SelectTempStatsPanel extends FormPanel {
   final TimadorusWebApp entry;
 
   final Character character;
+  
+  User user;
 
   HTML statPointLabel = new HTML("<h2>Verteilbare Punkte:</h2>");
 
@@ -69,10 +72,11 @@ public class SelectTempStatsPanel extends FormPanel {
 
   boolean isReady = false;
 
-  public SelectTempStatsPanel(final TimadorusWebApp entryIn, final Character characterIn) {
+  public SelectTempStatsPanel(final TimadorusWebApp entryIn, final Character characterIn, User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
+    this.user = user;
 
     // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
@@ -292,18 +296,18 @@ public class SelectTempStatsPanel extends FormPanel {
   // clear "content" #div and add Class SelectFactionPanel to it
   public void loadSelectFactionPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
+    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character, user));
   }
 
   // clear "content" #div and add Class GetPotStatsPanel to it
   public void loadGetPotStatsPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(GetPotStatsPanel.getGetPotStatsPanel(entry, character));
+    RootPanel.get("content").add(GetPotStatsPanel.getGetPotStatsPanel(entry, character, user));
   }
 
   // creates a new SelectTempStats instance
-  public static SelectTempStatsPanel getSelectTempStatsPanel(TimadorusWebApp entry, Character character) {
-    return new SelectTempStatsPanel(entry, character);
+  public static SelectTempStatsPanel getSelectTempStatsPanel(TimadorusWebApp entry, Character character, User user) {
+    return new SelectTempStatsPanel(entry, character, user);
   }
 
   // return current panel information

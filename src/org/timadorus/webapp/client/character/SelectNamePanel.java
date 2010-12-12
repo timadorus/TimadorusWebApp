@@ -1,6 +1,7 @@
 package org.timadorus.webapp.client.character;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
@@ -25,6 +26,8 @@ public class SelectNamePanel extends FormPanel {
   final TimadorusWebApp entry;
 
   final Character character;
+  
+  User user;
 
   Button nextButton = new Button("weiter");
 
@@ -38,10 +41,11 @@ public class SelectNamePanel extends FormPanel {
 
   TextBox nameTextBox = new TextBox();
 
-  public SelectNamePanel(final TimadorusWebApp entryIn, final Character characterIn) {
+  public SelectNamePanel(final TimadorusWebApp entryIn, final Character characterIn, User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
+    this.user = user;
 
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
@@ -110,16 +114,16 @@ public class SelectNamePanel extends FormPanel {
 
   public void loadSelectSkillLvl1Panel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(entry, character));
+    RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(entry, character, user));
   }
 
   public void loadSelectCharacterReadyPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
+    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character, user));
   }
 
-  public static SelectNamePanel getSelectNamePanel(TimadorusWebApp entry, Character character) {
-    return new SelectNamePanel(entry, character);
+  public static SelectNamePanel getSelectNamePanel(TimadorusWebApp entry, Character character, User user) {
+    return new SelectNamePanel(entry, character, user);
   }
 
   private static final HTML getInformation() {

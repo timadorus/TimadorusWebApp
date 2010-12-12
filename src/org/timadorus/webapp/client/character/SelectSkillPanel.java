@@ -7,6 +7,7 @@ import java.util.ListIterator;
 import java.util.Set;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.User;
 
 //import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -31,6 +32,8 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
   final TimadorusWebApp entry;
 
   final Character character;
+  
+  User user;
 
   Button nextButton = new Button("weiter");
 
@@ -69,10 +72,11 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
 
   private String[] titleList = { "Skill-Name", "Cost", "Rank", "Rk_Bn", "Stat_Bn", "Level_Bn", "Item", "Total" };
 
-  public SelectSkillPanel(final TimadorusWebApp entryIn, final Character characterIn) {
+  public SelectSkillPanel(final TimadorusWebApp entryIn, final Character characterIn, User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
+    this.user = user;
 
     // TestValues
 
@@ -212,7 +216,7 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
 
   public void loadGetPotStatsPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(GetPotStatsPanel.getGetPotStatsPanel(entry, character));
+    RootPanel.get("content").add(GetPotStatsPanel.getGetPotStatsPanel(entry, character, user));
   }
 
   public Skill getSelectedSkill() {
@@ -220,9 +224,9 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
     return skill;
   }
 
-  public static SelectSkillPanel getSelectSkillPanel(TimadorusWebApp entry, Character character) {
+  public static SelectSkillPanel getSelectSkillPanel(TimadorusWebApp entry, Character character, User user) {
 
-    return new SelectSkillPanel(entry, character);
+    return new SelectSkillPanel(entry, character, user);
   }
 
   private static final HTML getInformation() {
@@ -445,12 +449,12 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
   public void loadSelectSkillPanel() {
     entry.getTestValues().setSkills(new ArrayList<Skill>(backupList)); //reset to "Skill begin list"
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character));
+    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character, user));
   }
   
   public void loadSelectSkillLevel1Panel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(entry, character));
+    RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(entry, character, user));
   }
 
 }

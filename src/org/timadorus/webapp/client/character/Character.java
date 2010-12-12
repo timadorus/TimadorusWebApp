@@ -12,13 +12,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import org.timadorus.webapp.client.User;
-
-
-//import com.google.appengine.api.datastore.Text;
-
-//import com.google.gwt.junit.client.WithProperties.Property;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,7 +34,7 @@ public class Character implements Serializable {
   String characterID = "999";
 
   @Persistent
-  User user;
+  String username;
 
   @Persistent
   String name = "Dummy-Character";
@@ -59,7 +52,7 @@ public class Character implements Serializable {
   Faction faction;
 
   @Persistent
-  LinkedList<Stat> statList = new LinkedList<Stat>();
+  List<Stat> statList = new LinkedList<Stat>();
 
   @Persistent
   boolean complete = false;
@@ -80,7 +73,7 @@ public class Character implements Serializable {
   List<Integer> tempStats = new ArrayList<Integer>();
   
   @Persistent
-  LinkedList<Integer> potStats = new LinkedList<Integer>();
+  List<Integer> potStats = new LinkedList<Integer>();
   
   
   Character() {
@@ -170,12 +163,12 @@ public class Character implements Serializable {
     this.characterID = characterIDIn;
   }
 
-  public User getUser() {
-    return user;
+  public String getUsername() {
+    return username;
   }
 
-  public void setUser(User userIn) {
-    this.user = userIn;
+  public void setUsername(String usernameIn) {
+    this.username = usernameIn;
   }
 
   public boolean isComplete() {

@@ -1,6 +1,7 @@
 package org.timadorus.webapp.client.character;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.User;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -18,6 +19,8 @@ import com.google.gwt.user.client.ui.Image;
 public class CharacterPanel extends FormPanel {
 
   TimadorusWebApp entry;
+  
+  User user;
 
   Button nextButton = new Button("weiter");
 
@@ -37,9 +40,10 @@ public class CharacterPanel extends FormPanel {
 
   Image selectPremadeImage = new Image("media/images/characterPremade.png");
 
-  public CharacterPanel(TimadorusWebApp entryIn) {
+  public CharacterPanel(TimadorusWebApp entryIn, final User user) {
     super();
     this.entry = entryIn;
+    this.user = user;
 
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler {
@@ -77,9 +81,9 @@ public class CharacterPanel extends FormPanel {
           
         } else if (event.getSource().equals(nextButton)) {
           if (selectPremade.getValue()) {
-            loadPremadeCreateCharacterPanel();
+            loadPremadeCreateCharacterPanel(user);
           } else if (selectCustom.getValue()) {
-            loadSelectRacePanel();         
+            loadSelectRacePanel(user);         
           }
         }
       }
@@ -137,22 +141,22 @@ public class CharacterPanel extends FormPanel {
 
   }
 
-  public void loadPremadeCreateCharacterPanel() {
+  public void loadPremadeCreateCharacterPanel(User userIn) {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(PremadeCharacterPanel.getPremadeCharacterPanel(entry));
+    RootPanel.get("content").add(PremadeCharacterPanel.getPremadeCharacterPanel(entry, user));
   }
   
-  public void loadSelectRacePanel() {
+  public void loadSelectRacePanel(User user2) {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, (Character.getInstance())));
+    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, (Character.getInstance()), user));
   }
 
-  public static CharacterPanel getCharacterPanel(TimadorusWebApp entry) {
+  public static CharacterPanel getCharacterPanel(TimadorusWebApp entry, User user) {
 //    if (characterPanel == null) {
 //      characterPanel = new CharacterPanel(entry);
 //    }
 //    return characterPanel;
-    return new CharacterPanel(entry);
+    return new CharacterPanel(entry, user);
   }
 
   private static final HTML getCustomInformation() {

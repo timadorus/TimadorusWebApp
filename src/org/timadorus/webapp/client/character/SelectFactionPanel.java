@@ -4,6 +4,7 @@ package org.timadorus.webapp.client.character;
 import java.util.ListIterator;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.User;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -25,6 +26,8 @@ public class SelectFactionPanel extends FormPanel {
   TimadorusWebApp entry;
 
   Character character;
+  
+  User user;
 
   Button nextButton = new Button("weiter");
 
@@ -41,10 +44,11 @@ public class SelectFactionPanel extends FormPanel {
   //listbox for available faction
   ListBox factionListBox = new ListBox(); 
 
-  public SelectFactionPanel(final TimadorusWebApp entryIn, Character characterIn) {
+  public SelectFactionPanel(final TimadorusWebApp entryIn, Character characterIn, User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
+    this.user = user;
 
     // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
@@ -160,18 +164,18 @@ public class SelectFactionPanel extends FormPanel {
   // clear "content" #div and add Class SelectClassPanel to it
   public void loadSelectClassPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character));
+    RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character, user));
   }
   
   //clear "content" #div and add Class SelectTempStats to it
   public void loadSelectTempStatsPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
+    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character, user));
   }
   
   //creates a new SelectFactionPanel instance
-  public static SelectFactionPanel getSelectFactionPanel(TimadorusWebApp entry, Character character) {
-    return new SelectFactionPanel(entry, character);
+  public static SelectFactionPanel getSelectFactionPanel(TimadorusWebApp entry, Character character, User user) {
+    return new SelectFactionPanel(entry, character, user);
   }
   
   //returns and hols current panel information

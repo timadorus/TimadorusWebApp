@@ -3,6 +3,7 @@ package org.timadorus.webapp.client.character;
 import java.util.ListIterator;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.User;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -23,6 +24,8 @@ public class SelectClassPanel extends FormPanel {
   final TimadorusWebApp entry;
 
   final Character character;
+  
+  User user;
 
   Button nextButton = new Button("weiter");
 
@@ -36,10 +39,11 @@ public class SelectClassPanel extends FormPanel {
 
   ListBox classListBox = new ListBox();  //listbox for available classes
 
-  public SelectClassPanel(final TimadorusWebApp entryIn, final Character characterIn) {
+  public SelectClassPanel(final TimadorusWebApp entryIn, final Character characterIn, User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
+    this.user = user;
 
     // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
@@ -164,18 +168,18 @@ public class SelectClassPanel extends FormPanel {
   //clear "content" #div and add Class SelectRacePanel to it
   public void loadSelectRacePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, character));
+    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, character, user));
   }
 
   //clear "content" #div and add Class SelectFactionPanel to it
   public void loadSelectFactionPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character));
+    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character, user));
   }
 
   //creates a new SelectClassPanel instance
-  public static SelectClassPanel getSelectClassPanel(TimadorusWebApp entry, Character character) {
-    return new SelectClassPanel(entry, character);
+  public static SelectClassPanel getSelectClassPanel(TimadorusWebApp entry, Character character, User user) {
+    return new SelectClassPanel(entry, character, user);
   }
 
   //returns and hols current panel information

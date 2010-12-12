@@ -3,6 +3,7 @@ package org.timadorus.webapp.client.character;
 import java.util.LinkedList;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.User;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -22,6 +23,8 @@ public class GetPotStatsPanel extends FormPanel {
   final TimadorusWebApp entry;
 
   final Character character;
+  
+  User user;
 
   Button nextButton = new Button("weiter");
 
@@ -35,10 +38,11 @@ public class GetPotStatsPanel extends FormPanel {
 
   LinkedList<Integer> potStats = new LinkedList<Integer>(); //list holding characters potstats
   
-  public GetPotStatsPanel(final TimadorusWebApp entryIn, final Character characterIn) {
+  public GetPotStatsPanel(final TimadorusWebApp entryIn, final Character characterIn, final User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
+    this.user = user;
 
     // Create a handler for this panels elements
     class MyHandler implements ClickHandler {
@@ -48,7 +52,7 @@ public class GetPotStatsPanel extends FormPanel {
           loadSelectTempStatsPanel();
           // handles next button
         } else if (event.getSource().equals(nextButton)) {
-          loadSelectSkillPanel();
+          loadSelectSkillPanel(user);
         }       
       }
     }
@@ -76,9 +80,9 @@ public class GetPotStatsPanel extends FormPanel {
       getPotStatGrid.setHTML(i + 1, 2, potStats.get(i).toString());
     }
     
-    for (int i = 0; i < 11; i++) {
-      getPotStatGrid.getWidget(i + 1, 2).setStyleName("labelColorGreen");
-    }
+//    for (int i = 0; i < 11; i++) {
+//      getPotStatGrid.getWidget(i + 1, 2).setStyleName("labelColorGreen");
+//    }
     
     //saving potential stats to character
     characterIn.setPotStats(potStats);
@@ -133,17 +137,17 @@ public class GetPotStatsPanel extends FormPanel {
   // clear "content" #div and add Class SelectTempStats to it
   public void loadSelectTempStatsPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character));
+    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character, user));
   }
   // clear "content" #div and add Class SelectSkillPanel to it
-  public void loadSelectSkillPanel() {
+  public void loadSelectSkillPanel(User user2) {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character));
+    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character, user));
   }
 
   //returns a new instance of GetPotStatsPanel
-  public static GetPotStatsPanel getGetPotStatsPanel(TimadorusWebApp entry, Character character) {  
-    return new GetPotStatsPanel(entry, character);
+  public static GetPotStatsPanel getGetPotStatsPanel(TimadorusWebApp entry, Character character, User user) {  
+    return new GetPotStatsPanel(entry, character, user);
   }
 
   //returns and hols current panel information
