@@ -225,6 +225,7 @@ public class PremadeCharacterPanel extends FormPanel {
     race.addFaction(fac);
     race.addClass(cclass);
     fac.setRace(race);
+    character.setRace(race);
     character.setFaction(fac);
     character.setGender("Male");
     final long key = (long) 333;
@@ -285,7 +286,7 @@ public class PremadeCharacterPanel extends FormPanel {
   //clear "content" #div and add Class CharacterPanel to it  
   public void loadCharacterPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(CharacterPanel.getCharacterPanel(entry, user));
+    RootPanel.get("content").add(CreateCharacterPanel.getCharacterPanel(entry, user));
   }
 
   //return a new instance of PremadeCharacterPanel

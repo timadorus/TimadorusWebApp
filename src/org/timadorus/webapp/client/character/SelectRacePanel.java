@@ -176,7 +176,7 @@ public class SelectRacePanel extends FormPanel {
 
   public void loadCharacterPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(CharacterPanel.getCharacterPanel(entry, user));
+    RootPanel.get("content").add(CreateCharacterPanel.getCharacterPanel(entry, user));
   }
 
   public void saveSelectedRace() {

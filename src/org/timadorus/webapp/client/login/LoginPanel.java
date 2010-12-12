@@ -207,7 +207,7 @@ public class LoginPanel extends FormPanel implements HistoryListener {
 
                 Cookies.setCookie("session", result, new Date(System.currentTimeMillis() + TWO_MIN));
                 sessionId.setSessionId(result);
-                System.out.println("login session => " + result);
+                System.out.println("Login session => " + result);
                 History.newItem("welcome");
               }
             }

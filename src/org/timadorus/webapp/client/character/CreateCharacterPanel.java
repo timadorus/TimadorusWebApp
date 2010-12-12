@@ -16,31 +16,23 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Image;
 
-public class CharacterPanel extends FormPanel {
+public class CreateCharacterPanel extends FormPanel {
 
   TimadorusWebApp entry;
   
   User user;
 
-  Button nextButton = new Button("weiter");
-
-  VerticalPanel panel = new VerticalPanel();
-
-  FlexTable selectGrid = new FlexTable();
-
-  Label customLabel = new Label("eigenen Charakter");
-
-  Label premadeLabel = new Label("vorgefertigten Charakter");
-
-  RadioButton selectCustom = new RadioButton("selectCharacter");
-
+  Button nextButton         = new Button("weiter");
+  VerticalPanel panel       = new VerticalPanel();
+  FlexTable selectGrid      = new FlexTable();
+  Label customLabel         = new Label("eigenen Charakter");
+  Label premadeLabel        = new Label("vorgefertigten Charakter");
+  RadioButton selectCustom  = new RadioButton("selectCharacter");
   RadioButton selectPremade = new RadioButton("selectCharacter");
+  Image selectCustomImage   = new Image("media/images/characterCustom.png");
+  Image selectPremadeImage  = new Image("media/images/characterPremade.png");
 
-  Image selectCustomImage = new Image("media/images/characterCustom.png");
-
-  Image selectPremadeImage = new Image("media/images/characterPremade.png");
-
-  public CharacterPanel(TimadorusWebApp entryIn, final User user) {
+  public CreateCharacterPanel(TimadorusWebApp entryIn, final User user) {
     super();
     this.entry = entryIn;
     this.user = user;
@@ -138,7 +130,6 @@ public class CharacterPanel extends FormPanel {
 
     customLabel.addClickHandler(handler);
     premadeLabel.addClickHandler(handler);
-
   }
 
   public void loadPremadeCreateCharacterPanel(User userIn) {
@@ -151,12 +142,8 @@ public class CharacterPanel extends FormPanel {
     RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, (Character.getInstance()), user));
   }
 
-  public static CharacterPanel getCharacterPanel(TimadorusWebApp entry, User user) {
-//    if (characterPanel == null) {
-//      characterPanel = new CharacterPanel(entry);
-//    }
-//    return characterPanel;
-    return new CharacterPanel(entry, user);
+  public static CreateCharacterPanel getCharacterPanel(TimadorusWebApp entry, User user) {
+    return new CreateCharacterPanel(entry, user);
   }
 
   private static final HTML getCustomInformation() {

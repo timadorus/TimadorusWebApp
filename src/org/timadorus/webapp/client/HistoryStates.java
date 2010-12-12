@@ -13,7 +13,9 @@ interface HistoryStates {
   public static final String WELCOME_STATE = "welcome";
 
   public static final String CREATE_CHARACTER_STATE = "createCharacter";
-
+  
+  public static final String CHARACTER_LIST_STATE = "characterList";
+  
   public static final String REGISTER_STATE = "register";
   
   public static final String LOGOUT_STATE = "logout";
