@@ -41,7 +41,7 @@ public class SelectNamePanel extends FormPanel {
 
   TextBox nameTextBox = new TextBox();
 
-  public SelectNamePanel(final TimadorusWebApp entryIn, final Character characterIn, User user) {
+  public SelectNamePanel(final TimadorusWebApp entryIn, final Character characterIn, final User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
@@ -55,6 +55,7 @@ public class SelectNamePanel extends FormPanel {
           
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedName();
+          character.setUsername(user.getUsername());
           sendCharacterToServerToSave();
           loadSelectCharacterReadyPanel();
           
@@ -119,7 +120,7 @@ public class SelectNamePanel extends FormPanel {
 
   public void loadSelectCharacterReadyPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character, user));
+    RootPanel.get("content").add(CharacterReadyPanel.getCharacterReadyPanel(entry, character));
   }
 
   public static SelectNamePanel getSelectNamePanel(TimadorusWebApp entry, Character character, User user) {
