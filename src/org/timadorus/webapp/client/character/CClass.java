@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
@@ -27,21 +28,15 @@ public class CClass implements Serializable {
   @Persistent
   private String description = "--";
 
-  @Persistent
+  @NotPersistent
   private List<Faction> availableFactions1 = new ArrayList<Faction>();
+  
 
-//  @Persistent //braucht JDO für 1-to-n Relationship, beginnend von Race-Klasse
-//  private Race race;
-
-
-  public CClass() {
-
-  }
+  public CClass() { }
 
   public CClass(final String nameIn, final String descriptionIn) {
     this.name = nameIn;
     this.description = descriptionIn;
-
   }
 
   public final String getName() {
@@ -60,22 +55,6 @@ public class CClass implements Serializable {
     this.description = descriptionIn;
   }
 
-  public final List<Faction> getAvailableFactions() {
-    return availableFactions1;
-  }
-
-  public final void addFaction(final Faction faction) {
-    this.availableFactions1.add(faction);
-  }
-
-//  public final Race getRace() {
-//    return race;
-//  }
-//
-//  public final void setRace(final Race raceIn) {
-//    this.race = raceIn;
-//  }
-
   public final Long getClassID() {
     return cclassID;
   }
@@ -84,8 +63,15 @@ public class CClass implements Serializable {
     this.cclassID = classIDIn;
   }
 
-  public final void setAvailableFactions(
-      final List<Faction> availableFactions) {
+  public final List<Faction> getAvailableFactions() {
+    return availableFactions1;
+  }
+
+  public final void addFaction(final Faction faction) {
+    this.availableFactions1.add(faction);
+  }
+
+  public final void setAvailableFactions(final List<Faction> availableFactions) {
     this.availableFactions1 = availableFactions;
   }
 
@@ -93,8 +79,7 @@ public class CClass implements Serializable {
     return availableFactions1;
   }
 
-  public final void setAvailableFactions1(
-      final List<Faction> availableFactions1In) {
+  public final void setAvailableFactions1(final List<Faction> availableFactions1In) {
     this.availableFactions1 = availableFactions1In;
   }
 
