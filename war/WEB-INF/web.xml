@@ -52,6 +52,16 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>character</servlet-name>
+    <servlet-class>org.timadorus.webapp.server.rpc.service.CharacterServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>character</servlet-name>
+    <url-pattern>/timadoruswebapp/character</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>delete</servlet-name>
     <servlet-class>org.timadorus.webapp.server.rpc.service.DeleteUserServiceImpl</servlet-class>
   </servlet>

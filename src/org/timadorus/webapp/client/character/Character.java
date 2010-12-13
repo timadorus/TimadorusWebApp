@@ -75,8 +75,8 @@ public class Character implements Serializable {
   List<Integer> potStats = new LinkedList<Integer>();
   
   
-  Character() {
-    super();
+  public Character() {
+
   }
 
   void fillStats() {

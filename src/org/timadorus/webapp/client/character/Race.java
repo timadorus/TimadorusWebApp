@@ -33,7 +33,7 @@ public class Race implements Serializable {
   List<Faction> availableFactions2 = new ArrayList<Faction>(); 
 
   public Race() {
-    super();
+
   }
 
   public Race(Long raceIDIn, String nameIn, String descriptionIn) {

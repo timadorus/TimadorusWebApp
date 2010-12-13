@@ -25,8 +25,8 @@ public class Faction implements Serializable {
   @Persistent
   Race race;
 
-  Faction() {
-    super();
+  public Faction() {
+
   }
 
   public Long getFractionID() {

@@ -143,6 +143,7 @@ public final class RegisteredUserList {
     return false;
   }
   
+  @SuppressWarnings("unchecked")
   public Boolean deleteUser(User user) {
     PersistenceManager pm = PMF.getPersistenceManager();    
     Extent<User> extent = pm.getExtent(User.class, true);
@@ -201,6 +202,7 @@ public final class RegisteredUserList {
     }
   }
 
+  @SuppressWarnings("unchecked")
   public Character getCharObjectFromAppEngine(String cname) {
 //    cname = cname.toLowerCase();
 
@@ -230,6 +232,7 @@ public final class RegisteredUserList {
     return null;
   }
 
+  @SuppressWarnings("unchecked")
   public User getC(String cname) {
       cname = cname.toLowerCase();
   
