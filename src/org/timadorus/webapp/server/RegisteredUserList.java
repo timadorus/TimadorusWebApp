@@ -152,11 +152,18 @@ public final class RegisteredUserList {
     Iterator<User> iterator = ((Collection<User>) query.execute(user.getUsername())).iterator();
     if (iterator.hasNext()) {
       found = iterator.next();      
-    }   
+    }
     if (found == null) {
       System.out.println("User " + found + " not found in database!");
       return false;
     } else {
+      Extent<Character> extent2 = pm.getExtent(Character.class, true);
+      Query query2 = pm.newQuery(extent2, "username == '" + user.getUsername() + "'");
+      System.out.println("Username: " + "'" + user.getUsername() + "'");
+      for (Character character : (List<Character>) query2.execute()) {
+        System.out.println("Character " + character.getName() + " found!");
+        pm.deletePersistent(character);
+      }        
       pm.deletePersistent(found);
       users.remove(user.getUsername());
       // TODO: Delete user's characters    
