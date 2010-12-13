@@ -142,6 +142,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
     delete.addClickHandler(delHandler);
     ConfirmHandler conHandler = new ConfirmHandler();
     confirm.addClickHandler(conHandler);
+    passBox.addKeyUpHandler(conHandler);
     
     setWidget(grid);
     setStyleName("formPanel");
