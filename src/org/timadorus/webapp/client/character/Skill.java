@@ -71,17 +71,10 @@ public class Skill implements Serializable, Cloneable {
   @Persistent
   private int total = 0;
 
-//  @Serialized
-//  @Persistent
   @NotPersistent
   private String[] overallInformation;
 
-
-
-
-  public Skill() {
-    // TODO Auto-generated constructor stub
-  }
+  public Skill() { }
 
   public Skill(final String defLabelIn,
                 final String lvlBonusCatIn,

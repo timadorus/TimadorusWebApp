@@ -163,12 +163,14 @@ public final class RegisteredUserList {
       System.out.println("Username: " + "'" + user.getUsername() + "'");
       for (Character character : (List<Character>) query2.execute()) {
         System.out.println("Character " + character.getName() + " found!");
+        pm.retrieve(character);
         pm.deletePersistent(character);
       }        
       pm.deletePersistent(found);
       users.remove(user.getUsername());
       // TODO: Delete user's characters    
-      System.out.println(found.getDisplayname() + " has been deleted from database!");    
+      System.out.println(found.getDisplayname() + " has been deleted from database!");
+      pm.close();
       return true;
     }    
   }

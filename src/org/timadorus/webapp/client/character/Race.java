@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
@@ -26,15 +27,13 @@ public class Race implements Serializable {
   @Persistent
   String description = "--";
   
-  @Persistent
+  @NotPersistent
   List<CClass> availableClasses = new ArrayList<CClass>();
   
-  @Persistent
+  @NotPersistent
   List<Faction> availableFactions2 = new ArrayList<Faction>(); 
 
-  public Race() {
-
-  }
+  public Race() { }
 
   public Race(Long raceIDIn, String nameIn, String descriptionIn) {
 

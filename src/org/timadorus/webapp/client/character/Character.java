@@ -5,6 +5,7 @@ package org.timadorus.webapp.client.character;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.NotPersistent;
@@ -41,16 +42,17 @@ public class Character implements Serializable {
   @Persistent
   String gender = "Dummy-Gender";
 
-  @Persistent
+  @Persistent(dependent = "true")
   Race race;
 
-  @Persistent
+  @Persistent(dependent = "true")
   CClass charClass;
 
   @Persistent
   Faction faction;
 
   @Persistent
+  @Element(dependent = "true")
   List<Stat> statList = new LinkedList<Stat>();
 
   @Persistent
@@ -63,9 +65,11 @@ public class Character implements Serializable {
   String allAttrInfoPart2 = "--";
   
   @Persistent
+  @Element(dependent = "true")
   List<Skill> skillList = new LinkedList<Skill>();
   
   @Persistent
+  @Element(dependent = "true")
   List<Skill> skillListLevel1 = new LinkedList<Skill>();
   
   @Persistent
@@ -75,9 +79,7 @@ public class Character implements Serializable {
   List<Integer> potStats = new LinkedList<Integer>();
   
   
-  public Character() {
-
-  }
+  public Character() { }
 
   void fillStats() {
     statList = new LinkedList<Stat>();

@@ -2,6 +2,7 @@ package org.timadorus.webapp.client.character;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
@@ -9,7 +10,9 @@ import javax.jdo.annotations.Persistent;
 public class Stat implements Serializable {
  
   private static final long serialVersionUID = -7796504950459320478L;
-
+  
+  @NotPersistent
+  private final int initialTempStat = 30;
   
   @Persistent
   String name = "--";
@@ -23,18 +26,14 @@ public class Stat implements Serializable {
   @Persistent
   Integer potStat = new Integer(-1);
   
-  private final int initialTempStat = 30;
-  
 
-  public Stat() {
-
-  }
+  public Stat() { }
 
   public Stat(String nameIn, String descriptionIn) {
 
     this.name = nameIn;
     this.description = descriptionIn;
-    this.tempStat = this.initialTempStat;
+    this.tempStat = initialTempStat;
     this.potStat = 0;
   }
 
