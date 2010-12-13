@@ -230,7 +230,7 @@ public class PremadeCharacterPanel extends FormPanel {
     character.setGender("Male");
     final long key = (long) 333;
     character.setKey(key);
-    LinkedList<Integer> potStats = new LinkedList<Integer>();
+    List<Integer> potStats = new LinkedList<Integer>();
     final Integer potStat = 123;
     potStats.add(potStat);
     character.setPotStats(potStats);
@@ -247,11 +247,11 @@ public class PremadeCharacterPanel extends FormPanel {
     skillList.add(skill);
     character.setSkillList(skillList);
     character.setSkillListLevel1(skillList);
-    LinkedList<Stat> statList = new LinkedList<Stat>();
+    List<Stat> statList = new LinkedList<Stat>();
     Stat stat = new Stat("Stat", "A stat");
     statList.add(stat);
     character.setStatList(statList);
-    LinkedList<Integer> tempStat = new LinkedList<Integer>();
+    List<Integer> tempStat = new LinkedList<Integer>();
     tempStat.add(new Integer(1));
     character.setTempStat(tempStat);
     character.setTempStats(tempStat);

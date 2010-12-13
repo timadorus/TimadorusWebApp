@@ -12,7 +12,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -64,13 +63,13 @@ public class Character implements Serializable {
   String allAttrInfoPart2 = "--";
   
   @Persistent
-  List<Skill> skillList = new ArrayList<Skill>();
+  List<Skill> skillList = new LinkedList<Skill>();
   
   @Persistent
-  List<Skill> skillListLevel1 = new ArrayList<Skill>();
+  List<Skill> skillListLevel1 = new LinkedList<Skill>();
   
   @Persistent
-  List<Integer> tempStats = new ArrayList<Integer>();
+  List<Integer> tempStats = new LinkedList<Integer>();
   
   @Persistent
   List<Integer> potStats = new LinkedList<Integer>();
@@ -209,12 +208,12 @@ public class Character implements Serializable {
     return tempStats;
   }
 
-  public void setTempStat(LinkedList<Integer> tempStat) {
+  public void setTempStat(List<Integer> tempStat) {
     this.tempStats = tempStat;
   }
 
-  public void setStatList(LinkedList<Stat> statListIn) {
-    this.statList = statListIn;
+  public void setStatList(List<Stat> statList2) {
+    this.statList = statList2;
   }
 
   public CClass getCharClass() {
@@ -332,8 +331,8 @@ public class Character implements Serializable {
     return potStats;
   }
 
-  public void setPotStats(LinkedList<Integer> potStatsIn) {
-    this.potStats = potStatsIn;
+  public void setPotStats(List<Integer> potStats2) {
+    this.potStats = potStats2;
   }
   
   @Override
