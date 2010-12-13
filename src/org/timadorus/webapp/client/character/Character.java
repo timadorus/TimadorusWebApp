@@ -48,7 +48,7 @@ public class Character implements Serializable {
   @Persistent(dependent = "true")
   CClass charClass;
 
-  @Persistent
+  @Persistent(dependent = "true")
   Faction faction;
 
   @Persistent
