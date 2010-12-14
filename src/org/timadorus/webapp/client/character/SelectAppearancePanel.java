@@ -33,7 +33,7 @@ public class SelectAppearancePanel extends FormPanel {
   
   Image selectBlackSkinImage = new Image("media/images/blackBox.jpg");
   
-  Image selectBrownSkinImage = new Image("media/images/whiteBox.jpg");
+  Image selectBrownSkinImage = new Image("media/images/brownBox.jpg");
   
   Image selectYellowSkinImage = new Image("media/images/yellowBox.jpg");
   
@@ -41,11 +41,13 @@ public class SelectAppearancePanel extends FormPanel {
   
   Image selectGreenSkinImage = new Image("media/images/greenBox.jpg");
   
+  Image selectBlueSkinImage = new Image("media/images/blueBox.jpg");
+  
   Image selectWhiteHairImage = new Image("media/images/whiteBox.jpg");
   
   Image selectBlackHairImage = new Image("media/images/blackBox.jpg");
   
-  Image selectBrownHairImage = new Image("media/images/whiteBox.jpg");
+  Image selectBrownHairImage = new Image("media/images/brownBox.jpg");
   
   Image selectYellowHairImage = new Image("media/images/yellowBox.jpg");
   
@@ -53,16 +55,33 @@ public class SelectAppearancePanel extends FormPanel {
   
   Image selectGreenHairImage = new Image("media/images/greenBox.jpg");
   
+  Image selectBlueHairImage = new Image("media/images/blueBox.jpg");
+  
   Label skinColor = new Label("Klicke auf eine Farbe um deine Hautfarbe zu bestimmen!");
   
   Label hairColor = new Label("Klicke auf eine Farbe um deine Haarfarbe zu bestimmen!");
 
-  // grid for handling selections
-  FlexTable selectFactionGrid = new FlexTable();
+  FlexTable selectSkinColorGrid = new FlexTable();
+  
+  FlexTable selectHairColorGrid = new FlexTable();
 
   // grid for next/prev buttons
   FlexTable buttonGrid = new FlexTable();
-
+  
+  private String blackColor = "#000000";
+  
+  private String whiteColor = "#FFFFFF";
+  
+  private String brownColor = "#593107";
+  
+  private String greenColor = "#003000";
+  
+  private String redColor = "#CF0000";
+  
+  private String yellowColor = "#FFC600";
+  
+  private String blueColor = "#0017C7";
+  
   public SelectAppearancePanel(final TimadorusWebApp entryIn, Character characterIn, User user) {
     super();
     this.entry = entryIn;
@@ -77,40 +96,58 @@ public class SelectAppearancePanel extends FormPanel {
 
           // nextButton onclick
         } else if (event.getSource().equals(nextButton)) {
-          saveSelectedSkinColor();
-          saveSelectedHairColor();
           loadSelectNamePanel();
 
         } else if (event.getSource().equals(selectBlackSkinImage)) {          
-          skinColor.setText("Schwarze Hautfarbe ausgewählt!");            
+          skinColor.setText("Schwarze Hautfarbe ausgewählt!");
+          character.setSkinColor(blackColor);
         } else if (event.getSource().equals(selectBrownSkinImage)) {          
-          skinColor.setText("Braune Hautfarbe ausgewählt!");            
+          skinColor.setText("Braune Hautfarbe ausgewählt!");
+          character.setSkinColor(brownColor);
         } else if (event.getSource().equals(selectGreenSkinImage)) {          
-          skinColor.setText("Grüne Hautfarbe ausgewählt!");            
+          skinColor.setText("Grüne Hautfarbe ausgewählt!");
+          character.setSkinColor(greenColor);
         } else if (event.getSource().equals(selectRedSkinImage)) {          
-          skinColor.setText("Rote Hautfarbe ausgewählt!");            
+          skinColor.setText("Rote Hautfarbe ausgewählt!");
+          character.setSkinColor(redColor);
         } else if (event.getSource().equals(selectWhiteSkinImage)) {          
-          skinColor.setText("Weiße Hautfarbe ausgewählt!");            
+          skinColor.setText("Weiße Hautfarbe ausgewählt!");
+          character.setSkinColor(whiteColor);
         } else if (event.getSource().equals(selectYellowSkinImage)) {          
-          skinColor.setText("Gelbe Hautfarbe ausgewählt!");            
+          skinColor.setText("Gelbe Hautfarbe ausgewählt!");
+          character.setSkinColor(yellowColor);
+        } else if (event.getSource().equals(selectBlueSkinImage)) {          
+          skinColor.setText("Blaue Hautfarbe ausgewählt!");
+          character.setSkinColor(blueColor);
         } else if (event.getSource().equals(selectBlackHairImage)) {          
-          hairColor.setText("Schwarze Haarfarbe ausgewählt!");            
+          hairColor.setText("Schwarze Haarfarbe ausgewählt!"); 
+          character.setHairColor(blackColor);
         } else if (event.getSource().equals(selectBrownHairImage)) {          
-          hairColor.setText("Braune Haarfarbe ausgewählt!");            
+          hairColor.setText("Braune Haarfarbe ausgewählt!");
+          character.setHairColor(brownColor);
         } else if (event.getSource().equals(selectGreenHairImage)) {          
-          hairColor.setText("Grüne Haarfarbe ausgewählt!");            
+          hairColor.setText("Grüne Haarfarbe ausgewählt!");
+          character.setHairColor(greenColor);
         } else if (event.getSource().equals(selectRedHairImage)) {          
-          hairColor.setText("Rote Haarfarbe ausgewählt!");            
+          hairColor.setText("Rote Haarfarbe ausgewählt!");
+          character.setHairColor(redColor);
         } else if (event.getSource().equals(selectWhiteHairImage)) {          
-          hairColor.setText("Weiße Haarfarbe ausgewählt!");            
+          hairColor.setText("Weiße Haarfarbe ausgewählt!");
+          character.setHairColor(whiteColor);
         } else if (event.getSource().equals(selectYellowHairImage)) {          
-          hairColor.setText("Gelbe Haarfarbe ausgewählt!");            
+          hairColor.setText("Gelbe Haarfarbe ausgewählt!");
+          character.setHairColor(yellowColor);
+        } else if (event.getSource().equals(selectBlueHairImage)) {          
+          skinColor.setText("Blaue Haarfarbe ausgewählt!");
+          character.setHairColor(blueColor);
         }        
       }      
     }
     MyHandler handler = new MyHandler();
     selectBlackHairImage.addClickHandler(handler);
     selectBlackSkinImage.addClickHandler(handler);
+    selectBlueSkinImage.addClickHandler(handler);
+    selectBlueHairImage.addClickHandler(handler);
     selectBrownHairImage.addClickHandler(handler);
     selectBrownSkinImage.addClickHandler(handler);
     selectGreenHairImage.addClickHandler(handler);
@@ -147,8 +184,32 @@ public class SelectAppearancePanel extends FormPanel {
     panel.add(new Label("Skills_L0: " + characterIn.getSkillListNames()));
     panel.add(new Label("Skills_L1: " + characterIn.getSkillLevel1ListNames()));
     
+    selectSkinColorGrid.setWidget(0, 0, selectWhiteSkinImage);
+    selectSkinColorGrid.setWidget(0, 1, selectBlackSkinImage);
+    selectSkinColorGrid.setWidget(0, 2, selectBrownSkinImage);
+    selectSkinColorGrid.setWidget(0, 3, selectGreenSkinImage);
+    selectSkinColorGrid.setWidget(0, 4, selectYellowSkinImage);
+    selectSkinColorGrid.setWidget(0, 5, selectRedSkinImage);
+    selectSkinColorGrid.setWidget(0, 6, selectBlueSkinImage);
+    
+    selectHairColorGrid.setWidget(0, 0, selectWhiteHairImage);
+    selectHairColorGrid.setWidget(0, 1, selectBlackHairImage);
+    selectHairColorGrid.setWidget(0, 2, selectBrownHairImage);
+    selectHairColorGrid.setWidget(0, 3, selectGreenHairImage);
+    selectHairColorGrid.setWidget(0, 4, selectYellowHairImage);
+    selectHairColorGrid.setWidget(0, 5, selectRedHairImage);
+    selectHairColorGrid.setWidget(0, 6, selectBlueHairImage);
+    
     panel.add(headline);
-
+    
+    panel.add(new Label("Wählen Sie die Hautfarbe Ihres Charakters: "));
+    panel.add(selectSkinColorGrid);
+    panel.add(skinColor);
+    
+    panel.add(new Label("Wählen Sie die Haarfarbe Ihres Charakters: "));
+    panel.add(selectHairColorGrid);
+    panel.add(hairColor);
+    
     panel.add(buttonGrid);
 
     RootPanel.get("information").clear();
@@ -156,16 +217,6 @@ public class SelectAppearancePanel extends FormPanel {
 
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
-  }
-  
-  public void saveSelectedHairColor() {
-    // TODO Auto-generated method stub
-    
-  }
-
-  public void saveSelectedSkinColor() {
-    // TODO Auto-generated method stub
-    
   }
   
   private static final HTML getInformation() {

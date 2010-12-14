@@ -41,6 +41,12 @@ public class Character implements Serializable {
 
   @Persistent
   String gender = "Dummy-Gender";
+  
+  @Persistent
+  String skinColor;
+  
+  @Persistent
+  String hairColor;
 
   @Persistent(dependent = "true")
   Race race;
@@ -136,6 +142,22 @@ public class Character implements Serializable {
 
   public void setGender(String genderIn) {
     this.gender = genderIn;
+  }
+  
+  public String getSkinColor() {
+    return skinColor;
+  }
+  
+  public void setSkinColor(String skinColorIn) {
+    this.skinColor = skinColorIn;
+  }
+  
+  public String getHairColor() {
+    return hairColor;
+  }
+  
+  public void setHairColor(String hairColorIn) {
+    this.hairColor = hairColorIn;
   }
 
   public Race getRace() {
