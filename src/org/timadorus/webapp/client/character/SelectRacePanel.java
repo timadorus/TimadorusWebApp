@@ -151,7 +151,7 @@ public class SelectRacePanel extends FormPanel {
     panel.setWidth("100%");
 
     panel.add(progressBar);
-    panel.add(new Label("Schritt 1 von 7"));
+    panel.add(new Label("Schritt 1 von 9"));
     panel.add(headline);
 
     panel.add(selectGenderGrid);

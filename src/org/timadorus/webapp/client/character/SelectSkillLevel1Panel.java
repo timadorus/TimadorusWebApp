@@ -88,7 +88,7 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
           // nextButton onclick
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedSkillsInCharacter();
-          loadSelectNamePanel();
+          loadSelectAppearancePanel();
 
         } else if (event.getSource().equals(skillListBox)) {
           // show skill informations
@@ -177,10 +177,11 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
     panel.setWidth("100%");
 
     panel.add(progressBar);
-    panel.add(new Label("Schritt 7 von 7"));
+    panel.add(new Label("Schritt 7 von 9"));
     panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
     panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
-                        + characterIn.getFaction().getName() + " | Skills_L0: " + characterIn.getSkillListNames()));
+                        + characterIn.getFaction().getName()));
+    panel.add(new Label("Skills_L0: " + characterIn.getSkillListNames()));
     
     panel.add(headline);
     panel.add(selectSkillGrid);
@@ -433,9 +434,9 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
     RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(entry, character, user));
   }
   
-  public void loadSelectNamePanel() {
+  public void loadSelectAppearancePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectNamePanel.getSelectNamePanel(entry, character, user));
+    RootPanel.get("content").add(SelectAppearancePanel.getSelectAppearancePanel(entry, character, user));
   }
   
 }

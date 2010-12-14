@@ -125,7 +125,7 @@ public class SelectClassPanel extends FormPanel {
     
     // adding widgets to the main panel
     panel.add(progressBar);
-    panel.add(new Label("Schritt 2 von 7"));
+    panel.add(new Label("Schritt 2 von 9"));
     panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
 
     panel.add(headline);

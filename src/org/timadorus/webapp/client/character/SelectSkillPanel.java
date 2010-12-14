@@ -179,7 +179,7 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
     panel.setWidth("100%");
 
     panel.add(progressBar);
-    panel.add(new Label("Schritt 6 von 7"));
+    panel.add(new Label("Schritt 6 von 9"));
     panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
     panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
         + characterIn.getFaction().getName()));

@@ -51,7 +51,7 @@ public class SelectNamePanel extends FormPanel {
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
-          loadSelectSkillLvl1Panel();
+          loadSelectAppearancePanel();
           
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedName();
@@ -87,8 +87,13 @@ public class SelectNamePanel extends FormPanel {
     panel.setWidth("100%");
 
     panel.add(progressBar);
-    panel.add(new Label("Schritt 2 von 7"));
+    panel.add(new Label("Schritt 9 von 9"));
     panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
+    panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
+                        + characterIn.getFaction().getName()));
+    panel.add(new Label("Skills_L0: " + characterIn.getSkillListNames()));
+    panel.add(new Label("Skills_L1: " + characterIn.getSkillLevel1ListNames()));
+    panel.add(new Label("Hautfarbe: " + "..." + " | Haarfarbe: " + "..."));
 
     panel.add(headline);
 
@@ -113,9 +118,9 @@ public class SelectNamePanel extends FormPanel {
     character.setName(nameTextBox.getText());
   }
 
-  public void loadSelectSkillLvl1Panel() {
+  public void loadSelectAppearancePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(entry, character, user));
+    RootPanel.get("content").add(SelectAppearancePanel.getSelectAppearancePanel(entry, character, user));
   }
 
   public void loadSelectCharacterReadyPanel() {
