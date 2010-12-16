@@ -8,6 +8,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Unique;
 
 /**
  * @author maddin, kilic, willat
@@ -21,6 +22,7 @@ public class Race implements Serializable {
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   Long raceID = new Long(-1);
 
+  @Unique
   @Persistent
   String name = "--";
 

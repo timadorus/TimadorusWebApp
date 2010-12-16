@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Unique;
 
 //This class represents a Faction, which will related to the Character-Object
 @PersistenceCapable
@@ -16,6 +17,7 @@ public class Faction implements Serializable {
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   Long factionID = new Long(-1);
 
+  @Unique
   @Persistent
   String name = "--";
 

@@ -48,13 +48,18 @@ public class Character implements Serializable {
   @Persistent
   String hairColor;
 
-  @Persistent(dependent = "true")
+  //@Persistent(dependent = "true") 
+  // wenn einkommentiert funktioniert löschen nicht, 
+  // wenn anderer Charakter mit gleicher Rasse existiert,
+  // java.sql.SQLIntegrityConstraintViolationException: 
+  // DELETE on table 'FACTION' caused a violation of foreign key constraint 
+  // 'CHARACTER_FK1' for key (1).  The statement has been rolled back.
   Race race;
 
-  @Persistent(dependent = "true")
+  //@Persistent(dependent = "true")
   CClass charClass;
 
-  @Persistent(dependent = "true")
+  //@Persistent(dependent = "true")
   Faction faction;
 
   @Persistent

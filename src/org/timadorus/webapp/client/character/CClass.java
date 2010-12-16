@@ -8,6 +8,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Unique;
 
 //This Class represents a Character-Class-Object, which is related to a
 //Character-Object
@@ -22,6 +23,7 @@ public class CClass implements Serializable {
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   private Long cclassID = new Long(-1);
 
+  @Unique
   @Persistent
   private String name = "--";
 
