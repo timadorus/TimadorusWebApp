@@ -32,16 +32,23 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
     if (character != null) {
       System.out.println("\n\n**********" + character.toString() + "\n" + character.toStringPart2()
                          + "\n****************\n\n");
-      saveCharacterToDB(character);
-      return "SUCCESS";
+      return saveCharacterToDB(character);
     } else {
       return "FAILURE";
     }
     
   }
   
-  public void saveCharacterToDB(Character character) {
+  public String saveCharacterToDB(Character character) {
     PersistenceManager pm = PMF.getPersistenceManager();
+    
+    // check if character name already exists
+    Extent<Character> characterExtent = pm.getExtent(Character.class, true);
+    Query characterQuery = pm.newQuery(characterExtent, "name == '" + character.getName() + "'");
+    List<Character> chars = (List<Character>) characterQuery.execute();
+    if (!chars.isEmpty()) {
+      return "FAILURE";
+    }
     
     // check if faction already exists, if yes: use it so it doesn't get saved into the db again
     Extent<Faction> factionExtent = pm.getExtent(Faction.class, true);
@@ -80,6 +87,7 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return "SUCCESS";
   }
   
   public Character getCharacterFromDB(String cname) {

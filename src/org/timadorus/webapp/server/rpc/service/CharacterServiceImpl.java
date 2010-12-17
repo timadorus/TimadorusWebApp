@@ -50,4 +50,19 @@ public class CharacterServiceImpl extends RemoteServiceServlet implements Charac
     
     return null;
   }
+
+  @Override
+  public String deleteCharacter(Character character) {
+    PersistenceManager pm = PMF.getPersistenceManager();
+    Extent<Character> extent = pm.getExtent(Character.class, true);
+    Query query = pm.newQuery(extent, "name == '" + character.getName() + "'");
+    List<Character> characters = (List<Character>) query.execute();
+    Character found = null;
+    if (!characters.isEmpty()) {
+      found = characters.get(0);
+      pm.deletePersistent(found);
+      return "OK";
+    }    
+    return "FAIL";
+  }
 }

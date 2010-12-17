@@ -268,8 +268,11 @@ public class PremadeCharacterPanel extends FormPanel {
     AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
       
       public void onSuccess(String result) {
-        if (result != null) {         
+        if (result.equals("SUCCESS")) {         
             History.newItem("welcome");
+        } else {
+          System.out.println("Character creation failed!");
+          History.newItem("welcome");
         }
       }
       

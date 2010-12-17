@@ -14,4 +14,6 @@ public interface CharacterService extends RemoteService {
 
   List<Character> getCharacterList(User user);
   
+  String deleteCharacter(Character character);
+  
 }

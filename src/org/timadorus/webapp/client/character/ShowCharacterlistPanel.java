@@ -89,7 +89,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
         class MyHandler implements ClickHandler {
           public void onClick(ClickEvent event) {
             if (event.getSource().equals(delete)) {
-              
+              deleteCharacter(character);
             } else if (event.getSource().equals(details)) {
               grid.clear();
               panel.clear();
@@ -117,6 +117,28 @@ public final class ShowCharacterlistPanel extends FormPanel {
     panel.add(headline);
     panel.add(grid);
     setContent(panel);
+  }
+  
+  private void deleteCharacter(Character character) {
+    CharacterServiceAsync characterServiceAsync = GWT.create(CharacterService.class);
+    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+      
+      public void onSuccess(String result) {
+        if (result != null) {          
+          if (result.equals("OK")) {
+            System.out.println("Successfully deleted");
+          } else {
+            System.out.println("Unsuccessfully deleted");                
+          }
+          setContent(ShowCharacterlistPanel.getShowCharacterlistPanel(entry, user));
+        }
+      }
+      
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
+    };
+    characterServiceAsync.deleteCharacter(character, asyncCallback);
   }
   
   private void setContent(Widget w) {

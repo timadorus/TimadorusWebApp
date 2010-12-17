@@ -11,5 +11,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface CharacterServiceAsync {
 
   void getCharacterList(User user, AsyncCallback<List<Character>> asyncCallback);
+  
+  void deleteCharacter(Character character, AsyncCallback<String> asyncCallback);
 
 }
