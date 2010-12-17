@@ -8,7 +8,10 @@ import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
@@ -33,6 +36,8 @@ public final class ShowCharacterlistPanel extends FormPanel {
 
     this.entry = entryIn;
     this.user  = userIn;
+    
+    
     
     getCharactersFromServer();
     
@@ -73,23 +78,39 @@ public final class ShowCharacterlistPanel extends FormPanel {
   
   private void updateCharacterList(List<Character> result) {
     if (result.size() > 0) {
-      grid = new Grid(result.size(), 1);
+      final int columns = 3;
+      grid = new Grid(result.size(), columns);
       grid.setBorderWidth(0);
     
       int i = 0;
-      for (Character character : result) {
-        grid.setWidget(i++, 0, ShowCharacterPanel.getShowShortCharacterPanel(entry, user, character));
+      for (final Character character : result) {
+        final Button delete = new Button("Löschen");
+        final Button details = new Button("Details");
+        class MyHandler implements ClickHandler {
+          public void onClick(ClickEvent event) {
+            if (event.getSource().equals(delete)) {
+              
+            } else if (event.getSource().equals(details)) {
+              
+            }      
+          }      
+        }
+        MyHandler handler = new MyHandler();
+        delete.addClickHandler(handler);
+        details.addClickHandler(handler);
+        grid.setWidget(i, 0, ShowCharacterPanel.getShowShortCharacterPanel(entry, user, character));
+        grid.setWidget(i, 1, details);
+        grid.setWidget(i, 2, delete);
+        i++;
       }
     } else {
       grid = new Grid(1, 1);
       grid.setBorderWidth(0);
       grid.setWidget(0, 0, new Label("Es wurden keine Charaktere gefunden."));
     }
-    
     panel.clear();
     panel.add(headline);
     panel.add(grid);
-    
     setContent(panel);
   }
   
