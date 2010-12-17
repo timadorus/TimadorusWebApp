@@ -29,7 +29,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
   private TimadorusWebApp entry;
 
   VerticalPanel panel       = new VerticalPanel();
-  HTML headline             = new HTML("<h1>Lister der registrierten Charaktere</h1>");
+  HTML headline             = new HTML("<h1>Liste der registrierten Charaktere</h1>");
 
   private ShowCharacterlistPanel(TimadorusWebApp entryIn, User userIn) {
     super();
@@ -91,7 +91,12 @@ public final class ShowCharacterlistPanel extends FormPanel {
             if (event.getSource().equals(delete)) {
               
             } else if (event.getSource().equals(details)) {
-              
+              grid.clear();
+              panel.clear();
+              headline = new HTML("<h1>Charakter-Details</h1>");
+              grid.setWidget(0, 0, ShowCharacterPanel.getShowDetailCharacterPanel(entry, user, character));
+              panel.add(headline);
+              panel.add(grid);
             }      
           }      
         }

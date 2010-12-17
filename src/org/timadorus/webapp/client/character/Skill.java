@@ -319,11 +319,11 @@ public class Skill implements Serializable, Cloneable {
 
   @Override
   public final String toString() {
-    String s = "<br>Skill-Name: " + name + "<br>Level-Bonus-Cat: "
-               + lvlBonusCat + "<br>Stat1: " + stat1 + "<br>Stat2: " + stat2
-               + "<br>Action-Type: " + actionType + "<br>Calc-Type: " + calcType
-               + "<br>Local-Desc-Language: " + localeDescLanguage
-               + "<br>Local-Desc-Default: " + localeDescDefault;
+    String s = "<b>Skill-Name:</b> " + name + "<br><b>Level-Bonus-Cat:</b> "
+               + lvlBonusCat + "<br><b>Stat1:</b> " + stat1 + "<br><b>Stat2:</b> " + stat2
+               + "<br><b>Action-Type:</b> " + actionType + "<br><b>Calc-Type:</b> " + calcType
+               + "<br><b>Local-Desc-Language:</b> " + localeDescLanguage
+               + "<br><b>Local-Desc-Default:</b> " + localeDescDefault;
 
     return s;
 

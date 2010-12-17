@@ -213,6 +213,8 @@ public class PremadeCharacterPanel extends FormPanel {
     character = new Character();
     character.setName("Test");
     character.setCharacterID("123");
+    character.setHairColor("#000000");
+    character.setSkinColor("#FFFFFF");
     CClass cclass = new CClass("Class", "A Class"); 
     character.setCharClass(cclass);
     Faction fac = new Faction();

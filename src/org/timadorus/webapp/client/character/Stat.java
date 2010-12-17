@@ -72,7 +72,7 @@ public class Stat implements Serializable {
   @Override
   public String toString() {
   
-    return "Stat-Name: " + name;
+    return "Name: " + name;
   }
   
 }
