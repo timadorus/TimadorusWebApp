@@ -2,17 +2,27 @@ package org.timadorus.webapp.client.character;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.client.rpc.service.CharacterService;
+import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public final class ShowCharacterPanel extends FormPanel {
 
@@ -26,6 +36,8 @@ public final class ShowCharacterPanel extends FormPanel {
   private final int detailRows = 11;
   private final int detailColumns = 2;
   
+  TimadorusWebApp entry;
+  
   VerticalPanel panel = new VerticalPanel();
   private Grid grid = new Grid(rows, columns);
   private Grid detailGrid = new Grid(detailRows, detailColumns);
@@ -36,6 +48,9 @@ public final class ShowCharacterPanel extends FormPanel {
   private Label faction = new Label("Faction:");
   private Button back = new Button("Zurück");
   private Button delete = new Button("Löschen");
+  private Button confirm = new Button("Löschung bestätigen");
+  private PasswordTextBox passbox = new PasswordTextBox();
+  Button back2 = new Button("Zurück");
 
   private User user;
   private Character character;
@@ -44,6 +59,7 @@ public final class ShowCharacterPanel extends FormPanel {
     final Character characterIn, int modeIn) {
     super();
 
+    this.entry = entryIn;
     this.user = userIn;
     this.character = characterIn;
     
@@ -56,16 +72,67 @@ public final class ShowCharacterPanel extends FormPanel {
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(delete)) {
-          
+          RootPanel.get("content").clear();
+          final int gridRows = 4;
+          grid = new Grid(gridRows, 1);
+          HTML headline = new HTML("<h1>Charakter löschen</h1>");
+          grid.setWidget(0, 0, new Label("Sind Sie sich sicher, dass Sie diesen Charakter löschen wollen?"));
+          grid.setWidget(1, 0, passbox);
+          grid.setWidget(2, 0, confirm);
+          final int row = 3;
+          grid.setWidget(row, 0, back2);
+          panel.clear();
+          panel.add(headline);
+          panel.add(grid);
+          RootPanel.get("content").add(panel);
         } else if (event.getSource().equals(back)) {
           RootPanel.get("content").clear();
           RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(entryIn, userIn));
-        }      
+        } else if (event.getSource().equals(back2)) {
+          RootPanel.get("content").clear();
+          RootPanel.get("content").add(ShowCharacterPanel.getShowDetailCharacterPanel(entry, user, character));
+        }
       }      
     }
+    
+    class ConfirmHandler implements ClickHandler, KeyUpHandler {
+      /**
+       * Wird ausgelöst, wenn Button gedrückt wurde
+       */
+      public void onClick(ClickEvent event) {
+        System.out.println("Löschung bestätigen Button geklickt");
+        handleEvent();
+      }
+
+      /**
+       * Prüft ob "Enter" gedrückt wurde
+       */
+      public void onKeyUp(KeyUpEvent event) {
+        if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+          handleEvent();
+        }
+      }
+
+      private void handleEvent() {
+        System.out.println("handle Event");
+        if (passbox.getText().equals(user.getPassword())) {
+          System.out.println("Deleting " + character.getName());
+          deleteCharacter(character);
+          showDialogBox("Information", "Ihr Charakter wurde erfolgreich gelöscht!");
+        } else {
+          passbox.setText("");
+          showDialogBox("Fehlermeldung", "Passwort falsch! Versuchen Sie es erneut!");
+        }
+      }
+    }
+    
     MyHandler handler = new MyHandler();
     delete.addClickHandler(handler);
-    back.addClickHandler(handler);    
+    back.addClickHandler(handler);
+    back2.addClickHandler(handler);
+    ConfirmHandler handler2 = new ConfirmHandler();
+    confirm.addClickHandler(handler2);
+    passbox.addKeyUpHandler(handler2);       
   }
   
   private void buildShortMode() {
@@ -239,5 +306,61 @@ public final class ShowCharacterPanel extends FormPanel {
 
   public void setUser(User userIn) {
     this.user = userIn;
+  }
+  
+  private void deleteCharacter(Character character) {
+    CharacterServiceAsync characterServiceAsync = GWT.create(CharacterService.class);
+    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+      
+      public void onSuccess(String result) {
+        if (result != null) {          
+          if (result.equals("OK")) {
+            System.out.println("Successfully deleted");
+          } else {
+            System.out.println("Unsuccessfully deleted");                
+          }
+          setContent(ShowCharacterlistPanel.getShowCharacterlistPanel(entry, user));
+        }
+      }
+      
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
+    };
+    characterServiceAsync.deleteCharacter(character, asyncCallback);
+  }
+  
+  private void setContent(Widget w) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(w);
+  }
+  
+  public void showDialogBox(String title, String message) {
+    // Create the popup dialog box
+    final DialogBox dialogBox = new DialogBox();
+
+    dialogBox.setText(title);
+    dialogBox.setAnimationEnabled(true);
+    final Button closeButton = new Button("Close");
+
+    // We can set the id of a widget by accessing its Element
+    closeButton.getElement().setId("closeButton");
+
+    VerticalPanel dialogVPanel = new VerticalPanel();
+    dialogVPanel.addStyleName("dialogVPanel");
+
+    dialogVPanel.add(new HTML((new StringBuffer().append("<b>").append(message).append("</b>")).toString()));
+    dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
+    dialogVPanel.add(closeButton);
+    dialogBox.setWidget(dialogVPanel);
+
+    dialogBox.center();
+
+    // Add a handler to close the DialogBox
+    closeButton.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
+        dialogBox.hide();
+      }
+    });
   }
 }

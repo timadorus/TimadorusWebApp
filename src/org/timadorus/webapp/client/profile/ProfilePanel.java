@@ -43,6 +43,8 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
   
   Button confirm = new Button("Löschung bestätigen");
   
+  Button back = new Button("Zurück");
+  
   PasswordTextBox passBox = new PasswordTextBox();
   
   private void setupHistory() {
@@ -54,7 +56,17 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
     this.entry = timadorusWebApp;
     this.user = user;
     setupHistory();
-    grid.setWidget(0, 0, delete);    
+    grid.setWidget(0, 0, delete);
+    
+    class BackHandler implements ClickHandler {
+      
+      public void onClick(ClickEvent event) {
+        History.newItem("welcome");
+      }
+    }
+    
+    BackHandler bh = new BackHandler();
+    back.addClickHandler(bh);
     
     class DeleteHandler implements ClickHandler, KeyUpHandler {
       /**
@@ -80,6 +92,8 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
         grid.setWidget(0, 0, new Label("Sind Sie sich sicher? Geben Sie Ihr Passwort zur Bestätigung ein."));
         grid.setWidget(1, 0, passBox);
         grid.setWidget(2, 0, confirm);
+        final int row = 3;
+        grid.setWidget(row, 0, back);
       }      
     }
     

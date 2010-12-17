@@ -36,6 +36,8 @@ public final class ShowCharacterlistPanel extends FormPanel {
   VerticalPanel panel       = new VerticalPanel();
   HTML headline             = new HTML("<h1>Liste der registrierten Charaktere</h1>");
   PasswordTextBox passbox   = new PasswordTextBox();
+  Button confirm            = new Button("Löschen bestätigen");
+  Button back               = new Button("Zurück");
 
   private ShowCharacterlistPanel(TimadorusWebApp entryIn, User userIn) {
     super();
@@ -44,6 +46,16 @@ public final class ShowCharacterlistPanel extends FormPanel {
     this.user  = userIn;
     
     getCharactersFromServer();
+    
+    class BackHandler implements ClickHandler {
+      
+      public void onClick(ClickEvent event) {
+        RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(entry, user));
+      }
+    }
+    
+    BackHandler bh = new BackHandler();
+    back.addClickHandler(bh);
     
     grid = new Grid(1, 1);
     grid.setWidget(0, 0, new Label("Waiting for ajax response..."));
@@ -82,27 +94,28 @@ public final class ShowCharacterlistPanel extends FormPanel {
   
   private void updateCharacterList(List<Character> result) {
     if (result.size() > 0) {
-      final int columns = 3;
+      final int columns = 4;
       grid = new Grid(result.size(), columns);
       grid.setBorderWidth(0);
     
       int i = 0;
       for (final Character character : result) {
         final Button delete = new Button("Löschen");
-        final Button details = new Button("Details");
-        final Button confirm = new Button("Löschen");
+        final Button details = new Button("Details");        
         
         class MyHandler implements ClickHandler {
           public void onClick(ClickEvent event) {
             if (event.getSource().equals(delete)) {
               grid.clear();
               panel.clear();
-              final int rows = 3;
+              final int rows = 4;
               grid = new Grid(rows, 1);
               headline = new HTML("<h1>Charakter löschen</h1>");
               grid.setWidget(0, 0, new Label("Sind Sie sich sicher, dass Sie diesen Charakter löschen wollen?"));
               grid.setWidget(1, 0, passbox);
               grid.setWidget(2, 0, confirm);
+              final int row = 3;
+              grid.setWidget(row, 0, back);
               panel.add(headline);
               panel.add(grid);
             } else if (event.getSource().equals(details)) {
@@ -153,7 +166,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
         
         ConfirmHandler handler2 = new ConfirmHandler();
         confirm.addClickHandler(handler2);
-        confirm.addKeyUpHandler(handler2);
+        passbox.addKeyUpHandler(handler2);
         
         grid.setWidget(i, 0, ShowCharacterPanel.getShowShortCharacterPanel(entry, user, character));
         grid.setWidget(i, 1, details);
