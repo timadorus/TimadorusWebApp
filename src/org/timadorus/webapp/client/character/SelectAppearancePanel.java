@@ -82,11 +82,17 @@ public class SelectAppearancePanel extends FormPanel {
   
   private String blueColor = "#0017C7";
   
+  private boolean hairColorChosen = false;
+  
+  private boolean skinColorChosen = false;
+  
   public SelectAppearancePanel(final TimadorusWebApp entryIn, Character characterIn, User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
     this.user = user;
+    
+    nextButton.setEnabled(false);
 
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
@@ -101,46 +107,63 @@ public class SelectAppearancePanel extends FormPanel {
         } else if (event.getSource().equals(selectBlackSkinImage)) {          
           skinColor.setText("Schwarze Hautfarbe ausgewählt!");
           character.setSkinColor(blackColor);
+          skinColorChosen = true;
         } else if (event.getSource().equals(selectBrownSkinImage)) {          
           skinColor.setText("Braune Hautfarbe ausgewählt!");
           character.setSkinColor(brownColor);
+          skinColorChosen = true;
         } else if (event.getSource().equals(selectGreenSkinImage)) {          
           skinColor.setText("Grüne Hautfarbe ausgewählt!");
           character.setSkinColor(greenColor);
+          skinColorChosen = true;
         } else if (event.getSource().equals(selectRedSkinImage)) {          
           skinColor.setText("Rote Hautfarbe ausgewählt!");
           character.setSkinColor(redColor);
+          skinColorChosen = true;
         } else if (event.getSource().equals(selectWhiteSkinImage)) {          
           skinColor.setText("Weiße Hautfarbe ausgewählt!");
           character.setSkinColor(whiteColor);
+          skinColorChosen = true;
         } else if (event.getSource().equals(selectYellowSkinImage)) {          
           skinColor.setText("Gelbe Hautfarbe ausgewählt!");
           character.setSkinColor(yellowColor);
+          skinColorChosen = true;
         } else if (event.getSource().equals(selectBlueSkinImage)) {          
           skinColor.setText("Blaue Hautfarbe ausgewählt!");
           character.setSkinColor(blueColor);
+          skinColorChosen = true;
         } else if (event.getSource().equals(selectBlackHairImage)) {          
           hairColor.setText("Schwarze Haarfarbe ausgewählt!"); 
           character.setHairColor(blackColor);
+          hairColorChosen = true;
         } else if (event.getSource().equals(selectBrownHairImage)) {          
           hairColor.setText("Braune Haarfarbe ausgewählt!");
           character.setHairColor(brownColor);
+          hairColorChosen = true;
         } else if (event.getSource().equals(selectGreenHairImage)) {          
           hairColor.setText("Grüne Haarfarbe ausgewählt!");
           character.setHairColor(greenColor);
+          hairColorChosen = true;
         } else if (event.getSource().equals(selectRedHairImage)) {          
           hairColor.setText("Rote Haarfarbe ausgewählt!");
           character.setHairColor(redColor);
+          hairColorChosen = true;
         } else if (event.getSource().equals(selectWhiteHairImage)) {          
           hairColor.setText("Weiße Haarfarbe ausgewählt!");
           character.setHairColor(whiteColor);
+          hairColorChosen = true;
         } else if (event.getSource().equals(selectYellowHairImage)) {          
           hairColor.setText("Gelbe Haarfarbe ausgewählt!");
           character.setHairColor(yellowColor);
+          hairColorChosen = true;
         } else if (event.getSource().equals(selectBlueHairImage)) {          
           skinColor.setText("Blaue Haarfarbe ausgewählt!");
           character.setHairColor(blueColor);
-        }        
+          hairColorChosen = true;
+        }
+        if (skinColorChosen && hairColorChosen) {
+          nextButton.setEnabled(true);
+        }
       }      
     }
     MyHandler handler = new MyHandler();
