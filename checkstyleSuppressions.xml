@@ -14,6 +14,7 @@
 
     <!-- Big testing methods -->
     <suppress checks="ExecutableStatementCount" files="TestCharacterValues.java" />
+    <suppress checks="ExecutableStatementCount" files="CreateCustomCharacterTest.java" />
     
     <!-- All the numbers are IDs and levels -->
     <suppress checks="MagicNumber" files="TestCharacterValues.java" />
@@ -29,6 +30,9 @@
     <suppress checks="MagicNumber" files="ShowCharacterPanel.java" />
     
     <!-- Selenium import in auto-generated selenium tests -->
-    <suppress checks="AvoidStarImport" files="SeleniumTest1.java" />
+    <suppress checks="AvoidStarImport" files="CreateCustomCharacterTest.java" />
+    <suppress checks="AvoidStarImport" files="CreateDeleteViewCharacterTest.java" />
+    <suppress checks="AvoidStarImport" files="RegisterUserTest.java" />
+    <suppress checks="AvoidStarImport" files="DeleteUserTest.java" />
 
 </suppressions>
