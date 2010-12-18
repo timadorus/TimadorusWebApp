@@ -11,10 +11,18 @@ public class CreateCustomCharacterTest extends SeleneseTestCase {
   public void testCreateCustomCharacter() throws Exception {
     selenium.open("/TimadorusWebApp.html");
     selenium.click("link=Account registrieren");
+    selenium.type("//input[@type='text']", "Test");
+    selenium.type("//div[@id='content']/form/table/tbody/tr[2]/td[2]/input", "4");
+    selenium.type("//div[@id='content']/form/table/tbody/tr[3]/td[2]/input", "31.10.1988");
+    selenium.type("//div[@id='content']/form/table/tbody/tr[4]/td[2]/input", "torben@home.de");
+    selenium.type("//div[@id='content']/form/table/tbody/tr[5]/td[2]/input", "torben@home.de");
+    selenium.type("//div[@id='content']/form/table/tbody/tr[6]/td[2]/input", "test4");
+    selenium.type("//input[@type='password']", "geheim");
+    selenium.type("//div[@id='content']/form/table/tbody/tr[8]/td[2]/input", "geheim");
     selenium.click("//button[@type='button']");
     selenium.click("link=Einloggen");
-    selenium.type("//input[@type='text']", "username");
-    selenium.type("//input[@type='password']", "passwort");
+    selenium.type("//input[@type='text']", "test4");
+    selenium.type("//input[@type='password']", "geheim");
     selenium.click("//button[@type='button']");
     selenium.click("link=Charakter erstellen");
     selenium.click("//button[@type='button']");
