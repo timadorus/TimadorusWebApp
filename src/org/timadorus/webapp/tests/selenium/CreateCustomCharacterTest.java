@@ -9,7 +9,7 @@ public class CreateCustomCharacterTest extends SeleneseTestCase {
   }
 
   public void testCreateCustomCharacter() throws Exception {
-    selenium.open("/TimadorusWebApp.html?gwt.codesvr=127.0.0.1:9997");
+    selenium.open("/TimadorusWebApp.html");
     selenium.click("link=Account registrieren");
     selenium.click("//button[@type='button']");
     selenium.click("link=Einloggen");

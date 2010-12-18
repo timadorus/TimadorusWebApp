@@ -9,14 +9,14 @@ public class RegisterUserTest extends SeleneseTestCase {
   }
 
   public void testRegisterUser() throws Exception {
-    selenium.open("/TimadorusWebApp.html?gwt.codesvr=127.0.0.1:9997");
+    selenium.open("/TimadorusWebApp.html");
     selenium.click("link=Account registrieren");
     selenium.type("//input[@type='text']", "Torben");
     selenium.type("//div[@id='content']/form/table/tbody/tr[2]/td[2]/input", "X");
     selenium.type("//div[@id='content']/form/table/tbody/tr[3]/td[2]/input", "31.10.1988");
     selenium.type("//div[@id='content']/form/table/tbody/tr[4]/td[2]/input", "torben@home.de");
     selenium.type("//div[@id='content']/form/table/tbody/tr[5]/td[2]/input", "torben@home.de");
-    selenium.type("//div[@id='content']/form/table/tbody/tr[6]/td[2]/input", "torbenx");
+    selenium.type("//div[@id='content']/form/table/tbody/tr[6]/td[2]/input", "torbenx2");
     selenium.type("//input[@type='password']", "geheim");
     selenium.type("//div[@id='content']/form/table/tbody/tr[8]/td[2]/input", "geheim");
     selenium.click("//button[@type='button']");
