@@ -26,6 +26,9 @@
 		<dependency org="org.apache.derby" name="derbynet" rev="10.6.2.1" conf="*->default" />
 		<dependency org="org.apache.derby" name="derbytools" rev="10.6.2.1" conf="*->default" />
 		
+		<!-- JUnit -->
+		<dependency org="junit" name="junit" rev="3.8.2" />
+		
 		<!-- Checkstyle -->
 		<dependency org="checkstyle" name="checkstyle" rev="5.1" conf="testing->runtime" />
 	</dependencies>

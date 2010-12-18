@@ -27,5 +27,8 @@
     <suppress checks="MagicNumber" files="GetPotStatsPanel.java" />
     <suppress checks="MagicNumber" files="SelectAppearancePanel.java" />
     <suppress checks="MagicNumber" files="ShowCharacterPanel.java" />
+    
+    <!-- Selenium import in auto-generated selenium tests -->
+    <suppress checks="AvoidStarImport" files="SeleniumTest1.java" />
 
 </suppressions>
