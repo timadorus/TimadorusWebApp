@@ -34,5 +34,8 @@
     <suppress checks="AvoidStarImport" files="CreateDeleteViewCharacterTest.java" />
     <suppress checks="AvoidStarImport" files="RegisterUserTest.java" />
     <suppress checks="AvoidStarImport" files="DeleteUserTest.java" />
+    <suppress checks="AvoidStarImport" files="LoginUserFailTest.java" />
+    <suppress checks="AvoidStarImport" files="DeleteCharacterFailTest.java" />
+    <suppress checks="AvoidStarImport" files="DeleteUserFailTest.java" />
 
 </suppressions>
