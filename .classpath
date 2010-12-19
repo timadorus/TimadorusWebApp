@@ -33,5 +33,6 @@
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/junit-3.8.2-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/junit-3.8.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/datanucleus-core-2.1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/selenium-server.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
