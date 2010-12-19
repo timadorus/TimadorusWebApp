@@ -35,6 +35,7 @@ public class DeleteUserTest extends SeleneseTestCase {
     selenium.click("//button[@type='button']");
     verifyTrue(selenium.isTextPresent("Ihr Account wurde erfolgreich gelöscht!"));
     selenium.click("closeButton");
+    Thread.sleep(sleepTime);
     verifyTrue(selenium.isTextPresent("Sie haben sich ausgeloggt."));
   }
 }

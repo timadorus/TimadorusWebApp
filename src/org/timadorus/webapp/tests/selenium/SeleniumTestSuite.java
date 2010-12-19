@@ -14,6 +14,7 @@ public final class SeleniumTestSuite {
     suite.addTestSuite(RegisterUserTest.class);
     suite.addTestSuite(CreateDeleteViewCharacterTest.class);
     suite.addTestSuite(DeleteUserTest.class);
+    suite.addTestSuite(CreateCustomCharacterTest.class);
     return suite;
   }
 

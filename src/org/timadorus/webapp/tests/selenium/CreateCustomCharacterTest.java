@@ -3,6 +3,9 @@ package org.timadorus.webapp.tests.selenium;
 import com.thoughtworks.selenium.*;
 
 public class CreateCustomCharacterTest extends SeleneseTestCase {
+
+  final int ajaxWait = 2000;
+
   @Override
   public void setUp() throws Exception {
     setUp("http://127.0.0.1:8888/", "*firefox");
@@ -84,9 +87,11 @@ public class CreateCustomCharacterTest extends SeleneseTestCase {
     selenium.click("//div[@id='content']/table/tbody/tr[14]/td/table/tbody/tr/td[2]/button");
     selenium.type("//input[@type='text']", "Testchar");
     selenium.click("//div[@id='content']/table/tbody/tr[10]/td/table/tbody/tr/td[2]/button");
-    verifyTrue(selenium.isTextPresent("Herzlichen Glückwunsch.\r\n\r\nIhr Charakter wurde gespeichert. "
-        + "Loggen sie sich auf dem Client mit ihren Accountdaten ein"));
+    verifyTrue(selenium.isTextPresent("Herzlichen Glückwunsch."));
+    verifyTrue(selenium.isTextPresent("Ihr Charakter wurde gespeichert."));
+    verifyTrue(selenium.isTextPresent("Loggen sie sich auf dem Client mit ihren Accountdaten ein"));
     selenium.click("link=Liste der Charaktere");
+    Thread.sleep(ajaxWait);
     verifyTrue(selenium.isTextPresent("Testchar"));
     verifyTrue(selenium.isTextPresent("Terrorgnom"));
     verifyTrue(selenium.isTextPresent("Nooobs"));
@@ -100,22 +105,71 @@ public class CreateCustomCharacterTest extends SeleneseTestCase {
     verifyTrue(selenium.isTextPresent("Nooobs"));
     verifyTrue(selenium.isTextPresent("#CF0000"));
     verifyTrue(selenium.isTextPresent("#003000"));
-    verifyTrue(selenium.isTextPresent("Skill-Name: Acting\r\nLevel-Bonus-Cat: SUB\r\nStat1: PR\r\nStat2: "
-        + "EM\r\nAction-Type: SA\r\nCalc-Type: Std\r\nLocal-Desc-Language: en-US\r\nLocal-Desc-Default: "
-        + "true\r\n\r\nSkill-Name: Acrobatics\r\nLevel-Bonus-Cat: ATH\r\nStat1: AG\r\nStat2: "
-        + "QU\r\nAction-Type: MM\r\nCalc-Type: Std\r\nLocal-Desc-Language: " + "en-US\r\nLocal-Desc-Default: true"));
-    verifyTrue(selenium.isTextPresent("Skill-Name: Rüstungsschmiede\r\nLevel-Bonus-Cat: SUB\r\nStat1: PR\r\nStat2: "
-        + "EM\r\nAction-Type: SA\r\nCalc-Type: Std\r\nLocal-Desc-Language: de\r\nLocal-Desc-Default: "
-        + "true\r\n\r\nSkill-Name: Swordsmanship\r\nLevel-Bonus-Cat: SUB\r\nStat1: PR\r\nStat2: "
-        + "EM\r\nAction-Type: SA\r\nCalc-Type: Std\r\nLocal-Desc-Language: " + "en-US\r\nLocal-Desc-Default: true"));
-    verifyTrue(selenium.isTextPresent("Name: Konstitution\r\nBeschreibung: Konsti\r\nStufe: 100\r\n\r\nName: "
-        + "Agilität\r\nBeschreibung: Agi\r\nStufe: 100\r\n\r\nName: Selbstdisziplin\r\nBeschreibung: "
-        + "Diszi\r\nStufe: 94\r\n\r\nName: Schlußfolgern\r\nBeschreibung: Schlußfolgern\r\nStufe: "
-        + "30\r\n\r\nName: Erinnerungsvermögen\r\nBeschreibung: Memory\r\nStufe: 30\r\n\r\nName: "
-        + "Glück\r\nBeschreibung: Lucky luck\r\nStufe: 30\r\n\r\nName: Stärke\r\nBeschreibung: "
-        + "Strength\r\nStufe: 30\r\n\r\nName: Schnelligkeit\r\nBeschreibung: Schnelligkeit\r\nStufe: "
-        + "30\r\n\r\nName: Intuition\r\nBeschreibung: Intuition\r\nStufe: 30\r\n\r\nName: "
-        + "Präsenz\r\nBeschreibung: Präsenz\r\nStufe: 30\r\n\r\nName: Empathie\r\nBeschreibung: "
-        + "Emp\r\nStufe: 30\r\n\r\nName: Aussehen\r\nBeschreibung: aussehen\r\nStufe: 91"));
+    verifyTrue(selenium.isTextPresent("Skill-Name: Acting"));
+    verifyTrue(selenium.isTextPresent("Level-Bonus-Cat: SUB"));
+    verifyTrue(selenium.isTextPresent("Stat1: PR"));
+    verifyTrue(selenium.isTextPresent("Stat2: EM"));
+    verifyTrue(selenium.isTextPresent("Action-Type: SA"));
+    verifyTrue(selenium.isTextPresent("Calc-Type: Std"));
+    verifyTrue(selenium.isTextPresent("Local-Desc-Language: en-US"));
+    verifyTrue(selenium.isTextPresent("Local-Desc-Default: true"));
+    verifyTrue(selenium.isTextPresent("Skill-Name: Acrobatics"));
+    verifyTrue(selenium.isTextPresent("Level-Bonus-Cat: ATH"));
+    verifyTrue(selenium.isTextPresent("Stat1: AG"));
+    verifyTrue(selenium.isTextPresent("Stat2: QU"));
+    verifyTrue(selenium.isTextPresent("Action-Type: MM"));
+    verifyTrue(selenium.isTextPresent("Calc-Type: Std"));
+    verifyTrue(selenium.isTextPresent("Local-Desc-Language: en-US"));
+    verifyTrue(selenium.isTextPresent("Local-Desc-Default: true"));
+    verifyTrue(selenium.isTextPresent("Skill-Name: Rüstungsschmiede"));
+    verifyTrue(selenium.isTextPresent("Level-Bonus-Cat: SUB"));
+    verifyTrue(selenium.isTextPresent("Stat1: PR"));
+    verifyTrue(selenium.isTextPresent("Stat2: EM"));
+    verifyTrue(selenium.isTextPresent("Action-Type: SA"));
+    verifyTrue(selenium.isTextPresent("Calc-Type: Std"));
+    verifyTrue(selenium.isTextPresent("Local-Desc-Language: de"));
+    verifyTrue(selenium.isTextPresent("Local-Desc-Default: true"));
+    verifyTrue(selenium.isTextPresent("Skill-Name: Swordsmanship"));
+    verifyTrue(selenium.isTextPresent("Level-Bonus-Cat: SUB"));
+    verifyTrue(selenium.isTextPresent("Stat1: PR"));
+    verifyTrue(selenium.isTextPresent("Stat2: EM"));
+    verifyTrue(selenium.isTextPresent("Action-Type: SA"));
+    verifyTrue(selenium.isTextPresent("Calc-Type: Std"));
+    verifyTrue(selenium.isTextPresent("Local-Desc-Language: en-US"));
+    verifyTrue(selenium.isTextPresent("Local-Desc-Default: true"));
+    verifyTrue(selenium.isTextPresent("Name: Konstitution"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Konsti"));
+    verifyTrue(selenium.isTextPresent("Stufe: 100"));
+    verifyTrue(selenium.isTextPresent("Name: Agilität"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Agi"));
+    verifyTrue(selenium.isTextPresent("Stufe: 100"));
+    verifyTrue(selenium.isTextPresent("Name: Selbstdisziplin"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Diszi"));
+    verifyTrue(selenium.isTextPresent("Stufe: 94"));
+    verifyTrue(selenium.isTextPresent("Name: Schlußfolgern"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Schlußfolgern"));
+    verifyTrue(selenium.isTextPresent("Stufe: 30"));
+    verifyTrue(selenium.isTextPresent("Name: Erinnerungsvermögen"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Memory"));
+    verifyTrue(selenium.isTextPresent("Stufe: 30"));
+    verifyTrue(selenium.isTextPresent("Name: Glück"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Lucky luck"));
+    verifyTrue(selenium.isTextPresent("Stufe: 30"));
+    verifyTrue(selenium.isTextPresent("Name: Stärke"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Strength"));
+    verifyTrue(selenium.isTextPresent("Stufe: 30"));
+    verifyTrue(selenium.isTextPresent("Name: Schnelligkeit"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Schnelligkeit"));
+    verifyTrue(selenium.isTextPresent("Stufe: 30"));
+    verifyTrue(selenium.isTextPresent("Name: Intuition"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Intuition"));
+    verifyTrue(selenium.isTextPresent("Stufe: 30"));
+    verifyTrue(selenium.isTextPresent("Name: Präsenz"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Präsenz"));
+    verifyTrue(selenium.isTextPresent("Stufe: 30"));
+    verifyTrue(selenium.isTextPresent("Name: Empathie"));
+    verifyTrue(selenium.isTextPresent("Beschreibung: Emp"));
+    verifyTrue(selenium.isTextPresent("Stufe: 30"));
   }
+
 }
