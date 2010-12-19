@@ -12,11 +12,11 @@ public class DeleteCharacterFailTest extends SeleneseTestCase {
     selenium.open("/TimadorusWebApp.html");
     selenium.click("link=Account registrieren");
     selenium.type("//input[@type='text']", "Test");
-    selenium.type("//div[@id='content']/form/table/tbody/tr[2]/td[2]/input", "8");
-    selenium.type("//div[@id='content']/form/table/tbody/tr[6]/td[2]/input", "test8");
+    selenium.type("//div[@id='content']/form/table/tbody/tr[2]/td[2]/input", "6");
+    selenium.type("//div[@id='content']/form/table/tbody/tr[6]/td[2]/input", "test6");
     selenium.click("//button[@type='button']");
     selenium.click("link=Einloggen");
-    selenium.type("//input[@type='text']", "test8");
+    selenium.type("//input[@type='text']", "test6");
     selenium.type("//input[@type='password']", "passwort");
     selenium.click("//button[@type='button']");
     selenium.click("link=Charakter erstellen");
