@@ -98,6 +98,7 @@ public class CreateCustomCharacterTest extends SeleneseTestCase {
     verifyTrue(selenium.isTextPresent("weiblich"));
     verifyTrue(selenium.isTextPresent("Informatiker"));
     selenium.click("//button[@type='button']");
+    Thread.sleep(ajaxWait);
     verifyTrue(selenium.isTextPresent("Testchar"));
     verifyTrue(selenium.isTextPresent("weiblich"));
     verifyTrue(selenium.isTextPresent("Terrorgnom"));
