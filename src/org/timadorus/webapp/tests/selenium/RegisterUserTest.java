@@ -21,7 +21,7 @@ public class RegisterUserTest extends WebTestCase {
     type("//input[@type='password']", "geheim");
     type("//div[@id='content']/form/table/tbody/tr[8]/td[2]/input", "geheim");    
     click("//button[@type='button']");
-    // creation of table "users"    
+    // creation of database and table "users"    
     Thread.sleep(sleepTime);
     click("link=Einloggen");
     type("//input[@type='text']", "test1");
