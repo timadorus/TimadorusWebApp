@@ -3,6 +3,7 @@ package org.timadorus.webapp.tests.selenium;
 public class CreateDeleteViewCharacterTest extends WebTestCase {
   
   final int sleepTime = 10000;
+  final int ajaxWait = 2000;
   
   @Override
   public void setUp() throws Exception {
@@ -25,23 +26,27 @@ public class CreateDeleteViewCharacterTest extends WebTestCase {
     type("//input[@type='text']", "test2");
     type("//input[@type='password']", "geheim");
     click("//button[@type='button']");
-    click("link=Liste der Charaktere");
-    verifyTrue(selenium.isTextPresent("Es wurden keine Charaktere gefunden."));
     click("link=Charakter erstellen");
     click("gwt-uid-2");
-    click("//button[@type='button']");
+    click("//button[@type='button']");    
+    click("//div[@id='content']/table/tbody/tr[3]/td/table/tbody/tr/td[2]/button");
     // creation of table "characters"
-    Thread.sleep(sleepTime);
-    click("//div[@id='content']/table/tbody/tr[3]/td/table/tbody/tr/td[2]/button");    
+    Thread.sleep(sleepTime);    
     click("link=Liste der Charaktere");
+    Thread.sleep(ajaxWait);
     verifyTrue(selenium.isTextPresent("Test"));
     click("//button[@type='button']");
-    verifyTrue(selenium.isTextPresent("Skill-Name: localeDescLabelIn\r\nLevel-Bonus-Cat: lvlBonusCatIn\r\nStat1: "
-        + "stat1In\r\nStat2: stat2In\r\nAction-Type: actionTypeIn\r\nCalc-Type: "
-        + "calcTypeIn\r\nLocal-Desc-Language: localeDescLanguageIn\r\nLocal-Desc-Default: true"));
+    verifyTrue(selenium.isTextPresent("Skill-Name: localeDescLabelIn"));
+    verifyTrue(selenium.isTextPresent("Level-Bonus-Cat: lvlBonusCatIn"));
+    verifyTrue(selenium.isTextPresent("Stat1: stat1In"));
+    verifyTrue(selenium.isTextPresent("Stat2: stat2In"));
+    verifyTrue(selenium.isTextPresent("Action-Type: actionTypeIn"));
+    verifyTrue(selenium.isTextPresent("Calc-Type: calcTypeIn"));
+    verifyTrue(selenium.isTextPresent("Local-Desc-Language: localeDescLanguageIn"));
+    verifyTrue(selenium.isTextPresent("Local-Desc-Default: true"));
     click("//div[@id='content']/table/tbody/tr[2]/td/table/tbody/tr/td[1]/form/table/tbody/"
         + "tr[1]/td/table/tbody/tr/td[2]/button");
-    type("//input[@type='password']", "passwort");
+    type("//input[@type='password']", "geheim");
     click("//button[@type='button']");
     verifyTrue(selenium.isTextPresent("Ihr Charakter wurde erfolgreich gelöscht!"));
     click("closeButton");
