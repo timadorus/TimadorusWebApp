@@ -62,12 +62,12 @@
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>delete</servlet-name>
-    <servlet-class>org.timadorus.webapp.server.rpc.service.DeleteUserServiceImpl</servlet-class>
+    <servlet-name>user</servlet-name>
+    <servlet-class>org.timadorus.webapp.server.rpc.service.UserServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>delete</servlet-name>
-    <url-pattern>/timadoruswebapp/delete</url-pattern>
+    <servlet-name>user</servlet-name>
+    <url-pattern>/timadoruswebapp/user</url-pattern>
   </servlet-mapping>
 </web-app>

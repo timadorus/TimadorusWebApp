@@ -50,7 +50,8 @@ public class CharacterServiceImpl extends RemoteServiceServlet implements Charac
     
     return null;
   }
-
+  
+  @SuppressWarnings("unchecked")
   @Override
   public String deleteCharacter(Character character) {
     PersistenceManager pm = PMF.getPersistenceManager();

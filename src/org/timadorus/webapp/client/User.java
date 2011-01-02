@@ -48,47 +48,47 @@ public class User implements Serializable {
 
   public static final String USER_INACTIVE = "INACTIVE";
 
-  private final int nameSize = 50;
+  private static final int NAME_SIZE = 50;
   
-  private final int passwordSize = 50;
+  private static final int PASSWORD_SIZE = 50;
   
-  private final int dateSize = 10;
+  private static final int DATE_SIZE = 10;
   
-  private final int emailSize = 50;
+  private static final int EMAIL_SIZE = 50;
   
-  private final int usernameSize = 20;
+  private static final int USERNAME_SIZE = 20;
   
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   private Long id;
 
   @Persistent
-  @Column(length = nameSize)
+  @Column(length = NAME_SIZE)
   private String vorname = "";
 
   @Persistent
-  @Column(length = nameSize)
+  @Column(length = NAME_SIZE)
   private String nachname = "";
 
   @Persistent
-  @Column(length = dateSize)
+  @Column(length = DATE_SIZE)
   private String geburtstag = "";
 
   @Persistent
-  @Column(length = emailSize)
+  @Column(length = EMAIL_SIZE)
   private String email = "";
 
   @Unique
   @Persistent
-  @Column(length = usernameSize)
+  @Column(length = USERNAME_SIZE)
   private String username = "";
 
   @Persistent
-  @Column(length = usernameSize)
+  @Column(length = USERNAME_SIZE)
   private String displayname = "";  
   
   @Persistent
-  @Column(length = passwordSize)
+  @Column(length = PASSWORD_SIZE)
   private String password = "";
 
   @Persistent

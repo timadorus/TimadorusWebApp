@@ -38,7 +38,8 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
     }
     
   }
-  
+
+  @SuppressWarnings("unchecked")
   public String saveCharacterToDB(Character character) {
     PersistenceManager pm = PMF.getPersistenceManager();
     
@@ -89,7 +90,8 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
     }
     return "SUCCESS";
   }
-  
+
+  @SuppressWarnings("unchecked")
   public Character getCharacterFromDB(String cname) {
 
   try {
