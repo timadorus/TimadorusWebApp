@@ -47,6 +47,12 @@ public class User implements Serializable {
   public static final String USER_INVALID = "INVALID";
 
   public static final String USER_INACTIVE = "INACTIVE";
+  
+  public static final String USER_VARIFIED = "VARIFIED";
+  
+  public static final String USER_WRONG_CODE = "WRONG_CODE";
+  
+  public static final String USER_ALREADY_ACTIVATED = "ALREADY_ACTIVATED";
 
   private static final int NAME_SIZE = 50;
   
@@ -57,6 +63,8 @@ public class User implements Serializable {
   private static final int EMAIL_SIZE = 50;
   
   private static final int USERNAME_SIZE = 20;
+  
+  private static final int ACTIVATE_CODE_SIZE = 32;
   
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -93,6 +101,10 @@ public class User implements Serializable {
 
   @Persistent
   private Boolean active = false;
+  
+  @Persistent
+  @Column(length = ACTIVATE_CODE_SIZE)
+  private String activationCode = "";
 
   public User() {
     super();
@@ -173,6 +185,14 @@ public class User implements Serializable {
 
   public Boolean getActive() {
     return active;
+  }
+  
+  public void setActivationCode(String activationCodeIn) {
+    this.activationCode = activationCodeIn;
+  }
+  
+  public String getActivationCode() {
+    return activationCode;
   }
 
   public final Long getId() {

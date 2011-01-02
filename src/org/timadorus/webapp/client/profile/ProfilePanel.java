@@ -297,7 +297,8 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
             if (result != null) {
               if (result == User.OK) {
                 RootPanel.get("content").clear();
-                History.newItem("welcome");
+                getTimadorus().showDialogBox("Erfolg", "Ihre Daten wurden erfolgreich geändert");
+                ProfilePanel.getProfilePanel(getTimadorus(), user);
               } else {
                 profileHandleErrors(result);
                 submit.setEnabled(true);
@@ -306,7 +307,6 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
               submit.setEnabled(true);
             }
           }
-
           public void onFailure(Throwable caught) {
             registerInvalid(0);
             System.out.println(caught);

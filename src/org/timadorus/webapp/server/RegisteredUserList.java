@@ -21,8 +21,8 @@ public final class RegisteredUserList {
   public static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
 
   private HashMap<String, User> users = new HashMap<String, User>();
-
-  private static RegisteredUserList userList = null;
+  
+  private static RegisteredUserList registeredUserList = null;
 
   /**
    * Konstruktor muss PRIVATE bleiben -> Singelton-Pattern
@@ -30,15 +30,13 @@ public final class RegisteredUserList {
   private RegisteredUserList() { }
 
   /**
-   * Singelton-Pattern
-   * 
-   * @return Single-Instance
+   * @return new Instance 
    */
   public static RegisteredUserList getInstance() {
-    if (userList == null) {
-      userList = new RegisteredUserList();
+    if (registeredUserList == null) {
+      registeredUserList = new RegisteredUserList();
     }
-    return userList;
+    return registeredUserList;
   }
 
   /**
@@ -57,7 +55,15 @@ public final class RegisteredUserList {
         System.out.println("Datastore: keine Treffer für '" + tmpUser.getDisplayname() + "'");
         return false;
       }
+    } else {
+      PersistenceManager pm = PMF.getPersistenceManager();          
+      users.put(tmpUser.getUsername(), pm.getObjectById(User.class, users.get(tmpUser.getUsername()).getId()));
+      pm.close();
+      System.out.println("Datastore: User is loaded");
     }
+    System.out.println("tmpUser.getUsername() " + tmpUser.getUsername());
+    System.out.println("users.get(x) " + users.get(tmpUser.getUsername()));
+    System.out.println("users.get(x).getActive()" + users.get(tmpUser.getUsername()).getActive());
     if (users.get(tmpUser.getUsername()).getActive()) { return true; }
     return false;
   }
@@ -131,12 +137,16 @@ public final class RegisteredUserList {
    * @return false, wenn Username bereits vergeben, true sonst
    */
   public Boolean addUser(User user) {
-    if (usernameAvailable(user.getUsername())) {
+    String activationCode = Util.generateActivationCode(user);
+    
+    if (usernameAvailable(user.getUsername()) && !activationCode.equals("")) {
       PersistenceManager pm = PMF.getPersistenceManager();
-      pm = PMF.getPersistenceManager();
-      user.setActive(true);
+      user.setActive(false);
+      user.setActivationCode(activationCode);
       pm.makePersistent(user);
-      System.out.println("Datastore: '" + user.getDisplayname() + "' hinzugefügt...");
+      pm.close();
+      System.out.println("Datastore: '" + user.getDisplayname() + "' hinzugefügt mit ActivationCode: "
+                         + user.getActivationCode());
       users.put(user.getUsername(), user);
       return true;
     }
@@ -182,19 +192,13 @@ public final class RegisteredUserList {
     try {
        Character c = Character.getInstance(); //
        c.setName("MyCharacter1");
-       c.setAllAttrInfo();
-//       User us=new User("testx", "testx", "testx", "testx", "testx", "testx");
-//      pm.makePersistent(us);
-      
+       c.setAllAttrInfo();      
 
        pm.makePersistent(c);
       pm.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
-
-//    getC("testx");
-
   }
 
   public void print() {
@@ -211,7 +215,6 @@ public final class RegisteredUserList {
     try {
       PersistenceManager pm = PMF.getPersistenceManager();
 
-      // **
       List<Character> entries = new ArrayList<Character>();
 
       Query query = pm.newQuery("SELECT FROM " + Character.class.getName());

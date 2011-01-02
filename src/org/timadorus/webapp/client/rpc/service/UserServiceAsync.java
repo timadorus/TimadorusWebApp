@@ -9,5 +9,6 @@ public interface UserServiceAsync {
   void getUser(User user, AsyncCallback<User> callback);
   void delete(User user, AsyncCallback<String> callback);
   void update(long id, User user, AsyncCallback<Integer> callback);
+  void verifyMail(String activitionCode, User user, AsyncCallback<String> callback);
 
 }

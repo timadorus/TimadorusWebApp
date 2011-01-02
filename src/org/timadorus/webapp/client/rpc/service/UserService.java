@@ -11,5 +11,6 @@ public interface UserService extends RemoteService {
   User getUser(User user);
   String delete(User user);
   int update(long id, User user);
+  String verifyMail(String activitionCode, User user);
   
 }

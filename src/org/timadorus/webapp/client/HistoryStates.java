@@ -22,5 +22,7 @@ interface HistoryStates {
   
   public static final String PROFILE_STATE = "profile";
   
+  public static final String VERIFY_MAIL_STATE = "verifyMail";
+  
 }
 // CHECKSTYLE ON

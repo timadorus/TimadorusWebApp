@@ -18,6 +18,7 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
   private static final long serialVersionUID = -2215579735797066083L;
   
   public static final PersistenceManagerFactory PMF = RegisteredUserList.PMF;
+  private static RegisteredUserList userList = RegisteredUserList.getInstance();
   
   /**
    * Returns a User object containing the current available informations of this user.
@@ -92,6 +93,31 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
       pm.close();
     }
     return value;
+  }
+  
+  public String verifyMail(String activationCode, User user) {
+    if (user == null) { return null; }
+    if (userList.isValid(user)) {
+      if (userList.isActive(user)) {
+        return User.USER_ALREADY_ACTIVATED;
+      } else {
+        user = getUser(user);
+        if (activationCode.equals(user.getActivationCode())) {
+          PersistenceManager pm = PMF.getPersistenceManager();          
+          User origUser         = pm.getObjectById(User.class, user.getId());
+          origUser.setActive(true);
+          pm.makePersistent(origUser);
+          pm.close();
+          
+          System.out.println("Verified user: " + origUser.getUsername() + " active?: " + origUser.getActive());
+          System.out.println("Verified user: " + userList.isActive(user));
+          
+          return User.USER_VARIFIED;
+        }
+        return User.USER_WRONG_CODE;
+      }
+    }
+    return User.USER_INVALID;
   }
   
   /**

@@ -8,6 +8,7 @@ import org.timadorus.webapp.client.profile.ProfilePanel;
 import org.timadorus.webapp.client.register.RegisterPanel;
 import org.timadorus.webapp.client.rpc.service.SessionService;
 import org.timadorus.webapp.client.rpc.service.SessionServiceAsync;
+import org.timadorus.webapp.client.verify_mail.VerifyMailPanel;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -16,6 +17,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -43,6 +45,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   private Hyperlink profilelink;
 
   private boolean loggedin = false;
+  private boolean activationPage = false;
   
   public  TestCharacterValues testValues;
   
@@ -78,11 +81,16 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     RootPanel.get("information").add(vp2);
 
     sessionId.setSessionId(Cookies.getCookie("session"));
+
+    if (Window.Location.getParameter("activationCode") != null) {
+      activationPage = true;
+    }
+
     History.onHistoryChanged("welcome");
     System.out.println("Session " + sessionId.getSessionId());
-    validateSession();
     setupHistory();
     loadWelcomePanel();
+    validateSession();
   }
 
   public void loadWelcomePanel() {
@@ -133,10 +141,13 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
       }
 
       public void onSuccess(SessionId result) {
-        // if(result != null &&
-        // sessionId.getSessionId().equals(result.getSessionId())){
         System.out.println("Result " + result + " SessionID " + sessionId.getSessionId());
-        loadWelcomePanel();
+        
+        if (activationPage) {
+          loadVerifyMailPanel();
+        } else {
+          loadWelcomePanel();
+        }
 
       }
     };
@@ -153,6 +164,15 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
       loadProfilePanel();      
     } else if (WELCOME_STATE.equals(historyToken)) {
       loadWelcomePanel();
+    } else if (VERIFY_MAIL_STATE.equals(historyToken)) {
+      if (isLoggedin()) {
+        loadWelcomePanel();
+        showDialogBox("Fehlermeldung", 
+                      "Diese Seite kann nicht aufgerufen werden, wenn Sie zur Zeit angemeldet sind");
+        History.newItem("welcome");
+      } else {
+        loadVerifyMailPanel();
+      }
     } else if (CREATE_CHARACTER_STATE.equals(historyToken)) {
       if (isLoggedin()) {
         loadCreateCharacterPanel();
@@ -208,6 +228,12 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Benutzregistrierung"));
     RootPanel.get("content").add(RegisterPanel.getRegisterPanel(this));
+  }
+  
+  public void loadVerifyMailPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("E-Mail bestätigen"));
+    RootPanel.get("content").add(VerifyMailPanel.getVerifyMailPanel(this));
   }
 
   public void loadLoginPanel() {

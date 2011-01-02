@@ -1,5 +1,7 @@
 package org.timadorus.webapp.server;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,5 +61,21 @@ public final class Util {
       --a;
     }
     return (a);
+  }
+  
+  public static String generateActivationCode(User user) {
+    String pass = user.getVorname() + user.getNachname() + user.getEmail() + user.getPassword() 
+                  + user.getGeburtstag() + System.currentTimeMillis();
+    
+    try {
+      MessageDigest m = MessageDigest.getInstance("MD5");
+      byte[] data = pass.getBytes(); 
+      m.update(data, 0, data.length);
+      BigInteger i = new BigInteger(1, m.digest());
+      return String.format("%1$032X", i);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return "";
   }
 }
