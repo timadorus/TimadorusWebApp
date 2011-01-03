@@ -171,6 +171,10 @@
 		<!-- for use by SuprressionCommentFilter -->
 	    <module name="FileContentsHolder"/>
 
+        <!--  JavaDoc -->
+        <!-- >module name="JavadocType"/>
+        <module name="JavadocMethod"/>
+        <module name="JavadocStyle"/-->
     </module>
 
     <!-- Duplicate code -->
