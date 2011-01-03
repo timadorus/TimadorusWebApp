@@ -109,9 +109,6 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
           pm.makePersistent(origUser);
           pm.close();
           
-          System.out.println("Verified user: " + origUser.getUsername() + " active?: " + origUser.getActive());
-          System.out.println("Verified user: " + userList.isActive(user));
-          
           return User.USER_VARIFIED;
         }
         return User.USER_WRONG_CODE;

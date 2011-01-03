@@ -59,11 +59,7 @@ public final class RegisteredUserList {
       PersistenceManager pm = PMF.getPersistenceManager();          
       users.put(tmpUser.getUsername(), pm.getObjectById(User.class, users.get(tmpUser.getUsername()).getId()));
       pm.close();
-      System.out.println("Datastore: User is loaded");
     }
-    System.out.println("tmpUser.getUsername() " + tmpUser.getUsername());
-    System.out.println("users.get(x) " + users.get(tmpUser.getUsername()));
-    System.out.println("users.get(x).getActive()" + users.get(tmpUser.getUsername()).getActive());
     if (users.get(tmpUser.getUsername()).getActive()) { return true; }
     return false;
   }
