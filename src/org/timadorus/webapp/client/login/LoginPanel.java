@@ -100,17 +100,23 @@ public class LoginPanel extends FormPanel implements HistoryListener {
     grid.setWidget(2, 1, errorHTML);
     grid.setWidget(3, 1, submit);
 
-    // Create a handler for the sendButton and nameField
+    /**
+     * Create a handler for the sendButton and nameField.
+     */
     class MyHandler implements ClickHandler, KeyUpHandler {
       /**
-       * Wird ausgelöst, wenn Button gedrückt wurde
+       * Will be triggered if the button was clicked.
+       * 
+       * @param event The click event object
        */
       public void onClick(ClickEvent event) {
         handleEvent();
       }
 
       /**
-       * Prüft ob "Enter" gedrückt wurde
+       * Will be triggered if the "Enter" button was hit while located in an input field.
+       * 
+       * @param event The KeyUpEvent object
        */
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
@@ -253,7 +259,9 @@ public class LoginPanel extends FormPanel implements HistoryListener {
   }
 
   /**
-   * In dieser Methode wird das Ereignis "Login ungültig" verarbeitet.
+   * If the login was invalid, the error message will be formatted and inserted here.
+   * 
+   * @param message The error message which shall be displayed
    */
   private void loginInvalid(String message) {
     errorHTML.setHTML("<span class=\"error\">" + message + "</span>");

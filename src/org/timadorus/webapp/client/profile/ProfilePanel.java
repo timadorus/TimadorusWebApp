@@ -111,7 +111,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
   }
   
   /**
-   * Get full user object from the server
+   * Get full user object from the server.
    */
   private void getProfileDataFromServer() {
     UserServiceAsync userServiceAsync = GWT.create(UserService.class);
@@ -133,7 +133,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
   }
   
   /**
-   * Generating the actual profile panel after ajax response has arrived
+   * Generating the actual profile panel after ajax response has arrived.
    * 
    * @param result The full user object containing the information for the profile grid
    */
@@ -206,18 +206,22 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
     passwordRepeatTextBox.setText(this.user.getPassword());
     
     /**
-     * Create a handler for the sendButton and nameField
+     * Create a handler for the sendButton and nameField.
      */
     class MyHandler implements ClickHandler, KeyUpHandler {
       /**
-       * Will be triggered if the the submit button has been clicked
+       * Will be triggered if the the submit button has been clicked.
+       * 
+       * @param event The ClickEvent object
        */
       public void onClick(ClickEvent event) {
         handleEvent();
       }
 
       /**
-       * Checks whether the "Enter" button was pressed or not
+       * Checks whether the "Enter" button was pressed or not.
+       * 
+       * @param event The KeyUpEvent object
        */
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
@@ -330,7 +334,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
   }
   
   /**
-   * Handles errors which occurs while updating the profile data
+   * Handles errors which occurs while updating the profile data.
    * 
    * @param result An integer containing all errors that have been occure
    */
@@ -361,7 +365,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
   }
 
   /**
-   * Creates an error HTML label
+   * Creates an error HTML label.
    * 
    * @param label The label which shall be modified 
    * @param message The message which shall be displayed
@@ -444,7 +448,9 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
     
     class DeleteHandler implements ClickHandler, KeyUpHandler {
       /**
-       * Wird ausgelöst, wenn Button gedrückt wurde
+       * Will be triggered if the button was clicked.
+       * 
+       * @param event The ClickEvent object
        */
       public void onClick(ClickEvent event) {
         System.out.println("Account löschen Button geklickt");
@@ -452,7 +458,9 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
       }
 
       /**
-       * Prüft ob "Enter" gedrückt wurde
+       * Will be triggered if the "Enter" button was hit while located in an input field.
+       * 
+       * @param event The KeyUpEvent object
        */
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
@@ -461,7 +469,6 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
       }
 
       private void handleEvent() {
-        System.out.println("handle Event");
         deleteGrid.remove(delete);
         deleteGrid.setWidget(0, 0, new Label("Sind Sie sich sicher? Geben Sie Ihr Passwort zur Bestätigung ein."));
         deleteGrid.setWidget(1, 0, passBox);
@@ -473,7 +480,9 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
     
     class ConfirmHandler implements ClickHandler, KeyUpHandler {
       /**
-       * Wird ausgelöst, wenn Button gedrückt wurde
+       * Will be triggered if the button was clicked.
+       * 
+       * @param event The ClickEvent object
        */
       public void onClick(ClickEvent event) {
         System.out.println("Löschung bestätigen Button geklickt");
@@ -481,7 +490,9 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
       }
 
       /**
-       * Prüft ob "Enter" gedrückt wurde
+       * Will be triggered if the "Enter" button was hit while located in an input field.
+       * 
+       * @param event The KeyUpEvent object
        */
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
@@ -539,7 +550,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
   }
 
   /**
-   * Clear and add new content to the page content DIV
+   * Clear and add new content to the page content DIV.
    * 
    * @param w New widget
    */
@@ -549,7 +560,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
   }
   
   /**
-   * Returns the TimadorusWebApp object
+   * Returns the TimadorusWebApp object.
    * 
    * @return The TimadorusWebApp object
    */

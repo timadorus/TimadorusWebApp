@@ -137,7 +137,9 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler, KeyUpHandler {
       /**
-       * Wird ausgelöst, wenn Button gedrückt wurde
+       * Will be triggered if the button was clicked.
+       * 
+       * @param event The ClickEvent object
        */
       public void onClick(ClickEvent event) {
         System.out.println("Submit Button geklickt");
@@ -145,7 +147,9 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
       }
 
       /**
-       * Prüft ob "Enter" gedrückt wurde
+       * Will be triggered if the "Enter" button was hit while located in an input field.
+       * 
+       * @param event The KeyUpEvent object
        */
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
@@ -210,7 +214,9 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
       }
 
       /**
-       * Formular-Inhalt an Server senden
+       * Send form content to the server to add a new user object
+       * 
+       * @param register A User object, containing the form contents
        */
       private void sendToServer(User register) {
         RegisterServiceAsync registerServiceAsync = GWT.create(RegisterService.class);
@@ -277,7 +283,9 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
   }
 
   /**
-   * In dieser Methode wird das Ereignis "Registrierung ungültig" verarbeitet.
+   * If the registration was invalid, the error message will be formatted and inserted here.
+   * 
+   * @param error An integer value representing the error message (Error code)
    */
   public void registerInvalid(int error) {
     switch (error) {

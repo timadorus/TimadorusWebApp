@@ -131,7 +131,9 @@ public final class ShowCharacterlistPanel extends FormPanel {
         
         class ConfirmHandler implements ClickHandler, KeyUpHandler {
           /**
-           * Wird ausgelöst, wenn Button gedrückt wurde
+           * Will be triggered if the button was clicked.
+           * 
+           * @param event The click event
            */
           public void onClick(ClickEvent event) {
             System.out.println("Löschung bestätigen Button geklickt");
@@ -139,7 +141,9 @@ public final class ShowCharacterlistPanel extends FormPanel {
           }
 
           /**
-           * Prüft ob "Enter" gedrückt wurde
+           * Will be triggered if the "Enter" button was hit while located in an input field
+           * 
+           * @param event The KeyUpEvent
            */
           public void onKeyUp(KeyUpEvent event) {
             if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {

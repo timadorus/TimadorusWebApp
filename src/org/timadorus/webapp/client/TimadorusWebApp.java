@@ -194,6 +194,9 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     }
   }
 
+  /**
+   * A new ProfilePanel will be loaded and showed on the webpage.
+   */
   private void loadProfilePanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Profil bearbeiten"));
@@ -202,7 +205,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   }
 
   /**
-   * loadRegisterPanel
+   * A new CreateCharacterPanel will be loaded and showed on the webpage.
    */
   public void loadCreateCharacterPanel() {
     RootPanel.get("content").clear();
@@ -212,7 +215,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   }
   
   /**
-   * showCharacterlistPanel
+   * A new CharacterListPanel will be loaded and showed on the webpage.
    */
   public void loadShowCharacterlistPanel() {
     RootPanel.get("content").clear();
@@ -222,7 +225,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   }
 
   /**
-   * loadRegisterPanel
+   * A new RegisterPanel will be loaded and showed on the webpage.
    */
   public void loadRegisterPanel() {
     RootPanel.get("content").clear();
@@ -230,18 +233,27 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     RootPanel.get("content").add(RegisterPanel.getRegisterPanel(this));
   }
   
+  /**
+   * A new VerifyMailPanel will be loaded and showed on the webpage.
+   */
   public void loadVerifyMailPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("E-Mail bestätigen"));
     RootPanel.get("content").add(VerifyMailPanel.getVerifyMailPanel(this));
   }
 
+  /**
+   * A new LoginPanel will be loaded and showed on the webpage.
+   */
   public void loadLoginPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("In bestehenden Account einloggen:"));
     RootPanel.get("content").add(LoginPanel.getLoginPanel(sessionId, this));
   }
   
+  /**
+   * A new LogoutPanel will be loaded and showed on the webpage.
+   */
   public void loadLogoutPanel() {
 
     RootPanel.get("content").clear();

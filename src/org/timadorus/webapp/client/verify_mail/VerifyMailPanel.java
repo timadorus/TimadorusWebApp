@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * This panel is essential while verifying the E-Mail to activate
- * a user account
+ * a user account.
  * 
  * @author Malte Kantak
  */
@@ -84,14 +84,18 @@ public class VerifyMailPanel extends FormPanel implements HistoryListener {
      */
     class MyHandler implements ClickHandler, KeyUpHandler {
       /**
-       * Wird ausgelöst, wenn Button gedrückt wurde
+       * Will be triggered if button was clicked.
+       * 
+       * @param event The click event
        */
       public void onClick(ClickEvent event) {
         handleEvent();
       }
 
       /**
-       * Prüft ob "Enter" gedrückt wurde
+       * Will be triggered if the "Enter" button was hit while focused in an inputfield.
+       * 
+       * @param event The KeyUpEvent
        */
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
@@ -185,7 +189,9 @@ public class VerifyMailPanel extends FormPanel implements HistoryListener {
   }
 
   /**
-   * In dieser Methode wird das Ereignis "Login ungültig" verarbeitet.
+   * If the verification was invalid, the error message will be formatted and inserted here.
+   * 
+   * @param message The error message
    */
   private void verifyInvalid(String message) {
     errorHTML.setHTML("<span class=\"error\">" + message + "</span>");

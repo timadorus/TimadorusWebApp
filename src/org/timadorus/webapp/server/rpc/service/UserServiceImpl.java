@@ -23,7 +23,7 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
   /**
    * Returns a User object containing the current available informations of this user.
    * 
-   * @param User which shall be returned with current state
+   * @param user which shall be returned with current state
    * @return The user in current state
    */
   @SuppressWarnings("unchecked")
@@ -50,7 +50,7 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
   }
   
   /**
-   * Deletes the user provided as parameter for this method as RPC Service
+   * Deletes the user provided as parameter for this method as RPC Service.
    * 
    * @param user The user which shall be deleted
    * @return The status of delete-process User.OK on success, User.USER_INVALID otherwise
@@ -64,7 +64,7 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
   }
   
   /**
-   * Updates the user data of a certain user profile
+   * Updates the user data of a certain user profile.
    * 
    * @param id The id of the user
    * @param user The supplied user data
@@ -118,7 +118,7 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
   }
   
   /**
-   * Checks if the supplied user data is valid for update
+   * Checks if the supplied user data is valid for update.
    * 
    * @param user The supplied user data as User object
    * @return User.OK or other integer values in case of error

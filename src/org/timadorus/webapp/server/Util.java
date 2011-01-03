@@ -9,13 +9,27 @@ import java.util.GregorianCalendar;
 
 import org.timadorus.webapp.client.User;
 
+/**
+ * A Util class containing different static util functions related to the server code.
+ * 
+ * @author Malte Kantak
+ */
 public final class Util {
   
   // Mindestalter für User; "0" wenn keine Einschränkung
   private static final int MIN_AGE_USER = 18;
   
+  /**
+   * Private constructor, because there will be no need for an instance of this class. 
+   */
   private Util() { }
 
+  /**
+   * Checks if the e-mail address inside the supplied User object is valid.
+   * 
+   * @param user The supplied User object
+   * @return 0 if the E-Mail address has a valid format, User.EMAIL_FORMAT otherwise
+   */
   public static int checkEmailAdresse(User user) {
     if (user.getEmail().startsWith("www.") || !user.getEmail().matches(".+@.+\\.[a-z]+")) { 
       return User.EMAIL_FORMAT; 
@@ -23,6 +37,12 @@ public final class Util {
     return 0;
   }
 
+  /**
+   * Checks if the username is available or not.
+   * 
+   * @param username The username which shall be checked
+   * @return 0 if the username is available, User.USERNAME_FAULT otherwise
+   */
   public static int checkUsernameFree(String username) {
     RegisteredUserList userList = RegisteredUserList.getInstance();
     if (!userList.usernameAvailable(username)) { 
@@ -31,6 +51,13 @@ public final class Util {
     return 0;
   }
 
+  /**
+   * Checks if the birthday is valid or not.
+   * 
+   * @param birthday The birthday which shall be checked as string
+   * @return 0 if valid, User.GEBURTSTAG_FORMAT if format is invalid, User.GEBURTSTAG_AGE if the age was invalid or
+   *          User.GEBURTSTAG_FAULT on parse exception.
+   */
   public static int checkBirthday(String birthday) {
     // Format "dd.mm.jjjj" erlaubt
     if (!birthday.matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
@@ -49,6 +76,12 @@ public final class Util {
     return 0;
   }
 
+  /**
+   * Calculates the age for a certain birth date.
+   * 
+   * @param gebdat The birth date for which the age shall be calculated 
+   * @return The age as integer
+   */
   public static int age(Date gebdat) {
     GregorianCalendar cal = new GregorianCalendar();
     int y, d, a;
@@ -63,6 +96,12 @@ public final class Util {
     return (a);
   }
   
+  /**
+   * Generates an activation code for a supplied user, including the current system timestamp.
+   * 
+   * @param user The user object
+   * @return A string containing an 32byte MD5-Hash as activation code for the supplied user object.
+   */
   public static String generateActivationCode(User user) {
     String pass = user.getVorname() + user.getNachname() + user.getEmail() + user.getPassword() 
                   + user.getGeburtstag() + System.currentTimeMillis();

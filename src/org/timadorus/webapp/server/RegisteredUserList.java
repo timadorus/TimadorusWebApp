@@ -25,12 +25,15 @@ public final class RegisteredUserList {
   private static RegisteredUserList registeredUserList = null;
 
   /**
-   * Konstruktor muss PRIVATE bleiben -> Singelton-Pattern
+   * Constructor has to stay private -> Singelton-Pattern.
    */
   private RegisteredUserList() { }
 
   /**
-   * @return new Instance 
+   * Returns an instance of the RegisteredUserList. If it was already requested, a cached object will be returned.
+   * (Singelton-Pattern).
+   * 
+   * @return An instance of the RegisteredUserList 
    */
   public static RegisteredUserList getInstance() {
     if (registeredUserList == null) {
@@ -40,10 +43,10 @@ public final class RegisteredUserList {
   }
 
   /**
-   * Diese Methode überprüft, ob der User aktiviert ist oder nicht.
+   * This method checks whether a user is active or not.
    * 
-   * @param tmpUser
-   * @return true, wenn der User aktiviert ist, false sonst
+   * @param tmpUser The user which shall be checked
+   * @return True if the user is active, false otherwise
    */
   public boolean isActive(User tmpUser) {
     if (!users.containsKey(tmpUser.getUsername())) {
@@ -65,10 +68,10 @@ public final class RegisteredUserList {
   }
 
   /**
-   * Diese Methode überprüft Username und Passwort des übergebenen Users.
+   * This method checks if the supplied username and password is correct.
    * 
-   * @param tmpUser
-   * @return true, wenn Username und Passwort gültig, false sonst
+   * @param tmpUser The user containing the username and password
+   * @return True if username and password was valid, false otherwise
    */
   public Boolean isValid(User tmpUser) {
     if (!users.containsKey(tmpUser.getUsername())) {
@@ -86,10 +89,10 @@ public final class RegisteredUserList {
   }
 
   /**
-   * Diese Methode prüft, ob ein Username bereits vergeben ist.
+   * Checks if a username is available or not.
    * 
-   * @param username
-   * @return false, wenn Username bereits vergeben, true sonst
+   * @param username The username which shall be checked
+   * @return True if the username is available, false otherwise
    */
   public Boolean usernameAvailable(String username) {
     if (!users.containsKey(username.toLowerCase())) {
@@ -100,12 +103,10 @@ public final class RegisteredUserList {
   }
 
   /**
-   * Die Methode versucht einen User anhand eines Usernamens aus dem Datastore zu laden. Ist kein User mit dem
-   * angegebenen Namen vorhanden, wird ein "leerer" User zurückgegeben. Somit kann mit Methode "isValid" des
-   * User-Objekts geprüft werden, ob der User vorhanden ist. Somit entfällt die Prüfung auf "null".
+   * This method finds a user object by name and returns it.
    * 
-   * @param username
-   * @return User aus Datastore, wenn vorhanden; "leeren" User sonst
+   * @param username The username
+   * @return If the user was found, it will be returned, otherwise an empty user will be returned
    */
   @SuppressWarnings("unchecked")
   private User getUser(String username) {
@@ -126,11 +127,10 @@ public final class RegisteredUserList {
   }
 
   /**
-   * Die Methode fügt einen User zu der Liste der registrierten User hinzu. Dabei wird der Username zwecks verbesserter
-   * Vergleichsmöglichkeit als "lowerCase" gespeichert.
+   * This method adds a new user to the user list and to the database.
    * 
-   * @param user
-   * @return false, wenn Username bereits vergeben, true sonst
+   * @param user The new user, which shall be added
+   * @return True if the user was successfully added, false otherwise
    */
   public Boolean addUser(User user) {
     String activationCode = Util.generateActivationCode(user);
