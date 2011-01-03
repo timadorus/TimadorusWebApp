@@ -2,7 +2,7 @@ package org.timadorus.webapp.tests.selenium;
 
 public class RegisterUserTest extends WebTestCase {
   
-  final int sleepTime = 20000;
+  final int sleepTime = 30000;
   
   @Override
   public void setUp() throws Exception {

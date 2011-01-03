@@ -1,8 +1,6 @@
 package org.timadorus.webapp.tests.selenium;
 
-import com.thoughtworks.selenium.*;
-
-public class DeleteUserTest extends SeleneseTestCase {
+public class DeleteUserTest extends WebTestCase {
   
   final int sleepTime = 1000;
   

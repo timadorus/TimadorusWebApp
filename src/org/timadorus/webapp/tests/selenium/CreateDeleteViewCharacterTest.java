@@ -4,7 +4,7 @@ import com.thoughtworks.selenium.*;
 
 public class CreateDeleteViewCharacterTest extends SeleneseTestCase {
   
-  final int sleepTime = 10000;
+  final int sleepTime = 15000;
   final int ajaxWait = 2000;
   
   @Override
@@ -52,6 +52,7 @@ public class CreateDeleteViewCharacterTest extends SeleneseTestCase {
     selenium.click("//button[@type='button']");
     verifyTrue(selenium.isTextPresent("Ihr Charakter wurde erfolgreich gelöscht!"));
     selenium.click("closeButton");
+    Thread.sleep(sleepTime);
     verifyTrue(selenium.isTextPresent("Es wurden keine Charaktere gefunden."));
   }
 }

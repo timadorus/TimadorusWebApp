@@ -1,8 +1,6 @@
 package org.timadorus.webapp.tests.selenium;
 
-import com.thoughtworks.selenium.*;
-
-public class DeleteCharacterFailTest extends SeleneseTestCase {
+public class DeleteCharacterFailTest extends WebTestCase {
   
   @Override
   public void setUp() throws Exception {
@@ -11,28 +9,28 @@ public class DeleteCharacterFailTest extends SeleneseTestCase {
 
   public void testDeleteCharacterFail() throws Exception {
     selenium.open("/TimadorusWebApp.html");
-    selenium.click("link=Account registrieren");
-    selenium.type("//input[@type='text']", "Test");
-    selenium.type("//div[@id='content']/form/table/tbody/tr[2]/td[2]/input", "6");
-    selenium.type("//div[@id='content']/form/table/tbody/tr[6]/td[2]/input", "test6");
-    selenium.click("//button[@type='button']");
-    selenium.click("link=Einloggen");
-    selenium.type("//input[@type='text']", "test6");
-    selenium.type("//input[@type='password']", "passwort");
-    selenium.click("//button[@type='button']");
-    selenium.click("link=Charakter erstellen");
-    selenium.click("//div[@id='content']/table/tbody/tr[3]/td/table/tbody/tr[2]/td[2]/img");
-    selenium.click("//button[@type='button']");
-    selenium.click("//div[@id='content']/table/tbody/tr[3]/td/table/tbody/tr/td[2]/button");
-    selenium.click("link=Liste der Charaktere");
-    selenium.click("//div[@id='content']/table/tbody/tr[2]/td/table/tbody/tr/td[3]/button");
-    selenium.type("//input[@type='password']", "abc");
-    selenium.click("//button[@type='button']");
+    click("link=Account registrieren");
+    type("//input[@type='text']", "Test");
+    type("//div[@id='content']/form/table/tbody/tr[2]/td[2]/input", "6");
+    type("//div[@id='content']/form/table/tbody/tr[6]/td[2]/input", "test6");
+    click("//button[@type='button']");
+    click("link=Einloggen");
+    type("//input[@type='text']", "test6");
+    type("//input[@type='password']", "passwort");
+    click("//button[@type='button']");
+    click("link=Charakter erstellen");
+    click("//div[@id='content']/table/tbody/tr[3]/td/table/tbody/tr[2]/td[2]/img");
+    click("//button[@type='button']");
+    click("//div[@id='content']/table/tbody/tr[3]/td/table/tbody/tr/td[2]/button");
+    click("link=Liste der Charaktere");
+    click("//div[@id='content']/table/tbody/tr[2]/td/table/tbody/tr/td[3]/button");
+    type("//input[@type='password']", "abc");
+    click("//button[@type='button']");
     verifyTrue(selenium.isTextPresent("Passwort falsch! Versuchen Sie es erneut!"));
-    selenium.click("closeButton");
-    selenium.type("//input[@type='password']", "passwort");
-    selenium.click("//button[@type='button']");
+    click("closeButton");
+    type("//input[@type='password']", "passwort");
+    click("//button[@type='button']");
     verifyTrue(selenium.isTextPresent("Ihr Charakter wurde erfolgreich gelöscht!"));
-    selenium.click("closeButton");
+    click("closeButton");
   }
 }
