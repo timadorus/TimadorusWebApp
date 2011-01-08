@@ -130,9 +130,9 @@ public final class RegisteredUserList {
    * This method adds a new user to the user list and to the database.
    * 
    * @param user The new user, which shall be added
-   * @return True if the user was successfully added, false otherwise
+   * @return ActivationCode as String on success, null otherwise
    */
-  public Boolean addUser(User user) {
+  public String addUser(User user) {
     String activationCode = Util.generateActivationCode(user);
     
     if (usernameAvailable(user.getUsername()) && !activationCode.equals("")) {
@@ -144,9 +144,9 @@ public final class RegisteredUserList {
       System.out.println("Datastore: '" + user.getDisplayname() + "' hinzugefügt mit ActivationCode: "
                          + user.getActivationCode());
       users.put(user.getUsername(), user);
-      return true;
+      return user.getActivationCode();
     }
-    return false;
+    return null;
   }
   
   @SuppressWarnings("unchecked")

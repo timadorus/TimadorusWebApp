@@ -1,7 +1,5 @@
 package org.timadorus.webapp.tests.selenium;
 
-import com.thoughtworks.selenium.*;
-
 public class DeleteUserFailTest extends WebTestCase {
   @Override
   public void setUp() throws Exception {

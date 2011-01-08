@@ -14,14 +14,19 @@ public class RegisterServiceImpl extends RemoteServiceServlet implements Registe
   public String register(User dataIn) {
     System.out.println("Register aufgerufen");
     int value = isValid(dataIn);
+    String activationCode = null;
     if (value == User.OK) {
       RegisteredUserList userList = RegisteredUserList.getInstance();
-      Boolean added = userList.addUser(dataIn);
-      if (!added) {
+      activationCode = userList.addUser(dataIn);
+      if (activationCode == null) {
         value = User.USERNAME_FAULT;
       }
     }
-    return String.valueOf(value);
+    if (activationCode == null) {
+      return String.valueOf(value);
+    } else {
+      return String.valueOf(value) + "_" + activationCode;
+    }
   }
   
   private static int isValid(User user) {

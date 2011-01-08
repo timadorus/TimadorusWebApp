@@ -11,6 +11,8 @@ public class RegisterUserTest extends WebTestCase {
 
   public void testRegisterUser() throws Exception {
     selenium.open("/TimadorusWebApp.html");
+    
+    // registration
     click("link=Account registrieren");
     type("//input[@type='text']", "Test");
     type("//div[@id='content']/form/table/tbody/tr[2]/td[2]/input", "1");
@@ -21,12 +23,21 @@ public class RegisterUserTest extends WebTestCase {
     type("//input[@type='password']", "geheim");
     type("//div[@id='content']/form/table/tbody/tr[8]/td[2]/input", "geheim");    
     click("//button[@type='button']");
+    
     // creation of database and table "users"    
     Thread.sleep(sleepTime);
-    click("link=Einloggen");
-    type("//input[@type='text']", "test1");
-    type("//input[@type='password']", "geheim");
-    click("//button[@type='button']");
+    
+    // activation link
+    String activationCode = selenium.getText("//b");
+    selenium.open("/TimadorusWebApp.html?activationCode=" + activationCode);
+    selenium.type("//input[@type='text']", "test1");
+    selenium.type("//input[@type='password']", "geheim");
+    selenium.click("//button[@type='button']");
+    selenium.type("//input[@type='text']", "test1");
+    selenium.type("//input[@type='password']", "geheim");
+    selenium.click("//button[@type='button']");
+    
+    // Verification
     verifyTrue(selenium.isTextPresent("Du bist als test1 angemeldet"));
     verifyTrue(selenium.isTextPresent("Liste der Charaktere"));
     verifyTrue(selenium.isTextPresent("Profil bearbeiten"));

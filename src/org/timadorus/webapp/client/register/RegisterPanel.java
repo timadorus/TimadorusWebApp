@@ -69,26 +69,16 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
 
   private TimadorusWebApp entry;
 
-  private static RegisterPanel registerPanel;
-
   public TimadorusWebApp getEntry() {
     return entry;
   }
 
   public static final RegisterPanel getRegisterPanel(TimadorusWebApp entry) {
-    if (registerPanel == null) {
-      registerPanel = new RegisterPanel(entry);
-    }
-    return registerPanel;
-  }
-
-  public void setRegisterPanel(RegisterPanel registerPanelIn) {
-    RegisterPanel.registerPanel = registerPanelIn;
+    return new RegisterPanel(entry);
   }
 
   private void setupHistory() {
     History.addHistoryListener(this);
-    // History.onHistoryChanged("register");
   }
 
   public RegisterPanel(TimadorusWebApp timadorusWebApp) {
@@ -223,9 +213,12 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
           public void onSuccess(String result) {
             if (result != null) {
-              int value = Integer.parseInt(result);
+              String[] tmp = result.split("_");
+              
+              int value = Integer.parseInt(tmp[0]);
               if (value == User.OK) {
                 RootPanel.get("content").clear();
+                getEntry().showDialogBox("ActivationCode", tmp[1]);
                 History.newItem("welcome");
               } else {
                 if (value >= User.PASSWORD_FAULT) {
