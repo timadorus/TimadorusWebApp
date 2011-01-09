@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+// Panel to show a list of characters
 public final class ShowCharacterlistPanel extends FormPanel {
   
   private Grid grid;
@@ -47,8 +48,14 @@ public final class ShowCharacterlistPanel extends FormPanel {
     
     getCharactersFromServer();
     
+    // creates a handler for the back button
     class BackHandler implements ClickHandler {
       
+      /**
+       * Will be triggered if the the button has been clicked.
+       * 
+       * @param event The ClickEvent object
+       */
       public void onClick(ClickEvent event) {
         RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(entry, user));
       }
@@ -73,16 +80,26 @@ public final class ShowCharacterlistPanel extends FormPanel {
     RootPanel.get("information").clear();
   }
   
+  /**
+   * Gets all the characters of the current user from the server.
+   */
   private void getCharactersFromServer() {
     CharacterServiceAsync characterServiceAsync = GWT.create(CharacterService.class);
 
     AsyncCallback<List<Character>> asyncCallback = new AsyncCallback<List<Character>>() {
+      /**
+       * Updates the character list.
+       * @param result the list of all the current user's characters
+       */
       public void onSuccess(List<Character> result) {
         if (result != null) {
           updateCharacterList(result);
         }
       }
 
+      /**
+       * Shows a dialog box with the error message.
+       */
       public void onFailure(Throwable caught) {
         getTimadorus().showDialogBox("Fehlermeldung", "Fehler bei der Abfrage der Charactere");
         System.out.println(caught);
@@ -92,6 +109,10 @@ public final class ShowCharacterlistPanel extends FormPanel {
     characterServiceAsync.getCharacterList(user, asyncCallback);
   }
   
+  /**
+   * Updates the character list.
+   * @param result The characters of the user
+   */
   private void updateCharacterList(List<Character> result) {
     if (result.size() > 0) {
       final int columns = 4;
@@ -129,6 +150,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
           }      
         }
         
+        // creates a click and keyboard handler for the confirm button
         class ConfirmHandler implements ClickHandler, KeyUpHandler {
           /**
            * Will be triggered if the button was clicked.
@@ -151,6 +173,9 @@ public final class ShowCharacterlistPanel extends FormPanel {
             }
           }
 
+          /**
+           * Handles the character deletion.
+           */
           private void handleEvent() {
             System.out.println("handle Event");
             if (passbox.getText().equals(user.getPassword())) {
@@ -188,6 +213,10 @@ public final class ShowCharacterlistPanel extends FormPanel {
     setContent(panel);
   }
   
+  /**
+   * Deletes a character.
+   * @param character the character to be deleted
+   */
   private void deleteCharacter(Character character) {
     CharacterServiceAsync characterServiceAsync = GWT.create(CharacterService.class);
     AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
@@ -210,31 +239,62 @@ public final class ShowCharacterlistPanel extends FormPanel {
     characterServiceAsync.deleteCharacter(character, asyncCallback);
   }
   
+  /**
+   * Clears the panel and adds a widget to it.
+   * @param w the widget to be added.
+   */
   private void setContent(Widget w) {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(w);
   }
 
+  /**
+   * Gets the ShowCharacterlistPanel.
+   * @param entry the entry point of the application
+   * @param user the current user
+   * @return the ShowCharacterlistPanel
+   */
   public static final ShowCharacterlistPanel getShowCharacterlistPanel(TimadorusWebApp entry, User user) {
     return new ShowCharacterlistPanel(entry, user);
   }
 
+  /**
+   * Sets the entry point of the application.
+   * @param webapp the entry point of the application.
+   */
   public void setTimadorusWebApp(TimadorusWebApp webapp) {
     this.entry = webapp;
   }
   
+  /**
+   * Gets the entry point of the application.
+   * @return the entry point of the application.
+   */
   public TimadorusWebApp getTimadorus() {
     return this.entry;
   }
 
+  /**
+   * Gets the current user.
+   * @return the current user.
+   */
   public User getUser() {
     return user;
   }
 
+  /**
+   * Sets the current user.
+   * @param userIn the user to be set as current user
+   */
   public void setUser(User userIn) {
     this.user = userIn;
   }
   
+  /**
+   * Shows a dialog box with a title and message.
+   * @param title the title of the dialog box
+   * @param message the message in the dialog box
+   */
   public void showDialogBox(String title, String message) {
     // Create the popup dialog box
     final DialogBox dialogBox = new DialogBox();
@@ -258,6 +318,11 @@ public final class ShowCharacterlistPanel extends FormPanel {
 
     // Add a handler to close the DialogBox
     closeButton.addClickHandler(new ClickHandler() {
+      /**
+       * Will be triggered if the the button has been clicked.
+       * 
+       * @param event The ClickEvent object
+       */
       public void onClick(ClickEvent event) {
         dialogBox.hide();
       }

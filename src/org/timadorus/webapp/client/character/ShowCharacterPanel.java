@@ -331,6 +331,7 @@ public final class ShowCharacterPanel extends FormPanel {
    * @param entry the entry point of the application
    * @param c the current character
    * @param user the current user
+   * @return the ShowCharacterPanel
    */
   public static final ShowCharacterPanel getShowDetailCharacterPanel(TimadorusWebApp e, User u, Character c) {
     return new ShowCharacterPanel(e, u, c, ShowCharacterPanel.DETAIL_MODE);
