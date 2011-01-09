@@ -5,6 +5,7 @@ import org.openqa.selenium.server.SeleniumServer;
 import com.thoughtworks.selenium.SeleneseTestCase;
 import com.thoughtworks.selenium.Wait;
 
+// Improves the compatibility with AJAX by waiting for elements
 public class WebTestCase extends SeleneseTestCase {
 
   private final long defaultTimeout = 30;

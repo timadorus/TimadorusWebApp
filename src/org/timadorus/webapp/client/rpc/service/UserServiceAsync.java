@@ -4,6 +4,7 @@ import org.timadorus.webapp.client.User;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+//Interface for Asyncronous user related method calls (RPC-calls) between client and server
 public interface UserServiceAsync {
 
   void getUser(User user, AsyncCallback<User> callback);

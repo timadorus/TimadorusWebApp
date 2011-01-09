@@ -3,6 +3,7 @@ package org.timadorus.webapp.tests.selenium;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+// Test suite to run all the Selenium tests in the right order
 public final class SeleniumTestSuite {
   
   private SeleniumTestSuite() {

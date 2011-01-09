@@ -2,6 +2,7 @@ package org.timadorus.webapp.tests.selenium;
 
 import com.thoughtworks.selenium.*;
 
+// Tests the creation, deletion and viewing of a character
 public class CreateDeleteViewCharacterTest extends SeleneseTestCase {
   
   final int sleepTime = 15000;

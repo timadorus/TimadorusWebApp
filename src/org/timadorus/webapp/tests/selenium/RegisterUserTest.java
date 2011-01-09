@@ -1,5 +1,6 @@
 package org.timadorus.webapp.tests.selenium;
 
+// Tests the registration, login and logout of users
 public class RegisterUserTest extends WebTestCase {
   
   final int sleepTime = 30000;

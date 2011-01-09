@@ -1,5 +1,6 @@
 package org.timadorus.webapp.tests.selenium;
 
+// Tests deleting a character with a wrong password
 public class DeleteCharacterFailTest extends WebTestCase {
   
   @Override

@@ -5,6 +5,7 @@ import org.timadorus.webapp.client.User;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+// service for getting and deleting from the database and updating users in it
 @RemoteServiceRelativePath("user")
 public interface UserService extends RemoteService {
 

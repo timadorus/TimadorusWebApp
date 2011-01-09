@@ -1,5 +1,6 @@
 package org.timadorus.webapp.tests.selenium;
 
+// Tests logging in of a user with wrong password
 public class LoginUserFailTest extends WebTestCase {
   @Override
   public void setUp() throws Exception {

@@ -1,5 +1,6 @@
 package org.timadorus.webapp.tests.selenium;
 
+// Tests deleting a user with a wrong password
 public class DeleteUserFailTest extends WebTestCase {
   @Override
   public void setUp() throws Exception {

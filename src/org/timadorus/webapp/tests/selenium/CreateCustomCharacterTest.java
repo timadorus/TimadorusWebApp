@@ -1,5 +1,6 @@
 package org.timadorus.webapp.tests.selenium;
 
+// Tests the creation of a custom character
 public class CreateCustomCharacterTest extends WebTestCase {
 
   final int ajaxWait = 2000;

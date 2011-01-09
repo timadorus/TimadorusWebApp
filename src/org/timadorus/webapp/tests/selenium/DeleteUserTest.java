@@ -1,5 +1,6 @@
 package org.timadorus.webapp.tests.selenium;
 
+// Tests deletion of a user
 public class DeleteUserTest extends WebTestCase {
   
   final int sleepTime = 1000;
