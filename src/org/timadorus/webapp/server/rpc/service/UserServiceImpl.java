@@ -13,6 +13,9 @@ import org.timadorus.webapp.server.Util;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+/**
+ * Provides service methods related to user operations.
+ */
 public class UserServiceImpl  extends RemoteServiceServlet implements UserService {
 
   private static final long serialVersionUID = -2215579735797066083L;
@@ -95,6 +98,16 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
     return value;
   }
   
+  /**
+   * Activates a user using the activation code, which was send as link to the users e-mail address.
+   * 
+   * @param activationCode The activation code which was send as link to the users e-mail address
+   * @param user The supplied user data
+   * @return User.USER_ALREADY_ACTIVATED    if the user is already activated, 
+   *         User.USER_WRONG_CODE           if the supplied activation code has been incorrect, 
+   *         User.USER_INVALID              if the username and password was wrong and
+   *         User.USER_VARIFIED             if the user has been successfully verified.  
+   */
   public String verifyMail(String activationCode, User user) {
     if (user == null) { return null; }
     if (userList.isValid(user)) {

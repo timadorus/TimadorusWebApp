@@ -29,6 +29,12 @@ public class RegisterServiceImpl extends RemoteServiceServlet implements Registe
     }
   }
   
+  /**
+   * Checks if a user is valid in registration content.
+   * 
+   * @param user The supplied user data
+   * @return An error code on failure, User.OK otherwise
+   */
   private static int isValid(User user) {
     int out = User.OK;
     out += Util.checkBirthday(user.getGeburtstag());
