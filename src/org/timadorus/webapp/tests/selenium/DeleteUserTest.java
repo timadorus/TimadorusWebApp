@@ -2,8 +2,9 @@ package org.timadorus.webapp.tests.selenium;
 
 // Tests deletion of a user
 public class DeleteUserTest extends WebTestCase {
-  
-  final int sleepTime = 1000;
+
+  final int sleepTime = 30000;
+  final int ajaxWait = 2000;
   
   @Override
   public void setUp() throws Exception {
@@ -22,18 +23,31 @@ public class DeleteUserTest extends WebTestCase {
     selenium.type("//input[@type='password']", "geheim");
     selenium.type("//div[@id='content']/form/table/tbody/tr[8]/td[2]/input", "geheim");
     selenium.click("//button[@type='button']");
-    // creation of user
+    
+    // creation of database and table "users"    
     Thread.sleep(sleepTime);
-    selenium.click("link=Einloggen");
+    
+    // activation link
+    String activationLink = selenium.getText("//b");
+    selenium.open(activationLink);
     selenium.type("//input[@type='text']", "test3");
     selenium.type("//input[@type='password']", "geheim");
     selenium.click("//button[@type='button']");
-    selenium.click("link=Profil bearbeiten");
-    selenium.click("//button[@type='button']");
+    Thread.sleep(ajaxWait);
+    
+    selenium.type("//input[@type='text']", "test3");
     selenium.type("//input[@type='password']", "geheim");
     selenium.click("//button[@type='button']");
+    
+    selenium.click("link=Profil bearbeiten");
+    selenium.click("//button[@type='button']");
+    
+    selenium.type("//input[@type='password']", "geheim");
+    selenium.click("//button[@type='button']");
+    
     verifyTrue(selenium.isTextPresent("Ihr Account wurde erfolgreich gelöscht!"));
     selenium.click("closeButton");
+    
     Thread.sleep(sleepTime);
     verifyTrue(selenium.isTextPresent("Sie haben sich ausgeloggt."));
   }

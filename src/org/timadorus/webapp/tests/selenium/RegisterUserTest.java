@@ -39,6 +39,7 @@ public class RegisterUserTest extends WebTestCase {
     selenium.type("//input[@type='text']", "test1");
     selenium.type("//input[@type='password']", "geheim");
     selenium.click("//button[@type='button']");
+    Thread.sleep(ajaxWait);
     
     // Verification
     verifyTrue(selenium.isTextPresent("Du bist als test1 angemeldet"));
