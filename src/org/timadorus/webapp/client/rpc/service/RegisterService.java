@@ -5,9 +5,17 @@ import org.timadorus.webapp.client.User;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-// service for Registering
+/**
+ * RegisterService interface for GWT-RPC.
+ */
 @RemoteServiceRelativePath("register")
 public interface RegisterService extends RemoteService {
-
-  String register(User data);
+  
+  /**
+   * Registers a user supplied as dataIn parameter.
+   * 
+   * @param dataIn The user which shall be registered
+   * @return Return value of this.isValid(dataIn)
+   */
+  String register(User dataIn);
 }

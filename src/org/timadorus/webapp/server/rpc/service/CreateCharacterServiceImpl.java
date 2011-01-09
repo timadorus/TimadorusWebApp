@@ -18,7 +18,9 @@ import org.timadorus.webapp.server.RegisteredUserList;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 
-// Implementing CreateCharacterService according to GWT-RPC-Plumbing-diagramm
+/**
+ * Implementing CreateCharacterService according to GWT-RPC-Plumbing-diagram.
+ */
 public class CreateCharacterServiceImpl extends RemoteServiceServlet implements CreateCharacterService {
 
   private static final PersistenceManagerFactory PMF = RegisteredUserList.PMF;
@@ -27,8 +29,6 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
   private static final long serialVersionUID = 2463839761006931303L;
   @Override
   public String createCharacter(Character character) {
-//    Character char1 = Character.getInstance();
-//    return char1;
     if (character != null) {
       System.out.println("\n\n**********" + character.toString() + "\n" + character.toStringPart2()
                          + "\n****************\n\n");
@@ -94,34 +94,31 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
   @SuppressWarnings("unchecked")
   public Character getCharacterFromDB(String cname) {
 
-  try {
-    PersistenceManager pm = PMF.getPersistenceManager();
-
-    List<Character> entries = new ArrayList<Character>();
-
-    Query query = pm.newQuery("SELECT FROM " + Character.class.getName());
-
-    entries = (List<Character>) query.execute();
-
-
-    for (Character character : entries) {
-      if (character.getName().equals(cname)) {
-        System.out.println("\n\n**********Read from DB FOLLOW CHARACTER-OBJECT*********\n" 
-                           + character.getAllAttrInfo_Part1() + "\n" + character.getAllAttrInfo_Part2() 
-                           + "\n****************\n\n");
-        System.out.println("\n*********************************************************\n");
-        
-        pm.close();
-        return character;
+    try {
+      PersistenceManager pm = PMF.getPersistenceManager();
+  
+      List<Character> entries = new ArrayList<Character>();
+  
+      Query query = pm.newQuery("SELECT FROM " + Character.class.getName());
+  
+      entries = (List<Character>) query.execute();
+  
+  
+      for (Character character : entries) {
+        if (character.getName().equals(cname)) {
+          System.out.println("\n\n**********Read from DB FOLLOW CHARACTER-OBJECT*********\n" 
+                             + character.getAllAttrInfo_Part1() + "\n" + character.getAllAttrInfo_Part2() 
+                             + "\n****************\n\n");
+          System.out.println("\n*********************************************************\n");
+          
+          pm.close();
+          return character;
+        }
       }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-  } catch (Exception e) {
-    e.printStackTrace();
+  
+    return null;
   }
-
-  return null;
-}
-
-  
-  
 }

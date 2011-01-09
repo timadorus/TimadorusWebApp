@@ -38,7 +38,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @author Malte Kantak
  */
 @SuppressWarnings("deprecation")
-public class VerifyMailPanel extends FormPanel implements HistoryListener {
+public final class VerifyMailPanel extends FormPanel implements HistoryListener {
 
   private final int gridRows    = 4;
   private final int gridColumns = 2;
@@ -60,7 +60,12 @@ public class VerifyMailPanel extends FormPanel implements HistoryListener {
 
   private static final long TWO_MIN = 1000 * 60 * 2;
 
-  public VerifyMailPanel(TimadorusWebApp entryIn) {
+  /**
+   * Private constructor.
+   *  
+   * @param entryIn The timadorus web app object
+   */
+  private VerifyMailPanel(TimadorusWebApp entryIn) {
     super();
 
     this.entry = entryIn;
@@ -103,6 +108,9 @@ public class VerifyMailPanel extends FormPanel implements HistoryListener {
         }
       }
 
+      /**
+       * Handles the actual event. Sends username and password to server if they wheren't empty.
+       */
       private void handleEvent() {
         clearError();
         getUser().setUsername(userBox.getText());
@@ -119,7 +127,7 @@ public class VerifyMailPanel extends FormPanel implements HistoryListener {
       }
 
       /**
-       * Username, Passwort und Aktivierungcode an Server senden
+       * Send username, password and activation code to the server to verify the users e-mail address.
        */
       private void sendToServer() {
         UserServiceAsync userServiceAsync = GWT.create(UserService.class);
@@ -164,6 +172,11 @@ public class VerifyMailPanel extends FormPanel implements HistoryListener {
     setStyleName("formPanel");
   }
   
+  /**
+   * Handles error responses from the server and displays error messages.
+   * 
+   * @param result The result from the server
+   */
   private void handleError(String result) {
     if (result.equals(User.USER_ALREADY_ACTIVATED)) {
       verifyInvalid("Das Benutzerkonto ist schon aktiviert worden!");
@@ -180,10 +193,19 @@ public class VerifyMailPanel extends FormPanel implements HistoryListener {
     }
   }
 
+  /**
+   * Returns an instance of this class.
+   * 
+   * @param entry The timadorus web app object
+   * @return An instance of this class
+   */
   public static final VerifyMailPanel getVerifyMailPanel(TimadorusWebApp entry) {
     return new VerifyMailPanel(entry);
   }
 
+  /**
+   * Adds this instance to the history listener.
+   */
   private void setupHistory() {
     History.addHistoryListener(this);
   }
@@ -197,6 +219,9 @@ public class VerifyMailPanel extends FormPanel implements HistoryListener {
     errorHTML.setHTML("<span class=\"error\">" + message + "</span>");
   }
 
+  /**
+   * Clears all errors from the web-site.
+   */
   private void clearError() {
     errorHTML.setHTML("");
     Element info = DOM.getElementById("info");
@@ -205,13 +230,28 @@ public class VerifyMailPanel extends FormPanel implements HistoryListener {
     }
   }
 
+  /**
+   * Unimplemented method.
+   * 
+   * @param historyToken The history token
+   */
   @Override
   public void onHistoryChanged(String historyToken) { }
 
+  /**
+   * Returns the timadorus web app object.
+   * 
+   * @return The timadorus web app object
+   */
   private TimadorusWebApp getTimadorus() {
     return entry;
   }
   
+  /**
+   * Returns the current User object.
+   * 
+   * @return The current User object.
+   */
   private User getUser() {
     return user;
   }

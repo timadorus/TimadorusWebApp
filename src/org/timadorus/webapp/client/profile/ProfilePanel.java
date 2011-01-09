@@ -26,6 +26,9 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * A profile panel. Supplies the options to change the user data or to delete the user.
+ */
 @SuppressWarnings("deprecation")
 public class ProfilePanel extends FormPanel implements HistoryListener {
   
@@ -74,6 +77,9 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
   
   PasswordTextBox passBox = new PasswordTextBox();
   
+  /**
+   * Adds this instance to the history listener.
+   */
   private void setupHistory() {
     History.addHistoryListener(this);
   }
@@ -432,20 +438,35 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
     }
   }
 
+  /**
+   * Builds the grid for the area, which provides the deletion of the current user.
+   */
   private void buildDeleteGrid() {
  // Initialize delete section
     deleteGrid.setWidget(0, 0, delete);
     
+    /**
+     * A BackHandler class as implmenetation of ClickHandler.
+     * Describes the handler for history back option.
+     */
     class BackHandler implements ClickHandler {
       
+      /**
+       * If clicked, "welcome" will be added as new history item.
+       * 
+       * @param event The event object
+       */
       public void onClick(ClickEvent event) {
-        History.newItem("welcome");
+        History.newItem(TimadorusWebApp.WELCOME_STATE);
       }
     }
     
     BackHandler bh = new BackHandler();
     back.addClickHandler(bh);
     
+    /**
+     * The handler class for the delete action.
+     */
     class DeleteHandler implements ClickHandler, KeyUpHandler {
       /**
        * Will be triggered if the button was clicked.
@@ -468,6 +489,10 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
         }
       }
 
+      /**
+       * Handles the event by asking if the user is really sure + adding a password and a username input field for
+       * verification.
+       */
       private void handleEvent() {
         deleteGrid.remove(delete);
         deleteGrid.setWidget(0, 0, new Label("Sind Sie sich sicher? Geben Sie Ihr Passwort zur Bestätigung ein."));
@@ -478,6 +503,9 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
       }      
     }
     
+    /**
+     * The handler class for the confirm action.
+     */
     class ConfirmHandler implements ClickHandler, KeyUpHandler {
       /**
        * Will be triggered if the button was clicked.
@@ -485,7 +513,6 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
        * @param event The ClickEvent object
        */
       public void onClick(ClickEvent event) {
-        System.out.println("Löschung bestätigen Button geklickt");
         handleEvent();
       }
 
@@ -500,8 +527,10 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
         }
       }
 
+      /**
+       * Handles the event. Verifies the supplied username and password and deletes the user if they were valid.
+       */
       private void handleEvent() {
-        System.out.println("handle Event");
         if (passBox.getText().equals(user.getPassword())) {
           System.out.println("Deleting " + user.getDisplayname());
           deleteAccount();
@@ -512,6 +541,9 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
         }
       }
 
+      /**
+       * Sends the user object to the server, requesting a deletion of this user.
+       */
       private void deleteAccount() {
         UserServiceAsync userServiceAsync = GWT.create(UserService.class);
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
@@ -545,6 +577,13 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
     passBox.addKeyUpHandler(conHandler);
   }
   
+  /**
+   * Creates and returns a new profile panel.
+   * 
+   * @param entry The timadorus web app object
+   * @param user The user object
+   * @return The ProfilePanel object
+   */
   public static Widget getProfilePanel(TimadorusWebApp entry, User user) {
     return new ProfilePanel(entry, user);
   }
@@ -568,9 +607,11 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
     return entry;
   }
 
+  /**
+   * An unimplemented method.
+   * 
+   * @param arg0 The history token
+   */
   @Override
-  public void onHistoryChanged(String arg0) {
-    // TODO Auto-generated method stub
-    
-  }
+  public void onHistoryChanged(String arg0) { }
 }

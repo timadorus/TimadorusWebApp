@@ -3,9 +3,18 @@ package org.timadorus.webapp.client.rpc.service;
 import org.timadorus.webapp.client.User;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-//Interface for Asyncronous "register"-Method-Calls (RPC-calls) between client and server
+/**
+ * RegisterServiceAsync interface for GWT-RPC.
+ */
 public interface RegisterServiceAsync {
 
-  void register(User data, AsyncCallback<String> asyncCallback);
+  /**
+   * Wrapper method for RPC communication.
+   * Registers a user supplied as dataIn parameter.
+   * 
+   * @param dataIn The user which shall be registered
+   * @param callback The callback class which will be triggered if the service has finished
+   */
+  void register(User dataIn, AsyncCallback<String> callback);
 
 }

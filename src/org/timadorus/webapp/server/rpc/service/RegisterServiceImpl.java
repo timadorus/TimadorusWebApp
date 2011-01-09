@@ -7,10 +7,19 @@ import org.timadorus.webapp.server.Util;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+/**
+ * Provides service methods related to registration operations.
+ */
 public class RegisterServiceImpl extends RemoteServiceServlet implements RegisterService {
 
   private static final long serialVersionUID = 270628040929463623L;
 
+  /**
+   * Registers a user supplied as dataIn parameter.
+   * 
+   * @param dataIn The user which shall be registered
+   * @return Return value of this.isValid(dataIn)
+   */
   public String register(User dataIn) {
     System.out.println("Register aufgerufen");
     int value = isValid(dataIn);

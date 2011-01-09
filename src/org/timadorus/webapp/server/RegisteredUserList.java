@@ -15,7 +15,9 @@ import javax.jdo.Query;
 import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.character.Character;
 
-// includes some user data for login
+/**
+ * Includes some user data for login.
+ */
 public final class RegisteredUserList {
 
   public static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");

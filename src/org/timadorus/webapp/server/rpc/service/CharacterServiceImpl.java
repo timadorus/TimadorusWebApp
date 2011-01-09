@@ -15,7 +15,9 @@ import org.timadorus.webapp.server.RegisteredUserList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-//Implementing LoginService according to GWT-RPC-Plumbing-diagramm
+/**
+ * Implementing LoginService according to GWT-RPC-Plumbing-diagram.
+ */
 public class CharacterServiceImpl extends RemoteServiceServlet implements CharacterService {
 
   private static final long serialVersionUID = 14232341L;

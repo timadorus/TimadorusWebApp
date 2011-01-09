@@ -6,6 +6,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import org.timadorus.webapp.client.SessionId;
 import org.timadorus.webapp.client.rpc.service.SessionService;
 
+/**
+ * Provides service methods related to session operations.
+ */
 public class SessionServiceImpl extends RemoteServiceServlet implements SessionService {
 
   private static final long serialVersionUID = -6274876845484737659L;
@@ -19,7 +22,7 @@ public class SessionServiceImpl extends RemoteServiceServlet implements SessionS
         sessionId.setSessionId("");
       }
       return sessionId;
-    } // end if(result == null)
+    }
     return null;
-  } // end session
+  }
 }
