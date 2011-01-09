@@ -220,7 +220,8 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
               if (value == User.OK) {
                 RootPanel.get("content").clear();
                 String[] href = Window.Location.getHref().split("#");
-                getEntry().showDialogBox("ActivationLink",  href[0] + "&activationCode=" + tmp[1]);
+                String linker = href[0].contains("?") ? "&" : "?";
+                getEntry().showDialogBox("ActivationLink",  href[0] + linker + "activationCode=" + tmp[1]);
                 History.newItem("welcome");
               } else {
                 if (value >= User.PASSWORD_FAULT) {
