@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+// Panel to show information about the character
 public final class ShowCharacterPanel extends FormPanel {
 
   public static final int SHORT_MODE = 1;
@@ -69,7 +70,14 @@ public final class ShowCharacterPanel extends FormPanel {
       buildDetailMode();
     }
     
+    // creates a handler for delete and back buttons
     class MyHandler implements ClickHandler {
+      
+      /**
+       * Will be triggered if the the button has been clicked.
+       * 
+       * @param event The ClickEvent object
+       */
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(delete)) {
           RootPanel.get("content").clear();
@@ -95,6 +103,7 @@ public final class ShowCharacterPanel extends FormPanel {
       }      
     }
     
+ // creates a handler for confirm button
     class ConfirmHandler implements ClickHandler, KeyUpHandler {
       /**
        * Will be triggered if the button was clicked.
@@ -117,6 +126,9 @@ public final class ShowCharacterPanel extends FormPanel {
         }
       }
 
+      /**
+       * Handles the character deletion.
+       */
       private void handleEvent() {
         System.out.println("handle Event");
         if (passbox.getText().equals(user.getPassword())) {
@@ -139,6 +151,9 @@ public final class ShowCharacterPanel extends FormPanel {
     passbox.addKeyUpHandler(handler2);       
   }
   
+  /**
+   * Builds the panel with only low detail of the character.
+   */
   private void buildShortMode() {
     grid.setBorderWidth(1);
     
@@ -178,6 +193,9 @@ public final class ShowCharacterPanel extends FormPanel {
     setStyleName("formPanel");
   }
   
+  /**
+   * Builds the panel with high detail of the character.
+   */
   private void buildDetailMode() {
     detailGrid.setBorderWidth(1);
     
@@ -296,22 +314,48 @@ public final class ShowCharacterPanel extends FormPanel {
     setStyleName("formPanel");    
   }
 
+  /**
+   * Gets the ShowCharacterPanel with low detail mode.
+   * 
+   * @param entry the entry point of the application
+   * @param c the current character
+   * @param user the current user
+   */
   public static final ShowCharacterPanel getShowShortCharacterPanel(TimadorusWebApp e, User u, Character c) {
     return new ShowCharacterPanel(e, u, c, ShowCharacterPanel.SHORT_MODE);
   }
 
+  /**
+   * Gets the ShowCharacterPanel with high detail mode.
+   * 
+   * @param entry the entry point of the application
+   * @param c the current character
+   * @param user the current user
+   */
   public static final ShowCharacterPanel getShowDetailCharacterPanel(TimadorusWebApp e, User u, Character c) {
     return new ShowCharacterPanel(e, u, c, ShowCharacterPanel.DETAIL_MODE);
   }
 
+  /**
+   * Gets the user.
+   * @return the current user
+   */
   public User getUser() {
     return user;
   }
 
+  /**
+   * Sets the user.
+   * @param userIn the user who is supposed to be the current user
+   */
   public void setUser(User userIn) {
     this.user = userIn;
   }
   
+  /**
+   * Deletes the character.
+   * @param character the character to delete
+   */
   private void deleteCharacter(Character character) {
     CharacterServiceAsync characterServiceAsync = GWT.create(CharacterService.class);
     AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
@@ -334,11 +378,20 @@ public final class ShowCharacterPanel extends FormPanel {
     characterServiceAsync.deleteCharacter(character, asyncCallback);
   }
   
+  /**
+   * Clears the panel and adds a widget
+   * @param w the widget to be added
+   */
   private void setContent(Widget w) {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(w);
   }
   
+  /**
+   * Shows a dialog box.
+   * @param title the title of the dialog box
+   * @param message the message contained in the dialog box
+   */
   public void showDialogBox(String title, String message) {
     // Create the popup dialog box
     final DialogBox dialogBox = new DialogBox();
@@ -362,6 +415,11 @@ public final class ShowCharacterPanel extends FormPanel {
 
     // Add a handler to close the DialogBox
     closeButton.addClickHandler(new ClickHandler() {
+      /**
+       * Will be triggered if the the button has been clicked.
+       * 
+       * @param event The ClickEvent object
+       */
       public void onClick(ClickEvent event) {
         dialogBox.hide();
       }

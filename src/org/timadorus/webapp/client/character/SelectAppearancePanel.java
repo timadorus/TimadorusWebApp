@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+// Panel for the selection of the characters appearance
 public class SelectAppearancePanel extends FormPanel {
 
   private TimadorusWebApp entry;
@@ -94,7 +95,15 @@ public class SelectAppearancePanel extends FormPanel {
     
     nextButton.setEnabled(false);
 
+    
+    // Create a handler for all the buttons and images.
     class MyHandler implements ClickHandler {
+      
+      /**
+       * Will be triggered if the button was clicked.
+       * 
+       * @param event The ClickEvent object
+       */
       public void onClick(ClickEvent event) {
         // prevButton onclick
         if (event.getSource().equals(prevButton)) {
@@ -242,21 +251,39 @@ public class SelectAppearancePanel extends FormPanel {
     RootPanel.get("content").add(panel);
   }
   
+  /**
+   * Gets the HTML for the information panel.
+   *
+   * @return the HTML that specifies the text and of the information panel
+   */
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Aussehen wählen</h1><p>Wählen Sie hier das Aussehen ihres Charakters.</p>");
     return information;
   }
   
+  /**
+   * Loads the SelectSkillLvl1Panel.
+   */
   public void loadSelectSkillLvl1Panel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(entry, character, user));
   }
   
+  /**
+   * Loads the SelectSkillNamePanel.
+   */
   public void loadSelectNamePanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectNamePanel.getSelectNamePanel(entry, character, user));
   }
   
+  /**
+   * Gets the SelectAppearancePanel.
+   * 
+   * @param entry the entry point of the application
+   * @param character the character which is being build
+   * @param user the user who is building the character 
+   */
   public static SelectAppearancePanel getSelectAppearancePanel(TimadorusWebApp entry, Character character, User user) {
     return new SelectAppearancePanel(entry, character, user);
   }
