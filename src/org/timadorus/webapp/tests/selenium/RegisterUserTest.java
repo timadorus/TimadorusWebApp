@@ -4,6 +4,7 @@ package org.timadorus.webapp.tests.selenium;
 public class RegisterUserTest extends WebTestCase {
   
   final int sleepTime = 30000;
+  final int ajaxWait = 2000;
   
   @Override
   public void setUp() throws Exception {
@@ -34,6 +35,7 @@ public class RegisterUserTest extends WebTestCase {
     selenium.type("//input[@type='text']", "test1");
     selenium.type("//input[@type='password']", "geheim");
     selenium.click("//button[@type='button']");
+    Thread.sleep(ajaxWait);
     selenium.type("//input[@type='text']", "test1");
     selenium.type("//input[@type='password']", "geheim");
     selenium.click("//button[@type='button']");
