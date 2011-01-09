@@ -13,6 +13,7 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -218,7 +219,8 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
               int value = Integer.parseInt(tmp[0]);
               if (value == User.OK) {
                 RootPanel.get("content").clear();
-                getEntry().showDialogBox("ActivationCode", tmp[1]);
+                String[] href = Window.Location.getHref().split("#");
+                getEntry().showDialogBox("ActivationLink",  href[0] + "&activationCode=" + tmp[1]);
                 History.newItem("welcome");
               } else {
                 if (value >= User.PASSWORD_FAULT) {

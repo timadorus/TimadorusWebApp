@@ -30,8 +30,8 @@ public class RegisterUserTest extends WebTestCase {
     Thread.sleep(sleepTime);
     
     // activation link
-    String activationCode = selenium.getText("//b");
-    selenium.open("/TimadorusWebApp.html?activationCode=" + activationCode);
+    String activationLink = selenium.getText("//b");
+    selenium.open(activationLink);
     selenium.type("//input[@type='text']", "test1");
     selenium.type("//input[@type='password']", "geheim");
     selenium.click("//button[@type='button']");
