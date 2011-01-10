@@ -8,7 +8,7 @@ public class CreateDeleteViewCharacterTest extends WebTestCase {
   @Override
   public void setUp() throws Exception {
     setUp("http://127.0.0.1:8888/", "*firefox");
-    selenium.setSpeed("250");
+    selenium.setSpeed(SeleniumTestSuite.CMD_DELAY);
   }
 
   public void testCreateDeleteViewCharacter() throws Exception {
@@ -16,9 +16,6 @@ public class CreateDeleteViewCharacterTest extends WebTestCase {
     click("link=Account registrieren");
     type("//input[@type='text']", "Test");
     type("//div[@id='content']/form/table/tbody/tr[2]/td[2]/input", "2");
-    type("//div[@id='content']/form/table/tbody/tr[3]/td[2]/input", "31.10.1988");
-    type("//div[@id='content']/form/table/tbody/tr[4]/td[2]/input", "test2@home.de");
-    type("//div[@id='content']/form/table/tbody/tr[5]/td[2]/input", "test2@home.de");
     type("//div[@id='content']/form/table/tbody/tr[6]/td[2]/input", "test2");
     type("//input[@type='password']", "geheim");
     type("//div[@id='content']/form/table/tbody/tr[8]/td[2]/input", "geheim");
@@ -56,7 +53,7 @@ public class CreateDeleteViewCharacterTest extends WebTestCase {
         + "tr[1]/td/table/tbody/tr/td[2]/button");
     type("//input[@type='password']", "geheim");
     click("//button[@type='button']");
-    verifyTrue(selenium.isTextPresent("Ihr Charakter wurde erfolgreich gelöscht!"));
+    verifyTrue(selenium.isTextPresent("Ihr Charakter wurde erfolgreich entfernt!"));
     click("closeButton");
     verifyTrue(selenium.isTextPresent("Es wurden keine Charaktere gefunden."));
   }

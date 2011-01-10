@@ -6,6 +6,8 @@ import junit.framework.TestSuite;
 // Test suite to run all the Selenium tests in the right order
 public final class SeleniumTestSuite {
   
+  public static final String CMD_DELAY = "200";
+  
   private SeleniumTestSuite() {
     
   }

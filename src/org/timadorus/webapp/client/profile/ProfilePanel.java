@@ -534,7 +534,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
         if (passBox.getText().equals(user.getPassword())) {
           System.out.println("Deleting " + user.getDisplayname());
           deleteAccount();
-          getTimadorus().showDialogBox("Information", "Ihr Account wurde erfolgreich gelöscht!");
+          getTimadorus().showDialogBox("Information", "Ihr Account wurde erfolgreich entfernt!");
         } else {
           passBox.setText("");
           getTimadorus().showDialogBox("Fehlermeldung", "Passwort falsch! Versuchen Sie es erneut!");

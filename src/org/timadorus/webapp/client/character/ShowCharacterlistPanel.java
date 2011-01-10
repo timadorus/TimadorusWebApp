@@ -181,7 +181,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
             if (passbox.getText().equals(user.getPassword())) {
               System.out.println("Deleting " + character.getName());
               deleteCharacter(character);
-              showDialogBox("Information", "Ihr Charakter wurde erfolgreich gelöscht!");
+              showDialogBox("Information", "Ihr Charakter wurde erfolgreich entfernt!");
             } else {
               passbox.setText("");
               showDialogBox("Fehlermeldung", "Passwort falsch! Versuchen Sie es erneut!");

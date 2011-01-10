@@ -403,10 +403,10 @@ public class TestCharacterValues {
                             "EM",
                             "SA",
                             "Std",
-                            "Rüstungsschmiede",
+                            "Armorsmithing",
                             "de",
                             true,
-                            "Rüstungsschmiede sind NSC, die für die Spieler Rüstungen herstellen. Sie können "
+                            "Armorsmithing sind NSC, die für die Spieler Rüstungen herstellen. Sie können "
                             + "in den meisten Städten gefunden werden, wobei es aber auch einge gibt, die sich "
                             + "in Instanzen selbst aufhalten. Sie alle haben gemein, dass sie nur im Austausch "
                             + "gegen Gold und Handwerksmaterialien arbeiten. Dabei steigen die Kosten je nach "
@@ -422,10 +422,10 @@ public class TestCharacterValues {
                             "EM",
                             "SA",
                             "Std",
-                            "Zauberstabskämpfer",
+                            "Wand fighters",
                             "de",
                             true,
-                            "Ein Zauberstabskämpfer ist ein Kämpfer, der als Waffe Zauberstäbe einsetzt u. mit "
+                            "Ein 'Wand fighter' ist ein Kämpfer, der als Waffe Zauberstäbe einsetzt u. mit "
                             + "deren Magie umgehen kann.\nDer Zauberstab dient dem Magier im Ritual, die "
                             + "speziellen magischen Energien in die gewünschte Richtung zu lenken, z.b wird damit "
                             + "auf ein Foto der Person gezeigt die verzaubert werden soll. Außerdem symbolisiert "

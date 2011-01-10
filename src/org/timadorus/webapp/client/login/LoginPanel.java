@@ -130,7 +130,7 @@ public class LoginPanel extends FormPanel implements HistoryListener {
         getUser().setPassword(passBox.getText());
         
         if (getUser().getUsername().equals("") || user.getPassword().equals("")) {
-          loginInvalid("Bitte Felder ausf�llen!");
+          loginInvalid("Bitte Felder ausfüllen!");
           History.newItem("login");
         } else {
           sendToServer();
@@ -139,39 +139,6 @@ public class LoginPanel extends FormPanel implements HistoryListener {
 
         }
       }
-      
-      /*public void sendToServerLogout(){
-        LoginServiceAsync loginServiceAsync = GWT.create(LoginService.class);
-
-        AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-          public void onSuccess(String result) {
-            if (result != null) {
-              if (result.equals(LOGOUT_STATE)) {
-                
-
-                gettimadorus().setLoggedin(false);
-
-                Cookies.setCookie("session", null);
-                sessionId.setSessionId(null);
-//                System.out.println("logout session => " + result);
-                
-                History.newItem("login");
-              
-                
-              } 
-            }
-          }
-
-          public void onFailure(Throwable caught) {
-            gettimadorus().showDialogBox("Fehlermeldung", "Fehler bei der Anmeldung");
-            loginInvalid("Fehler bei der Anmeldung!");
-            History.newItem("login");
-            System.out.println(caught);
-          }
-        };
-
-        loginServiceAsync.logout(user, asyncCallback);
-      }*/
 
       /**
        * Username und Passwort an Server senden

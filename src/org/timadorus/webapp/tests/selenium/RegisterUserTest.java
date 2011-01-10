@@ -4,11 +4,11 @@ package org.timadorus.webapp.tests.selenium;
 public class RegisterUserTest extends WebTestCase {
   
   final int sleepTime = 30000;
-  final int ajaxWait = 2000;
   
   @Override
   public void setUp() throws Exception {
     setUp("http://127.0.0.1:8888/", "*firefox");
+    selenium.setSpeed(SeleniumTestSuite.CMD_DELAY);
   }
 
   public void testRegisterUser() throws Exception {
@@ -16,9 +16,10 @@ public class RegisterUserTest extends WebTestCase {
     
     // registration
     click("link=Account registrieren");
+    
     type("//input[@type='text']", "Test");
     type("//div[@id='content']/form/table/tbody/tr[2]/td[2]/input", "1");
-    type("//div[@id='content']/form/table/tbody/tr[3]/td[2]/input", "31.10.1988");
+    type("//div[@id='content']/form/table/tbody/tr[3]/td[2]/input", "31.11.1989");
     type("//div[@id='content']/form/table/tbody/tr[4]/td[2]/input", "test1@home.de");
     type("//div[@id='content']/form/table/tbody/tr[5]/td[2]/input", "test1@home.de");
     type("//div[@id='content']/form/table/tbody/tr[6]/td[2]/input", "test1");
@@ -35,11 +36,9 @@ public class RegisterUserTest extends WebTestCase {
     selenium.type("//input[@type='text']", "test1");
     selenium.type("//input[@type='password']", "geheim");
     selenium.click("//button[@type='button']");
-    Thread.sleep(ajaxWait);
     selenium.type("//input[@type='text']", "test1");
     selenium.type("//input[@type='password']", "geheim");
     selenium.click("//button[@type='button']");
-    Thread.sleep(ajaxWait);
     
     // Verification
     verifyTrue(selenium.isTextPresent("Du bist als test1 angemeldet"));
