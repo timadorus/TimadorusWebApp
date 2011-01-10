@@ -33,12 +33,12 @@ public class RegisterUserTest extends WebTestCase {
     // activation link
     String activationLink = selenium.getText("//b");
     selenium.open(activationLink);
-    selenium.type("//input[@type='text']", "test1");
-    selenium.type("//input[@type='password']", "geheim");
-    selenium.click("//button[@type='button']");
-    selenium.type("//input[@type='text']", "test1");
-    selenium.type("//input[@type='password']", "geheim");
-    selenium.click("//button[@type='button']");
+    type("//input[@type='text']", "test1");
+    type("//input[@type='password']", "geheim");
+    click("//button[@type='button']");
+    type("//input[@type='text']", "test1");
+    type("//input[@type='password']", "geheim");
+    click("//button[@type='button']");
     
     // Verification
     verifyTrue(selenium.isTextPresent("Du bist als test1 angemeldet"));

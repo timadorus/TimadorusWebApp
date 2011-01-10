@@ -21,6 +21,7 @@ public final class SeleniumTestSuite {
     suite.addTestSuite(LoginUserFailTest.class);
     suite.addTestSuite(DeleteCharacterFailTest.class);
     suite.addTestSuite(DeleteUserFailTest.class);
+    suite.addTestSuite(EditProfilUserTest.class);
     return suite;
   }
 

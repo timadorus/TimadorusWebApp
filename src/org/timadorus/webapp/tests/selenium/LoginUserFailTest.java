@@ -20,9 +20,9 @@ public class LoginUserFailTest extends WebTestCase {
     // activation link
     String activationLink = selenium.getText("//b");
     selenium.open(activationLink);
-    selenium.type("//input[@type='text']", "test5");
-    selenium.type("//input[@type='password']", "passwort");
-    selenium.click("//button[@type='button']");
+    type("//input[@type='text']", "test5");
+    type("//input[@type='password']", "passwort");
+    click("//button[@type='button']");
     
     type("//input[@type='text']", "abc");
     type("//input[@type='password']", "passwort");
