@@ -1,437 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head profile="http://selenium-ide.openqa.org/profiles/test-case">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://127.0.0.1:8888/" />
-<title>CreateCustomCharacter</title>
-</head>
-<body>
-<table cellpadding="1" cellspacing="1" border="1">
-<thead>
-<tr><td rowspan="1" colspan="3">CreateCustomCharacter</td></tr>
-</thead><tbody>
-<tr>
-	<td>open</td>
-	<td>/TimadorusWebApp.html?gwt.codesvr=127.0.0.1:9997</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=Account registrieren</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//button[@type='button']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=Einloggen</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>//input[@type='text']</td>
-	<td>username</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>//input[@type='password']</td>
-	<td>passwort</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//button[@type='button']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=Charakter erstellen</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//button[@type='button']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>//div[@id='content']/table/tbody/tr[5]/td/table/tbody/tr/td[2]/select</td>
-	<td>label=Terrorgnom</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//option[@value='Terrorgnom']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>gwt-uid-4</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[6]/td/table/tbody/tr/td[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>//div[@id='content']/table/tbody/tr[5]/td/table/tbody/tr/td[2]/select</td>
-	<td>label=Informatiker</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//option[@value='Informatiker']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[6]/td/table/tbody/tr/td[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>//div[@id='content']/table/tbody/tr[6]/td/table/tbody/tr/td[2]/select</td>
-	<td>label=Nooobs</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//option[@value='Nooobs']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr/td[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[5]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[5]/td[8]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Sie haben ihre gesamten Punkte Verteilt und können fortfahren</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[8]/td/table/tbody/tr/td[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr/td[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//button[@type='button']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>//div[@id='content']/table/tbody/tr[6]/td/table/tbody/tr[2]/td[1]/select</td>
-	<td>label=Acting</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//option[@value='Acting']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//button[@type='button']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[10]/td/table/tbody/tr/td[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//button[@type='button']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[1]/select</td>
-	<td>label=Rüstungsschmiede</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//option[@value='Rüstungsschmiede']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//button[@type='button']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[11]/td/table/tbody/tr/td[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Klicke auf eine Farbe um deine Hautfarbe zu bestimmen!</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[9]/td/table/tbody/tr/td[4]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Grüne Hautfarbe ausgewählt!</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Klicke auf eine Farbe um deine Haarfarbe zu bestimmen!</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[12]/td/table/tbody/tr/td[6]/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Rote Haarfarbe ausgewählt!</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[14]/td/table/tbody/tr/td[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>//input[@type='text']</td>
-	<td>Testchar</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/table/tbody/tr[10]/td/table/tbody/tr/td[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Herzlichen Glückwunsch.<br /><br />Ihr Charakter wurde gespeichert. Loggen sie sich auf dem Client mit ihren Accountdaten ein</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=Liste der Charaktere</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Testchar</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Terrorgnom</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Nooobs</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>weiblich</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Informatiker</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//button[@type='button']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Testchar</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>weiblich</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Terrorgnom</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Informatiker</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Nooobs</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>#CF0000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>#003000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Skill-Name: Acting<br />Level-Bonus-Cat: SUB<br />Stat1: PR<br />Stat2: EM<br />Action-Type: SA<br />Calc-Type: Std<br />Local-Desc-Language: en-US<br />Local-Desc-Default: true<br /><br />Skill-Name: Acrobatics<br />Level-Bonus-Cat: ATH<br />Stat1: AG<br />Stat2: QU<br />Action-Type: MM<br />Calc-Type: Std<br />Local-Desc-Language: en-US<br />Local-Desc-Default: true</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Skill-Name: Rüstungsschmiede<br />Level-Bonus-Cat: SUB<br />Stat1: PR<br />Stat2: EM<br />Action-Type: SA<br />Calc-Type: Std<br />Local-Desc-Language: de<br />Local-Desc-Default: true<br /><br />Skill-Name: Swordsmanship<br />Level-Bonus-Cat: SUB<br />Stat1: PR<br />Stat2: EM<br />Action-Type: SA<br />Calc-Type: Std<br />Local-Desc-Language: en-US<br />Local-Desc-Default: true</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Name: Konstitution<br />Beschreibung: Konsti<br />Stufe: 100<br /><br />Name: Agilität<br />Beschreibung: Agi<br />Stufe: 100<br /><br />Name: Selbstdisziplin<br />Beschreibung: Diszi<br />Stufe: 94<br /><br />Name: Schlußfolgern<br />Beschreibung: Schlußfolgern<br />Stufe: 30<br /><br />Name: Erinnerungsvermögen<br />Beschreibung: Memory<br />Stufe: 30<br /><br />Name: Glück<br />Beschreibung: Lucky luck<br />Stufe: 30<br /><br />Name: Stärke<br />Beschreibung: Strength<br />Stufe: 30<br /><br />Name: Schnelligkeit<br />Beschreibung: Schnelligkeit<br />Stufe: 30<br /><br />Name: Intuition<br />Beschreibung: Intuition<br />Stufe: 30<br /><br />Name: Präsenz<br />Beschreibung: Präsenz<br />Stufe: 30<br /><br />Name: Empathie<br />Beschreibung: Emp<br />Stufe: 30<br /><br />Name: Aussehen<br />Beschreibung: aussehen<br />Stufe: 91</td>
-	<td></td>
-</tr>
-
-</tbody></table>
-</body>
-</html>
