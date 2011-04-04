@@ -163,7 +163,33 @@
 		</sequential>
 	</macrodef>
 
-
+	<!-- Task:embeddedServer | Bereitet einen Embedded Server vor -->
+	<target name="embeddedServer" description="--> Creates self-executing jar">	
+		<property name="embeddedServer.dir" location="${basedir}/embeddedServer"/>
+		<property name="tmpServer.dir" location="${basedir}/tmpServer"/>
+		
+		<!-- Erzeugt einen temporären Ordner -->
+		<mkdir dir="${tmpServer.dir}"/>
+		
+		<!-- Entpackt den EmbeddedServer in den TmpOrdner -->
+		<unjar dest="${tmpServer.dir}">
+		    <fileset dir="${embeddedServer.dir}">
+		        <include name="webappServer.jar"/>
+		    </fileset>
+		</unjar>
+		
+		<!-- Baut die .war für den Server -->
+		<zip destfile="${tmpServer.dir}/embedded.war" basedir="war"/>
+		
+		<!-- Erstellt aus dem Inhalt des TmpOrdners die .jar mit dem Server und der WebApp -->
+		<zip destfile="${basedir}/webapp.jar" basedir="${tmpServer.dir}"/>
+		
+		<!-- Löscht den temporären Ordner -->
+		<delete dir="${tmpServer.dir}"/>
+		
+	</target>
+	
+	
 	<!-- Task:build | Definiert den Ablauf der Taskaufrufe für den Build -->
-	<target name="build" depends="resolve,java-compile,test-checkstyle,enhance,gwt-compile" />
+	<target name="build" depends="resolve,java-compile,test-checkstyle,enhance,gwt-compile,embeddedServer" />
 </project>
