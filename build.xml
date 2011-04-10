@@ -31,6 +31,13 @@
 
 	<!-- Pfad zum Cache von Ivy -->
 	<property name="ivy.cache.dir" value="${ivy.dir}/cache" />
+	
+	<!-- WebApp Artifactory Settings -->
+	<property name="pub.version" value="0.1" />
+	<property name="pub.status" value="integration" />
+	<property name="pub.snapshot.resolver" value="timadorus-snapshot" />
+	<property name="pub.release.resolver" value="timadorus-release" />
+	
 
 
 	<!-- Definition der im Classpath enthaltenen Dateien -->
@@ -189,7 +196,20 @@
 		
 	</target>
 	
+	<!-- Task:publishEmbeddedServer | Fügt dem Repository die WebApp hinzu -->
+	<target name="publishEmbeddedServer" description="--> Publish self-executing jar into repository">
+	    <ivy:publish pubrevision="${pub.version}-SNAPSHOT" status="${pub.status}" resolver="${pub.snapshot.resolver}" overwrite="true" update="true">
+	        <artifacts pattern="${basedir}/[artifact].[ext]"/>
+	    </ivy:publish>
+	</target>
+
+	<!-- Task:publishEmbeddedServer-release | Fügt dem Repository die WebApp als Release-Version hinzu  -->
+	<target name="publishEmbeddedServer-release" description="--> Publish self-executing jar into repository">
+	    <ivy:publish pubrevision="${pub.version}" status="${pub.status}" resolver="${pub.release.resolver}" overwrite="true">
+	        <artifacts pattern="${basedir}/[artifact].[ext]"/>
+	    </ivy:publish>
+	</target>
 	
 	<!-- Task:build | Definiert den Ablauf der Taskaufrufe für den Build -->
-	<target name="build" depends="resolve,java-compile,test-checkstyle,enhance,gwt-compile,embeddedServer" />
+	<target name="build" depends="resolve,java-compile,test-checkstyle,enhance,gwt-compile,embeddedServer,publishEmbeddedServer" />
 </project>
