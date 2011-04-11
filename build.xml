@@ -31,14 +31,12 @@
 
 	<!-- Pfad zum Cache von Ivy -->
 	<property name="ivy.cache.dir" value="${ivy.dir}/cache" />
-	
+
 	<!-- WebApp Artifactory Settings -->
 	<property name="pub.version" value="0.1" />
 	<property name="pub.status" value="integration" />
 	<property name="pub.snapshot.resolver" value="timadorus-snapshot" />
 	<property name="pub.release.resolver" value="timadorus-release" />
-	
-
 
 	<!-- Definition der im Classpath enthaltenen Dateien -->
 	<path id="TimadorusWebApp.classpath">
@@ -51,6 +49,7 @@
 		<fileset dir="${destinationLib}">
 			<include name="*.jar" />
 		</fileset>
+
 	</path>
 
 
@@ -113,19 +112,19 @@
 
 	<!-- Task:test-checkstyle | Führt einen Checkstyle test aus -->
 	<taskdef resource="checkstyletask.properties" classpath="lib/checkstyle-5.2-all.jar" />
-	
+
 	<!-- Task:test-checkstyle | Führt einen Checkstyle test aus -->
-    <target name="test-checkstyle">
-    	<sequential>
-			<mkdir dir="${basedir}/test-results"/>
-            <checkstyle config="${basedir}/checkstyle.xml" failOnViolation="true">
+	<target name="test-checkstyle">
+		<sequential>
+			<mkdir dir="${basedir}/test-results" />
+			<checkstyle config="${basedir}/checkstyle.xml" failOnViolation="true">
 				<formatter type="plain" />
-    	        <formatter type="xml" toFile="${basedir}/test-results/checkstyle-log.xml" />
-    	        <fileset dir="${sourceDir}" includes="**/*.java" />
-    	        <!--property key="checkstyle.cache.file" file="${build.dir}/checkstyle-cache" /-->
-    	    </checkstyle>
-    	</sequential>
-    </target>
+				<formatter type="xml" toFile="${basedir}/test-results/checkstyle-log.xml" />
+				<fileset dir="${sourceDir}" includes="**/*.java" />
+				<!--property key="checkstyle.cache.file" file="${build.dir}/checkstyle-cache" /-->
+			</checkstyle>
+		</sequential>
+	</target>
 
 
 	<!-- Task:enhance | Führt ein Byte-Enhancement auf die kompilierten Javaklassen aus -->
@@ -171,45 +170,70 @@
 	</macrodef>
 
 	<!-- Task:embeddedServer | Bereitet einen Embedded Server vor -->
-	<target name="embeddedServer" description="--> Creates self-executing jar">	
-		<property name="embeddedServer.dir" location="${basedir}/embeddedServer"/>
-		<property name="tmpServer.dir" location="${basedir}/tmpServer"/>
-		
+	<target name="embeddedServer" description="--> Creates self-executing jar">
+		<property name="embeddedServer.dir" location="${basedir}/embeddedServer" />
+		<property name="tmpServer.dir" location="${basedir}/tmpServer" />
+
 		<!-- Erzeugt einen temporären Ordner -->
-		<mkdir dir="${tmpServer.dir}"/>
-		
+		<mkdir dir="${tmpServer.dir}" />
+
 		<!-- Entpackt den EmbeddedServer in den TmpOrdner -->
 		<unjar dest="${tmpServer.dir}">
-		    <fileset dir="${embeddedServer.dir}">
-		        <include name="webappServer.jar"/>
-		    </fileset>
+			<fileset dir="${embeddedServer.dir}">
+				<include name="webappServer.jar" />
+			</fileset>
 		</unjar>
-		
+
 		<!-- Baut die .war für den Server -->
-		<zip destfile="${tmpServer.dir}/embedded.war" basedir="war"/>
-		
+		<zip destfile="${tmpServer.dir}/embedded.war" basedir="war" />
+
 		<!-- Erstellt aus dem Inhalt des TmpOrdners die .jar mit dem Server und der WebApp -->
-		<zip destfile="${basedir}/webapp.jar" basedir="${tmpServer.dir}"/>
-		
+		<zip destfile="${basedir}/webapp.jar" basedir="${tmpServer.dir}" />
+
 		<!-- Löscht den temporären Ordner -->
-		<delete dir="${tmpServer.dir}"/>
-		
+		<delete dir="${tmpServer.dir}" />
+
 	</target>
-	
+
 	<!-- Task:publishEmbeddedServer | Fügt dem Repository die WebApp hinzu -->
 	<target name="publishEmbeddedServer" description="--> Publish self-executing jar into repository">
-	    <ivy:publish pubrevision="${pub.version}-SNAPSHOT" status="${pub.status}" resolver="${pub.snapshot.resolver}" overwrite="true" update="true">
-	        <artifacts pattern="${basedir}/[artifact].[ext]"/>
-	    </ivy:publish>
+		<ivy:publish pubrevision="${pub.version}-SNAPSHOT" status="${pub.status}" resolver="${pub.snapshot.resolver}" overwrite="true" update="true">
+			<artifacts pattern="${basedir}/[artifact].[ext]" />
+		</ivy:publish>
 	</target>
 
 	<!-- Task:publishEmbeddedServer-release | Fügt dem Repository die WebApp als Release-Version hinzu  -->
 	<target name="publishEmbeddedServer-release" description="--> Publish self-executing jar into repository">
-	    <ivy:publish pubrevision="${pub.version}" status="${pub.status}" resolver="${pub.release.resolver}" overwrite="true">
-	        <artifacts pattern="${basedir}/[artifact].[ext]"/>
-	    </ivy:publish>
+		<ivy:publish pubrevision="${pub.version}" status="${pub.status}" resolver="${pub.release.resolver}" overwrite="true">
+			<artifacts pattern="${basedir}/[artifact].[ext]" />
+		</ivy:publish>
 	</target>
-	
+
+
+
+
+	<!-- Task:revisionNumber | Merkt sich die aktuelle Revision Nummer  -->
+	<target name="revisionNumber" description="--> Get latest revision number">
+
+		<taskdef name="svn" classname="org.tigris.subversion.svnant.SvnTask" classpathref="TimadorusWebApp.classpath" />
+		<svn>
+			<status path="${basedir}/src/org/timadorus/webapp/util/RevisionInfo.java" revisionProperty="svn.revision" />
+		</svn>
+		<tstamp>
+			<format property="TODAY" pattern="EEE, d-MMMM-yyyy HH:mm:ss z" locale="ENGLISH, GERMANY" />
+		</tstamp>
+		<echo>Revision Number: ${svn.revision}</echo>
+        <echo file="${basedir}/src/org/timadorus/webapp/util/RevisionInfo.java">
+            package org.timadorus.webapp.util;
+              public final class RevisionInfo {
+              private RevisionInfo() {
+              }
+              public static final String REVISION_NUMBER = "${svn.revision}";
+              public static final String TIME_STAMP = "${TODAY}";
+            }
+        </echo>
+	</target>
+
 	<!-- Task:build | Definiert den Ablauf der Taskaufrufe für den Build -->
-	<target name="build" depends="resolve,java-compile,test-checkstyle,enhance,gwt-compile,embeddedServer,publishEmbeddedServer" />
+	<target name="build" depends="resolve,java-compile,test-checkstyle,enhance,gwt-compile,embeddedServer,publishEmbeddedServer,revisionNumber" />
 </project>
