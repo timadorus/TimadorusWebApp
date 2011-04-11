@@ -4,7 +4,7 @@
             xmlns:m="http://ant.apache.org/ivy/maven">
 
 	<!-- Name der Organisation und des Moduls -->
-	<info organisation="timadorus" module="webapp" />
+	<info organisation="org.timadorus" module="webapp" />
     
     <!-- Erreichbare Konfigurationen -->
     <configurations>
