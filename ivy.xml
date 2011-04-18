@@ -34,5 +34,8 @@
 		
 		<!-- Checkstyle -->
 		<dependency org="checkstyle" name="checkstyle" rev="5.1" conf="testing->runtime" />
+		
+		<!-- Winstone -->
+		<dependency org="org.jvnet.hudson.winstone" name="winstone" rev="0.9.10-hudson-24" conf="*->default" />
 	</dependencies>
 </ivy-module>

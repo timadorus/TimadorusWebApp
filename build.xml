@@ -171,16 +171,15 @@
 
 	<!-- Task:embeddedServer | Bereitet einen Embedded Server vor -->
 	<target name="embeddedServer" description="--> Creates self-executing jar">
-		<property name="embeddedServer.dir" location="${basedir}/embeddedServer" />
 		<property name="tmpServer.dir" location="${basedir}/tmpServer" />
 
 		<!-- Erzeugt einen temporären Ordner -->
 		<mkdir dir="${tmpServer.dir}" />
-
+		
 		<!-- Entpackt den EmbeddedServer in den TmpOrdner -->
 		<unjar dest="${tmpServer.dir}">
-			<fileset dir="${embeddedServer.dir}">
-				<include name="webappServer.jar" />
+			<fileset dir="lib">
+				<include name="winstone-0.9.10-hudson-24.jar" />
 			</fileset>
 		</unjar>
 
