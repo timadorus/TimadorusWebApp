@@ -12,6 +12,9 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.character.Character;
 
@@ -110,23 +113,78 @@ public final class RegisteredUserList {
    * @param username The username
    * @return If the user was found, it will be returned, otherwise an empty user will be returned
    */
-  @SuppressWarnings("unchecked")
   private User getUser(String username) {
     username = username.toLowerCase();
     PersistenceManager pm = PMF.getPersistenceManager();
-    Extent<User> extent = pm.getExtent(User.class, true);
 
-    Query query = pm.newQuery(extent, "username == name");
+    Query query = pm.newQuery(User.class, "username == name");
     query.declareParameters("String name");
 
+    @SuppressWarnings("unchecked")
     Iterator<User> iterator = ((Collection<User>) query.execute(username)).iterator();
+    
     if (iterator.hasNext()) {
       User found = iterator.next();
       System.out.println("Datastore: '" + found.getDisplayname() + "' wurde geladen...");
       return found;
     }
+    
+    pm.close();
+    
     return new User(); // "leerer" User; isValid liefert "false";
   }
+
+  /** sent a registration mail.
+   * 
+   * TODO: all this stuff has to be made configurable in the Admin Pages.
+   * 
+   * @param user
+   */
+  private void sendActivationMail(User user) {
+    
+    Email email = new SimpleEmail();
+    email.setHostName("mailgate.informatik.haw-hamburg.de");
+    email.setTLS(true);
+    // email.setAuthenticator(new DefaultAuthenticator("username", "password"));
+
+    try {
+      email.setFrom("root@informatik.haw-hamburg.de");
+    } catch (EmailException e) {
+      // TODO do some proper handling if the sender mail is invalid.
+      e.printStackTrace();
+    }
+    email.setSubject("Timadorus Registration Mail");
+    
+    // TODO: get this from some template. Also to be set in the admin panel. And i18n'ized
+    try {
+      email.setMsg("Hello " + user.getDisplayname() 
+                   + ",\n\nPlease register your user " + user.getUsername()
+                   + "by visiting the following address: \n\n" 
+                   + "http://www.timadorus.org:8080/TimadorusWebApp.html?activationCode=" 
+                   + user.getActivationCode()
+                   + "\n\nthe Timadorus-Team.");
+      
+    } catch (EmailException e) {
+      // only likely to happen upon a mime error
+      e.printStackTrace();
+    }
+    
+    try {
+      email.addTo(user.getEmail());
+    } catch (EmailException e) {
+      // TODO: handle an invalid to address.
+      e.printStackTrace();
+    }
+    
+    try {
+      email.send();
+    } catch (EmailException e) {
+      // TODO handle a failed mail. 
+      e.printStackTrace();
+    }
+
+  }
+  
 
   /**
    * This method adds a new user to the user list and to the database.
@@ -146,6 +204,8 @@ public final class RegisteredUserList {
       System.out.println("Datastore: '" + user.getDisplayname() + "' hinzugefügt mit ActivationCode: "
                          + user.getActivationCode());
       users.put(user.getUsername(), user);
+      sendActivationMail(user);
+      
       return user.getActivationCode();
     }
     return null;
