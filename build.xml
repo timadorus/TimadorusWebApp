@@ -34,6 +34,10 @@
 	<property name="ivy.dir" value="${basedir}/ivy" />
 	<property name="ivy.settings.file" value="${ivy.dir}/ivysettings.xml" />
 	<property name="ivy.cache.dir" value="${ivy.dir}/cache" />
+	
+	<!-- db and sql working folder -->
+	<property name="sql.dir" value="${war.dir}/sql"/>
+	<property name="db.dir" value="${war.dir}/db"/>
 
 	<!-- WebApp Artifactory Settings -->
 	<property name="pub.version" value="0.1" />
@@ -257,6 +261,18 @@
 		</sequential>
 	</macrodef>
 
+	<target name="cleanDB">
+    	<delete dir="${db.dir}"/>
+ 	</target>
+	
+	<!-- Task:installDB | set up the database -->
+	<target name="installDB" depends="cleanDB">
+	  <java fork="true" classname="org.apache.derby.tools.ij" classpathref="TimadorusWebApp.classpath">
+	    <sysproperty key="ij.connection.db" value="jdbc:derby:${db.dir};create=true" />
+	    <arg value="${sql.dir}/installdb.sql"/>
+	  </java>
+	</target>
+	
 	<!-- Task:embeddedServer | set up the embedded server jar -->
 	<target name="embeddedServer" description="--> Creates self-executing jar">
 		<property name="tmpServer.dir" location="${basedir}/tmpServer" />
@@ -297,5 +313,5 @@
 	</target>
 
 	<!-- Target:build | define the order of the targets run to fullfill the build -->
-	<target name="build" depends="resolve,java-compile,test-compile,test-checkstyle,enhance,gwt-compile,embeddedServer,publishEmbeddedServer" />
+	<target name="build" depends="resolve,java-compile,test-compile,test-checkstyle,enhance,gwt-compile,installDB,embeddedServer" />
 </project>

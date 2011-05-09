@@ -30,7 +30,8 @@ public final class Configuration {
    * This method sets a configuration.
    * 
    */
-  public static void setConfiguration(String key1, String value1) {  
+  public static void setConfiguration(String key1, String value1) {
+    System.out.println("Test");
     PersistenceManager pm = PMF.getPersistenceManager();
     key = key1;
     value = value1;
@@ -45,7 +46,6 @@ public final class Configuration {
       configuration.setValue(value1);
       pm.makePersistent(configuration);
     }
-
     pm.close();
     System.out.println("Datastore: Configuration hinzugefügt mit Key, Value: " + key + ", " + value);
   }
