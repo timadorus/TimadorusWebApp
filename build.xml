@@ -37,7 +37,7 @@
 	
 	<!-- db and sql working folder -->
 	<property name="sql.dir" value="${war.dir}/sql"/>
-	<property name="db.dir" value="${war.dir}/db"/>
+	<property name="db.dir" value="${war.dir}/TimadorusDB"/>
 
 	<!-- WebApp Artifactory Settings -->
 	<property name="pub.version" value="0.1" />
@@ -269,6 +269,8 @@
 	<target name="installDB" depends="cleanDB">
 	  <java fork="true" classname="org.apache.derby.tools.ij" classpathref="TimadorusWebApp.classpath">
 	    <sysproperty key="ij.connection.db" value="jdbc:derby:${db.dir};create=true" />
+	  	<sysproperty key="ij.user" value="webapp" />
+	  	<sysproperty key="ij.password" value="ty32re8pu" />
 	    <arg value="${sql.dir}/installdb.sql"/>
 	  </java>
 	</target>

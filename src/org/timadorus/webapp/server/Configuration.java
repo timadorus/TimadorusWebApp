@@ -1,19 +1,40 @@
 package org.timadorus.webapp.server;
 
+import java.io.Serializable;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 
 /**
  * Configuration class for every a attribute of the WebApp
  *
  */
-public final class Configuration {
+
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
+public final class Configuration implements Serializable {
   
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
 
-  private static String key, value;
+  private static final int SIZE = 60;
+  
+  @Persistent
+  @Column(length = SIZE)
+  private static String key;
+  
+  @Persistent
+  @Column(length = SIZE)
+  private static String value;
 
   private Configuration() {
   }
@@ -36,16 +57,22 @@ public final class Configuration {
     key = key1;
     value = value1;
     
-    Query query = pm.newQuery(Configuration.class, "key == " + key);
-    query.setUnique(true);
-    Configuration configuration = (Configuration) query.execute(query);
+//    Query query = pm.newQuery(Configuration.class, "key == " + key);
+//    query.setUnique(true);
+//    Configuration configuration = (Configuration) query.execute(query);
+//    
+//    if (configuration == null) {
+//      pm.makePersistent(Configuration.class);
+//    } else {
+//      configuration.setValue(value1);
+//      pm.makePersistent(configuration);
+//    }
     
-    if (configuration == null) {
-      pm.makePersistent(Configuration.class);
-    } else {
-      configuration.setValue(value1);
-      pm.makePersistent(configuration);
-    }
+    
+    pm.makePersistent(Configuration.class);
+    
+    
+    
     pm.close();
     System.out.println("Datastore: Configuration hinzugefügt mit Key, Value: " + key + ", " + value);
   }
