@@ -6,17 +6,12 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
 
 /**
  * Configuration class for every a attribute of the WebApp
  *
  */
 
-@PersistenceCapable(identityType = IdentityType.DATASTORE)
 public final class Configuration implements Serializable {
   
   /**
@@ -25,16 +20,8 @@ public final class Configuration implements Serializable {
   private static final long serialVersionUID = 1L;
 
   public static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
-
-  private static final int SIZE = 60;
   
-  @Persistent
-  @Column(length = SIZE)
-  private static String key;
-  
-  @Persistent
-  @Column(length = SIZE)
-  private static String value;
+  private static String key, value;
 
   private Configuration() {
   }
