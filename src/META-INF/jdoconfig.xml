@@ -10,7 +10,7 @@
        <property name="javax.jdo.option.NontransactionalWrite" value="true"/>
        <property name="javax.jdo.option.RetainValues" value="true"/>
        <property name="datanucleus.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-       <property name="datanucleus.ConnectionURL" value="jdbc:derby:TimadorusDB;create=true" />
+       <property name="datanucleus.ConnectionURL" value="jdbc:derby:TimadorusDB;create=false" />
        <property name="datanucleus.storeManagerType" value="rdbms" />
        <property name="datanucleus.ConnectionUserName" value="webapp" />
        <property name="datanucleus.ConnectionPassword" value="ty32re8pu" />

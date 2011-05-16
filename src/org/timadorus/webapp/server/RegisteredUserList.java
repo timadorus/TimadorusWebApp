@@ -140,7 +140,7 @@ public final class RegisteredUserList {
    * 
    * @param user
    */
-  private void sendActivationMail(User user) {
+  private void sendActivationMail(User user) {   
     
     Email email = new SimpleEmail();
     email.setHostName("mailgate.informatik.haw-hamburg.de");

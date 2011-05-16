@@ -37,7 +37,7 @@
 	
 	<!-- db and sql working folder -->
 	<property name="sql.dir" value="${war.dir}/sql"/>
-	<property name="db.dir" value="${war.dir}/TimadorusDB"/>
+	<property name="db.dir" value="${user.home}/TimadorusDB"/>
 
 	<!-- WebApp Artifactory Settings -->
 	<property name="pub.version" value="0.1" />
@@ -223,7 +223,7 @@
 	<!-- Target:enhance | run the byte enhancement of the required java classes 
 	     to be used as entities with JDO/JPA 
 	  -->
-	<target name="enhance" description="DataNucleus enhancement">
+	<target name="enhance" depends="resolve" description="DataNucleus enhancement">
 
 		<!-- run the enhancement -->
 		<datanucleusenhancer failonerror="true" verbose="true">
