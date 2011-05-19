@@ -6,7 +6,7 @@
 
 <package name="org.timadorus.webapp.client">
 	<class name="User">
-		<datastore-identity strategy="timestamp-value"/>
+		<field name="id" primary-key="true" value-strategy="max"/>
 	</class>
 </package>
 </jdo>
