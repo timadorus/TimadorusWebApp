@@ -261,8 +261,9 @@
 		</sequential>
 	</macrodef>
 
+	<!-- Task:cleanDB | clean old database -->
 	<target name="cleanDB">
-    	<delete dir="${db.dir}"/>
+    	<delete dir="${db.dir}" quiet="true" />
  	</target>
 	
 	<!-- Task:installDB | set up the database -->
