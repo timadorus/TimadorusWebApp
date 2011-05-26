@@ -279,9 +279,13 @@
 	<!-- Task:embeddedServer | set up the embedded server jar -->
 	<target name="embeddedServer" description="--> Creates self-executing jar">
 		<property name="tmpServer.dir" location="${basedir}/tmpServer" />
+		<property name="dbFolder.dir" location="${basedir}/tmpServer/TimadorusDB" />
 
 		<!-- create a temporary folder -->
 		<mkdir dir="${tmpServer.dir}" />
+		
+		<!-- create a folder for the DB -->
+		<mkdir dir="${dbFolder.dir}" />
 		
 		<!-- unpack the winstone server into the temporary folder -->
 		<unjar dest="${tmpServer.dir}">
@@ -293,6 +297,12 @@
 		<!-- build the server .war -->
 		<zip destfile="${tmpServer.dir}/embedded.war" basedir="${war.dir}" />
 
+		<!-- copy the db to the home root -->
+		
+		<copy includeemptydirs="true" todir="${dbFolder.dir}">
+			<fileset dir="${db.dir}" />
+		</copy>
+		
 		<!-- create from jar with server and wepapp from the tmpServer.dir -->
 		<zip destfile="${basedir}/webapp.jar" basedir="${tmpServer.dir}" />
 
