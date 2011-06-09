@@ -1,5 +1,6 @@
 package org.timadorus.webapp.client;
 
+import org.timadorus.webapp.client.campaign.CreateCampaignPanel;
 import org.timadorus.webapp.client.character.CreateCharacterPanel;
 import org.timadorus.webapp.client.character.ShowCharacterlistPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
@@ -43,6 +44,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   private Hyperlink showCharacterlistLink;
   private Hyperlink registerlink;
   private Hyperlink profilelink;
+  private Hyperlink createCampaignLink;
 
   private boolean loggedin = false;
   private boolean activationPage = false;
@@ -59,6 +61,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     this.showCharacterlistLink  = new Hyperlink("Liste der Charaktere", CHARACTER_LIST_STATE);
     this.registerlink           = new Hyperlink("Account registrieren", REGISTER_STATE); 
     this.profilelink            = new Hyperlink("Profil bearbeiten", PROFILE_STATE);
+    this.createCampaignLink     = new Hyperlink("Kampagne anlegen", CREATE_CAMPAIGN_STATE);
 
     this.loggedin = false;
     
@@ -110,6 +113,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
         RootPanel.get("menu").add(new Label("Dein Account wurde noch nicht aktiviert"));
       }
       RootPanel.get("menu").add(getCreateCharacterlink());
+      RootPanel.get("menu").add(getCreateCampaignLink());
       RootPanel.get("menu").add(getShowCharacterlistLink());
       RootPanel.get("menu").add(getProfilelink());
       //RootPanel.get("menu").add(getRegisterlink());
@@ -119,7 +123,6 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
       System.out.println("Login status " + isLoggedin());
       RootPanel.get("menu").add(new Label("Logg dich ein, um deinen Account zu bearbeiten"));
       RootPanel.get("menu").add(getLoginlink());
-      //RootPanel.get("menu").add(getCreateCharacterlink());
       RootPanel.get("menu").add(getRegisterlink());
     }
   }
@@ -189,6 +192,14 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
         showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
         History.newItem("welcome");
       }
+    } else if (CREATE_CAMPAIGN_STATE.equals(historyToken)) {
+      if (isLoggedin()) {
+        loadCreateCampaignPanel();
+      } else {
+        loadWelcomePanel();
+        showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
+        History.newItem("welcome");
+      }
     } else if (REGISTER_STATE.equals(historyToken)) {
       loadRegisterPanel();
     }
@@ -221,6 +232,16 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Liste der registrierten Charaktere"));
     RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(this, LoginPanel.
+                                                                  getLoginPanel(sessionId, this).getUser()));
+  }
+  
+  /**
+   * A new CreateCharacterPanel will be loaded and showed on the webpage.
+   */
+  public void loadCreateCampaignPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Kampagne erstellen"));
+    RootPanel.get("content").add(CreateCampaignPanel.getCampaignPanel(this, LoginPanel.
                                                                   getLoginPanel(sessionId, this).getUser()));
   }
 
@@ -298,6 +319,13 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
       createCharacterlink = new Hyperlink("create Character", CREATE_CHARACTER_STATE);
     }
     return createCharacterlink;
+  }
+  
+  public Hyperlink getCreateCampaignLink() {
+    if (createCampaignLink == null) {
+      createCampaignLink = new Hyperlink("create Campaign", CREATE_CAMPAIGN_STATE);
+    }
+    return createCampaignLink;
   }
 
   public Hyperlink getShowCharacterlistLink() {

@@ -24,5 +24,7 @@ interface HistoryStates {
   
   public static final String VERIFY_MAIL_STATE = "verifyMail";
   
+  public static final String CREATE_CAMPAIGN_STATE = "createCampaign";
+  
 }
 // CHECKSTYLE ON
