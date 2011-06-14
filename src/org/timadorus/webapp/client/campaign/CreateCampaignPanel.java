@@ -2,9 +2,14 @@ package org.timadorus.webapp.client.campaign;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.client.rpc.service.CreateCampaignService;
+import org.timadorus.webapp.client.rpc.service.CreateCampaignServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -44,9 +49,8 @@ public class CreateCampaignPanel extends FormPanel {
       public void onClick(ClickEvent event) {
 
         if (event.getSource().equals(saveButton)) {
-          Campaign campaign = new Campaign();
-          campaign.setName(campaignNameTextBox.getText());
-          campaign.setBeschreibung(descriptionTextArea.getText());
+          Campaign campaign = new Campaign(campaignNameTextBox.getText(), descriptionTextArea.getText());
+          sendToServer(campaign);
           loadSavedCampaignPanel(user);        
         }
       }
@@ -116,5 +120,25 @@ public class CreateCampaignPanel extends FormPanel {
 
   public TimadorusWebApp getEntry() {
     return entry;
+  }
+  //TODO Asynchronus call-back?
+  private void sendToServer(Campaign campaign) {
+    CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
+    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+      
+      public void onSuccess(String result) {
+        if (result.equals("SUCCESS")) {         
+            History.newItem("welcome");
+        } else {
+          System.out.println("Campaign creation failed!");
+          History.newItem("welcome");
+        }
+      }
+      
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
+    };
+    createCampaignServiceAsync.createCampaign(campaign, asyncCallback);
   }
 }
