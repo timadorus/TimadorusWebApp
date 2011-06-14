@@ -70,4 +70,14 @@
     <servlet-name>user</servlet-name>
     <url-pattern>/timadoruswebapp/user</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>createCampaign</servlet-name>
+    <servlet-class>org.timadorus.webapp.server.rpc.service.CreateCampaignServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>createCampaign</servlet-name>
+    <url-pattern>/timadoruswebapp/createCampaign</url-pattern>
+  </servlet-mapping>
 </web-app>
