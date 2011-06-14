@@ -40,7 +40,7 @@ public class CreateCampaignServiceImpl extends RemoteServiceServlet implements C
     
     // check if campaign name already exists
     Extent<Campaign> campaignExtent = pm.getExtent(Campaign.class, true);
-    Query campaignQuery = pm.newQuery(campaignExtent, "name == '" + campaign.getName() + "'");
+    Query campaignQuery = pm.newQuery(campaignExtent, "name == " + campaign.getName());
     List<Campaign> chars = (List<Campaign>) campaignQuery.execute();
     if (!chars.isEmpty()) {
       return "FAILURE";

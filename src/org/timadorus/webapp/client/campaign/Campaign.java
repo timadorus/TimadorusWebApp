@@ -17,7 +17,7 @@ public class Campaign implements Serializable {
 
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  private Long campaignID = new Long(-1);
+  private Long campaignID;
   
   @Unique
   @Persistent

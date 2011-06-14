@@ -10,6 +10,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -53,6 +54,29 @@ public class CreateCampaignPanel extends FormPanel {
           sendToServer(campaign);
           loadSavedCampaignPanel(user);        
         }
+      }
+      
+      private void sendToServer(Campaign campaign) {
+        CreateCampaignServiceAsync createCampaignServiceAsync = 
+          (CreateCampaignServiceAsync) GWT.create(CreateCampaignService.class);
+        ((ServiceDefTarget) createCampaignServiceAsync).setServiceEntryPoint (GWT.getModuleBaseURL() 
+            + "/CreateCampaignService");
+        AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+          
+          public void onSuccess(String result) {
+            if (result.equals("SUCCESS")) {         
+                History.newItem("welcome");
+            } else {
+              System.out.println("Campaign creation failed!");
+              History.newItem("welcome");
+            }            
+          }
+          
+          public void onFailure(Throwable caught) {
+            System.out.println(caught);
+          }
+        };
+        createCampaignServiceAsync.createCampaign(campaign, asyncCallback);
       }
     }
 
@@ -120,25 +144,5 @@ public class CreateCampaignPanel extends FormPanel {
 
   public TimadorusWebApp getEntry() {
     return entry;
-  }
-  //TODO Asynchronus call-back?
-  private void sendToServer(Campaign campaign) {
-    CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
-    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-      
-      public void onSuccess(String result) {
-        if (result.equals("SUCCESS")) {         
-            History.newItem("welcome");
-        } else {
-          System.out.println("Campaign creation failed!");
-          History.newItem("welcome");
-        }
-      }
-      
-      public void onFailure(Throwable caught) {
-        System.out.println(caught);
-      }
-    };
-    createCampaignServiceAsync.createCampaign(campaign, asyncCallback);
   }
 }
