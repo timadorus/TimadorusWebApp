@@ -236,7 +236,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   }
   
   /**
-   * A new CreateCharacterPanel will be loaded and showed on the webpage.
+   * A new CreateCampaignPanel will be loaded and showed on the webpage.
    */
   public void loadCreateCampaignPanel() {
     RootPanel.get("content").clear();

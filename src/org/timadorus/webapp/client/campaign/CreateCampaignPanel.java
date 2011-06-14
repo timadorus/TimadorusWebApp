@@ -39,7 +39,7 @@ public class CreateCampaignPanel extends FormPanel {
     this.entry = entryIn;
     this.user = user;
 
-    // Create a handler for the sendButton and nameField
+    // Create a handler for the saveButton and nameField
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
 
