@@ -21,9 +21,13 @@ public class Campaign implements Serializable {
   private String beschreibung;
   
   //TODO Attribute uebergeben oder mit Setter setzen?
-  public Campaign(String name, String beschreibung) {
+/*  public Campaign(String name, String beschreibung) {
     this.name = name;
     this.beschreibung = beschreibung;
+  }*/
+  
+  public Campaign() {
+    
   }
   
   public Long getCampaignID() {

@@ -44,6 +44,9 @@ public class CreateCampaignPanel extends FormPanel {
       public void onClick(ClickEvent event) {
 
         if (event.getSource().equals(saveButton)) {
+          Campaign campaign = new Campaign();
+          campaign.setName(campaignNameTextBox.getText());
+          campaign.setBeschreibung(descriptionTextArea.getText());
           loadSavedCampaignPanel(user);        
         }
       }
