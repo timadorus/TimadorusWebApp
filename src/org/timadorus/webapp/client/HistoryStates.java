@@ -26,5 +26,7 @@ interface HistoryStates {
   
   public static final String CREATE_CAMPAIGN_STATE = "createCampaign";
   
+  public static final String EDIT_CAMPAIGN_STATE = "editCampaign";
+  
 }
 // CHECKSTYLE ON

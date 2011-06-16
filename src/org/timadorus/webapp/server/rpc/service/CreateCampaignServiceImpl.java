@@ -1,5 +1,6 @@
 package org.timadorus.webapp.server.rpc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.Extent;
@@ -25,39 +26,66 @@ public class CreateCampaignServiceImpl extends RemoteServiceServlet implements C
   @Override
   public String createCampaign(Campaign campaign) {
     if (campaign != null) {
-      System.out.println("\n\n**********" + campaign.toString() + "\n"
-                         + "\n****************\n\n");
+      System.out.println("\n\n" + campaign.toString() + "\n\n");
       return saveCampaignToDB(campaign);
     } else {
       return "FAILURE";
     }
   }
 
-  @SuppressWarnings("unchecked")
+  //@SuppressWarnings("unchecked")
   private String saveCampaignToDB(Campaign campaign) {
     
     PersistenceManager pm = PMF.getPersistenceManager();
     
     // check if campaign name already exists
-    Extent<Campaign> campaignExtent = pm.getExtent(Campaign.class, true);
-    Query campaignQuery = pm.newQuery(campaignExtent, "name == " + campaign.getName());
-    List<Campaign> chars = (List<Campaign>) campaignQuery.execute();
-    if (!chars.isEmpty()) {
-      return "FAILURE";
-    }
+    //Extent<Campaign> campaignExtent = pm.getExtent(Campaign.class, true);
+    //Query campaignQuery = pm.newQuery(campaignExtent, "name == " + campaign.getName());
+    //List<Campaign> chars = (List<Campaign>) campaignQuery.execute();
+    //if (!chars.isEmpty()) {
+    //  return "FAILURE";
+    //}
     try {        
       //campaign.setAllAttrInfo();
 
       pm.makePersistent(campaign);
-      System.out.println("\n\n******WRITE TO DB FOLLOW CHARACTER-OBJECT **********");
-      //System.out.println("\n" + character.getAllAttrInfo_Part1() + "\n" + character.getAllAttrInfo_Part2());
-      System.out.println("\n*********************************************************\n");
       
      pm.close();
    } catch (Exception e) {
      e.printStackTrace();
    }
    return "SUCCESS";
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  //Checks if campaign name already exists
+  public String existsCampaign(String campaignName) {
+    PersistenceManager pm = PMF.getPersistenceManager();
+
+    Extent<Campaign> campaignExtent = pm.getExtent(Campaign.class, true);
+    Query campaignQuery = pm.newQuery(campaignExtent, "name == '" + campaignName + "'");
+    List<Campaign> chars = (List<Campaign>) campaignQuery.execute();
+    if (!chars.isEmpty()) {
+      return "FAILURE";
+    }
+    return "SUCCESS";
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Campaign> getCampaigns(String username) {
+    PersistenceManager pm = PMF.getPersistenceManager();
+    Extent<Campaign> campaignExtent = pm.getExtent(Campaign.class, true);
+    Query campaignQuery = pm.newQuery(campaignExtent, "username == '" + username + "'");
+    
+    List<Campaign> ret = new ArrayList<Campaign>();
+    for (Campaign campaign : (List<Campaign>) campaignQuery.execute()) {
+      pm.retrieve(campaign);
+      ret.add(pm.detachCopy(campaign));
+    }
+    
+    return ret;
   }
 
 }

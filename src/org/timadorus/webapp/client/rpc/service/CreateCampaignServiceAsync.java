@@ -1,5 +1,7 @@
 package org.timadorus.webapp.client.rpc.service;
 
+import java.util.List;
+
 import org.timadorus.webapp.client.campaign.Campaign;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -8,5 +10,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface CreateCampaignServiceAsync {
   
   void createCampaign(Campaign name, AsyncCallback<String> callback);
+  
+  void existsCampaign(String campaignName, AsyncCallback<String> callback);
+
+  void getCampaigns(String username, AsyncCallback<List<Campaign>> asyncCallback);
 
 }

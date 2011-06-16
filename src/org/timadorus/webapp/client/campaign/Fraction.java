@@ -9,15 +9,15 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.annotations.Unique;
 
-//This class represents a Campaign, which can be created by the Game Master or Admin
+//This class represents a Fraction, which can be created by the Game Master or Admin of a Campaign
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Campaign implements Serializable {
+public class Fraction implements Serializable {
   
   private static final long serialVersionUID = 1401541196634155322L;
 
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  private Long campaignID = new Long(-1);
+  private Long fractionID = new Long(-1);
   
   @Unique
   @Persistent
@@ -29,16 +29,16 @@ public class Campaign implements Serializable {
   @Persistent
   private String username = "--";
   
-  public Campaign() {
+  public Fraction() {
     
   }
   
-  public Long getCampaignID() {
-    return campaignID;
+  public Long getFractionID() {
+    return fractionID;
   }
 
-  public void setCampaignID(Long campaignID) {
-    this.campaignID = campaignID;
+  public void setFractionID(Long fractionID) {
+    this.fractionID = fractionID;
   }
 
   public String getName() {

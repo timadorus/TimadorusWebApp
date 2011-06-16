@@ -1,6 +1,7 @@
 package org.timadorus.webapp.client;
 
 import org.timadorus.webapp.client.campaign.CreateCampaignPanel;
+import org.timadorus.webapp.client.campaign.EditCampaignPanel;
 import org.timadorus.webapp.client.character.CreateCharacterPanel;
 import org.timadorus.webapp.client.character.ShowCharacterlistPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
@@ -22,12 +23,12 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
 
 @SuppressWarnings("deprecation")
 public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListener {
@@ -45,6 +46,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   private Hyperlink registerlink;
   private Hyperlink profilelink;
   private Hyperlink createCampaignLink;
+  private Hyperlink editCampaignLink;
 
   private boolean loggedin = false;
   private boolean activationPage = false;
@@ -62,6 +64,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     this.registerlink           = new Hyperlink("Account registrieren", REGISTER_STATE); 
     this.profilelink            = new Hyperlink("Profil bearbeiten", PROFILE_STATE);
     this.createCampaignLink     = new Hyperlink("Kampagne anlegen", CREATE_CAMPAIGN_STATE);
+    this.editCampaignLink     = new Hyperlink("Kampagne verwalten", EDIT_CAMPAIGN_STATE);
 
     this.loggedin = false;
     
@@ -114,6 +117,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
       }
       RootPanel.get("menu").add(getCreateCharacterlink());
       RootPanel.get("menu").add(getCreateCampaignLink());
+      RootPanel.get("menu").add(getEditCampaignLink());
       RootPanel.get("menu").add(getShowCharacterlistLink());
       RootPanel.get("menu").add(getProfilelink());
       //RootPanel.get("menu").add(getRegisterlink());
@@ -200,6 +204,14 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
         showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
         History.newItem("welcome");
       }
+    } else if (EDIT_CAMPAIGN_STATE.equals(historyToken)) {
+      if (isLoggedin()) {
+        loadEditCampaignPanel();
+      } else {
+        loadWelcomePanel();
+        showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
+        History.newItem("welcome");
+      }
     } else if (REGISTER_STATE.equals(historyToken)) {
       loadRegisterPanel();
     }
@@ -242,6 +254,16 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Kampagne erstellen"));
     RootPanel.get("content").add(CreateCampaignPanel.getCampaignPanel(this, LoginPanel.
+                                                                  getLoginPanel(sessionId, this).getUser()));
+  }
+  
+  /**
+   * A new EditCampaignPanel will be loaded and showed on the webpage.
+   */
+  public void loadEditCampaignPanel() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Kampagne verwalten"));
+    RootPanel.get("content").add(EditCampaignPanel.getCampaignPanel(this, LoginPanel.
                                                                   getLoginPanel(sessionId, this).getUser()));
   }
 
@@ -326,6 +348,13 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
       createCampaignLink = new Hyperlink("create Campaign", CREATE_CAMPAIGN_STATE);
     }
     return createCampaignLink;
+  }
+  
+  public Hyperlink getEditCampaignLink() {
+    if (editCampaignLink == null) {
+      editCampaignLink = new Hyperlink("edit Campaign", EDIT_CAMPAIGN_STATE);
+    }
+    return editCampaignLink;
   }
 
   public Hyperlink getShowCharacterlistLink() {

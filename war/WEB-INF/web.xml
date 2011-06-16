@@ -80,4 +80,14 @@
     <servlet-name>createCampaign</servlet-name>
     <url-pattern>/timadoruswebapp/createCampaign</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>createFraction</servlet-name>
+    <servlet-class>org.timadorus.webapp.server.rpc.service.CreateFractionServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>createFraction</servlet-name>
+    <url-pattern>/timadoruswebapp/createFraction</url-pattern>
+  </servlet-mapping>
 </web-app>
