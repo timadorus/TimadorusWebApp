@@ -10,4 +10,6 @@ public interface CreateFractionService extends RemoteService {
 
   String createFraction(Fraction fraction);
 
+  String existsFraction(String fractionName, String campaignName);
+
 }

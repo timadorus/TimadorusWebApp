@@ -8,4 +8,6 @@ public interface CreateFractionServiceAsync {
 
   void createFraction(Fraction fraction, AsyncCallback<String> asyncCallback);
 
+  void existsFraction(String fractionName, String campaignName, AsyncCallback<String> asyncCallback);
+
 }

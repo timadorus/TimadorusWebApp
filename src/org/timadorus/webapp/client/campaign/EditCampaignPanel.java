@@ -1,6 +1,5 @@
 package org.timadorus.webapp.client.campaign;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
@@ -32,7 +31,6 @@ public class EditCampaignPanel extends FormPanel {
   HTML headline = new HTML("<h1>Kampagne verwalten</h1>");
   Label campaignNameLabel         = new Label("Name der Kampagne");
   Label descriptionLabel        = new Label("Beschreibung");
-  List<Campaign> campaigns = new ArrayList<Campaign>();
 
   public EditCampaignPanel(TimadorusWebApp entryIn, final User user) {
     super();
@@ -43,7 +41,9 @@ public class EditCampaignPanel extends FormPanel {
     AsyncCallback<List<Campaign>> asyncCallback = new AsyncCallback<List<Campaign>>() {
       
       public void onSuccess(List<Campaign> result) {
-        updateCampaignList(result);
+        if (result != null) {
+          updateCampaignList(result);
+        }
       }
       
       public void onFailure(Throwable caught) {
@@ -55,7 +55,6 @@ public class EditCampaignPanel extends FormPanel {
  
     // Style Components   
     grid.setWidget(0, 0, new Label("Waiting for ajax response..."));
-    campaignNameLabel.setText("test: " + campaigns.size());
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
     panel.setWidth("100%");
@@ -80,13 +79,9 @@ public class EditCampaignPanel extends FormPanel {
     if (result.size() > 0) {
       final int columns = 4;
       grid = new Grid(result.size(), columns);
-      grid.setBorderWidth(0);
+      grid.setBorderWidth(1);
     
-      grid.setWidget(0, 0, new HTML("ID"));
-      grid.setWidget(0, 1, new HTML("Name"));
-      grid.setWidget(0, 2, new HTML("Beschreibung"));
-      
-      int i = 1;
+      int i = 0;
       for (final Campaign campaign : result) {
         final Button edit = new Button("Bearbeiten");
         

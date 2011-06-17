@@ -24,10 +24,17 @@ public class Fraction implements Serializable {
   private String name = "--";
   
   @Persistent
+  private String anzeigename = "--";
+  
+  @Persistent
   private String beschreibung = "--";
   
   @Persistent
-  private String username = "--";
+  private String informationen = "--";
+ 
+  @Persistent
+  private String campaignName = "--";
+  
   
   public Fraction() {
     
@@ -56,17 +63,34 @@ public class Fraction implements Serializable {
   public void setBeschreibung(String beschreibung) {
     this.beschreibung = beschreibung;
   }
+
+  public void setInformationen(String informationen) {
+    this.informationen = informationen;
+  }
+
+  public String getInformationen() {
+    return informationen;
+  }
+
+  public void setAnzeigename(String anzeigename) {
+    this.anzeigename = anzeigename;
+  }
+
+  public String getAnzeigename() {
+    return anzeigename;
+  }
+  
+  public void setCampaignName(String campaignName) {
+    this.campaignName = campaignName;
+  }
+
+  public String getCampaignName() {
+    return campaignName;
+  }
   
   @Override
   public String toString() {
-    return "Campaign-Name: " + name;
+    return "Campaign-Name: " + name + " Beschreibung: " + beschreibung;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getUsername() {
-    return username;
-  }
 }

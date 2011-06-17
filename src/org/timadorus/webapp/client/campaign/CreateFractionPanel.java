@@ -8,14 +8,18 @@ import org.timadorus.webapp.client.rpc.service.CreateFractionServiceAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -23,26 +27,64 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class CreateFractionPanel extends FormPanel {
 
-  
-  // TODO Klasse Fraction anpassen, hier das Formular anpassen, DB Tabelle anlegen
   private static final int CELL_SPACING = 8;
 
   TimadorusWebApp entry;
   User user;
+  Campaign campaign;
+  
   Button saveButton         = new Button("Speichern");
   VerticalPanel panel       = new VerticalPanel();
   FlexTable selectGrid      = new FlexTable();
 
-  Label campaignNameLabel         = new Label("Name der Kampagne");
+  Label fractionNameLabel         = new Label("Name der Fraktion");
+  Label fractionDisplayNameLabel         = new Label("Anzeigename der Fraktion");
   Label descriptionLabel        = new Label("Beschreibung");
-  Label checkCampaignNameLabel = new Label("");
-  TextBox campaignNameTextBox = new TextBox();
+  Label informationLabel        = new Label("Informationen");
+  Label templateLabel        = new Label("Vorlage-Fraktion");
+  Label setTemplateLabel        = new Label("Dauerhafte Übernahme der Vorlage");
+  Label checkFractionNameLabel = new Label("");
+  
+  TextBox fractionNameTextBox = new TextBox();
+  TextBox fractionDisplayNameTextBox = new TextBox();
   TextArea descriptionTextArea = new TextArea();
+  TextArea informationTextArea = new TextArea();
+  ListBox templateListBox = new ListBox();
+  CheckBox setTemplateCheckBox = new CheckBox();
 
-  public CreateFractionPanel(TimadorusWebApp entryIn, final User user, Campaign campaign) {
+  public CreateFractionPanel(TimadorusWebApp entryIn, final User user, final Campaign campaign) {
     super();
     this.entry = entryIn;
     this.user = user;
+    this.campaign = campaign;
+    
+    // Create a key-up handler for the nameField
+    class MyKeyUpHandler implements KeyUpHandler {
+
+      @Override
+      public void onKeyUp(KeyUpEvent event) {
+        checkFraction(fractionNameTextBox.getText(), campaign.getName());
+      }
+      private void checkFraction(String fractionName, String campaignName) {
+        CreateFractionServiceAsync createFractionServiceAsync = GWT.create(CreateFractionService.class);
+        AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+          
+          public void onSuccess(String result) {
+            if (result.equals("SUCCESS")) {
+              checkFractionNameLabel.setText("");
+            } else {
+              checkFractionNameLabel.setStyleName("error");
+              checkFractionNameLabel.setText("Ist bereits vergeben");
+            }            
+          }
+          
+          public void onFailure(Throwable caught) {
+            System.out.println(caught);
+          }
+        };
+        createFractionServiceAsync.existsFraction(fractionName, campaignName, asyncCallback);
+      }
+    }
     
     // Create a handler for the saveButton and nameField
     class MyHandler implements ClickHandler {
@@ -50,9 +92,11 @@ public class CreateFractionPanel extends FormPanel {
 
         if (event.getSource().equals(saveButton)) {
           Fraction fraction = new Fraction();
-          fraction.setName(campaignNameTextBox.getText());
+          fraction.setCampaignName(campaign.getName());
+          fraction.setName(fractionNameTextBox.getText());
+          fraction.setAnzeigename(fractionDisplayNameTextBox.getText());
           fraction.setBeschreibung(descriptionTextArea.getText());
-          fraction.setUsername(user.getUsername());
+          fraction.setInformationen(informationTextArea.getText());
           sendToServer(fraction);
           loadSavedFractionPanel(user);        
         }
@@ -78,11 +122,16 @@ public class CreateFractionPanel extends FormPanel {
       }
     }
     
- // Style Components
+    // Style Components
+    HTML headline = new HTML("<h1>Fraktion anlegen</h1>");
+    
     saveButton.setStylePrimaryName("saveButton");
     
-    campaignNameTextBox.setSize("180px", "20px");
+    fractionNameTextBox.setSize("180px", "20px");
+    fractionDisplayNameTextBox.setSize("180px", "20px");
     descriptionTextArea.setSize("180px", "100px");
+    informationTextArea.setSize("180px", "100px");
+    setTemplateCheckBox.setEnabled(false);
 
     selectGrid.setCellSpacing(CELL_SPACING);
     
@@ -90,14 +139,20 @@ public class CreateFractionPanel extends FormPanel {
     selectGrid.setBorderWidth(0);
     selectGrid.setStylePrimaryName("selectGrid");
 
-    selectGrid.setWidget(0, 0, campaignNameLabel);
-    selectGrid.setWidget(1, 0, descriptionLabel);
+    selectGrid.setWidget(0, 0, fractionNameLabel);
+    selectGrid.setWidget(1, 0, fractionDisplayNameLabel);
+    selectGrid.setWidget(2, 0, descriptionLabel);
+    selectGrid.setWidget(2 + 1, 0, informationLabel);
+    selectGrid.setWidget(2 + 2, 0, templateLabel);
+    selectGrid.setWidget(2 + 2 + 1, 0, setTemplateLabel);
     
-    selectGrid.setWidget(0, 1, campaignNameTextBox);
-    selectGrid.setWidget(1, 1, descriptionTextArea);
-    selectGrid.setWidget(0, 2, checkCampaignNameLabel);
-
-    HTML headline = new HTML("<h1>Fraktion anlegen</h1>");
+    selectGrid.setWidget(0, 1, fractionNameTextBox);
+    selectGrid.setWidget(1, 1, fractionDisplayNameTextBox);
+    selectGrid.setWidget(2, 1, descriptionTextArea);
+    selectGrid.setWidget(2 + 1, 1, informationTextArea);
+    selectGrid.setWidget(2 + 2, 1, templateListBox);
+    selectGrid.setWidget(2 + 2 + 1, 1, setTemplateCheckBox);
+    selectGrid.setWidget(2 + 2 + 2, 1, checkFractionNameLabel);
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -117,6 +172,9 @@ public class CreateFractionPanel extends FormPanel {
     // Add Handlers
     MyHandler handler = new MyHandler();    
     saveButton.addClickHandler(handler);
+    
+    MyKeyUpHandler keyUpHandler = new MyKeyUpHandler();
+    fractionNameTextBox.addKeyUpHandler(keyUpHandler);
   }
   
   public void loadSavedFractionPanel(User userIn) {

@@ -75,17 +75,22 @@ public class CreateCampaignServiceImpl extends RemoteServiceServlet implements C
   @SuppressWarnings("unchecked")
   @Override
   public List<Campaign> getCampaigns(String username) {
-    PersistenceManager pm = PMF.getPersistenceManager();
-    Extent<Campaign> campaignExtent = pm.getExtent(Campaign.class, true);
-    Query campaignQuery = pm.newQuery(campaignExtent, "username == '" + username + "'");
-    
-    List<Campaign> ret = new ArrayList<Campaign>();
-    for (Campaign campaign : (List<Campaign>) campaignQuery.execute()) {
-      pm.retrieve(campaign);
-      ret.add(pm.detachCopy(campaign));
+    try {
+      PersistenceManager pm = PMF.getPersistenceManager();
+
+      Extent<Campaign> extent = pm.getExtent(Campaign.class, true);
+      Query query = pm.newQuery(extent, "username == '" + username + "'");
+
+      List<Campaign> ret = new ArrayList<Campaign>();
+      for (Campaign campaign : (List<Campaign>) query.execute()) {
+        pm.retrieve(campaign);
+        ret.add(pm.detachCopy(campaign));
+      }
+      return ret;
+    } catch (Exception e) {
+      e.printStackTrace();
     }
     
-    return ret;
+    return null;
   }
-
 }
