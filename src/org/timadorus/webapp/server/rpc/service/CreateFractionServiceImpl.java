@@ -47,15 +47,17 @@ public class CreateFractionServiceImpl extends RemoteServiceServlet implements C
 
   @SuppressWarnings("unchecked")
   @Override
-  //Checks if campaign name already exists
+  //Checks if fraction name already exists and if it belongs to a certain campaign
   public String existsFraction(String fractionName, String campaignName) {
     PersistenceManager pm = PMF.getPersistenceManager();
 
     Extent<Fraction> fractionExtent = pm.getExtent(Fraction.class, true);
-    Query fractionQuery = pm.newQuery(fractionExtent, "name == '" + fractionExtent 
-                                      + "' and campaignname == '" + campaignName + "'");
-    List<Campaign> chars = (List<Campaign>) fractionQuery.execute();
-    if (!chars.isEmpty()) {
+    Query fractionQuery = pm.newQuery(fractionExtent, "name == '" + fractionName + "'");
+    List<Fraction> fracs = (List<Fraction>) fractionQuery.execute();
+    
+    Query campaignNameQuery = pm.newQuery(fractionExtent, "campaignName == '" + campaignName + "'");
+    List<Campaign> camps = (List<Campaign>) campaignNameQuery.execute();
+    if (!fracs.isEmpty() && !camps.isEmpty()) {
       return "FAILURE";
     }
     return "SUCCESS";

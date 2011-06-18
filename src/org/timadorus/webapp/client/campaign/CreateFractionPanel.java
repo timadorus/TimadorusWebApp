@@ -152,7 +152,7 @@ public class CreateFractionPanel extends FormPanel {
     selectGrid.setWidget(2 + 1, 1, informationTextArea);
     selectGrid.setWidget(2 + 2, 1, templateListBox);
     selectGrid.setWidget(2 + 2 + 1, 1, setTemplateCheckBox);
-    selectGrid.setWidget(2 + 2 + 2, 1, checkFractionNameLabel);
+    selectGrid.setWidget(0, 2, checkFractionNameLabel);
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
