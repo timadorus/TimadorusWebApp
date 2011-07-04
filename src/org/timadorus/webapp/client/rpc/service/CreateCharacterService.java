@@ -10,4 +10,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("createCharacter")
 public interface CreateCharacterService extends RemoteService {
   String createCharacter(Character name);
+  int makePotStat(int temp);
 }

@@ -9,4 +9,6 @@ public interface CreateCharacterServiceAsync {
 //  void createCharacter(String input, AsyncCallback<Character> callback);
 
   void createCharacter(Character name, AsyncCallback<String> callback);
+
+  void makePotStat(int temp, AsyncCallback<Integer> callback);
 }

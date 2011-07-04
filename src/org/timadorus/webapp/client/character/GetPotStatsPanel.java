@@ -1,21 +1,25 @@
 package org.timadorus.webapp.client.character;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Image;
 
 //Panel for showing potential stats
 public class GetPotStatsPanel extends FormPanel {
@@ -36,7 +40,7 @@ public class GetPotStatsPanel extends FormPanel {
 
   FlexTable getPotStatGrid = new FlexTable(); //grid for showing pot stats
 
-  LinkedList<Integer> potStats = new LinkedList<Integer>(); //list holding characters potstats
+  ArrayList<Integer> potStats = new ArrayList<Integer>(); //list holding characters potstats
   
   public GetPotStatsPanel(final TimadorusWebApp entryIn, final Character characterIn, final User user) {
     super();
@@ -77,7 +81,6 @@ public class GetPotStatsPanel extends FormPanel {
     for (int i = 0; i < 11; i++) {
       getPotStatGrid.setHTML(i + 1, 0, characterIn.getStatList().get(i).toString());
       getPotStatGrid.setHTML(i + 1, 1, characterIn.getTempStats().get(i).toString());
-      getPotStatGrid.setHTML(i + 1, 2, potStats.get(i).toString());
     }
     
 //    for (int i = 0; i < 11; i++) {
@@ -124,13 +127,48 @@ public class GetPotStatsPanel extends FormPanel {
 
   }
 
+  /**
+   * 
+   * @author sage
+   *
+   */
+  private class PotFieldCallback implements AsyncCallback<Integer> {
+    
+    private int fieldNum;
+    
+    /**
+     * 
+     * @param fieldNum the number of the pot field to set.
+     */
+    public PotFieldCallback(int fieldNum) {
+      this.fieldNum = fieldNum;  
+    }
+    
+    @Override
+    public void onFailure(Throwable caught) {
+      entry.showDialogBox("Remote Service Failure", 
+                          "Client/Server Create Character Service Failure!\n"
+                          + "please contact the support service or server admin. \n"
+                          + "RPC that failed was: int makePotStat(int)");
+    }
+
+    @Override
+    public void onSuccess(Integer result) {
+      potStats.add(fieldNum, result);
+      // entry.showDialogBox("retrieved pot", "got the pot value for stat " + fieldNum + ": " + result);
+      getPotStatGrid.setHTML(fieldNum + 1, 2, result.toString());
+    }
+  };
   //calculates potStats
   public void calculatePotStats() {
+    CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
+
+    AsyncCallback<Integer> asyncCallback; 
+
     for (int i = 0; i < 12; i++) {
-      //random w100 calculation for dummy tests
-      final int times = 100;
-      int potStat = (int) Math.floor((Math.random() * times) + 1);
-      potStats.add(i, potStat);
+      asyncCallback = new PotFieldCallback(i);
+      int temp = character.getTempStat().get(i);
+      createServiceAsync.makePotStat(temp, asyncCallback);
     }
   }
 

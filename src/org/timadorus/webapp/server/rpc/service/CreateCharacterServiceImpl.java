@@ -17,6 +17,8 @@ import org.timadorus.webapp.server.RegisteredUserList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.harper_hall.keeper.tables.PotStatResolve;
+
 
 /**
  * Implementing CreateCharacterService according to GWT-RPC-Plumbing-diagram.
@@ -120,5 +122,13 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
     }
   
     return null;
+  }
+
+  @Override
+  public int makePotStat(int temp) {
+    final int maxPotRoll = 100;
+    int potRoll = (int) Math.floor((Math.random() * maxPotRoll) + 1);
+    System.out.println("makePotStat called");
+    return PotStatResolve.getPotStat(temp, potRoll);
   }
 }
