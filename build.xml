@@ -37,7 +37,7 @@
 	
 	<!-- db and sql working folder -->
 	<property name="sql.dir" value="${war.dir}/sql"/>
-	<property name="db.dir" value="${user.home}/TimadorusDB"/>
+	<property name="db.dir" value="TimadorusDB"/>
 
 	<!-- WebApp Artifactory Settings -->
 	<property name="pub.version" value="0.1" />
@@ -94,13 +94,17 @@
 		<path refid="compile.classpath"/>
 	</path>
 
-	<target name="resolve" description="resolve and download dependencies with ivy">
+	<target name="resolve" depends="_do_ivy_resolve,_def_tasks" description="resolve and download dependencies with ivy"/>
+	
+	<target name="_do_ivy_resolve">
 		<!-- Ivy Einstellungen einbinden -->
 		<ivy:settings file="${ivy.settings.file}" />
 	    <ivy:resolve />
 		<ivy:retrieve  pattern="${lib.dir}/[conf]/[artifact]-[revision](-[classifier]).[ext]" sync="true"/>
 	    <ivy:report todir="${ivy.dir}/reports"/>
+	</target>
 
+    <target name="_def_tasks">
 		<!-- after (hopefully) retrieving all dependencies, add the tasks -->
 	    <!-- JUnit -->
 		<taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"
@@ -113,8 +117,7 @@
 
 		<!-- load the JDO/JPA enhancer task. -->
 		<taskdef name="datanucleusenhancer" classpathref="compile.classpath" classname="org.datanucleus.enhancer.tools.EnhancerTask" />
-
-	</target>
+    </target>
 
 
 	<target name="clean" description="delete the target folders">
@@ -169,7 +172,7 @@
 	<!-- Target:revisionNumber | write the current SVN revision number into a 
 	     valid java class file, so the application can read its own version  
 	  -->
-	<target name="revisionNumber">
+	<target name="revisionNumber" depends="resolve">
 		
         <svn>
         	<info path="${basedir}" committedRevisionProperty="revisionVersion" />
@@ -190,7 +193,9 @@
 	</target>
 
 	<!-- Target:java-compile | Kompilieren der Javaklassen (führt vorher die Tasks clean und init aus) -->
-	<target name="java-compile" depends="clean,init,revisionNumber">
+	<target name="java-compile" depends="clean,init,revisionNumber,_do_java-compile"/>
+	
+    <target name="_do_java-compile">
 
 		<!-- Aufruf zum Kompilieren -->
 		<javac debug="true" debuglevel="${debuglevel}" destdir="${war.classes}" source="${source}" target="${target}">
@@ -223,7 +228,9 @@
 	<!-- Target:enhance | run the byte enhancement of the required java classes 
 	     to be used as entities with JDO/JPA 
 	  -->
-	<target name="enhance" depends="resolve" description="DataNucleus enhancement">
+	<target name="enhance" depends="java-compile,_do_enhance" description="DataNucleus enhancement"/>
+	
+	<target name="_do_enhance" depends="_def_tasks">
 
 		<!-- run the enhancement -->
 		<datanucleusenhancer failonerror="true" verbose="true">
@@ -275,9 +282,16 @@
 	    <arg value="${sql.dir}/installdb.sql"/>
 	  </java>
 	</target>
-	
+
 	<!-- Task:embeddedServer | set up the embedded server jar -->
-	<target name="embeddedServer" description="--> Creates self-executing jar">
+	<target name="embeddedServer" description="--> Creates self-executing jar" depends="enhance,gwt-compile,_do_embeddedServer" />		
+
+	<!-- only to be used in development, for allready set up projects. -->
+	<target name="_quick_gwt_server" depends="_do_java-compile,_do_enhance,gwt-compile,_do_embeddedServer">
+    </target>
+	
+	<!-- actually build the embedded Server -->
+    <target name="_do_embeddedServer">
 		<property name="tmpServer.dir" location="${basedir}/tmpServer" />
 		<property name="dbFolder.dir" location="${basedir}/tmpServer/TimadorusDB" />
 
@@ -337,5 +351,5 @@
 	</target>
 
 	<!-- Target:build | define the order of the targets run to fullfill the build -->
-	<target name="build" depends="resolve,java-compile,test-compile,test-checkstyle,enhance,gwt-compile,installDB,embeddedServer" />
+	<target name="build" depends="resolve,test-compile,test-checkstyle,enhance,gwt-compile,installDB,embeddedServer" />
 </project>
