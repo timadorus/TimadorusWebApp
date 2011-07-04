@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Create Custom Character</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Create Custom Character</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>link=Charakter erstellen</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>gwt-uid-1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>gwt-uid-4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//div[@id='content']/table/tbody/tr[5]/td/table/tbody/tr/td[2]/select</td>
+	<td>label=Mächtiger Winzer</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//option[@value='Mächtiger Winzer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[6]/td/table/tbody/tr/td[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//div[@id='content']/table/tbody/tr[5]/td/table/tbody/tr/td[2]/select</td>
+	<td>label=Pilot</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//option[@value='Pilot']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[6]/td/table/tbody/tr/td[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//div[@id='content']/table/tbody/tr[6]/td/table/tbody/tr/td[2]/select</td>
+	<td>label=Nooobs</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//option[@value='Nooobs']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr/td[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[3]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[4]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[5]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[5]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[5]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[5]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[6]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[6]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[6]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[6]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[7]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[7]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[7]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[7]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[8]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[8]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[8]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[8]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[8]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[8]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[9]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[9]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[9]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[9]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[9]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[9]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[10]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[10]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[10]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[10]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[11]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[11]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[11]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[11]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[12]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[12]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[12]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[5]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[5]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[10]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[10]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[11]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[11]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[11]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[11]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[12]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[12]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[12]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[8]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[6]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[6]/td[7]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[8]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[7]/td[8]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[8]/td/table/tbody/tr/td[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr/td[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//div[@id='content']/table/tbody/tr[6]/td/table/tbody/tr[2]/td[1]/select</td>
+	<td>label=Acting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//option[@value='Acting']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//div[@id='content']/table/tbody/tr[6]/td/table/tbody/tr[2]/td[1]/select</td>
+	<td>label=Riding Animals</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//option[@value='Riding Animals']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[10]/td/table/tbody/tr/td[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[1]/select</td>
+	<td>label=Armorsmithing</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//option[@value='Armorsmithing']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//div[@id='content']/table/tbody/tr[7]/td/table/tbody/tr[2]/td[1]/select</td>
+	<td>label=Wand fighters</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//option[@value='Wand fighters']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[11]/td/table/tbody/tr/td[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[12]/td/table/tbody/tr/td[5]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[9]/td/table/tbody/tr/td[5]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[14]/td/table/tbody/tr/td[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//input[@type='text']</td>
+	<td>frugnul</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='content']/table/tbody/tr[10]/td/table/tbody/tr/td[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Liste der Charaktere</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
