@@ -106,7 +106,7 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
    * @return User.USER_ALREADY_ACTIVATED    if the user is already activated, 
    *         User.USER_WRONG_CODE           if the supplied activation code has been incorrect, 
    *         User.USER_INVALID              if the username and password was wrong and
-   *         User.USER_VARIFIED             if the user has been successfully verified.  
+   *         User.USER_VERIFIED             if the user has been successfully verified.  
    */
   public String verifyMail(String activationCode, User user) {
     if (user == null) { return null; }
@@ -122,7 +122,7 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
           pm.makePersistent(origUser);
           pm.close();
           
-          return User.USER_VARIFIED;
+          return User.USER_VERIFIED;
         }
         return User.USER_WRONG_CODE;
       }

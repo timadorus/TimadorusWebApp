@@ -45,7 +45,7 @@ public interface UserService extends RemoteService {
    * @return User.USER_ALREADY_ACTIVATED    if the user is already activated, 
    *         User.USER_WRONG_CODE           if the supplied activation code has been incorrect, 
    *         User.USER_INVALID              if the username and password was wrong and
-   *         User.USER_VARIFIED             if the user has been successfully verified.  
+   *         User.USER_VERIFIED             if the user has been successfully verified.  
    */
   String verifyMail(String activationCode, User user);
 }

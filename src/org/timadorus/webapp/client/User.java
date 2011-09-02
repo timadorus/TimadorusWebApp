@@ -48,7 +48,7 @@ public class User implements Serializable {
 
   public static final String USER_INACTIVE = "INACTIVE";
   
-  public static final String USER_VARIFIED = "VARIFIED";
+  public static final String USER_VERIFIED = "VARIFIED";
   
   public static final String USER_WRONG_CODE = "WRONG_CODE";
   

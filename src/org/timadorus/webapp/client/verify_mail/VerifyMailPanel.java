@@ -135,9 +135,9 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
           public void onSuccess(String result) {
             if (result != null) {
-              if (result.equals(User.USER_VARIFIED)) {
-                getTimadorus().setLoggedin(true);
+              if (result.equals(User.USER_VERIFIED)) {
                 getUser().setActive(true);
+                entry.setLoggedin(true);
                 Cookies.setCookie("session", result, new Date(System.currentTimeMillis() + TWO_MIN));
                 System.out.println("Login session => " + result);
                 History.newItem("login");
