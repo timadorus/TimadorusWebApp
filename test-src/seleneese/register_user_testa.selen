@@ -13,7 +13,7 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/TimadorusWebApp.html</td>
+	<td>http://127.0.0.1:8888/TimadorusWebApp.html?gwt.codesvr=127.0.0.1:9997</td>
 	<td></td>
 </tr>
 <tr>
@@ -73,7 +73,7 @@
 </tr>
 <tr>
 	<td>open</td>
-	<td>/TimadorusWebApp.html?activationCode=F01EF6FC44A6CD80D53D5385464CADA1#logout</td>
+	<td>http://127.0.0.1:8888/TimadorusWebApp.html?gwt.codesvr=127.0.0.1:9997&amp;activationCode=EE2E3E681BFF0CECC68E7F4B06635C5E</td>
 	<td></td>
 </tr>
 <tr>
