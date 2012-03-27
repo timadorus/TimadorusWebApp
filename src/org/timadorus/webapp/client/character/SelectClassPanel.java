@@ -2,8 +2,8 @@ package org.timadorus.webapp.client.character;
 
 import java.util.ListIterator;
 
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.User;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

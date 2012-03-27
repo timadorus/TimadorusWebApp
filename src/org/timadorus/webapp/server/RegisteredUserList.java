@@ -15,7 +15,7 @@ import javax.jdo.Query;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
-import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.character.Character;
 
 /**
@@ -30,13 +30,13 @@ public final class RegisteredUserList {
   private static RegisteredUserList registeredUserList = null;
 
   /**
-   * Constructor has to stay private -> Singelton-Pattern.
+   * Constructor has to stay private -> Singleton-Pattern.
    */
   private RegisteredUserList() { }
 
   /**
    * Returns an instance of the RegisteredUserList. If it was already requested, a cached object will be returned.
-   * (Singelton-Pattern).
+   * (Singleton-Pattern).
    * 
    * @return An instance of the RegisteredUserList 
    */

@@ -2,7 +2,7 @@ package org.timadorus.webapp.server.rpc.service;
 
 import javax.servlet.http.HttpSession;
 
-import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.rpc.service.LoginService;
 import org.timadorus.webapp.server.RegisteredUserList;
 

@@ -2,8 +2,8 @@ package org.timadorus.webapp.client.verify_mail;
 
 import java.util.Date;
 
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.UserService;
 import org.timadorus.webapp.client.rpc.service.UserServiceAsync;
 

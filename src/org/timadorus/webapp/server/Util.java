@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.beans.User;
 
 /**
  * A Util class containing different static util functions related to the server code.

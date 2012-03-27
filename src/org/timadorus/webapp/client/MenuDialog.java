@@ -1,16 +1,13 @@
 /* -*- java -*- */
 /*
- * Filename:          org.timadorus.webapp.client/MenuPanel.java
+ * Filename:          org.timadorus.webapp.client/MenuDialog.java
  *                                                                       *
  * Project:           TimadorusWebApp
- * Programm:
- * Function:
- * Documentationfile:
  *
  * This file is distributed under the GNU Public License 2.0
  * See the file Copying for more information
  *
- * copyright (c) 2007 Lutz Behnke <lutz.behnke@gmx.de>
+ * copyright (c) 2012 Lutz Behnke <lutz.behnke@gmx.de>
  *
  * THE AUTHOR MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE
  * SUITABILITY OF THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT
@@ -30,16 +27,17 @@ import java.util.Set;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.campaign.Campaign;
 
-import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Hyperlink;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 
 /**
  * @author sage
  *
  */
-public class MenuPanel extends FlowPanel {
-  
+public class MenuDialog implements ClientUIElement {
+
   private class LinkInfo {
     final Hyperlink link;
     Set<Role> roles = EnumSet.noneOf(Role.class);
@@ -60,15 +58,56 @@ public class MenuPanel extends FlowPanel {
     }
 
   }
-  
-  private User user = null;
-  private Campaign campaign = null;
+
+  /**
+   * 
+   * @author sage
+   *
+   */
+  public interface Display {
+    
+    /**
+     * 
+     * @return the whole panel
+     */
+    IsWidget getPanel();
+    
+    /** remove all menu entries from the panel
+     * 
+     */
+    void clear();
+    
+    /**
+     * 
+     * @param link the link to add
+     * @return a valid label
+     */
+    Label addLink(Hyperlink link);
+    
+    /**
+     * 
+     * @return the label to hold status information
+     */
+    Label getStatusLabel();
+  }
+
   Map<String, LinkInfo> links = new HashMap<String, LinkInfo>();
   
-  public MenuPanel(TimadorusWebApp app) {
-    setPanel();
+  private Display display;
+
+  private User user = null;
+  private Campaign campaign = null;
+
+  public MenuDialog(Display display) {
+    this.display = display;
   }
   
+  @Override
+  public void go(HasWidgets parent) {
+    // TODO Auto-generated method stub
+    
+  }
+
   /**
    * 
    * @param user user to set.
@@ -95,7 +134,6 @@ public class MenuPanel extends FlowPanel {
   }
 
 
-
   /** add a new link to the menu.
    * 
    * @param role the role for which the link is valid
@@ -116,28 +154,29 @@ public class MenuPanel extends FlowPanel {
   }
   
   protected void setPanel() {
-    clear();
+    display.clear();
     Role currRole = Role.GUEST;
+    StringBuffer statusBuff = new StringBuffer();
     
     if (user != null) {
-      add(new Label("you are logged in as "
-                                          + user.getDisplayname()));
+      statusBuff.append("you are logged in as " + user.getDisplayname());
+      
       if (!user.getActive()) {
-        add(new Label("your account has not been activated yet!"));
+        statusBuff.append("<br>your account has not been activated yet!");
       } else {
         currRole = Role.USER;        
       }
-
-      
     } else {      
-      add(new Label("Please log in or register a new account"));
+      statusBuff.append("Please log in or register a new account");
     }
-
+    display.getStatusLabel().setText(statusBuff.toString());
+    
     // add all applicable links
     for (LinkInfo info : links.values()) {
       if (info.roles.contains(currRole)) {
-        add(info.link);
+        display.addLink(info.link);
       }
     }
   }
+
 }

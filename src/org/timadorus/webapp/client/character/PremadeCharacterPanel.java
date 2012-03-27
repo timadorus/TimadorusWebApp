@@ -3,8 +3,8 @@ package org.timadorus.webapp.client.character;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 

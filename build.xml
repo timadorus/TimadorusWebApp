@@ -37,7 +37,7 @@
 	
 	<!-- db and sql working folder -->
 	<property name="sql.dir" value="${war.dir}/sql"/>
-	<property name="db.dir" value="TimadorusDB"/>
+	<property name="db.dir" value="C:\Temp\TimadorusDB"/>
 
 	<!-- WebApp Artifactory Settings -->
 	<property name="pub.version" value="0.1" />
@@ -151,7 +151,14 @@
 
 		<!-- copy all runtime jars into the wars lib folder -->
 		<copy includeemptydirs="false" todir="${war.lib}">
-			<fileset dir="${lib.dir}/runtime" />
+			<fileset dir="${lib.dir}/runtime">
+				<exclude name="*-source*"/>
+				<exclude name="*-javadoc*"/>
+			</fileset>
+			<!-- the gwt builder requires this jar -->
+			<fileset dir="${lib.dir}/runtime">
+				<include name="validation-api-*-sources.jar"/>
+			</fileset>
 		</copy>
 	</target>
 
@@ -193,7 +200,7 @@
 	</target>
 
 	<!-- Target:java-compile | Kompilieren der Javaklassen (führt vorher die Tasks clean und init aus) -->
-	<target name="java-compile" depends="clean,init,revisionNumber,_do_java-compile"/>
+	<target name="java-compile" depends="clean,init,resolve,revisionNumber,_do_java-compile"/>
 	
     <target name="_do_java-compile">
 
@@ -275,18 +282,29 @@
 	
 	<!-- Task:installDB | set up the database -->
 	<target name="installDB" depends="cleanDB">
-	  <java fork="true" classname="org.apache.derby.tools.ij" classpathref="TimadorusWebApp.classpath">
-	    <sysproperty key="ij.connection.db" value="jdbc:derby:${db.dir};create=true" />
-	  	<sysproperty key="ij.user" value="webapp" />
-	  	<sysproperty key="ij.password" value="ty32re8pu" />
-	    <arg value="${sql.dir}/installdb.sql"/>
-	  </java>
+		  <java fork="true" classname="org.apache.derby.tools.ij" classpathref="TimadorusWebApp.classpath">
+		    <sysproperty key="ij.connection.db" value="jdbc:derby:${db.dir};create=true" />
+		  	<sysproperty key="ij.user" value="webapp" />
+		  	<sysproperty key="ij.password" value="ty32re8pu" />
+		    <arg value="${sql.dir}/installdb.sql"/>
+		  </java>
 	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: manageDB                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="manageDB">
+  	  <java fork="true" classname="org.apache.derby.tools.ij" classpathref="TimadorusWebApp.classpath">
+  	    <sysproperty key="ij.connection.db" value="jdbc:derby:${db.dir};create=true" />
+  	  	<sysproperty key="ij.user" value="webapp" />
+  	  	<sysproperty key="ij.password" value="ty32re8pu" />
+  	  </java>            
+    </target>
 
 	<!-- Task:embeddedServer | set up the embedded server jar -->
 	<target name="embeddedServer" description="--> Creates self-executing jar" depends="enhance,gwt-compile,_do_embeddedServer" />		
 
-	<!-- only to be used in development, for allready set up projects. -->
+	<!-- only to be used in development, for already set up projects. -->
 	<target name="_quick_gwt_server" depends="_do_java-compile,_do_enhance,gwt-compile,_do_embeddedServer">
     </target>
 	

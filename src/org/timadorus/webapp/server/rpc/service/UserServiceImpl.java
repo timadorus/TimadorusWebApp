@@ -6,7 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
-import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.rpc.service.UserService;
 import org.timadorus.webapp.server.RegisteredUserList;
 import org.timadorus.webapp.server.Util;

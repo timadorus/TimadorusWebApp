@@ -1,6 +1,7 @@
 package org.timadorus.webapp.client.rpc.service;
 
-import org.timadorus.webapp.client.User;
+import org.timadorus.webapp.beans.User;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**

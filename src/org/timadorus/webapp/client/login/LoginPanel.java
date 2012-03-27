@@ -2,9 +2,9 @@ package org.timadorus.webapp.client.login;
 
 import java.util.Date;
 
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.SessionId;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.LoginService;
 import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
 

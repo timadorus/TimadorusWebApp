@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.User;
 
 //import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.event.dom.client.ChangeEvent;

@@ -1,4 +1,4 @@
-package org.timadorus.webapp.client;
+package org.timadorus.webapp.beans;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.annotations.Unique;
 
-@PersistenceCapable(identityType = IdentityType.APPLICATION)
+@PersistenceCapable(identityType = IdentityType.APPLICATION, table = "USER")
 public class User implements Serializable {
   private static final long serialVersionUID = 2126117484936404051L;
 

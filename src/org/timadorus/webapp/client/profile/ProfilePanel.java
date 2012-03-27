@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.profile;
 
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.UserService;
 import org.timadorus.webapp.client.rpc.service.UserServiceAsync;
 

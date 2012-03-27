@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.register;
 
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.User;
 import org.timadorus.webapp.client.rpc.service.RegisterService;
 import org.timadorus.webapp.client.rpc.service.RegisterServiceAsync;
 
