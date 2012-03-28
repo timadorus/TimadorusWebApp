@@ -274,7 +274,7 @@
 	<!-- ================================= 
           target: test-java              
          ================================= -->
-    <target name="test-java" depends="test-compile,instrument-java" description="set up and run all tests">
+    <target name="test-java" depends="test-compile,instrument-java,installDB" description="set up and run all tests">
     	<junit fork="yes" haltonfailure="yes" showoutput="on">
     		<classpath>
     			<pathelement path="${instrumented.bindir}"/>
@@ -442,5 +442,5 @@
 	</target>
 
 	<!-- Target:build | define the order of the targets run to fullfill the build -->
-	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java,installDB,embeddedServer" />
+	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java,embeddedServer" />
 </project>
