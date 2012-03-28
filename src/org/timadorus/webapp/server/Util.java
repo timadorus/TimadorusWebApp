@@ -65,6 +65,8 @@ public final class Util {
     } else {
       try {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        // important because otherwise 32.01.1970 would be a valid format
+        dateFormat.setLenient(false);
         Date date = dateFormat.parse(birthday);
         if (age(date) < MIN_AGE_USER) { 
           return User.GEBURTSTAG_AGE; 

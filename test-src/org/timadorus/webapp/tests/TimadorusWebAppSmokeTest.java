@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.timadorus.webapp.tests.client.MenuDialogTest;
 import org.timadorus.webapp.tests.server.CreateCharacterServiceTest;
+import org.timadorus.webapp.tests.server.UtilTest;
 
 /**
  * @author sage
@@ -32,7 +33,8 @@ import org.timadorus.webapp.tests.server.CreateCharacterServiceTest;
 @Suite.SuiteClasses({ // client
                       MenuDialogTest.class,
                       // server
-                      CreateCharacterServiceTest.class                      
+                      CreateCharacterServiceTest.class,
+                      UtilTest.class
                    })
 public class TimadorusWebAppSmokeTest {
 
