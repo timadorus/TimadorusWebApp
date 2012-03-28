@@ -43,7 +43,8 @@
 	
 	<!-- db and sql working folder -->
 	<property name="sql.dir" value="${war.dir}/sql"/>
-	<property name="db.dir" value="C:\Temp\TimadorusDB"/>
+	<!-- <property name="db.dir" value="C:\Temp\TimadorusDB"/> -->
+	<property name="db.dir" value="TimadorusDB"/>
 
 	<!-- WebApp Artifactory Settings -->
 	<property name="pub.version" value="0.1" />
