@@ -27,10 +27,9 @@ import java.util.Set;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.campaign.Campaign;
 
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Label;
 
 /**
  * @author sage
@@ -39,18 +38,14 @@ import com.google.gwt.user.client.ui.Label;
 public class MenuDialog implements ClientUIElement {
 
   private class LinkInfo {
-    final Hyperlink link;
+    public final String text;
+    public final String historyToken;
     Set<Role> roles = EnumSet.noneOf(Role.class);
     
-    public LinkInfo(Role role, Hyperlink link) {
-      this.link = link;
+    public LinkInfo(Role role, String text, String historyToken) {
+      this.text = text;
+      this.historyToken = historyToken;
       roles.add(role);
-    }
-
-    public LinkInfo(Role role1, Role role2, Hyperlink link) {
-      this.link = link;
-      roles.add(role1);
-      roles.add(role1);
     }
     
     public void addRole(Role role) {
@@ -77,18 +72,19 @@ public class MenuDialog implements ClientUIElement {
      */
     void clear();
     
-    /**
+    /** create a hype link from displayed text and history token as target.
      * 
-     * @param link the link to add
+     * @param  text text to display
+     * @param historyToken target token
      * @return a valid label
      */
-    Label addLink(Hyperlink link);
+    void addLink(String text, String historyToken);
     
     /**
      * 
      * @return the label to hold status information
      */
-    Label getStatusLabel();
+    HasText getStatusLabel();
   }
 
   Map<String, LinkInfo> links = new HashMap<String, LinkInfo>();
@@ -104,8 +100,7 @@ public class MenuDialog implements ClientUIElement {
   
   @Override
   public void go(HasWidgets parent) {
-    // TODO Auto-generated method stub
-    
+    parent.add(display.getPanel().asWidget());
   }
 
   /**
@@ -146,14 +141,14 @@ public class MenuDialog implements ClientUIElement {
     if (info != null) {
       info.addRole(role);
     } else {
-      info = new LinkInfo(role, new Hyperlink(text, historyToken));
+      info = new LinkInfo(role, text, historyToken);
     }
    
     links.put(text, info);
     setPanel();
   }
   
-  protected void setPanel() {
+  private void setPanel() {
     display.clear();
     Role currRole = Role.GUEST;
     StringBuffer statusBuff = new StringBuffer();
@@ -174,7 +169,7 @@ public class MenuDialog implements ClientUIElement {
     // add all applicable links
     for (LinkInfo info : links.values()) {
       if (info.roles.contains(currRole)) {
-        display.addLink(info.link);
+        display.addLink(info.text, info.historyToken);
       }
     }
   }

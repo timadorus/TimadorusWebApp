@@ -11,6 +11,9 @@
 	<classpathentry kind="lib" path="static_lib/selenium-java-client-driver.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/commons-email-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/testing/selenium-server-2.0b3.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/derby-10.6.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/compile/datanucleus-enhancer-3.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/compile/asm-3.3.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/runtime/bookkeeper-0.1.jar"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>

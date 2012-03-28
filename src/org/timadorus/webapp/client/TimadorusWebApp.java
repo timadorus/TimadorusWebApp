@@ -42,7 +42,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   
   public  TestCharacterValues testValues;
   
-  private MenuPanel menu = new MenuPanel(this);
+  private MenuDialog menu = new MenuDialog(new MenuWidget());
   
   public TimadorusWebApp() {
     this.sessionId              = new SessionId();
@@ -63,10 +63,8 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
 
   public void onModuleLoad() {
 
-    menu.setStylePrimaryName("menuPanel");
-    RootPanel.get("menu").add(menu);
+    menu.go(RootPanel.get("menu"));
     
-
     FlowPanel vp = new FlowPanel();
     vp.setStylePrimaryName("contentPanel");
     RootPanel.get("content").add(vp);

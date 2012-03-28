@@ -29,6 +29,12 @@
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
 
+	<!--EMMA testing sources -->
+	<property name="coverage.dir" value="${basedir}/coverage" />
+
+	<property name="instrumented.bindir" value="${basedir}/instrumented.bin" description="loc. to store instrumented binaries" />
+	<property name="test-report.dir" value="${basedir}/test-results" />
+	<!--END EMMA -->
 
 	<!-- ivy working folder -->
 	<property name="ivy.dir" value="${basedir}/ivy" />
@@ -74,6 +80,11 @@
 
 	<path id="testing.classpath">
 		<pathelement path="${java.class.path}/" />
+		
+		<!-- source and compiled java files -->
+		<pathelement location="${war.classes}" />
+		<pathelement location="${bin.dir}" />
+
 		<fileset dir="${lib.dir}/testing">
 			<include name="**/*.jar"/>
 			<include name="**/*.zip"/>
@@ -106,6 +117,10 @@
 
     <target name="_def_tasks">
 		<!-- after (hopefully) retrieving all dependencies, add the tasks -->
+
+    	<!-- Emma -->
+		<taskdef classpathref="testing.classpath" resource="emma_ant.properties" />
+
 	    <!-- JUnit -->
 		<taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"
 				 classpathref="testing.classpath" />
@@ -162,19 +177,14 @@
 		</copy>
 	</target>
 
-	<!-- Target: compile the test code -->
-	<target name="test-compile" depends="clean,init">
+    <!--  Target: prep-dirs for testing -->
+    <target name="prep-dirs">
+        <mkdir dir="${build.dir}"/>
+    	<mkdir dir="${instrumented.bindir}"/>
+		<mkdir dir="${test-report.dir}"/>
+    	<mkdir dir="${coverage.dir}"/>
+    </target>
 
-		<!-- run the compilation -->
-		<javac debug="true" debuglevel="${debuglevel}" destdir="${war.classes}" source="${source}" target="${target}">
-
-			<!-- source folder -->
-			<src path="test-src" />
-
-			<!-- appropriate classpath from above  -->
-			<classpath refid="testing.classpath" />
-		</javac>
-	</target>
 
 	<!-- Target:revisionNumber | write the current SVN revision number into a 
 	     valid java class file, so the application can read its own version  
@@ -231,6 +241,68 @@
 		</sequential>
 	</target>
 
+	<!-- ================================= 
+          target: instrument java              
+         ================================= -->
+	<target name="instrument-java" depends="resolve">
+		<emma enabled="true">
+			<instr instrpath="${bin.dir}" destdir="${instrumented.bindir}" metadatafile="${coverage.dir}/metadata.emma" merge="true">
+				<filter excludes="au.com.jenisys.view.*" />
+			</instr>
+			<instr instrpath="${war.classes}" destdir="${instrumented.bindir}" metadatafile="${coverage.dir}/metadata.emma" merge="true">
+				<filter excludes="au.com.jenisys.view.*" />
+			</instr>
+		</emma>
+	</target>
+
+	<!-- Target: compile the test code -->
+	<target name="test-compile" depends="clean,init">
+
+		<!-- run the compilation -->
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${bin.dir}" source="${source}" target="${target}">
+
+			<!-- source folder -->
+			<src path="test-src" />
+
+			<!-- appropriate classpath from above  -->
+			<classpath refid="testing.classpath" />
+		</javac>
+	</target>
+
+
+	<!-- ================================= 
+          target: test-java              
+         ================================= -->
+    <target name="test-java" depends="test-compile,instrument-java" description="set up and run all tests">
+    	<junit fork="yes" haltonfailure="yes" showoutput="on">
+    		<classpath>
+    			<pathelement path="${instrumented.bindir}"/>
+    			<path refid="testing.classpath"/>
+    		</classpath>
+    		<jvmarg value="-XX:-UseSplitVerifier"/><!-- to make emma work with Java7 -->
+    		<formatter type="xml"/>
+    		<formatter type="plain" usefile="false"/>
+    		<test name="org.timadorus.webapp.tests.TimadorusWebAppSmokeTest"
+    			todir="${test-report.dir}"/>
+   		</junit>
+
+		<!-- prepare the coverage report -->
+		<move todir="${coverage.dir}">
+			<fileset dir="${basedir}">
+    			<filename name="coverage.ec" />
+    		</fileset>
+    	</move>
+    	<emma enabled="true">
+    		<report sourcepath="${src.dir}" depth="method">
+    			<fileset dir="${coverage.dir}">
+    				<include name="*.emma" />
+    				<include name="*.ec" />
+    			</fileset>
+    			<html outfile="${coverage.dir}/coverage.html" />
+    			<xml outfile="${coverage.dir}/coverage.xml" />
+    		</report>
+    	</emma>
+    </target>
 
 	<!-- Target:enhance | run the byte enhancement of the required java classes 
 	     to be used as entities with JDO/JPA 
@@ -369,5 +441,5 @@
 	</target>
 
 	<!-- Target:build | define the order of the targets run to fullfill the build -->
-	<target name="build" depends="resolve,test-compile,test-checkstyle,enhance,gwt-compile,installDB,embeddedServer" />
+	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java,installDB,embeddedServer" />
 </project>

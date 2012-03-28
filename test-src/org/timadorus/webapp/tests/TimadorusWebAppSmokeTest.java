@@ -19,10 +19,21 @@
 
 package org.timadorus.webapp.tests;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.timadorus.webapp.tests.client.MenuDialogTest;
+import org.timadorus.webapp.tests.server.CreateCharacterServiceTest;
+
 /**
  * @author sage
  *
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ // client
+                      MenuDialogTest.class,
+                      // server
+                      CreateCharacterServiceTest.class                      
+                   })
 public class TimadorusWebAppSmokeTest {
 
 }

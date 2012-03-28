@@ -53,6 +53,10 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
       return "FAILURE";
     }
     
+    if (character.getFaction() == null) {
+      System.out.println("no faction set in character " + character.getName());
+      return "FAILURE";
+    }
     // check if faction already exists, if yes: use it so it doesn't get saved into the db again
     Extent<Faction> factionExtent = pm.getExtent(Faction.class, true);
     Query factionQuery = pm.newQuery(factionExtent, "name == '" + character.getFaction().getName() + "'");
@@ -61,6 +65,10 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
       character.setFaction(factions.get(0));
     }
     
+    if (character.getRace() == null) {
+      System.out.println("no race set in character " + character.getName());
+      return "FAILURE";
+    }
     // check if race already exists, if yes: use it so it doesn't get saved into the db again
     Extent<Race> raceExtent = pm.getExtent(Race.class, true);
     Query raceQuery = pm.newQuery(raceExtent, "name == '" + character.getRace().getName() + "'");
@@ -69,6 +77,10 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
       character.setRace(races.get(0));
     }
     
+    if (character.getCharClass() == null) {
+      System.out.println("no class set in character " + character.getName());
+      return "FAILURE";
+    }
     // check if character class already exists, if yes: use it so it doesn't get saved into the db again
     Extent<CClass> cclassExtent = pm.getExtent(CClass.class, true);
     Query cclassQuery = pm.newQuery(cclassExtent, "name == '" + character.getCharClass().getName() + "'");
