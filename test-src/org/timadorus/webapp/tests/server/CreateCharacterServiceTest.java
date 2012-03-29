@@ -20,10 +20,10 @@
 package org.timadorus.webapp.tests.server;
 
 import org.junit.Test;
-import org.timadorus.webapp.client.character.CClass;
 import org.timadorus.webapp.client.character.Character;
-import org.timadorus.webapp.client.character.Faction;
-import org.timadorus.webapp.client.character.Race;
+import org.timadorus.webapp.client.character.attributes.CClass;
+import org.timadorus.webapp.client.character.attributes.Faction;
+import org.timadorus.webapp.client.character.attributes.Race;
 import org.timadorus.webapp.server.rpc.service.CreateCharacterServiceImpl;
 
 /**
