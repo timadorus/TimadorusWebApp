@@ -2,9 +2,9 @@ package org.timadorus.webapp.client;
 
 import org.timadorus.webapp.client.campaign.CreateCampaignPanel;
 import org.timadorus.webapp.client.campaign.EditCampaignPanel;
-import org.timadorus.webapp.client.character.CreateCharacterPanel;
-import org.timadorus.webapp.client.character.ShowCharacterlistPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
+import org.timadorus.webapp.client.character.ui.CreateCharacterPanel;
+import org.timadorus.webapp.client.character.ui.ShowCharacterlistPanel;
 import org.timadorus.webapp.client.login.LoginPanel;
 import org.timadorus.webapp.client.profile.ProfilePanel;
 import org.timadorus.webapp.client.register.RegisterPanel;

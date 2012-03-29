@@ -3,6 +3,11 @@ package org.timadorus.webapp.client.character;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.timadorus.webapp.client.character.attributes.CClass;
+import org.timadorus.webapp.client.character.attributes.Faction;
+import org.timadorus.webapp.client.character.attributes.Race;
+import org.timadorus.webapp.client.character.attributes.Skill;
+
 //This class serves dummy-Values for create-Character-progress
 public class TestCharacterValues {
 

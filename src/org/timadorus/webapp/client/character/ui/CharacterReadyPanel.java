@@ -1,6 +1,7 @@
-package org.timadorus.webapp.client.character;
+package org.timadorus.webapp.client.character.ui;
 
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.character.Character;
 
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;

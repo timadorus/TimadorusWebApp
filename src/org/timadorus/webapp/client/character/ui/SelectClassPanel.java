@@ -1,22 +1,25 @@
-package org.timadorus.webapp.client.character;
+package org.timadorus.webapp.client.character.ui;
 
 import java.util.ListIterator;
 
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.client.character.attributes.CClass;
+import org.timadorus.webapp.client.character.attributes.Faction;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Image;
 
 //Panel for selecting characters Class
 public class SelectClassPanel extends FormPanel {

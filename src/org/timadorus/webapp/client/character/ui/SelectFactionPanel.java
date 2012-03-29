@@ -1,10 +1,12 @@
-package org.timadorus.webapp.client.character;
+package org.timadorus.webapp.client.character.ui;
 
 
 import java.util.ListIterator;
 
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.client.character.attributes.Faction;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

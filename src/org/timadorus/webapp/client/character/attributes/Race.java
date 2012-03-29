@@ -1,4 +1,4 @@
-package org.timadorus.webapp.client.character;
+package org.timadorus.webapp.client.character.attributes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,6 +9,8 @@ import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
+
+
 
 /**
  * @author maddin, kilic, willat

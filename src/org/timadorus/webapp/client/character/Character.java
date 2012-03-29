@@ -4,6 +4,8 @@
 package org.timadorus.webapp.client.character;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -14,8 +16,11 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.annotations.Unique;
 
-import java.util.LinkedList;
-import java.util.List;
+import org.timadorus.webapp.client.character.attributes.CClass;
+import org.timadorus.webapp.client.character.attributes.Faction;
+import org.timadorus.webapp.client.character.attributes.Race;
+import org.timadorus.webapp.client.character.attributes.Skill;
+import org.timadorus.webapp.client.character.attributes.Stat;
 
 /**
  * @author kilic_a, willat_j

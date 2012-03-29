@@ -8,10 +8,10 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
-import org.timadorus.webapp.client.character.CClass;
 import org.timadorus.webapp.client.character.Character;
-import org.timadorus.webapp.client.character.Faction;
-import org.timadorus.webapp.client.character.Race;
+import org.timadorus.webapp.client.character.attributes.CClass;
+import org.timadorus.webapp.client.character.attributes.Faction;
+import org.timadorus.webapp.client.character.attributes.Race;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.server.RegisteredUserList;
 

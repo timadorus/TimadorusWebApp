@@ -1,4 +1,4 @@
-package org.timadorus.webapp.client.character;
+package org.timadorus.webapp.client.character.attributes;
 
 import java.io.Serializable;
 

@@ -1,7 +1,8 @@
-package org.timadorus.webapp.client.character;
+package org.timadorus.webapp.client.character.ui;
 
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 

@@ -1,4 +1,4 @@
-package org.timadorus.webapp.client.character;
+package org.timadorus.webapp.client.character.ui;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,6 +8,8 @@ import java.util.Set;
 
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.client.character.attributes.Skill;
 
 //import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.event.dom.client.ChangeEvent;
