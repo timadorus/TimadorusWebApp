@@ -33,7 +33,7 @@
   
   <servlet>
     <servlet-name>register</servlet-name>
-    <servlet-class>org.timadorus.webapp.server.rpc.service.RegisterServiceImpl</servlet-class>
+    <servlet-class>org.timadorus.webapp.server.rpc.service.ServiceImpl</servlet-class>
   </servlet>
  
   <servlet-mapping>

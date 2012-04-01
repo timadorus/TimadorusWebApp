@@ -2,15 +2,13 @@ package org.timadorus.webapp.client.register;
 
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
-import org.timadorus.webapp.client.rpc.service.RegisterService;
-import org.timadorus.webapp.client.rpc.service.RegisterServiceAsync;
+import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.client.service.ServiceAsync;
+import org.timadorus.webapp.client.service.ServiceType;
+import org.timadorus.webapp.shared.Action;
+import org.timadorus.webapp.shared.Response;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.Window;
@@ -27,14 +25,14 @@ import com.google.gwt.user.client.ui.TextBox;
 //FormPanel for Registering
 @SuppressWarnings("deprecation")
 public class RegisterPanel extends FormPanel implements HistoryListener {
-  
+
   private final int rows = 9;
-  
+
   private final int columns = 3;
 
   Grid grid = new Grid(rows, columns);
 
-  Button submit = new Button("Registrieren");
+  Button submitButton = new Button("Registrieren");
 
   private TextBox vornameTextBox = new TextBox();
 
@@ -69,6 +67,11 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
   private HTML passwordRepeatHTML = new HTML();
 
   private TimadorusWebApp entry;
+
+  /**
+   * Create a remote service proxy to talk to the server-side Greeting service.
+   */
+  private final ServiceAsync<User, String> myService = GWT.create(Service.class);
 
   public TimadorusWebApp getEntry() {
     return entry;
@@ -114,7 +117,7 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
     grid.setWidget(6, 2, passwordHTML);
     grid.setWidget(7, 2, passwordRepeatHTML);
 
-    grid.setWidget(8, 1, submit);
+    grid.setWidget(8, 1, submitButton);
 
     vornameTextBox.setText("Vorname");
     nachnameTextBox.setText("Nachname");
@@ -125,146 +128,8 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
     passwordTextBox.setText("passwort");
     passwordRepeatTextBox.setText("passwort");
 
-    // Create a handler for the sendButton and nameField
-    class MyHandler implements ClickHandler, KeyUpHandler {
-      /**
-       * Will be triggered if the button was clicked.
-       * 
-       * @param event The ClickEvent object
-       */
-      public void onClick(ClickEvent event) {
-        System.out.println("Submit Button geklickt");
-        handleEvent();
-      }
-
-      /**
-       * Will be triggered if the "Enter" button was hit while located in an input field.
-       * 
-       * @param event The KeyUpEvent object
-       */
-      public void onKeyUp(KeyUpEvent event) {
-        if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-          handleEvent();
-        }
-      }
-
-      private void handleEvent() {
-        System.out.println("handle Event");
-        submit.setEnabled(false);
-        setText(vornameHTML, "");
-        setText(nachnameHTML, "");
-        setText(geburtstagHTML, "");
-        setText(emailHTML, "");
-        setText(emailRepeatHTML, "");
-        setText(usernameHTML, "");
-        setText(passwordHTML, "");
-        setText(passwordRepeatHTML, "");
-        User register = new User(vornameTextBox.getText(), nachnameTextBox.getText(), geburtstagTextBox.getText(),
-                                 emailTextBox.getText(), usernameTextBox.getText(), passwordTextBox.getText());
-
-        if (!register.isValid()) {
-          if (passwordRepeatTextBox.getText().length() == 0) {
-            registerInvalid(User.PASSWORDREPEAT_EMPTY);
-            passwordRepeatTextBox.setFocus(true);
-          }
-          if (register.getPassword().length() == 0) {
-            registerInvalid(User.PASSWORD_EMPTY);
-            passwordTextBox.setFocus(true);
-          }
-          if (register.getUsername().length() == 0) {
-            registerInvalid(User.USERNAME_EMPTY);
-            usernameTextBox.setFocus(true);
-          }
-          if (emailRepeatTextBox.getText().length() == 0) {
-            registerInvalid(User.EMAILREPEAT_EMPTY);
-            emailRepeatTextBox.setFocus(true);
-          }
-          if (register.getEmail().length() == 0) {
-            registerInvalid(User.EMAIL_EMPTY);
-            emailTextBox.setFocus(true);
-          }
-          if (register.getGeburtstag().length() == 0) {
-            registerInvalid(User.GEBURTSTAG_EMPTY);
-            geburtstagTextBox.setFocus(true);
-          }
-          if (register.getVorname().length() == 0 && register.getNachname().length() == 0) {
-            registerInvalid(User.VORNAME_NACHNAME_EMPTY);
-            vornameTextBox.setFocus(true);
-          }
-          History.newItem("register");
-
-        } else if (!emailTextBox.getText().equals(emailRepeatTextBox.getText())) {
-          registerInvalid(User.EMAIL_FAULT);
-        } else if (!passwordTextBox.getText().equals(passwordRepeatTextBox.getText())) {
-          registerInvalid(User.PASSWORD_FAULT);
-        } else {
-
-          sendToServer(register);
-        }
-        submit.setEnabled(true);
-      }
-
-      /**
-       * Send form content to the server to add a new user object
-       * 
-       * @param register A User object, containing the form contents
-       */
-      private void sendToServer(User register) {
-        RegisterServiceAsync registerServiceAsync = GWT.create(RegisterService.class);
-        AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-          public void onSuccess(String result) {
-            if (result != null) {
-              String[] tmp = result.split("_");
-              
-              int value = Integer.parseInt(tmp[0]);
-              if (value == User.OK) {
-                RootPanel.get("content").clear();
-                String[] href = Window.Location.getHref().split("#");
-                String linker = href[0].contains("?") ? "&" : "?";
-                getEntry().showDialogBox("ActivationLink",  href[0] + linker + "activationCode=" + tmp[1]);
-                History.newItem("welcome");
-              } else {
-                if (value >= User.PASSWORD_FAULT) {
-                  value -= User.PASSWORD_FAULT;
-                }
-                if (value >= User.USERNAME_FAULT) {
-                  value -= User.USERNAME_FAULT; 
-                  registerInvalid(User.USERNAME_FAULT);
-                }
-                if (value >= User.EMAIL_FORMAT) {
-                  value -= User.EMAIL_FORMAT;
-                  registerInvalid(User.EMAIL_FORMAT);
-                }
-                if (value >= User.GEBURTSTAG_AGE) {
-                  value -= User.GEBURTSTAG_AGE;
-                  registerInvalid(User.GEBURTSTAG_AGE);
-                }
-                if (value >= User.GEBURTSTAG_FORMAT) {
-                  value -= User.GEBURTSTAG_FORMAT;
-                  registerInvalid(User.GEBURTSTAG_FORMAT);
-                }
-                if (value >= User.GEBURTSTAG_FAULT) {
-                  value -= User.GEBURTSTAG_FAULT;
-                  registerInvalid(User.GEBURTSTAG_FAULT);
-                }
-                submit.setEnabled(true);
-              }
-            } else {
-              submit.setEnabled(true);
-            }
-          }
-
-          public void onFailure(Throwable caught) {
-            registerInvalid(0);
-            System.out.println(caught);
-          }
-        };
-        registerServiceAsync.register(register, asyncCallback);
-      }
-    }
-
-    MyHandler handler = new MyHandler();
-    submit.addClickHandler(handler);
+    RegisterHandler handler = new RegisterHandler(this);
+    submitButton.addClickHandler(handler);
     vornameTextBox.addKeyUpHandler(handler);
     nachnameTextBox.addKeyUpHandler(handler);
     geburtstagTextBox.addKeyUpHandler(handler);
@@ -281,7 +146,8 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
   /**
    * If the registration was invalid, the error message will be formatted and inserted here.
    * 
-   * @param error An integer value representing the error message (Error code)
+   * @param error
+   *          An integer value representing the error message (Error code)
    */
   public void registerInvalid(int error) {
     switch (error) {
@@ -336,21 +202,132 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
     }
   }
 
+  public void tryRegisterUser() {
+    submitButton.setEnabled(false);
+    setText(vornameHTML, "");
+    setText(nachnameHTML, "");
+    setText(geburtstagHTML, "");
+    setText(emailHTML, "");
+    setText(emailRepeatHTML, "");
+    setText(usernameHTML, "");
+    setText(passwordHTML, "");
+    setText(passwordRepeatHTML, "");
+    User register = new User(vornameTextBox.getText(), nachnameTextBox.getText(), geburtstagTextBox.getText(),
+                             emailTextBox.getText(), usernameTextBox.getText(), passwordTextBox.getText());
+
+    if (!register.isValid()) {
+      if (passwordRepeatTextBox.getText().length() == 0) {
+        registerInvalid(User.PASSWORDREPEAT_EMPTY);
+        passwordRepeatTextBox.setFocus(true);
+      }
+      if (register.getPassword().length() == 0) {
+        registerInvalid(User.PASSWORD_EMPTY);
+        passwordTextBox.setFocus(true);
+      }
+      if (register.getUsername().length() == 0) {
+        registerInvalid(User.USERNAME_EMPTY);
+        usernameTextBox.setFocus(true);
+      }
+      if (emailRepeatTextBox.getText().length() == 0) {
+        registerInvalid(User.EMAILREPEAT_EMPTY);
+        emailRepeatTextBox.setFocus(true);
+      }
+      if (register.getEmail().length() == 0) {
+        registerInvalid(User.EMAIL_EMPTY);
+        emailTextBox.setFocus(true);
+      }
+      if (register.getGeburtstag().length() == 0) {
+        registerInvalid(User.GEBURTSTAG_EMPTY);
+        geburtstagTextBox.setFocus(true);
+      }
+      if (register.getVorname().length() == 0 && register.getNachname().length() == 0) {
+        registerInvalid(User.VORNAME_NACHNAME_EMPTY);
+        vornameTextBox.setFocus(true);
+      }
+      History.newItem("register");
+
+    } else if (!emailTextBox.getText().equals(emailRepeatTextBox.getText())) {
+      registerInvalid(User.EMAIL_FAULT);
+    } else if (!passwordTextBox.getText().equals(passwordRepeatTextBox.getText())) {
+      registerInvalid(User.PASSWORD_FAULT);
+    } else {
+
+      sendToServer(register);
+    }
+    submitButton.setEnabled(true);
+  }
+
+  private void sendToServer(User register) {
+    Action<User> action = new Action<User>(ServiceType.REGISTER, register);
+    AsyncCallback<Response<String>> response = new AsyncCallback<Response<String>>() {
+
+      @Override
+      public void onFailure(Throwable caught) {
+        handelFailureRegister(caught);
+      }
+
+      @Override
+      public void onSuccess(Response<String> result) {
+        handelSuccessRegister(result);
+      }
+    };
+
+    myService.execute(action, response);
+  }
+
+  private void handelFailureRegister(Throwable caught) {
+    registerInvalid(0);
+    System.out.println(caught);
+  }
+
+  private void handelSuccessRegister(Response<String> response) {
+    String result = response.getResult();
+    if (result != null) {
+      String[] tmp = result.split("_");
+
+      int value = Integer.parseInt(tmp[0]);
+      if (value == User.OK) {
+        RootPanel.get("content").clear();
+        String[] href = Window.Location.getHref().split("#");
+        String linker = href[0].contains("?") ? "&" : "?";
+        getEntry().showDialogBox("ActivationLink", href[0] + linker + "activationCode=" + tmp[1]);
+        History.newItem("welcome");
+      } else {
+        if (value >= User.PASSWORD_FAULT) {
+          value -= User.PASSWORD_FAULT;
+        }
+        if (value >= User.USERNAME_FAULT) {
+          value -= User.USERNAME_FAULT;
+          registerInvalid(User.USERNAME_FAULT);
+        }
+        if (value >= User.EMAIL_FORMAT) {
+          value -= User.EMAIL_FORMAT;
+          registerInvalid(User.EMAIL_FORMAT);
+        }
+        if (value >= User.GEBURTSTAG_AGE) {
+          value -= User.GEBURTSTAG_AGE;
+          registerInvalid(User.GEBURTSTAG_AGE);
+        }
+        if (value >= User.GEBURTSTAG_FORMAT) {
+          value -= User.GEBURTSTAG_FORMAT;
+          registerInvalid(User.GEBURTSTAG_FORMAT);
+        }
+        if (value >= User.GEBURTSTAG_FAULT) {
+          value -= User.GEBURTSTAG_FAULT;
+          registerInvalid(User.GEBURTSTAG_FAULT);
+        }
+        submitButton.setEnabled(true);
+      }
+    } else {
+      submitButton.setEnabled(true);
+    }
+  }
+
   private void setText(HTML label, String message) {
     label.setHTML("<span class=\"error\">" + message + "</span>");
   }
 
   @Override
   public void onHistoryChanged(String historyToken) {
-//    if (LOGIN_STATE.equals(historyToken)) {
-//      getEntry().loadLoginPanel();
-//    } else if (WELCOME_STATE.equals(historyToken)) {
-//      getEntry().loadWelcomePanel();
-//
-//    } else if (CREATE_CHARACTER_STATE.equals(historyToken)) {
-//      getEntry().loadCreateCharacter();
-//    } else if (REGISTER_STATE.equals(historyToken)) {
-//      getEntry().loadRegisterPanel();
-//    }
   }
 }

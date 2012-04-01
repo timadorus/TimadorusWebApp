@@ -1,26 +1,22 @@
-package org.timadorus.webapp.server.rpc.service;
+package org.timadorus.webapp.server.rpc.service.register;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.rpc.service.RegisterService;
 import org.timadorus.webapp.server.RegisteredUserList;
 import org.timadorus.webapp.server.Util;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+public final class Register {
 
-/**
- * Provides service methods related to registration operations.
- */
-public class RegisterServiceImpl extends RemoteServiceServlet implements RegisterService {
-
-  private static final long serialVersionUID = 270628040929463623L;
+  private Register() {
+  }
 
   /**
    * Registers a user supplied as dataIn parameter.
    * 
-   * @param dataIn The user which shall be registered
+   * @param dataIn
+   *          The user which shall be registered
    * @return Return value of this.isValid(dataIn)
    */
-  public String register(User dataIn) {
+  public static String register(User dataIn) {
     System.out.println("Register aufgerufen");
     int value = isValid(dataIn);
     String activationCode = null;
@@ -37,11 +33,12 @@ public class RegisterServiceImpl extends RemoteServiceServlet implements Registe
       return String.valueOf(value) + "_" + activationCode;
     }
   }
-  
+
   /**
    * Checks if a user is valid in registration content.
    * 
-   * @param user The supplied user data
+   * @param user
+   *          The supplied user data
    * @return An error code on failure, User.OK otherwise
    */
   private static int isValid(User user) {
