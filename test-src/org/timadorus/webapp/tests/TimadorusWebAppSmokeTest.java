@@ -25,6 +25,7 @@ import org.timadorus.webapp.tests.client.MenuDialogTest;
 import org.timadorus.webapp.tests.client.RoleTest;
 import org.timadorus.webapp.tests.client.SessionIdTest;
 import org.timadorus.webapp.tests.server.CreateCharacterServiceTest;
+import org.timadorus.webapp.tests.server.RegisteredUserListTest;
 import org.timadorus.webapp.tests.server.UtilTest;
 
 /**
@@ -38,7 +39,8 @@ import org.timadorus.webapp.tests.server.UtilTest;
                       RoleTest.class,
                       // server
                       CreateCharacterServiceTest.class,
-                      UtilTest.class
+                      UtilTest.class,
+                      RegisteredUserListTest.class
                    })
 public class TimadorusWebAppSmokeTest {
 
