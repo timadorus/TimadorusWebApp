@@ -22,6 +22,7 @@ package org.timadorus.webapp.tests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.timadorus.webapp.tests.client.MenuDialogTest;
+import org.timadorus.webapp.tests.client.SessionIdTest;
 import org.timadorus.webapp.tests.server.CreateCharacterServiceTest;
 import org.timadorus.webapp.tests.server.UtilTest;
 
@@ -32,6 +33,7 @@ import org.timadorus.webapp.tests.server.UtilTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ // client
                       MenuDialogTest.class,
+                      SessionIdTest.class,
                       // server
                       CreateCharacterServiceTest.class,
                       UtilTest.class
