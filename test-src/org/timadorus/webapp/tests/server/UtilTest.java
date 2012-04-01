@@ -80,10 +80,43 @@ public class UtilTest {
     testBirthdayFormat(new SimpleDateFormat("dd.MM.yyyy").format(gregorianCalendar.getTime()), 0);
   }
   
+  /**
+   * just a little helper method.
+   * @param aDate
+   * @param aReturn
+   */
   private void testBirthdayFormat(String aDate, int aReturn) {
     int checkBirthday = Util.checkBirthday(aDate);
     Assert.assertEquals("checkBirthday should return " + aReturn + " for " 
                         + aDate + " but returned " + checkBirthday, aReturn, checkBirthday);
   }
   
+  /**
+   * Test for the method checkUsernameFree 
+   * TODO - make RegisteredUserList.getInstance() mockable for a better testing
+   */
+  @Test
+  public void testCheckUsernameFree() {
+    Assert.assertTrue(true);
+  }
+  
+  @Test
+  public void testAge() {
+    
+  }
+  
+  @Test
+  public void testGenerateActivationCode() {
+    User theUser = new User();
+    theUser.setVorname("vorname");
+    theUser.setNachname("nachname");
+    theUser.setEmail("some@body.de");
+    theUser.setPassword("geheim");
+    theUser.setGeburtstag("01.01.1970");
+    
+    String theGenerateActivationCode = Util.generateActivationCode(theUser);
+    
+    Assert.assertNotNull("The generated activation key shouldn't be null", theGenerateActivationCode);
+    Assert.assertTrue("The generated activattion key shouldn't be empty", !theGenerateActivationCode.equals(""));
+  }
 }

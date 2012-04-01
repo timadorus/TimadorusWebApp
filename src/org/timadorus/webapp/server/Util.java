@@ -2,6 +2,7 @@ package org.timadorus.webapp.server;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +19,9 @@ public final class Util {
   
   // Mindestalter für User; "0" wenn keine Einschränkung
   private static final int MIN_AGE_USER = 18;
+  
+  // MD5
+  private static final String MD5_ALGORITHM = "MD5";
   
   /**
    * Private constructor, because there will be no need for an instance of this class. 
@@ -109,14 +113,14 @@ public final class Util {
                   + user.getGeburtstag() + System.currentTimeMillis();
     
     try {
-      MessageDigest m = MessageDigest.getInstance("MD5");
+      MessageDigest m = MessageDigest.getInstance(MD5_ALGORITHM);
       byte[] data = pass.getBytes(); 
       m.update(data, 0, data.length);
       BigInteger i = new BigInteger(1, m.digest());
       return String.format("%1$032X", i);
-    } catch (Exception e) {
+    } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
+      return "";
     }
-    return "";
   }
 }
