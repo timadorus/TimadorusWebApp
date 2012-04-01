@@ -102,7 +102,26 @@ public class UtilTest {
   
   @Test
   public void testAge() {
+    GregorianCalendar theGregorianCalendarNow = new GregorianCalendar();
+    int theYearNow = theGregorianCalendarNow.get(GregorianCalendar.YEAR);
     
+    GregorianCalendar theGregorianCalendarBirthday = new GregorianCalendar();
+    
+    theGregorianCalendarBirthday.set(GregorianCalendar.YEAR, theYearNow - 1);
+    Assert.assertEquals(1, Util.age(theGregorianCalendarBirthday.getTime()));
+    
+    final int theAge18 = 18;
+    theGregorianCalendarBirthday.set(GregorianCalendar.YEAR, theYearNow - theAge18);
+    Assert.assertEquals(theAge18, Util.age(theGregorianCalendarBirthday.getTime()));
+    
+    // TODO - -1 for a date which is after the actual date? Shouldn't it be 0?
+    theGregorianCalendarBirthday.set(GregorianCalendar.YEAR, theYearNow + 1);
+    Assert.assertEquals(-1, Util.age(theGregorianCalendarBirthday.getTime()));
+    
+    theGregorianCalendarBirthday.set(GregorianCalendar.YEAR, theYearNow - theAge18);
+    theGregorianCalendarBirthday.set(GregorianCalendar.DAY_OF_YEAR, 
+                                     theGregorianCalendarNow.get(GregorianCalendar.DAY_OF_YEAR) + 1);
+    Assert.assertEquals(theAge18 - 1, Util.age(theGregorianCalendarBirthday.getTime()));
   }
   
   @Test

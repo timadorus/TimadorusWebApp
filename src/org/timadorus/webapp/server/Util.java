@@ -89,17 +89,19 @@ public final class Util {
    * @return The age as integer
    */
   public static int age(Date gebdat) {
-    GregorianCalendar cal = new GregorianCalendar();
-    int y, d, a;
+    GregorianCalendar theGregorianCalendar = new GregorianCalendar();
+    int theActualYear, theActualDayOfYear, theDifference;
 
-    y = cal.get(GregorianCalendar.YEAR);
-    d = cal.get(GregorianCalendar.DAY_OF_YEAR);
-    cal.setTime(gebdat);
-    a = y - cal.get(GregorianCalendar.YEAR);
-    if (d < cal.get(GregorianCalendar.DAY_OF_YEAR)) {
-      --a;
+    theActualYear = theGregorianCalendar.get(GregorianCalendar.YEAR);
+    theActualDayOfYear = theGregorianCalendar.get(GregorianCalendar.DAY_OF_YEAR);
+    
+    theGregorianCalendar.setTime(gebdat);
+    
+    theDifference = theActualYear - theGregorianCalendar.get(GregorianCalendar.YEAR);
+    if (theActualDayOfYear < theGregorianCalendar.get(GregorianCalendar.DAY_OF_YEAR)) {
+      --theDifference;
     }
-    return (a);
+    return theDifference;
   }
   
   /**
