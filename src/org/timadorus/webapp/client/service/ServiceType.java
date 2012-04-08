@@ -1,5 +1,6 @@
 package org.timadorus.webapp.client.service;
 
 public enum ServiceType {
-REGISTER;
+REGISTER, GETCHARACTERS, DELCHARACTER, GETUSER, DELUSER, UPDUSER, VERFMAIL;
+
 }

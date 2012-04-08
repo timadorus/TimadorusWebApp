@@ -1,8 +1,13 @@
 package org.timadorus.webapp.server.rpc.service;
 
+import java.util.List;
+
 import org.timadorus.webapp.beans.User;
+import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.server.rpc.service.character.Character2;
 import org.timadorus.webapp.server.rpc.service.register.Register;
+import org.timadorus.webapp.server.rpc.service.user.UserCommand;
 import org.timadorus.webapp.shared.Action;
 import org.timadorus.webapp.shared.Response;
 
@@ -17,17 +22,43 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
 
   @Override
   public Response execute(Action action) {
-    Response response = null;
+    Response response = null;  
+    String errorCode;
+    User actionUser;
     switch (action.getType()) {
     case REGISTER:
-      String errorCode = Register.register((User) action.getContent());
+      errorCode = Register.register((User) action.getContent());
       response = new Response<String>(errorCode);
       break;
-
+    case GETCHARACTERS:
+      List<Character> listResponse = Character2.getCharacterList((User) action.getContent());
+      response = new Response<List<Character>>(listResponse);
+      break;
+    case DELCHARACTER:
+      errorCode = Character2.deleteCharacter((Character) action.getContent());
+      response = new Response<String>(errorCode);
+      break;
+    case GETUSER:
+      User userRespone = UserCommand.getUser((User) action.getContent());
+      response = new Response<User>(userRespone);
+      break;
+    case DELUSER:
+      errorCode = UserCommand.delete((User) action.getContent());
+      response = new Response<String>(errorCode);
+      break;
+    case UPDUSER:
+      actionUser = (User) action.getContent();
+      Integer errorVal = UserCommand.update(actionUser.getId(), actionUser);
+      response = new Response<Integer>(errorVal);
+      break;
+    case VERFMAIL:
+      actionUser = (User) action.getContent();
+      errorCode = UserCommand.verifyMail(actionUser.getActivationCode(), actionUser);
+      response = new Response<String>(errorCode);
+      break;
     default:
       break;
     }
     return response;
   }
-
 }
