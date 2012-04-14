@@ -11,6 +11,7 @@ import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.attributes.Race;
 import org.timadorus.webapp.client.character.attributes.Skill;
 import org.timadorus.webapp.client.character.attributes.Stat;
+import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
@@ -298,7 +299,7 @@ public class PremadeCharacterPanel extends FormPanel {
   // clear "content" #div and add Class CharacterPanel to it
   public void loadCharacterPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(CreateCharacterPanel.getCharacterPanel(entry, user));
+    RootPanel.get("content").add(CreateDialog.getCreateDialog(entry, user).getFormPanel());
   }
 
   // return a new instance of PremadeCharacterPanel

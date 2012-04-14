@@ -1,10 +1,11 @@
 package org.timadorus.webapp.client;
 
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.campaign.CreateCampaignPanel;
 import org.timadorus.webapp.client.campaign.EditCampaignPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
-import org.timadorus.webapp.client.character.ui.CreateCharacterPanel;
 import org.timadorus.webapp.client.character.ui.ShowCharacterlistPanel;
+import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 import org.timadorus.webapp.client.login.LoginPanel;
 import org.timadorus.webapp.client.profile.ProfilePanel;
 import org.timadorus.webapp.client.register.RegisterPanel;
@@ -32,39 +33,38 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 @SuppressWarnings("deprecation")
 public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListener {
 
-  private static final long serialVersionUID = -5138823406762920058L;
-
   // SessionID
   private SessionId sessionId = new SessionId();
 
   private boolean loggedin = false;
+
   private boolean activationPage = false;
-  
-  public  TestCharacterValues testValues;
-  
+
+  public TestCharacterValues testValues;
+
   private MenuDialog menu = new MenuDialog(new MenuWidget());
-  
+
   public TimadorusWebApp() {
-    this.sessionId              = new SessionId();
-    
+    this.sessionId = new SessionId();
+
     menu.addLink(Role.GUEST, "Einloggen", LOGIN_STATE);
-    menu.addLink(Role.USER,  "Ausloggen", LOGOUT_STATE);
-    menu.addLink(Role.USER,  "Charakter erstellen", CREATE_CHARACTER_STATE);
-    menu.addLink(Role.USER,  "Liste der Charaktere", CHARACTER_LIST_STATE);
-    menu.addLink(Role.GUEST, "Account registrieren", REGISTER_STATE); 
-    menu.addLink(Role.USER,  "Profil bearbeiten", PROFILE_STATE);
+    menu.addLink(Role.USER, "Ausloggen", LOGOUT_STATE);
+    menu.addLink(Role.USER, "Charakter erstellen", CREATE_CHARACTER_STATE);
+    menu.addLink(Role.USER, "Liste der Charaktere", CHARACTER_LIST_STATE);
+    menu.addLink(Role.GUEST, "Account registrieren", REGISTER_STATE);
+    menu.addLink(Role.USER, "Profil bearbeiten", PROFILE_STATE);
     menu.addLink(Role.ADMIN, "Kampagne anlegen", CREATE_CAMPAIGN_STATE);
-    menu.addLink(Role.GM,    "Kampagne verwalten", EDIT_CAMPAIGN_STATE);
-    
+    menu.addLink(Role.GM, "Kampagne verwalten", EDIT_CAMPAIGN_STATE);
+
     this.loggedin = false;
-    
+
     this.testValues = new TestCharacterValues();
   }
 
   public void onModuleLoad() {
 
     menu.go(RootPanel.get("menu"));
-    
+
     FlowPanel vp = new FlowPanel();
     vp.setStylePrimaryName("contentPanel");
     RootPanel.get("content").add(vp);
@@ -78,7 +78,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     if (Window.Location.getParameter("activationCode") != null) {
       activationPage = true;
     }
-    
+
     History.fireCurrentHistoryState();
     System.out.println("Session " + sessionId.getSessionId());
     setupHistory();
@@ -91,7 +91,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     RootPanel.get("information").clear();
     RootPanel.get("information").add(new HTML("</br>information panel"));
     RootPanel.get("content").add(new HTML("Willkommen auf der WebApplikation des Projektes Timadorus"));
-    
+
   }
 
   public TimadorusWebApp getTimadorusWebApp() {
@@ -112,7 +112,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
 
       public void onSuccess(SessionId result) {
         System.out.println("Result " + result + " SessionID " + sessionId.getSessionId());
-        
+
         if (activationPage) {
           loadVerifyMailPanel();
         } else {
@@ -131,14 +131,13 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     } else if (LOGOUT_STATE.equals(historyToken)) {
       loadLogoutPanel();
     } else if (PROFILE_STATE.equals(historyToken)) {
-      loadProfilePanel();      
+      loadProfilePanel();
     } else if (WELCOME_STATE.equals(historyToken)) {
       loadWelcomePanel();
     } else if (VERIFY_MAIL_STATE.equals(historyToken)) {
       if (isLoggedin()) {
         loadWelcomePanel();
-        showDialogBox("Fehlermeldung", 
-                      "Diese Seite kann nicht aufgerufen werden, wenn Sie zur Zeit angemeldet sind");
+        showDialogBox("Fehlermeldung", "Diese Seite kann nicht aufgerufen werden, wenn Sie zur Zeit angemeldet sind");
         History.newItem("welcome");
       } else {
         loadVerifyMailPanel();
@@ -187,7 +186,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Profil bearbeiten"));
     RootPanel.get("content").add(ProfilePanel
-                                 .getProfilePanel(this, LoginPanel.getLoginPanel(sessionId, this).getUser()));
+                                     .getProfilePanel(this, LoginPanel.getLoginPanel(sessionId, this).getUser()));
   }
 
   /**
@@ -196,38 +195,40 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   public void loadCreateCharacterPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Charakter erstellen / bearbeiten"));
-    RootPanel.get("content").add(CreateCharacterPanel.getCharacterPanel(this, LoginPanel.
-                                                                  getLoginPanel(sessionId, this).getUser()));
+    User user = LoginPanel.getLoginPanel(sessionId, this).getUser();
+    RootPanel.get("content").add(CreateDialog.getCreateDialog(this, user).getFormPanel());
   }
-  
+
   /**
    * A new CharacterListPanel will be loaded and showed on the webpage.
    */
   public void loadShowCharacterlistPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Liste der registrierten Charaktere"));
-    RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(this, LoginPanel.
-                                                                  getLoginPanel(sessionId, this).getUser()));
+    RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(this,
+                                                                                  LoginPanel.getLoginPanel(sessionId,
+                                                                                                           this)
+                                                                                      .getUser()));
   }
-  
+
   /**
    * A new CreateCampaignPanel will be loaded and showed on the webpage.
    */
   public void loadCreateCampaignPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Kampagne erstellen"));
-    RootPanel.get("content").add(CreateCampaignPanel.getCampaignPanel(this, LoginPanel.
-                                                                  getLoginPanel(sessionId, this).getUser()));
+    RootPanel.get("content").add(CreateCampaignPanel.getCampaignPanel(this, LoginPanel.getLoginPanel(sessionId, this)
+                                     .getUser()));
   }
-  
+
   /**
    * A new EditCampaignPanel will be loaded and showed on the webpage.
    */
   public void loadEditCampaignPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Kampagne verwalten"));
-    RootPanel.get("content").add(EditCampaignPanel.getCampaignPanel(this, LoginPanel.
-                                                                  getLoginPanel(sessionId, this).getUser()));
+    RootPanel.get("content").add(EditCampaignPanel.getCampaignPanel(this, LoginPanel.getLoginPanel(sessionId, this)
+                                     .getUser()));
   }
 
   /**
@@ -238,7 +239,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     RootPanel.get("content").add(new Label("Benutzregistrierung"));
     RootPanel.get("content").add(RegisterPanel.getRegisterPanel(this));
   }
-  
+
   /**
    * A new VerifyMailPanel will be loaded and showed on the webpage.
    */
@@ -256,24 +257,23 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     RootPanel.get("content").add(new Label("In bestehenden Account einloggen:"));
     RootPanel.get("content").add(LoginPanel.getLoginPanel(sessionId, this));
   }
-  
+
   /**
    * A new LogoutPanel will be loaded and showed on the webpage.
    */
   public void loadLogoutPanel() {
 
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die Möglichkeit, sich wieder " 
-                                           + "einzuloggen:"));
+    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die Möglichkeit, sich wieder "
+                                     + "einzuloggen:"));
     /* getLoginPanel().setStylePrimaryName("loginpanel"); */
-    
+
     RootPanel.get("content").add(LoginPanel.getLoginPanel(new SessionId(), new TimadorusWebApp()));
     loggedin = false;
     menu.resetUser();
-    
+
     RootPanel.get("information").clear();
   }
-
 
   /**
    * @param loggedinIn
@@ -324,7 +324,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     });
   }
 
-  public  TestCharacterValues getTestValues() {
+  public TestCharacterValues getTestValues() {
     return testValues;
   }
 

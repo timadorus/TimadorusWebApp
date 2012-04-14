@@ -8,6 +8,7 @@ import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.CClass;
 import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.attributes.Race;
+import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -29,7 +30,7 @@ public class SelectRacePanel extends FormPanel {
   final TimadorusWebApp entry;
 
   final Character character;
-  
+
   User user;
 
   Button nextButton = new Button("weiter");
@@ -62,14 +63,14 @@ public class SelectRacePanel extends FormPanel {
         // prevButton onclick
         if (event.getSource().equals(prevButton)) {
           loadCharacterPanel();
-          
-        // nextButton onclick
+
+          // nextButton onclick
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedRace();
           saveSelectedGender();
           loadSelectClassPanel();
-          
-        // racelistitem onclick
+
+          // racelistitem onclick
         } else if (event.getSource().equals(raceListBox)) {
           // show race informations
           String raceName = raceListBox.getValue(raceListBox.getSelectedIndex());
@@ -79,7 +80,7 @@ public class SelectRacePanel extends FormPanel {
             Race newRace = (Race) raceIterator.next();
             if (newRace.getName().equals(raceName)) {
               RootPanel.get("information").add(new HTML("<h1>" + newRace.getName() + "</h1><p>"
-                                                        + newRace.getDescription() + "</p>"));
+                                                   + newRace.getDescription() + "</p>"));
 
               // Show available Classes
               RootPanel.get("information").add(new HTML("<h2>Wählbare Klassen</h2>"));
@@ -93,7 +94,7 @@ public class SelectRacePanel extends FormPanel {
               }
               availableClasses = availableClasses + "</ul>";
               RootPanel.get("information").add(new HTML(availableClasses));
-              
+
               // Show available Factions
               RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
               ListIterator<Faction> factionIterator = newRace.getAvailableFactions().listIterator();
@@ -180,7 +181,7 @@ public class SelectRacePanel extends FormPanel {
 
   public void loadCharacterPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(CreateCharacterPanel.getCharacterPanel(entry, user));
+    RootPanel.get("content").add(CreateDialog.getCreateDialog(entry, user).getFormPanel());
   }
 
   public void saveSelectedRace() {
@@ -217,8 +218,8 @@ public class SelectRacePanel extends FormPanel {
 
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Rasse und Geschlecht wählen</h1><p>Wählen sie hier das Geschlecht und die Rasse "
-                                + "ihres Charakteres. Beachten sie, dass bestimmte Rassen nur bestimmte Klassen sowie "
-                                + "Fraktionen wählen können.</p>");
+        + "ihres Charakteres. Beachten sie, dass bestimmte Rassen nur bestimmte Klassen sowie "
+        + "Fraktionen wählen können.</p>");
     return information;
   }
 
