@@ -3,6 +3,7 @@ package org.timadorus.webapp.client.character.ui;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
@@ -11,15 +12,15 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Image;
 
 //FormPanel for setting name of Character-Object
 public class SelectNamePanel extends FormPanel {
@@ -27,7 +28,7 @@ public class SelectNamePanel extends FormPanel {
   final TimadorusWebApp entry;
 
   final Character character;
-  
+
   User user;
 
   Button nextButton = new Button("weiter");
@@ -53,13 +54,13 @@ public class SelectNamePanel extends FormPanel {
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(prevButton)) {
           loadSelectAppearancePanel();
-          
+
         } else if (event.getSource().equals(nextButton)) {
           saveSelectedName();
           character.setUsername(user.getUsername());
           sendCharacterToServerToSave();
           loadSelectCharacterReadyPanel();
-          
+
         } else if (event.getSource().equals(selectNameGrid)) {
 
         }
@@ -91,7 +92,7 @@ public class SelectNamePanel extends FormPanel {
     panel.add(new Label("Schritt 9 von 9"));
     panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
     panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
-                        + characterIn.getFaction().getName()));
+        + characterIn.getFaction().getName()));
     panel.add(new Label("Skills_L0: " + characterIn.getSkillListNames()));
     panel.add(new Label("Skills_L1: " + characterIn.getSkillLevel1ListNames()));
     panel.add(new Label("Hautfarbe: " + "..." + " | Haarfarbe: " + "..."));
@@ -126,7 +127,8 @@ public class SelectNamePanel extends FormPanel {
 
   public void loadSelectCharacterReadyPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(CharacterReadyPanel.getCharacterReadyPanel(entry, character));
+    ReadyDialog readyDialog = ReadyDialog.getReadyDialog(entry, character);
+    RootPanel.get("content").add(readyDialog.getFormPanel());
   }
 
   public static SelectNamePanel getSelectNamePanel(TimadorusWebApp entry, Character character, User user) {
@@ -135,19 +137,19 @@ public class SelectNamePanel extends FormPanel {
 
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Namen wählen</h1><p>Wählen sie hier den Namen ihres Charakters. Erlaubt ist was "
-                                + "gefällt</p>");
+        + "gefällt</p>");
     return information;
   }
 
   public TimadorusWebApp getEntry() {
     return entry;
   }
-  
+
   private void sendCharacterToServerToSave() {
     CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
-    
+
     AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-      
+
       @Override
       public void onFailure(Throwable caught) {
         // TODO Auto-generated method stub
@@ -160,7 +162,7 @@ public class SelectNamePanel extends FormPanel {
         System.out.println(result);
       }
     };
-    
+
     createServiceAsync.createCharacter(character, asyncCallback);
   }
 }
