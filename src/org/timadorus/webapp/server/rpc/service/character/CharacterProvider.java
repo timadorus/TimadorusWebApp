@@ -12,9 +12,9 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.server.RegisteredUserList;
 
-public final class Character2 {
+public final class CharacterProvider {
   
-  private Character2() {
+  private CharacterProvider() {
     
   }
 

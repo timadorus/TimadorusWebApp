@@ -10,9 +10,9 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.server.RegisteredUserList;
 import org.timadorus.webapp.server.Util;
 
-public final class UserCommand {
+public final class UserProvider {
   
-  private UserCommand() {
+  private UserProvider() {
     
   }
   

@@ -4,9 +4,9 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.server.RegisteredUserList;
 import org.timadorus.webapp.server.Util;
 
-public final class Register {
+public final class RegisterProvider {
 
-  private Register() {
+  private RegisterProvider() {
   }
 
   /**
