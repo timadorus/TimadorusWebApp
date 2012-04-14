@@ -4,9 +4,9 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.DefaultWidget;
+import org.timadorus.webapp.client.character.ui.DefaultDialog;
 
-public class CreateDialog extends DefaultWidget<CreateDialog.Display> {
+public class CreateDialog extends DefaultDialog<CreateDialog.Display> {
 
   public interface Display extends DefaultDisplay {
 

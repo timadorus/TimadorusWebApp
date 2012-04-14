@@ -3,9 +3,9 @@ package org.timadorus.webapp.client.character.ui.ready;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.DefaultWidget;
+import org.timadorus.webapp.client.character.ui.DefaultDialog;
 
-public class ReadyDialog extends DefaultWidget<ReadyDialog.Display> {
+public class ReadyDialog extends DefaultDialog<ReadyDialog.Display> {
   public interface Display extends DefaultDisplay {
 
     public void setContragulationMessage(String msg);
