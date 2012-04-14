@@ -10,7 +10,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
-
 //This Class represents a Character-Class-Object, which is related to a
 //Character-Object
 @PersistenceCapable
@@ -33,9 +32,9 @@ public class CClass implements Serializable {
 
   @NotPersistent
   private List<Faction> availableFactions1 = new ArrayList<Faction>();
-  
 
-  public CClass() { }
+  public CClass() {
+  }
 
   public CClass(final String nameIn, final String descriptionIn) {
     this.name = nameIn;
@@ -84,6 +83,16 @@ public class CClass implements Serializable {
 
   public final void setAvailableFactions1(final List<Faction> availableFactions1In) {
     this.availableFactions1 = availableFactions1In;
+  }
+
+  /**
+   * Checks if the given {@link Faction} is in the available for this class.
+   * 
+   * @param cClass
+   * @return <code>true</code> if the class is allowed, otherwise <code>false</code>.
+   */
+  public boolean containsFaction(Faction faction) {
+    return availableFactions1.contains(faction);
   }
 
   @Override

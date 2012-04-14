@@ -91,6 +91,16 @@ public class Race implements Serializable {
     return availableClasses.contains(cClass);
   }
 
+  /**
+   * Checks if the given {@link Faction} is in the available class list.
+   * 
+   * @param cClass
+   * @return <code>true</code> if the class is allowed, otherwise <code>false</code>.
+   */
+  public boolean containsFaction(Faction faction) {
+    return availableFactions2.contains(faction);
+  }
+
   public List<Faction> getAvailableFactions() {
     return availableFactions2;
   }

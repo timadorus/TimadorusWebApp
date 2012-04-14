@@ -8,8 +8,8 @@ import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.SelectFactionPanel;
 import org.timadorus.webapp.client.character.ui.SelectRacePanel;
+import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -97,8 +97,7 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
   private void doNextButtonClick() {
     character.setCharClass(getSelectedClass());
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(getEntry(), character,
-                                                                          user));
+    RootPanel.get("content").add(SelectFactionDialog.getDialog(getEntry(), character, user).getFormPanel());
   }
 
   private CClass getSelectedClass() {
@@ -106,7 +105,9 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
     for (CClass selectedClass : getEntry().getTestValues().getClasses()) {
       String className = selectedClass.getName();
       String selectedName = getDisplay().getSelectedClass();
-      if (className.equals(selectedName)) { return selectedClass; }
+      if (className.equals(selectedName)) {
+        return selectedClass;
+      }
     }
     return null;
   }

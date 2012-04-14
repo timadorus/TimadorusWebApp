@@ -7,6 +7,7 @@ import java.util.List;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -26,7 +27,7 @@ public class SelectTempStatsPanel extends FormPanel {
   final TimadorusWebApp entry;
 
   final Character character;
-  
+
   User user;
 
   HTML statPointLabel = new HTML("<h2>Verteilbare Punkte:</h2>");
@@ -35,7 +36,7 @@ public class SelectTempStatsPanel extends FormPanel {
 
   HTML readyLabel = new HTML(
                              "Bevor sie ihre Charaktererstellung fortsetzen können, vergeben sie ihre freien "
-                             + "Attributspunkte");
+                                 + "Attributspunkte");
 
   Button nextButton = new Button("weiter");
 
@@ -66,8 +67,6 @@ public class SelectTempStatsPanel extends FormPanel {
   List<Image> decTenStatButtons = new ArrayList<Image>();
 
   List<HTML> statCostHTML = new ArrayList<HTML>();
-
- 
 
   int incremented;
 
@@ -108,12 +107,16 @@ public class SelectTempStatsPanel extends FormPanel {
             // print stat changes to panel
             statPointViewLabel.setHTML("<h2>" + String.valueOf(statPoints) + "</h2>");
             selectStatGrid.setText(incremented + 1, 1, String.valueOf(tempStats.get(incremented)));
-            statCostHTML.get(incremented).setHTML(String.valueOf(getStatCosts(tempStats.get(incremented) + 1)));
-            // check if nextbutton is enabled after stat changes, alter colors of available statpoint and set helptext +
+            statCostHTML.get(incremented).setHTML(String.valueOf(getStatCosts(tempStats
+                                                      .get(incremented) + 1)));
+            // check if nextbutton is enabled after stat changes,
+            // alter colors of available statpoint and set helptext
+            // +
             // color
             setReadyStatus();
           }
-          // handle StatCostsLabelColor for each increase/decrease event
+          // handle StatCostsLabelColor for each increase/decrease
+          // event
           for (incremented = 0; incremented < decStatButtons.size(); incremented++) {
             int nextCost = getStatCosts(tempStats.get(incremented) + 1);
             if ((nextCost > statPoints) || ((tempStats.get(incremented)) == 100)) {
@@ -202,7 +205,8 @@ public class SelectTempStatsPanel extends FormPanel {
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 4 von 9"));
-    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: "
+        + characterIn.getRace().getName()));
     panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
         + characterIn.getFaction().getName()));
 
@@ -216,7 +220,8 @@ public class SelectTempStatsPanel extends FormPanel {
 
     panel.add(readyLabel);
 
-    // clearing "information" #div and adding actual informations for this panel
+    // clearing "information" #div and adding actual informations for this
+    // panel
     RootPanel.get("information").clear();
     RootPanel.get("information").add(getInformation());
 
@@ -297,7 +302,8 @@ public class SelectTempStatsPanel extends FormPanel {
   // clear "content" #div and add Class SelectFactionPanel to it
   public void loadSelectFactionPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionPanel.getSelectFactionPanel(entry, character, user));
+    RootPanel.get("content").add(SelectFactionDialog.getDialog(entry, character, user)
+                                     .getFormPanel());
   }
 
   // clear "content" #div and add Class GetPotStatsPanel to it
@@ -307,7 +313,8 @@ public class SelectTempStatsPanel extends FormPanel {
   }
 
   // creates a new SelectTempStats instance
-  public static SelectTempStatsPanel getSelectTempStatsPanel(TimadorusWebApp entry, Character character, User user) {
+  public static SelectTempStatsPanel getSelectTempStatsPanel(TimadorusWebApp entry,
+                                                             Character character, User user) {
     return new SelectTempStatsPanel(entry, character, user);
   }
 
@@ -315,9 +322,9 @@ public class SelectTempStatsPanel extends FormPanel {
   private static final HTML getInformation() {
     HTML information = new HTML(
                                 "<h1>Attribute Verteilen</h1><p>Hier können sie die Attribute ihres Charakteres "
-                                + "anpassen. Ihnen stehen dafür 420 freie Punkte zur Verfügung.</p><p>Jeder "
-                                + "Attributspunkt bis einschließlich Stufe 90 kostet sie einen freien Punkt. Ab Stufe "
-                                + "90 zahlen sie 10 freie Punkte");
+                                    + "anpassen. Ihnen stehen dafür 420 freie Punkte zur Verfügung.</p><p>Jeder "
+                                    + "Attributspunkt bis einschließlich Stufe 90 kostet sie einen freien Punkt. "
+                                    + "Ab Stufe 90 zahlen sie 10 freie Punkte");
 
     return information;
   }
