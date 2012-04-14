@@ -9,6 +9,7 @@ import org.timadorus.webapp.client.character.attributes.CClass;
 import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.attributes.Race;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
+import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -194,7 +195,7 @@ public class SelectRacePanel extends FormPanel {
 
   public void loadSelectClassPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectClassPanel.getSelectClassPanel(entry, character, user));
+    RootPanel.get("content").add(SelectClassDialog.getSelecteddDialog(entry, character, user).getFormPanel());
   }
 
   public Race getSelectedRace() {
