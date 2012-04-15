@@ -3,8 +3,10 @@ package org.timadorus.webapp.server.rpc.service;
 import java.util.List;
 
 import org.timadorus.webapp.beans.User;
+import org.timadorus.webapp.client.campaign.Campaign;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.server.rpc.service.campaign.CampaignProvider;
 import org.timadorus.webapp.server.rpc.service.character.CharacterProvider;
 import org.timadorus.webapp.server.rpc.service.register.RegisterProvider;
 import org.timadorus.webapp.server.rpc.service.user.UserProvider;
@@ -31,8 +33,8 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
       response = new Response<String>(errorCode);
       break;
     case GETCHARACTERS:
-      List<Character> listResponse = CharacterProvider.getCharacterList((User) action.getContent());
-      response = new Response<List<Character>>(listResponse);
+      List<Character> listCharResponse = CharacterProvider.getCharacterList((User) action.getContent());
+      response = new Response<List<Character>>(listCharResponse);
       break;
     case DELCHARACTER:
       errorCode = CharacterProvider.deleteCharacter((Character) action.getContent());
@@ -55,6 +57,18 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
       actionUser = (User) action.getContent();
       errorCode = UserProvider.verifyMail(actionUser.getActivationCode(), actionUser);
       response = new Response<String>(errorCode);
+      break;
+    case CRTCAMPAIGN:
+      errorCode = CampaignProvider.createCampaign((Campaign) action.getContent());
+      response = new Response<String>(errorCode);
+      break;
+    case EXSCAMPAIGN:
+      errorCode = CampaignProvider.existsCampaign((String) action.getContent());
+      response = new Response<String>(errorCode);
+      break;
+    case GETCAMPAIGN:
+      List<Campaign> listCampResponse = CampaignProvider.getCampaigns((String) action.getContent());
+      response = new Response<List<Campaign>>(listCampResponse);
       break;
     default:
       break;
