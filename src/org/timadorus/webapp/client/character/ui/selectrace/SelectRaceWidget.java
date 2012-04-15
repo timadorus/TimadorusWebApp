@@ -31,27 +31,38 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class SelectRaceWidget extends FormPanel implements SelectRaceDialog.Display {
 
-  Button nextButton = new Button("weiter");
+  private Button nextButton;
 
-  Button prevButton = new Button("zurück");
+  private Button prevButton;
 
-  VerticalPanel panel = new VerticalPanel();
+  private VerticalPanel panel;
 
-  RadioButton selectMale = new RadioButton("selectGender", "männlich");
+  private RadioButton selectMale;
 
-  RadioButton selectFemale = new RadioButton("selectGender", "weiblich");
+  private RadioButton selectFemale;
 
-  FlexTable selectGenderGrid = new FlexTable();
+  private FlexTable selectGenderGrid;
 
-  FlexTable buttonGrid = new FlexTable();
+  private FlexTable buttonGrid;
 
-  FlexTable selectRaceGrid = new FlexTable();
+  private FlexTable selectRaceGrid;
 
-  ListBox raceListBox = new ListBox();
+  private ListBox raceListBox;
 
   public SelectRaceWidget(List<String> racenames) {
     super();
 
+    // init controls
+    nextButton = new Button("weiter");
+    prevButton = new Button("zurück");
+    panel = new VerticalPanel();
+    selectMale = new RadioButton("selectGender", "männlich");
+    selectFemale = new RadioButton("selectGender", "weiblich");
+    selectGenderGrid = new FlexTable();
+    buttonGrid = new FlexTable();
+    raceListBox = new ListBox();
+
+    // arrange controls
     Image progressBar = new Image("media/images/progressbar_1.png");
 
     selectGenderGrid.setBorderWidth(0);
