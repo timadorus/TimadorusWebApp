@@ -6,7 +6,7 @@ package org.timadorus.webapp.client;
 // Turn checkstyle off, because this design pattern is necessary for
 // this project
 // CHECKSTYLE OFF
-interface HistoryStates {
+public interface HistoryStates {
   
   public static final String LOGIN_STATE = "login";
 
@@ -30,3 +30,5 @@ interface HistoryStates {
   
 }
 // CHECKSTYLE ON
+
+
