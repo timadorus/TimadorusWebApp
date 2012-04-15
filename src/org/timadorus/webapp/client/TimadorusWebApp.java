@@ -86,7 +86,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     validateSession();
   }
 
-  public void loadWelcomePanel() {
+  private void loadWelcomePanel() {
     RootPanel.get("content").clear();
     RootPanel.get("information").clear();
     RootPanel.get("information").add(new HTML("</br>information panel"));
@@ -192,7 +192,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   /**
    * A new CreateCharacterPanel will be loaded and showed on the webpage.
    */
-  public void loadCreateCharacterPanel() {
+  private void loadCreateCharacterPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Charakter erstellen / bearbeiten"));
     User user = LoginPanel.getLoginPanel(sessionId, this).getUser();
@@ -202,7 +202,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   /**
    * A new CharacterListPanel will be loaded and showed on the webpage.
    */
-  public void loadShowCharacterlistPanel() {
+  private void loadShowCharacterlistPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Liste der registrierten Charaktere"));
     RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(this,
@@ -214,7 +214,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   /**
    * A new CreateCampaignPanel will be loaded and showed on the webpage.
    */
-  public void loadCreateCampaignPanel() {
+  private void loadCreateCampaignPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Kampagne erstellen"));
     RootPanel.get("content").add(CreateCampaignPanel.getCampaignPanel(this, LoginPanel.getLoginPanel(sessionId, this)
@@ -224,7 +224,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   /**
    * A new EditCampaignPanel will be loaded and showed on the webpage.
    */
-  public void loadEditCampaignPanel() {
+  private void loadEditCampaignPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Kampagne verwalten"));
     RootPanel.get("content").add(EditCampaignPanel.getCampaignPanel(this, LoginPanel.getLoginPanel(sessionId, this)
@@ -234,7 +234,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   /**
    * A new RegisterPanel will be loaded and showed on the webpage.
    */
-  public void loadRegisterPanel() {
+  private void loadRegisterPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Benutzregistrierung"));
     RootPanel.get("content").add(RegisterPanel.getRegisterPanel(this));
@@ -243,7 +243,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   /**
    * A new VerifyMailPanel will be loaded and showed on the webpage.
    */
-  public void loadVerifyMailPanel() {
+  private void loadVerifyMailPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("E-Mail bestätigen"));
     RootPanel.get("content").add(VerifyMailPanel.getVerifyMailPanel(this));
@@ -252,7 +252,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   /**
    * A new LoginPanel will be loaded and showed on the webpage.
    */
-  public void loadLoginPanel() {
+  private void loadLoginPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("In bestehenden Account einloggen:"));
     RootPanel.get("content").add(LoginPanel.getLoginPanel(sessionId, this));
@@ -261,7 +261,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   /**
    * A new LogoutPanel will be loaded and showed on the webpage.
    */
-  public void loadLogoutPanel() {
+  private void loadLogoutPanel() {
 
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die Möglichkeit, sich wieder "
