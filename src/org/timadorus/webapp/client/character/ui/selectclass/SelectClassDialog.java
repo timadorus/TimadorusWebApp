@@ -8,8 +8,8 @@ import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.SelectRacePanel;
 import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
+import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -90,7 +90,7 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
   // clear "content" #div and add Class SelectRacePanel to it
   private void doPrevButtonClick() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(getEntry(), character, user));
+    RootPanel.get("content").add(SelectRaceDialog.getDialog(getEntry(), user, character).getFormPanel());
   }
 
   // clear "content" #div and add Class SelectFactionPanel to it
