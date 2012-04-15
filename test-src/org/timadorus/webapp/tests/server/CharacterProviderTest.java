@@ -23,6 +23,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class CharacterProviderTest {
 
+  // noch fehlerhaft
   private final ServiceAsync<User, List<Character>> myService = GWT.create(Service.class);
 
   User user;
