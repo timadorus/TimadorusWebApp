@@ -40,7 +40,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
 
   private boolean activationPage = false;
 
-  public TestCharacterValues testValues;
+  private TestCharacterValues testValues;
 
   private MenuDialog menu = new MenuDialog(new MenuWidget());
 
