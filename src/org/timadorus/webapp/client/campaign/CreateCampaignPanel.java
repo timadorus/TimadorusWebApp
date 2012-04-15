@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.campaign;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignService;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignServiceAsync;
 
@@ -27,7 +27,7 @@ public class CreateCampaignPanel extends FormPanel {
 
   private static final int CELL_SPACING = 8;
 
-  TimadorusWebApp entry;
+  DefaultTimadorusWebApp entry;
   
   User user;
 
@@ -40,7 +40,7 @@ public class CreateCampaignPanel extends FormPanel {
   TextBox campaignNameTextBox = new TextBox();
   TextArea descriptionTextArea = new TextArea();
 
-  public CreateCampaignPanel(TimadorusWebApp entryIn, final User user) {
+  public CreateCampaignPanel(DefaultTimadorusWebApp entryIn, final User user) {
     super();
     this.entry = entryIn;
     this.user = user;
@@ -161,7 +161,7 @@ public class CreateCampaignPanel extends FormPanel {
     RootPanel.get("content").add(panel);
   }
   
-  public static CreateCampaignPanel getCampaignPanel(TimadorusWebApp entry, User user) {
+  public static CreateCampaignPanel getCampaignPanel(DefaultTimadorusWebApp entry, User user) {
     return new CreateCampaignPanel(entry, user);
   }
 
@@ -171,7 +171,7 @@ public class CreateCampaignPanel extends FormPanel {
     return information;
   }
 
-  public TimadorusWebApp getEntry() {
+  public DefaultTimadorusWebApp getEntry() {
     return entry;
   }
 }

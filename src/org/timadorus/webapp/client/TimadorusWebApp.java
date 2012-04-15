@@ -31,7 +31,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 @SuppressWarnings("deprecation")
-public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListener {
+public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListener, DefaultTimadorusWebApp {
 
   // SessionID
   private SessionId sessionId = new SessionId();
@@ -94,7 +94,7 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
 
   }
 
-  public TimadorusWebApp getTimadorusWebApp() {
+  public DefaultTimadorusWebApp getTimadorusWebApp() {
     return this;
   }
 
@@ -275,10 +275,10 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     RootPanel.get("information").clear();
   }
 
-  /**
-   * @param loggedinIn
-   *          the loggedin to set
+  /* (non-Javadoc)
+   * @see org.timadorus.webapp.client.DefaultTimadorusWebApp#setLoggedin(boolean)
    */
+  @Override
   public void setLoggedin(boolean loggedinIn) {
     this.loggedin = loggedinIn;
     if (loggedin) {
@@ -288,13 +288,18 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     }
   }
 
-  /**
-   * @return the loggedin
+  /* (non-Javadoc)
+   * @see org.timadorus.webapp.client.DefaultTimadorusWebApp#isLoggedin()
    */
+  @Override
   public boolean isLoggedin() {
     return loggedin;
   }
 
+  /* (non-Javadoc)
+   * @see org.timadorus.webapp.client.DefaultTimadorusWebApp#showDialogBox(java.lang.String, java.lang.String)
+   */
+  @Override
   public void showDialogBox(String title, String message) {
     // Create the popup dialog box
     final DialogBox dialogBox = new DialogBox();
@@ -324,6 +329,10 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
     });
   }
 
+  /* (non-Javadoc)
+   * @see org.timadorus.webapp.client.DefaultTimadorusWebApp#getTestValues()
+   */
+  @Override
   public TestCharacterValues getTestValues() {
     return testValues;
   }

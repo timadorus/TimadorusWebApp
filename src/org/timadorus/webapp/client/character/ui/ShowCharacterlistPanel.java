@@ -3,7 +3,7 @@ package org.timadorus.webapp.client.character.ui;
 import java.util.List;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
@@ -33,7 +33,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
   private Grid grid;
 
   private User user;
-  private TimadorusWebApp entry;
+  private DefaultTimadorusWebApp entry;
 
   VerticalPanel panel       = new VerticalPanel();
   HTML headline             = new HTML("<h1>Liste der registrierten Charaktere</h1>");
@@ -41,7 +41,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
   Button confirm            = new Button("Löschen bestätigen");
   Button back               = new Button("Zurück");
 
-  private ShowCharacterlistPanel(TimadorusWebApp entryIn, User userIn) {
+  private ShowCharacterlistPanel(DefaultTimadorusWebApp entryIn, User userIn) {
     super();
 
     this.entry = entryIn;
@@ -255,7 +255,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
    * @param user the current user
    * @return the ShowCharacterlistPanel
    */
-  public static final ShowCharacterlistPanel getShowCharacterlistPanel(TimadorusWebApp entry, User user) {
+  public static final ShowCharacterlistPanel getShowCharacterlistPanel(DefaultTimadorusWebApp entry, User user) {
     return new ShowCharacterlistPanel(entry, user);
   }
 
@@ -264,7 +264,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
    * Gets the entry point of the application.
    * @return the entry point of the application.
    */
-  public TimadorusWebApp getTimadorus() {
+  public DefaultTimadorusWebApp getTimadorus() {
     return this.entry;
   }
 

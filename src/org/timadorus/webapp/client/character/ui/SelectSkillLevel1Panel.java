@@ -7,7 +7,7 @@ import java.util.ListIterator;
 import java.util.Set;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.Skill;
 
@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.Image;
 //FormPanel for selecting Skill-Level-1 items of a Character-Object
 public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
 
-  final TimadorusWebApp entry;
+  final DefaultTimadorusWebApp entry;
 
   final Character character;
   
@@ -73,7 +73,7 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
 
   private String[] titleList = { "Skill-Name", "Cost", "Rank", "Rk_Bn", "Stat_Bn", "Level_Bn", "Item", "Total" };
 
-  public SelectSkillLevel1Panel(final TimadorusWebApp entryIn, final Character characterIn, User user) {
+  public SelectSkillLevel1Panel(final DefaultTimadorusWebApp entryIn, final Character characterIn, User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
@@ -222,7 +222,7 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
     return skill;
   }
 
-  public static SelectSkillLevel1Panel getSelectSkillLevel1Panel(TimadorusWebApp entry, 
+  public static SelectSkillLevel1Panel getSelectSkillLevel1Panel(DefaultTimadorusWebApp entry, 
     Character character, User user) {
 
     return new SelectSkillLevel1Panel(entry, character, user);
@@ -235,7 +235,7 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
     return information;
   }
 
-  public TimadorusWebApp getEntry() {
+  public DefaultTimadorusWebApp getEntry() {
     return entry;
   }
 

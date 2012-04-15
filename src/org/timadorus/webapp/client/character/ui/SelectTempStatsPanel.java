@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
 
@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 // Panel for selecting TempStats
 public class SelectTempStatsPanel extends FormPanel {
 
-  final TimadorusWebApp entry;
+  final DefaultTimadorusWebApp entry;
 
   final Character character;
 
@@ -72,7 +72,7 @@ public class SelectTempStatsPanel extends FormPanel {
 
   boolean isReady = false;
 
-  public SelectTempStatsPanel(final TimadorusWebApp entryIn, final Character characterIn, User user) {
+  public SelectTempStatsPanel(final DefaultTimadorusWebApp entryIn, final Character characterIn, User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
@@ -313,7 +313,7 @@ public class SelectTempStatsPanel extends FormPanel {
   }
 
   // creates a new SelectTempStats instance
-  public static SelectTempStatsPanel getSelectTempStatsPanel(TimadorusWebApp entry,
+  public static SelectTempStatsPanel getSelectTempStatsPanel(DefaultTimadorusWebApp entry,
                                                              Character character, User user) {
     return new SelectTempStatsPanel(entry, character, user);
   }
@@ -348,7 +348,7 @@ public class SelectTempStatsPanel extends FormPanel {
     nextButton.setEnabled(isReady);
   }
 
-  public TimadorusWebApp getEntry() {
+  public DefaultTimadorusWebApp getEntry() {
     return entry;
   }
 }

@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.character.ui.premadecharacter;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
@@ -119,14 +119,14 @@ public class PremadeCharacterWidget extends FormPanel implements PremadeCharacte
   }
 
   // clear "content" #div and add Class CharacterReadyPanel to it
-  public void loadCharacterReadyPanel(Character character, TimadorusWebApp entry) {
+  public void loadCharacterReadyPanel(Character character, DefaultTimadorusWebApp entry) {
     RootPanel.get("content").clear();
     ReadyDialog readyDialog = ReadyDialog.getReadyDialog(entry, character);
     RootPanel.get("content").add(readyDialog.getFormPanel());
   }
 
   // clear "content" #div and add Class CharacterPanel to it
-  public void loadCharacterPanel(TimadorusWebApp entry, User user) {
+  public void loadCharacterPanel(DefaultTimadorusWebApp entry, User user) {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(CreateDialog.getCreateDialog(entry, user).getFormPanel());
   }

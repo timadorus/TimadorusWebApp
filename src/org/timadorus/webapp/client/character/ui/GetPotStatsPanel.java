@@ -3,7 +3,7 @@ package org.timadorus.webapp.client.character.ui;
 import java.util.ArrayList;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 //Panel for showing potential stats
 public class GetPotStatsPanel extends FormPanel {
 
-  final TimadorusWebApp entry;
+  final DefaultTimadorusWebApp entry;
 
   final Character character;
   
@@ -43,7 +43,7 @@ public class GetPotStatsPanel extends FormPanel {
 
   ArrayList<Integer> potStats = new ArrayList<Integer>(); //list holding characters potstats
   
-  public GetPotStatsPanel(final TimadorusWebApp entryIn, final Character characterIn, final User user) {
+  public GetPotStatsPanel(final DefaultTimadorusWebApp entryIn, final Character characterIn, final User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
@@ -185,7 +185,7 @@ public class GetPotStatsPanel extends FormPanel {
   }
 
   //returns a new instance of GetPotStatsPanel
-  public static GetPotStatsPanel getGetPotStatsPanel(TimadorusWebApp entry, Character character, User user) {  
+  public static GetPotStatsPanel getGetPotStatsPanel(DefaultTimadorusWebApp entry, Character character, User user) {  
     return new GetPotStatsPanel(entry, character, user);
   }
 
@@ -197,7 +197,7 @@ public class GetPotStatsPanel extends FormPanel {
     return information;
   }
 
-  public TimadorusWebApp getEntry() {
+  public DefaultTimadorusWebApp getEntry() {
     return entry;
   }
 }

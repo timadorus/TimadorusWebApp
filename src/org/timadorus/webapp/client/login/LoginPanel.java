@@ -3,8 +3,8 @@ package org.timadorus.webapp.client.login;
 import java.util.Date;
 
 import org.timadorus.webapp.beans.User;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.SessionId;
-import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.rpc.service.LoginService;
 import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
 
@@ -57,7 +57,7 @@ public class LoginPanel extends FormPanel implements HistoryListener {
 
   private SessionId sessionId;
 
-  private TimadorusWebApp entry;
+  private DefaultTimadorusWebApp entry;
 
   private static final long TWO_MIN = 1000 * 60 * 2;
 
@@ -65,7 +65,7 @@ public class LoginPanel extends FormPanel implements HistoryListener {
 
   private static LoginPanel loginPanel;
 
-  public LoginPanel(SessionId session, TimadorusWebApp entryIn) {
+  public LoginPanel(SessionId session, DefaultTimadorusWebApp entryIn) {
     super();
 
     this.entry = entryIn;
@@ -209,7 +209,7 @@ public class LoginPanel extends FormPanel implements HistoryListener {
     setStyleName("formPanel");
   }
 
-  public static final LoginPanel getLoginPanel(SessionId sessionId, TimadorusWebApp entry) {
+  public static final LoginPanel getLoginPanel(SessionId sessionId, DefaultTimadorusWebApp entry) {
     if (LoginPanel.loginPanel == null) {
       LoginPanel.loginPanel = new LoginPanel(sessionId, entry);
     }
@@ -221,7 +221,7 @@ public class LoginPanel extends FormPanel implements HistoryListener {
     // History.onHistoryChanged("login");
   }
 
-  public void setTimadorusWebApp(TimadorusWebApp webapp) {
+  public void setTimadorusWebApp(DefaultTimadorusWebApp webapp) {
     this.entry = webapp;
   }
 
@@ -257,7 +257,7 @@ public class LoginPanel extends FormPanel implements HistoryListener {
 //    }
   }
 
-  private TimadorusWebApp gettimadorus() {
+  private DefaultTimadorusWebApp gettimadorus() {
     return entry;
   }
 

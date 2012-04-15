@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.character.ui;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.Skill;
 import org.timadorus.webapp.client.character.attributes.Stat;
@@ -40,7 +40,7 @@ public final class ShowCharacterPanel extends FormPanel {
   private final int detailRows = 11;
   private final int detailColumns = 2;
   
-  TimadorusWebApp entry;
+  DefaultTimadorusWebApp entry;
   
   VerticalPanel panel = new VerticalPanel();
   private Grid grid = new Grid(rows, columns);
@@ -59,7 +59,7 @@ public final class ShowCharacterPanel extends FormPanel {
   private User user;
   private Character character;
 
-  private ShowCharacterPanel(final TimadorusWebApp entryIn, final User userIn, 
+  private ShowCharacterPanel(final DefaultTimadorusWebApp entryIn, final User userIn, 
     final Character characterIn, int modeIn) {
     super();
 
@@ -324,7 +324,7 @@ public final class ShowCharacterPanel extends FormPanel {
    * @param c the current character
    * @param user the current user
    */
-  public static final ShowCharacterPanel getShowShortCharacterPanel(TimadorusWebApp e, User u, Character c) {
+  public static final ShowCharacterPanel getShowShortCharacterPanel(DefaultTimadorusWebApp e, User u, Character c) {
     return new ShowCharacterPanel(e, u, c, ShowCharacterPanel.SHORT_MODE);
   }
 
@@ -336,7 +336,7 @@ public final class ShowCharacterPanel extends FormPanel {
    * @param user the current user
    * @return the ShowCharacterPanel
    */
-  public static final ShowCharacterPanel getShowDetailCharacterPanel(TimadorusWebApp e, User u, Character c) {
+  public static final ShowCharacterPanel getShowDetailCharacterPanel(DefaultTimadorusWebApp e, User u, Character c) {
     return new ShowCharacterPanel(e, u, c, ShowCharacterPanel.DETAIL_MODE);
   }
 

@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.character.ui.selectname;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
@@ -44,16 +44,16 @@ public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> {
      */
     public void addPrevButtonHandler(DefaultActionHandler handler);
 
-    public void loadSelectCharacterReadyPanel(TimadorusWebApp entry, Character character);
+    public void loadSelectCharacterReadyPanel(DefaultTimadorusWebApp entry, Character character);
 
-    public void loadSelectAppearancePanel(TimadorusWebApp entry, Character character, User user);
+    public void loadSelectAppearancePanel(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
   private Character character;
 
   private User user;
 
-  public SelectNameDialog(Display display, TimadorusWebApp entry, Character character, User user) {
+  public SelectNameDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
     super(display, entry);
     this.character = character;
     this.user = user;
@@ -109,7 +109,7 @@ public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> {
     return user;
   }
 
-  public static SelectNameDialog getDialog(TimadorusWebApp entry, Character character, User user) {
+  public static SelectNameDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
     SelectNameDialog.Display display = new SelectNameWidget(character);
     SelectNameDialog dialog = new SelectNameDialog(display, entry, character, user);
     return dialog;

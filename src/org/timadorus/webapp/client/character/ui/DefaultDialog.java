@@ -1,6 +1,6 @@
 package org.timadorus.webapp.client.character.ui;
 
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 
 import com.google.gwt.user.client.ui.FormPanel;
 
@@ -8,9 +8,9 @@ public class DefaultDialog<T extends DefaultDisplay> {
 
   private T display;
 
-  private TimadorusWebApp entry;
+  private DefaultTimadorusWebApp entry;
 
-  public DefaultDialog(T display, TimadorusWebApp entry) {
+  public DefaultDialog(T display, DefaultTimadorusWebApp entry) {
     super();
     this.display = display;
     this.entry = entry;
@@ -24,7 +24,7 @@ public class DefaultDialog<T extends DefaultDisplay> {
     return display.getFormPanel();
   }
 
-  public TimadorusWebApp getEntry() {
+  public DefaultTimadorusWebApp getEntry() {
     return entry;
   }
 }

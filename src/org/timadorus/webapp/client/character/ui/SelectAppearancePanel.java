@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.character.ui;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
 
@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 // Panel for the selection of the characters appearance
 public class SelectAppearancePanel extends FormPanel {
 
-  private TimadorusWebApp entry;
+  private DefaultTimadorusWebApp entry;
 
   private Character character;
 
@@ -89,7 +89,7 @@ public class SelectAppearancePanel extends FormPanel {
   
   private boolean skinColorChosen = false;
   
-  public SelectAppearancePanel(final TimadorusWebApp entryIn, Character characterIn, User user) {
+  public SelectAppearancePanel(final DefaultTimadorusWebApp entryIn, Character characterIn, User user) {
     super();
     this.entry = entryIn;
     this.character = characterIn;
@@ -286,7 +286,8 @@ public class SelectAppearancePanel extends FormPanel {
    * @param character the character which is being build
    * @param user the user who is building the character 
    */
-  public static SelectAppearancePanel getSelectAppearancePanel(TimadorusWebApp entry, Character character, User user) {
+  public static SelectAppearancePanel getSelectAppearancePanel(DefaultTimadorusWebApp entry, 
+      Character character, User user) {
     return new SelectAppearancePanel(entry, character, user);
   }
 }

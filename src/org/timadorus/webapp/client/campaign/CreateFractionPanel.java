@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.campaign;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.rpc.service.CreateFractionService;
 import org.timadorus.webapp.client.rpc.service.CreateFractionServiceAsync;
 
@@ -29,7 +29,7 @@ public class CreateFractionPanel extends FormPanel {
 
   private static final int CELL_SPACING = 8;
 
-  TimadorusWebApp entry;
+  DefaultTimadorusWebApp entry;
   User user;
   Campaign campaign;
   
@@ -52,7 +52,7 @@ public class CreateFractionPanel extends FormPanel {
   ListBox templateListBox = new ListBox();
   CheckBox setTemplateCheckBox = new CheckBox();
 
-  public CreateFractionPanel(TimadorusWebApp entryIn, final User user, final Campaign campaign) {
+  public CreateFractionPanel(DefaultTimadorusWebApp entryIn, final User user, final Campaign campaign) {
     super();
     this.entry = entryIn;
     this.user = user;
@@ -186,7 +186,7 @@ public class CreateFractionPanel extends FormPanel {
     RootPanel.get("content").add(panel);
   }
   
-  public static CreateFractionPanel getCreateFractionPanel(TimadorusWebApp entry, User user, Campaign campaign) {
+  public static CreateFractionPanel getCreateFractionPanel(DefaultTimadorusWebApp entry, User user, Campaign campaign) {
     return new CreateFractionPanel(entry, user, campaign);
   }
 
@@ -196,7 +196,7 @@ public class CreateFractionPanel extends FormPanel {
     return information;
   }
 
-  public TimadorusWebApp getEntry() {
+  public DefaultTimadorusWebApp getEntry() {
     return entry;
   }
 }

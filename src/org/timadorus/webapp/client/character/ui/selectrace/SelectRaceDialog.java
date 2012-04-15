@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.CClass;
 import org.timadorus.webapp.client.character.attributes.Faction;
@@ -40,9 +40,9 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> {
      */
     public void addPrevButtonHandler(DefaultActionHandler handler);
 
-    public void loadSelectClassPanel(TimadorusWebApp entry, User user, Character character);
+    public void loadSelectClassPanel(DefaultTimadorusWebApp entry, User user, Character character);
 
-    public void loadCharacterPanel(User user, TimadorusWebApp entry);
+    public void loadCharacterPanel(User user, DefaultTimadorusWebApp entry);
 
     public void showRaceSelection(String raceName, String raceDescription,
                                   List<String> availableClasses, List<String> availableFactions);
@@ -52,7 +52,7 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> {
 
   private User user;
 
-  public SelectRaceDialog(Display display, TimadorusWebApp entry, Character character, User user) {
+  public SelectRaceDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
     super(display, entry);
     this.character = character;
     this.user = user;
@@ -143,7 +143,7 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> {
     return user;
   }
 
-  public static SelectRaceDialog getDialog(TimadorusWebApp entry, User user, Character character) {
+  public static SelectRaceDialog getDialog(DefaultTimadorusWebApp entry, User user, Character character) {
     List<Race> races = entry.getTestValues().getRaces();
     List<String> racenames = new ArrayList<String>();
     for (Race race : races) {

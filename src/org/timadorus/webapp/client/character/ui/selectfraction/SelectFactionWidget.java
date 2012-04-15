@@ -1,6 +1,6 @@
 package org.timadorus.webapp.client.character.ui.selectfraction;
 
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
@@ -36,7 +36,7 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
   // listbox for available faction
   private ListBox factionListBox;
 
-  public SelectFactionWidget(final TimadorusWebApp entryIn, Character characterIn) {
+  public SelectFactionWidget(final DefaultTimadorusWebApp entryIn, Character characterIn) {
     super();
 
     nextButton = new Button("weiter");

@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.register;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.service.Service;
 import org.timadorus.webapp.client.service.ServiceAsync;
 import org.timadorus.webapp.client.service.ServiceType;
@@ -66,18 +66,18 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
 
   private HTML passwordRepeatHTML = new HTML();
 
-  private TimadorusWebApp entry;
+  private DefaultTimadorusWebApp entry;
 
   /**
    * Create a remote service proxy to talk to the server-side Greeting service.
    */
   private final ServiceAsync<User, String> myService = GWT.create(Service.class);
 
-  public TimadorusWebApp getEntry() {
+  public DefaultTimadorusWebApp getEntry() {
     return entry;
   }
 
-  public static final RegisterPanel getRegisterPanel(TimadorusWebApp entry) {
+  public static final RegisterPanel getRegisterPanel(DefaultTimadorusWebApp entry) {
     return new RegisterPanel(entry);
   }
 
@@ -85,7 +85,7 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
     History.addHistoryListener(this);
   }
 
-  public RegisterPanel(TimadorusWebApp timadorusWebApp) {
+  public RegisterPanel(DefaultTimadorusWebApp timadorusWebApp) {
     super();
     this.entry = timadorusWebApp;
     setupHistory();

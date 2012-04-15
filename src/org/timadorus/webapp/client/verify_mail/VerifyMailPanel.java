@@ -3,7 +3,7 @@ package org.timadorus.webapp.client.verify_mail;
 import java.util.Date;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.rpc.service.UserService;
 import org.timadorus.webapp.client.rpc.service.UserServiceAsync;
 
@@ -55,7 +55,7 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
   private Button submit             = new Button("Bestätigen");
   
   public  User user;
-  private TimadorusWebApp entry;
+  private DefaultTimadorusWebApp entry;
   private String activationCode;
 
   private static final long TWO_MIN = 1000 * 60 * 2;
@@ -65,7 +65,7 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
    *  
    * @param entryIn The timadorus web app object
    */
-  private VerifyMailPanel(TimadorusWebApp entryIn) {
+  private VerifyMailPanel(DefaultTimadorusWebApp entryIn) {
     super();
 
     this.entry = entryIn;
@@ -199,7 +199,7 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
    * @param entry The timadorus web app object
    * @return An instance of this class
    */
-  public static final VerifyMailPanel getVerifyMailPanel(TimadorusWebApp entry) {
+  public static final VerifyMailPanel getVerifyMailPanel(DefaultTimadorusWebApp entry) {
     return new VerifyMailPanel(entry);
   }
 
@@ -243,7 +243,7 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
    * 
    * @return The timadorus web app object
    */
-  private TimadorusWebApp getTimadorus() {
+  private DefaultTimadorusWebApp getTimadorus() {
     return entry;
   }
   

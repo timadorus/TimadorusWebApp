@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.character.ui.createcharacter;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
@@ -24,14 +24,14 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> {
 
     public boolean isCustom();
 
-    public void loadPremadeCharacter(User user, TimadorusWebApp entry);
+    public void loadPremadeCharacter(User user, DefaultTimadorusWebApp entry);
 
-    public void loadCustomCharacter(User user, TimadorusWebApp entry);
+    public void loadCustomCharacter(User user, DefaultTimadorusWebApp entry);
   }
 
   private User user;
 
-  public CreateDialog(Display display, TimadorusWebApp entry, User user) {
+  public CreateDialog(Display display, DefaultTimadorusWebApp entry, User user) {
     super(display, entry);
     display.setHandlerPremade(new DefaultActionHandler() {
 
@@ -90,7 +90,7 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> {
     return user;
   }
 
-  public static CreateDialog getCreateDialog(TimadorusWebApp entry, User user) {
+  public static CreateDialog getCreateDialog(DefaultTimadorusWebApp entry, User user) {
     CreateDialog.Display display = new CreateCharacterWidget();
     CreateDialog dialog = new CreateDialog(display, entry, user);
     return dialog;

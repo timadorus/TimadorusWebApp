@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.CClass;
 import org.timadorus.webapp.client.character.attributes.Faction;
@@ -49,16 +49,16 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
 
     public void addPrevButtonHandler(DefaultActionHandler handler);
 
-    public void loadCharacterReadyPanel(Character character, TimadorusWebApp entry);
+    public void loadCharacterReadyPanel(Character character, DefaultTimadorusWebApp entry);
 
-    public void loadCharacterPanel(TimadorusWebApp entry, User user);
+    public void loadCharacterPanel(DefaultTimadorusWebApp entry, User user);
 
     public void setInformation(String text);
   }
 
   private User user;
 
-  public PremadeCharacterDialog(Display display, TimadorusWebApp entry, User user) {
+  public PremadeCharacterDialog(Display display, DefaultTimadorusWebApp entry, User user) {
     super(display, entry);
     this.user = user;
     display.addHunterHandler(new DefaultActionHandler() {
@@ -213,7 +213,7 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
     return user;
   }
 
-  public static PremadeCharacterDialog getDialog(TimadorusWebApp entry, User user) {
+  public static PremadeCharacterDialog getDialog(DefaultTimadorusWebApp entry, User user) {
     PremadeCharacterDialog.Display display = new PremadeCharacterWidget();
     PremadeCharacterDialog dialog = new PremadeCharacterDialog(display, entry, user);
     return dialog;

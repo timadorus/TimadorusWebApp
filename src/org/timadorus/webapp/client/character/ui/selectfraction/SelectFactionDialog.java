@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.character.ui.selectfraction;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
@@ -40,7 +40,7 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
 
   private User user;
 
-  public SelectFactionDialog(Display display, TimadorusWebApp entry, Character character, User user) {
+  public SelectFactionDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
     super(display, entry);
     this.character = character;
     this.user = user;
@@ -106,7 +106,7 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
                                                                               character, user));
   }
 
-  public static SelectFactionDialog getDialog(TimadorusWebApp entry, Character character, User user) {
+  public static SelectFactionDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
     SelectFactionDialog.Display display = new SelectFactionWidget(entry, character);
     SelectFactionDialog dialog = new SelectFactionDialog(display, entry, character, user);
     return dialog;

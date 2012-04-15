@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.character.ui.selectclass;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.CClass;
 import org.timadorus.webapp.client.character.attributes.Faction;
@@ -35,7 +35,7 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
 
   private User user;
 
-  public SelectClassDialog(Display display, TimadorusWebApp entry, Character character, User user) {
+  public SelectClassDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
     super(display, entry);
     this.character = character;
     this.user = user;
@@ -121,7 +121,7 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
    * @param user
    * @return {@link SelectClassDialog}
    */
-  public static SelectClassDialog getSelecteddDialog(TimadorusWebApp entry, Character character,
+  public static SelectClassDialog getSelecteddDialog(DefaultTimadorusWebApp entry, Character character,
     User user) {
     SelectClassDialog.Display display = new SelectClassWidget(character,
                                                               entry.getTestValues().getClasses());

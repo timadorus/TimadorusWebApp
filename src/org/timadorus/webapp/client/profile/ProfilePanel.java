@@ -1,7 +1,8 @@
 package org.timadorus.webapp.client.profile;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
+import org.timadorus.webapp.client.HistoryStates;
 import org.timadorus.webapp.client.rpc.service.UserService;
 import org.timadorus.webapp.client.rpc.service.UserServiceAsync;
 
@@ -32,7 +33,7 @@ import com.google.gwt.user.client.ui.Widget;
 @SuppressWarnings("deprecation")
 public class ProfilePanel extends FormPanel implements HistoryListener {
   
-  private TimadorusWebApp entry;
+  private DefaultTimadorusWebApp entry;
   
   private User user;
   
@@ -90,7 +91,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
    * @param timadorusWebApp The webapp object
    * @param user The current user
    */
-  public ProfilePanel(TimadorusWebApp timadorusWebApp, final User user) {
+  public ProfilePanel(DefaultTimadorusWebApp timadorusWebApp, final User user) {
     super();
     
     this.entry = timadorusWebApp;
@@ -457,7 +458,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
        * @param event The event object
        */
       public void onClick(ClickEvent event) {
-        History.newItem(TimadorusWebApp.WELCOME_STATE);
+        History.newItem(HistoryStates.WELCOME_STATE);
       }
     }
     
@@ -584,7 +585,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
    * @param user The user object
    * @return The ProfilePanel object
    */
-  public static Widget getProfilePanel(TimadorusWebApp entry, User user) {
+  public static Widget getProfilePanel(DefaultTimadorusWebApp entry, User user) {
     return new ProfilePanel(entry, user);
   }
 
@@ -603,7 +604,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
    * 
    * @return The TimadorusWebApp object
    */
-  public TimadorusWebApp getTimadorus() {
+  public DefaultTimadorusWebApp getTimadorus() {
     return entry;
   }
 

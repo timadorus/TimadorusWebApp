@@ -65,7 +65,7 @@ public class MenuPanel extends FlowPanel {
   private Campaign campaign = null;
   Map<String, LinkInfo> links = new HashMap<String, LinkInfo>();
   
-  public MenuPanel(TimadorusWebApp app) {
+  public MenuPanel(DefaultTimadorusWebApp app) {
     setPanel();
   }
   

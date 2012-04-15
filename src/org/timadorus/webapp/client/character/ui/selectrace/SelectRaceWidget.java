@@ -3,7 +3,7 @@ package org.timadorus.webapp.client.character.ui.selectrace;
 import java.util.List;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
@@ -119,12 +119,12 @@ public class SelectRaceWidget extends FormPanel implements SelectRaceDialog.Disp
 
   }
 
-  public void loadCharacterPanel(User user, TimadorusWebApp entry) {
+  public void loadCharacterPanel(User user, DefaultTimadorusWebApp entry) {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(CreateDialog.getCreateDialog(entry, user).getFormPanel());
   }
 
-  public void loadSelectClassPanel(TimadorusWebApp entry, User user, Character character) {
+  public void loadSelectClassPanel(DefaultTimadorusWebApp entry, User user, Character character) {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectClassDialog.getSelecteddDialog(entry, character, user)
                                      .getFormPanel());

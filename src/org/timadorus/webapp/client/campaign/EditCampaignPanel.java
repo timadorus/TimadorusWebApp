@@ -3,7 +3,7 @@ package org.timadorus.webapp.client.campaign;
 import java.util.List;
 
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignService;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignServiceAsync;
 
@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class EditCampaignPanel extends FormPanel {
 
-  TimadorusWebApp entry;
+  DefaultTimadorusWebApp entry;
   
   User user;
 
@@ -32,7 +32,7 @@ public class EditCampaignPanel extends FormPanel {
   Label campaignNameLabel         = new Label("Name der Kampagne");
   Label descriptionLabel        = new Label("Beschreibung");
 
-  public EditCampaignPanel(TimadorusWebApp entryIn, final User user) {
+  public EditCampaignPanel(DefaultTimadorusWebApp entryIn, final User user) {
     super();
     this.entry = entryIn;
     this.user = user;
@@ -115,7 +115,7 @@ public class EditCampaignPanel extends FormPanel {
   }
   
   
-  public static EditCampaignPanel getCampaignPanel(TimadorusWebApp entry, User user) {
+  public static EditCampaignPanel getCampaignPanel(DefaultTimadorusWebApp entry, User user) {
     return new EditCampaignPanel(entry, user);
   }
 
@@ -125,7 +125,7 @@ public class EditCampaignPanel extends FormPanel {
     return information;
   }
 
-  public TimadorusWebApp getEntry() {
+  public DefaultTimadorusWebApp getEntry() {
     return entry;
   }
 }
