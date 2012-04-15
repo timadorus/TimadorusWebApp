@@ -40,6 +40,14 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
       errorCode = CharacterProvider.deleteCharacter((Character) action.getContent());
       response = new Response<String>(errorCode);
       break;
+    case CRTCHARACTER:
+      errorCode = CharacterProvider.createCharacter((Character) action.getContent());
+      response = new Response<String>(errorCode);
+      break;
+    case MKPOTSTAT:
+      int potStatResponse = CharacterProvider.makePotStat((Integer) action.getContent());
+      response = new Response<Integer>(potStatResponse);
+      break;
     case GETUSER:
       User userRespone = UserProvider.getUser((User) action.getContent());
       response = new Response<User>(userRespone);
