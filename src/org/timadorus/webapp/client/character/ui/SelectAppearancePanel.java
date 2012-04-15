@@ -3,6 +3,7 @@ package org.timadorus.webapp.client.character.ui;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -275,7 +276,7 @@ public class SelectAppearancePanel extends FormPanel {
    */
   public void loadSelectNamePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectNamePanel.getSelectNamePanel(entry, character, user));
+    RootPanel.get("content").add(SelectNameDialog.getDialog(entry, character, user).getFormPanel());
   }
   
   /**
