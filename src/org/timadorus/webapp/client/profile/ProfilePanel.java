@@ -458,7 +458,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
        * @param event The event object
        */
       public void onClick(ClickEvent event) {
-        History.newItem(HistoryStates.WELCOME_STATE);
+        History.newItem(HistoryStates.WELCOME_STATE.getStringRepresentation());
       }
     }
     

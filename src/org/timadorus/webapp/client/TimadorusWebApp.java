@@ -31,7 +31,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 @SuppressWarnings("deprecation")
-public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListener, DefaultTimadorusWebApp {
+public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTimadorusWebApp {
 
   // SessionID
   private SessionId sessionId = new SessionId();
@@ -47,14 +47,14 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
   public TimadorusWebApp() {
     this.sessionId = new SessionId();
 
-    menu.addLink(Role.GUEST, "Einloggen", LOGIN_STATE);
-    menu.addLink(Role.USER, "Ausloggen", LOGOUT_STATE);
-    menu.addLink(Role.USER, "Charakter erstellen", CREATE_CHARACTER_STATE);
-    menu.addLink(Role.USER, "Liste der Charaktere", CHARACTER_LIST_STATE);
-    menu.addLink(Role.GUEST, "Account registrieren", REGISTER_STATE);
-    menu.addLink(Role.USER, "Profil bearbeiten", PROFILE_STATE);
-    menu.addLink(Role.ADMIN, "Kampagne anlegen", CREATE_CAMPAIGN_STATE);
-    menu.addLink(Role.GM, "Kampagne verwalten", EDIT_CAMPAIGN_STATE);
+    menu.addLink(Role.GUEST, "Einloggen", HistoryStates.LOGIN_STATE.getStringRepresentation());
+    menu.addLink(Role.USER, "Ausloggen", HistoryStates.LOGOUT_STATE.getStringRepresentation());
+    menu.addLink(Role.USER, "Charakter erstellen", HistoryStates.CREATE_CHARACTER_STATE.getStringRepresentation());
+    menu.addLink(Role.USER, "Liste der Charaktere", HistoryStates.CHARACTER_LIST_STATE.getStringRepresentation());
+    menu.addLink(Role.GUEST, "Account registrieren", HistoryStates.REGISTER_STATE.getStringRepresentation());
+    menu.addLink(Role.USER, "Profil bearbeiten", HistoryStates.PROFILE_STATE.getStringRepresentation());
+    menu.addLink(Role.ADMIN, "Kampagne anlegen", HistoryStates.CREATE_CAMPAIGN_STATE.getStringRepresentation());
+    menu.addLink(Role.GM, "Kampagne verwalten", HistoryStates.EDIT_CAMPAIGN_STATE.getStringRepresentation());
 
     this.loggedin = false;
 
@@ -126,15 +126,21 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
 
   @Override
   public void onHistoryChanged(String historyToken) {
-    if (LOGIN_STATE.equals(historyToken)) {
+    HistoryStates theHistoryState = HistoryStates.findByStringRepresentation(historyToken);
+    switch (theHistoryState) {
+    case LOGIN_STATE:
       loadLoginPanel();
-    } else if (LOGOUT_STATE.equals(historyToken)) {
+      break;
+    case LOGOUT_STATE:
       loadLogoutPanel();
-    } else if (PROFILE_STATE.equals(historyToken)) {
+      break;
+    case PROFILE_STATE:
       loadProfilePanel();
-    } else if (WELCOME_STATE.equals(historyToken)) {
+      break;
+    case WELCOME_STATE:
       loadWelcomePanel();
-    } else if (VERIFY_MAIL_STATE.equals(historyToken)) {
+      break;
+    case VERIFY_MAIL_STATE:
       if (isLoggedin()) {
         loadWelcomePanel();
         showDialogBox("Fehlermeldung", "Diese Seite kann nicht aufgerufen werden, wenn Sie zur Zeit angemeldet sind");
@@ -142,7 +148,8 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
       } else {
         loadVerifyMailPanel();
       }
-    } else if (CREATE_CHARACTER_STATE.equals(historyToken)) {
+      break;
+    case CREATE_CHARACTER_STATE:
       if (isLoggedin()) {
         loadCreateCharacterPanel();
       } else {
@@ -150,7 +157,8 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
         showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
         History.newItem("welcome");
       }
-    } else if (CHARACTER_LIST_STATE.equals(historyToken)) {
+      break;
+    case CHARACTER_LIST_STATE:
       if (isLoggedin()) {
         loadShowCharacterlistPanel();
       } else {
@@ -158,7 +166,8 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
         showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
         History.newItem("welcome");
       }
-    } else if (CREATE_CAMPAIGN_STATE.equals(historyToken)) {
+      break;
+    case CREATE_CAMPAIGN_STATE:
       if (isLoggedin()) {
         loadCreateCampaignPanel();
       } else {
@@ -166,7 +175,8 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
         showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
         History.newItem("welcome");
       }
-    } else if (EDIT_CAMPAIGN_STATE.equals(historyToken)) {
+      break;
+    case EDIT_CAMPAIGN_STATE:
       if (isLoggedin()) {
         loadEditCampaignPanel();
       } else {
@@ -174,8 +184,12 @@ public class TimadorusWebApp implements HistoryStates, EntryPoint, HistoryListen
         showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
         History.newItem("welcome");
       }
-    } else if (REGISTER_STATE.equals(historyToken)) {
+      break;
+    case REGISTER_STATE:
       loadRegisterPanel();
+      break;
+    default:
+      // TODO - Any default-behavior? Maybe the welcome-panel!? (aaz214 - 15.04.2012) 
     }
   }
 

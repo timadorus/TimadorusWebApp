@@ -1,34 +1,37 @@
 package org.timadorus.webapp.client;
 
-// States of the Browsing history
-// Status für nächste Seite
+//States of the Browsing history
+//Status für nächste Seite
 
-// Turn checkstyle off, because this design pattern is necessary for
-// this project
-// CHECKSTYLE OFF
-public interface HistoryStates {
-  
-  public static final String LOGIN_STATE = "login";
+public enum HistoryStates {
+  LOGIN_STATE("login"), 
+  WELCOME_STATE("welcome"),
+  CREATE_CHARACTER_STATE("createCharacter"),
+  CHARACTER_LIST_STATE("characterList"),
+  REGISTER_STATE("register"),
+  LOGOUT_STATE("logout"),
+  PROFILE_STATE("profile"),
+  VERIFY_MAIL_STATE("verifyMail"),
+  CREATE_CAMPAIGN_STATE("createCampaign"),
+  EDIT_CAMPAIGN_STATE("editCampaign");
 
-  public static final String WELCOME_STATE = "welcome";
+  private final String myStringRepresentation;
 
-  public static final String CREATE_CHARACTER_STATE = "createCharacter";
-  
-  public static final String CHARACTER_LIST_STATE = "characterList";
-  
-  public static final String REGISTER_STATE = "register";
-  
-  public static final String LOGOUT_STATE = "logout";
-  
-  public static final String PROFILE_STATE = "profile";
-  
-  public static final String VERIFY_MAIL_STATE = "verifyMail";
-  
-  public static final String CREATE_CAMPAIGN_STATE = "createCampaign";
-  
-  public static final String EDIT_CAMPAIGN_STATE = "editCampaign";
-  
+  HistoryStates(String aStringRepresentation) {
+    myStringRepresentation = aStringRepresentation;
+  }
+
+  public String getStringRepresentation() {
+   return myStringRepresentation;
+  }
+
+  public static HistoryStates findByStringRepresentation(String aStringRepresentation) {
+    for (HistoryStates theHistoryState : values()) {
+      if (theHistoryState.getStringRepresentation().equals(aStringRepresentation)) {
+        return theHistoryState;
+      }
+    }
+    return null;
+  } 
+
 }
-// CHECKSTYLE ON
-
-
