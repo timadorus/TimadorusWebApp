@@ -22,7 +22,7 @@ public class UserProviderTest {
        
     user1 = new User("vorname", "nachname", "1.1.1970", "test@mail.org", "testuser01", "password");
     
-    //TODO user in die DB bekommen, wie es aussieht geht das nur über die GUI
+    //TODO user in die DB bekommen, wie es aussieht geht das nur Ã¼ber die GUI
     
    }
   
