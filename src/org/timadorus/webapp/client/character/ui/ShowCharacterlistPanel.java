@@ -259,13 +259,6 @@ public final class ShowCharacterlistPanel extends FormPanel {
     return new ShowCharacterlistPanel(entry, user);
   }
 
-  /**
-   * Sets the entry point of the application.
-   * @param webapp the entry point of the application.
-   */
-  public void setTimadorusWebApp(TimadorusWebApp webapp) {
-    this.entry = webapp;
-  }
   
   /**
    * Gets the entry point of the application.

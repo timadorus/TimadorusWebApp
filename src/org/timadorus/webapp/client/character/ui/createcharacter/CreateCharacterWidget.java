@@ -4,21 +4,21 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.TimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.PremadeCharacterPanel;
 import org.timadorus.webapp.client.character.ui.SelectRacePanel;
+import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.Image;
 
 public class CreateCharacterWidget extends FormPanel implements CreateDialog.Display {
 
@@ -43,7 +43,7 @@ public class CreateCharacterWidget extends FormPanel implements CreateDialog.Dis
   public CreateCharacterWidget() {
     super();
 
-    //init controls
+    // init controls
     nextButton = new Button("weiter");
     panel = new VerticalPanel();
     selectGrid = new FlexTable();
@@ -71,8 +71,9 @@ public class CreateCharacterWidget extends FormPanel implements CreateDialog.Dis
     selectCustom.setValue(true);
 
     HTML headline = new HTML("<h1>Charaktervorauswahl</h1>");
-    HTML infotext = new HTML("<p>Wähle zwischen einem von drei vorgefertigten Charakteren oder wage das Abenteuer und "
-        + "erstelle deinen eigenen Charakter!</p>");
+    HTML infotext = new HTML(
+                             "<p>Wähle zwischen einem von drei vorgefertigten Charakteren oder wage das Abenteuer und "
+                                 + "erstelle deinen eigenen Charakter!</p>");
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -98,7 +99,8 @@ public class CreateCharacterWidget extends FormPanel implements CreateDialog.Dis
         + "eigenen Charakter!</p><p> Erstellen dir deinen eigenen Charkter. Wähle "
         + "aus über 10 Rassen, 50 Klassen und über 100 Fähigkeiten diejenigen aus, "
         + "die deinen Charakter am besten stehen.</p><p>Oder wähle einen der "
-        + "vorgefertigten Charaktere und beginne dein Abenteuer sofort</p><p>Es" + " ist deine Entscheidung!</p>");
+        + "vorgefertigten Charaktere und beginne dein Abenteuer sofort</p><p>Es"
+        + " ist deine Entscheidung!</p>");
     return information;
   }
 
@@ -179,12 +181,13 @@ public class CreateCharacterWidget extends FormPanel implements CreateDialog.Dis
   @Override
   public void loadPremadeCharacter(User user, TimadorusWebApp entry) {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(PremadeCharacterPanel.getPremadeCharacterPanel(entry, user));
+    RootPanel.get("content").add(PremadeCharacterDialog.getDialog(entry, user).getFormPanel());
   }
 
   @Override
   public void loadCustomCharacter(User user, TimadorusWebApp entry) {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRacePanel.getSelectRacePanel(entry, (Character.getInstance()), user));
+    RootPanel.get("content")
+        .add(SelectRacePanel.getSelectRacePanel(entry, (Character.getInstance()), user));
   }
 }
