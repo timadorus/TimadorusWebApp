@@ -127,70 +127,73 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
   @Override
   public void onHistoryChanged(String historyToken) {
     HistoryStates theHistoryState = HistoryStates.findByStringRepresentation(historyToken);
-    switch (theHistoryState) {
-    case LOGIN_STATE:
-      loadLoginPanel();
-      break;
-    case LOGOUT_STATE:
-      loadLogoutPanel();
-      break;
-    case PROFILE_STATE:
-      loadProfilePanel();
-      break;
-    case WELCOME_STATE:
-      loadWelcomePanel();
-      break;
-    case VERIFY_MAIL_STATE:
-      if (isLoggedin()) {
+    if (theHistoryState != null) {
+      switch (theHistoryState) {
+      case LOGIN_STATE:
+        loadLoginPanel();
+        break;
+      case LOGOUT_STATE:
+        loadLogoutPanel();
+        break;
+      case PROFILE_STATE:
+        loadProfilePanel();
+        break;
+      case WELCOME_STATE:
         loadWelcomePanel();
-        showDialogBox("Fehlermeldung", "Diese Seite kann nicht aufgerufen werden, wenn Sie zur Zeit angemeldet sind");
-        History.newItem("welcome");
-      } else {
-        loadVerifyMailPanel();
+        break;
+      case VERIFY_MAIL_STATE:
+        if (isLoggedin()) {
+          loadWelcomePanel();
+          showDialogBox("Fehlermeldung", "Diese Seite kann nicht aufgerufen werden, wenn Sie zur Zeit angemeldet sind");
+          History.newItem("welcome");
+        } else {
+          loadVerifyMailPanel();
+        }
+        break;
+      case CREATE_CHARACTER_STATE:
+        if (isLoggedin()) {
+          loadCreateCharacterPanel();
+        } else {
+          loadWelcomePanel();
+          showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
+          History.newItem("welcome");
+        }
+        break;
+      case CHARACTER_LIST_STATE:
+        if (isLoggedin()) {
+          loadShowCharacterlistPanel();
+        } else {
+          loadWelcomePanel();
+          showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
+          History.newItem("welcome");
+        }
+        break;
+      case CREATE_CAMPAIGN_STATE:
+        if (isLoggedin()) {
+          loadCreateCampaignPanel();
+        } else {
+          loadWelcomePanel();
+          showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
+          History.newItem("welcome");
+        }
+        break;
+      case EDIT_CAMPAIGN_STATE:
+        if (isLoggedin()) {
+          loadEditCampaignPanel();
+        } else {
+          loadWelcomePanel();
+          showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
+          History.newItem("welcome");
+        }
+        break;
+      case REGISTER_STATE:
+        loadRegisterPanel();
+        break;
+      default:
+        // TODO - Any default-behavior? Maybe the welcome-panel!? (aaz214 - 15.04.2012) 
       }
-      break;
-    case CREATE_CHARACTER_STATE:
-      if (isLoggedin()) {
-        loadCreateCharacterPanel();
-      } else {
-        loadWelcomePanel();
-        showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
-        History.newItem("welcome");
-      }
-      break;
-    case CHARACTER_LIST_STATE:
-      if (isLoggedin()) {
-        loadShowCharacterlistPanel();
-      } else {
-        loadWelcomePanel();
-        showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
-        History.newItem("welcome");
-      }
-      break;
-    case CREATE_CAMPAIGN_STATE:
-      if (isLoggedin()) {
-        loadCreateCampaignPanel();
-      } else {
-        loadWelcomePanel();
-        showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
-        History.newItem("welcome");
-      }
-      break;
-    case EDIT_CAMPAIGN_STATE:
-      if (isLoggedin()) {
-        loadEditCampaignPanel();
-      } else {
-        loadWelcomePanel();
-        showDialogBox("Fehlermeldung", "Benutzer ist nicht angemeldet.<BR><BR>Bitte erst anmelden");
-        History.newItem("welcome");
-      }
-      break;
-    case REGISTER_STATE:
-      loadRegisterPanel();
-      break;
-    default:
-      // TODO - Any default-behavior? Maybe the welcome-panel!? (aaz214 - 15.04.2012) 
     }
+    // TODO - Any default-behavior? Maybe the welcome-panel!? (aaz214 - 16.04.2012)
   }
 
   /**
