@@ -1,4 +1,4 @@
-package org.timadorus.webapp.client.character.ui.SelectSkillLevel;
+package org.timadorus.webapp.client.character.ui.selectskilllevel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
