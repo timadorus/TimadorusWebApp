@@ -94,6 +94,7 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
 
   // clear "content" #div and add Class SelectClassPanel to it
   public void loadSelectClassPanel() {
+    // TODO should be moved into the widget
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectClassDialog.getSelecteddDialog(getEntry(), character, user)
                                      .getFormPanel());
@@ -101,6 +102,7 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
 
   // clear "content" #div and add Class SelectTempStats to it
   public void loadSelectTempStatsPanel() {
+    // TODO should be moved into the widget
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(getEntry(),
                                                                               character, user));
