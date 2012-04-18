@@ -39,10 +39,11 @@
 		<!-- handling mail -->
         <dependency org="org.apache.commons" name="commons-email" rev="1.2" conf="*->default"/>
 		
-		<!-- testing: JUnit, emma  -->
+		<!-- testing: JUnit, emma, mockito  -->
 		<dependency org="junit" name="junit" rev="4.8.2" conf="testing->default"/>
 		<dependency org="emma" name="emma_ant" rev="2.1.5320"  conf="testing->default"/>
         <dependency org="emma" name="emma" rev="2.1.5320"  conf="testing->default"/>
+        <dependency org="org.mockito" name="mockito-all" rev="1.9.0" conf="testing->default"/>
 		
 		<!-- JDO -->
 		<dependency org="javax.jdo" name="jdo-api" rev="3.0" conf="compile->default"/>
