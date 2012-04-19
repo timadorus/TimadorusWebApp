@@ -10,6 +10,7 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.Skill;
+import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -217,7 +218,7 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
 
   public void loadGetPotStatsPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(GetPotStatsPanel.getGetPotStatsPanel(entry, character, user));
+    RootPanel.get("content").add(PotStatsDialog.getDialog(entry, character, user).getFormPanel());
   }
 
   public Skill getSelectedSkill() {

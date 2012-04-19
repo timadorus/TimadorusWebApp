@@ -7,6 +7,7 @@ import java.util.List;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
 import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -309,7 +310,7 @@ public class SelectTempStatsPanel extends FormPanel {
   // clear "content" #div and add Class GetPotStatsPanel to it
   public void loadGetPotStatsPanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(GetPotStatsPanel.getGetPotStatsPanel(entry, character, user));
+    RootPanel.get("content").add(PotStatsDialog.getDialog(entry, character, user).getFormPanel());
   }
 
   // creates a new SelectTempStats instance
