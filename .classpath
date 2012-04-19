@@ -24,5 +24,6 @@
 	<classpathentry kind="lib" path="lib/runtime/datanucleus-api-jdo-3.0.7.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/datanucleus-rdbms-3.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/datanucleus-core-3.0.10.jar"/>
+	<classpathentry kind="lib" path="lib/testing/mockito-all-1.9.0.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
