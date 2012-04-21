@@ -16,16 +16,16 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Image;
 
 //FormPanel for selecting Skill-Level-1 items of a Character-Object
 public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
@@ -392,7 +392,6 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
 
   public void loadSelectAppearancePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectAppearancePanel.getSelectAppearancePanel(entry, character, user));
   }
 
   private void onRemoveButtonClick() {

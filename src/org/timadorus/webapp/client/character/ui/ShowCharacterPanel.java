@@ -236,14 +236,14 @@ public final class ShowCharacterPanel extends FormPanel {
     
     detailGrid.setWidget(5, 0, new HTML("<b>Hair color:</b>"));
     if (character.getHairColor() != null) {
-      detailGrid.setWidget(5, 1, new Label(character.getHairColor()));
+      detailGrid.setWidget(5, 1, new Label(character.getHairColor().getValue()));
     } else {
       detailGrid.setWidget(5, 1, new Label("--"));
     }
     
     detailGrid.setWidget(6, 0, new HTML("<b>Skin color:</b>"));
     if (character.getSkinColor() != null) {
-      detailGrid.setWidget(6, 1, new Label(character.getSkinColor()));
+      detailGrid.setWidget(6, 1, new Label(character.getSkinColor().getValue()));
     } else {
       detailGrid.setWidget(6, 1, new Label("--"));
     }    

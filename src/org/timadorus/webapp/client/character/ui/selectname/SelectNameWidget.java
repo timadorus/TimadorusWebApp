@@ -4,8 +4,8 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.SelectAppearancePanel;
 import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
+import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanceDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -98,8 +98,7 @@ public class SelectNameWidget extends FormPanel implements SelectNameDialog.Disp
 
   public void loadSelectAppearancePanel(DefaultTimadorusWebApp entry, Character character, User user) {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectAppearancePanel.getSelectAppearancePanel(entry, character,
-                                                                                user));
+    RootPanel.get("content").add(SelectAppearanceDialog.getDialog(entry, character, user).getFormPanel());
   }
 
   public void loadSelectCharacterReadyPanel(DefaultTimadorusWebApp entry, Character character) {

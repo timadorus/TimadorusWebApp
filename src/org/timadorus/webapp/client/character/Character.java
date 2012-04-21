@@ -20,12 +20,12 @@ import org.timadorus.webapp.client.character.attributes.CClass;
 import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.attributes.Race;
 import org.timadorus.webapp.client.character.attributes.Skill;
+import org.timadorus.webapp.client.character.attributes.CharacterColors;
 import org.timadorus.webapp.client.character.attributes.Stat;
 
 /**
- * @author kilic_a, willat_j
- * This class represents a Character-Object, which will build at the client-Side and afterward it will be send to
- * Server for Storing in JDO-DB
+ * @author kilic_a, willat_j This class represents a Character-Object, which will build at the client-Side and afterward
+ *         it will be send to Server for Storing in JDO-DB
  */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Character implements Serializable {
@@ -35,7 +35,7 @@ public class Character implements Serializable {
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   Long key;
-    
+
   @Persistent
   String characterID = "999";
 
@@ -48,25 +48,25 @@ public class Character implements Serializable {
 
   @Persistent
   String gender = "Dummy-Gender";
-  
+
   @Persistent
   String skinColor;
-  
+
   @Persistent
   String hairColor;
 
-  //@Persistent(dependent = "true") 
-  // wenn einkommentiert funktioniert löschen nicht, 
+  // @Persistent(dependent = "true")
+  // wenn einkommentiert funktioniert löschen nicht,
   // wenn anderer Charakter mit gleicher Rasse existiert,
-  // java.sql.SQLIntegrityConstraintViolationException: 
-  // DELETE on table 'FACTION' caused a violation of foreign key constraint 
-  // 'CHARACTER_FK1' for key (1).  The statement has been rolled back.
+  // java.sql.SQLIntegrityConstraintViolationException:
+  // DELETE on table 'FACTION' caused a violation of foreign key constraint
+  // 'CHARACTER_FK1' for key (1). The statement has been rolled back.
   Race race;
 
-  //@Persistent(dependent = "true")
+  // @Persistent(dependent = "true")
   CClass charClass;
 
-  //@Persistent(dependent = "true")
+  // @Persistent(dependent = "true")
   Faction faction;
 
   @Persistent
@@ -81,27 +81,27 @@ public class Character implements Serializable {
 
   @NotPersistent
   String allAttrInfoPart2 = "--";
-  
+
   @Persistent
   @Element(dependent = "true")
   List<Skill> skillList = new LinkedList<Skill>();
-  
+
   @Persistent
   @Element(dependent = "true")
   List<Skill> skillListLevel1 = new LinkedList<Skill>();
-  
+
   @Persistent
   List<Integer> tempStats = new LinkedList<Integer>();
-  
+
   @Persistent
   List<Integer> potStats = new LinkedList<Integer>();
-  
-  
-  public Character() { }
+
+  public Character() {
+  }
 
   void fillStats() {
     statList = new LinkedList<Stat>();
-    
+
     Stat s1 = new Stat("Konstitution", "Konsti");
     statList.add(s1);
     Stat s2 = new Stat("Agilität", "Agi");
@@ -125,7 +125,7 @@ public class Character implements Serializable {
     Stat s11 = new Stat("Empathie", "Emp");
     statList.add(s11);
     Stat s12 = new Stat("Aussehen", "aussehen");
-    
+
     final int times = 100;
     int randomInt = (int) Math.floor((Math.random() * times) + 1);
     s12.setTempStat(randomInt);
@@ -155,21 +155,26 @@ public class Character implements Serializable {
   public void setGender(String genderIn) {
     this.gender = genderIn;
   }
-  
-  public String getSkinColor() {
-    return skinColor;
+
+  /**
+   * Returns the {@link CharacterColors} of the character, or <code>null</code> if the saved value is invalid.
+   * 
+   * @return
+   */
+  public CharacterColors getSkinColor() {
+    return CharacterColors.getByValue(skinColor);
   }
-  
-  public void setSkinColor(String skinColorIn) {
-    this.skinColor = skinColorIn;
+
+  public void setSkinColor(CharacterColors skinColorIn) {
+    this.skinColor = skinColorIn.getValue();
   }
-  
-  public String getHairColor() {
-    return hairColor;
+
+  public CharacterColors getHairColor() {
+    return CharacterColors.getByValue(hairColor);
   }
-  
-  public void setHairColor(String hairColorIn) {
-    this.hairColor = hairColorIn;
+
+  public void setHairColor(CharacterColors hairColorIn) {
+    this.hairColor = hairColorIn.getValue();
   }
 
   public Race getRace() {
@@ -178,7 +183,7 @@ public class Character implements Serializable {
 
   public void setRace(Race raceIn) {
     this.race = raceIn;
-  } 
+  }
 
   public Long getKey() {
     return key;
@@ -187,8 +192,6 @@ public class Character implements Serializable {
   public void setKey(Long keyIn) {
     this.key = keyIn;
   }
-
- 
 
   public String getCharacterID() {
     return characterID;
@@ -214,7 +217,6 @@ public class Character implements Serializable {
     this.complete = completeIn;
   }
 
-
   public String getAllAttrInfo_Part1() {
     return allAttrInfoPart1;
   }
@@ -222,13 +224,12 @@ public class Character implements Serializable {
   public void setAllAttrInfo_Part1() {
     allAttrInfoPart1 = this.toString();
   }
- 
-  //split Information-String in two Parts, because com.google.appengine.api.datastore.Text don't works on client side
+
+  // split Information-String in two Parts, because com.google.appengine.api.datastore.Text don't works on client side
   public void setAllAttrInfo() {
     setAllAttrInfo_Part1();
     setAllAttrInfo_Part2();
   }
-  
 
   public String getAllAttrInfo_Part2() {
     return allAttrInfoPart2;
@@ -239,7 +240,7 @@ public class Character implements Serializable {
   }
 
   /* Save Character-Relevance Info's as one-String-Object, for later saving as one-String-Object in AppEngine-JDO */
-  
+
   public List<Integer> getTempStat() {
     return tempStats;
   }
@@ -275,8 +276,6 @@ public class Character implements Serializable {
   public void setFaction(Faction factionIn) {
     this.faction = factionIn;
   }
-  
-  
 
   public List<Skill> getSkillList() {
     return skillList;
@@ -285,56 +284,56 @@ public class Character implements Serializable {
   public void setSkillList(List<Skill> skillListIn) {
     this.skillList = skillListIn;
   }
-  
+
   public String getSkillListNames() {
     String s = "";
     for (Skill skill : skillList) {
       s += skill.getName() + ", ";
     }
     if (!s.isEmpty()) {
-      //delete last ", " char
-      s = s.substring(0, s.length() - 2);   
+      // delete last ", " char
+      s = s.substring(0, s.length() - 2);
     }
-    
+
     return s;
   }
-  
+
   public String getSkillLevel1ListNames() {
     String s = "";
     for (Skill skill : skillListLevel1) {
       s += skill.getName() + ", ";
     }
     if (!s.isEmpty()) {
-      //delete last ", " char
-      s = s.substring(0, s.length() - 2);  
+      // delete last ", " char
+      s = s.substring(0, s.length() - 2);
     }
-    
+
     return s;
   }
-  
+
   public String getPotStatListWerte() {
     String s = "";
     for (Integer i : potStats) {
       s += i + ", ";
     }
     if (!s.isEmpty()) {
-      //delete last ", " char
-      s = s.substring(0, s.length() - 2);   
+      // delete last ", " char
+      s = s.substring(0, s.length() - 2);
     }
-    
+
     return s;
   }
-  
+
   public String getTempStatListWerte() {
     String s = "";
     for (Integer i : tempStats) {
       s += i + ", ";
     }
     if (!s.isEmpty()) {
-      //delete last ", " char
-      s = s.substring(0, s.length() - 2);  
+      // delete last ", " char
+      s = s.substring(0, s.length() - 2);
     }
-    
+
     return s;
   }
 
@@ -354,7 +353,7 @@ public class Character implements Serializable {
 
     return s;
   }
-  
+
   public List<Integer> getTempStats() {
     return tempStats;
   }
@@ -370,12 +369,13 @@ public class Character implements Serializable {
   public void setPotStats(List<Integer> potStats2) {
     this.potStats = potStats2;
   }
-  
+
   @Override
   public String toString() {
     String s = "";
 
-    s += "Character-ID: " + getCharacterID() + "\nCharacter-Name: " + getName() + "\nCharacter-Gender: " + getGender();
+    s += "Character-ID: " + getCharacterID() + "\nCharacter-Name: " + getName()
+        + "\nCharacter-Gender: " + getGender();
     if (race != null) {
       s += "\n" + race.toString();
     }
@@ -388,30 +388,29 @@ public class Character implements Serializable {
     if (getStatList() != null) {
       s += "\nCharacter-Stat-Liste: " + getStatListString();
     }
-    
+
     return s;
   }
-  
+
   public String toStringPart2() {
     String s = "";
 
-    
     if (getSkillList() != null) {
       s += "\nSkill-Liste: " + getSkillListNames();
     }
-    
+
     if (getSkillListLevel1() != null) {
       s += "\nSkill_Level1-Liste: " + getSkillLevel1ListNames();
     }
-    
+
     if (getPotStats() != null) {
       s += "\nPot-Stat-Liste: " + getPotStatListWerte();
     }
-    
+
     if (getTempStat() != null) {
       s += "\nTemp.-Stat-Liste: " + getTempStatListWerte();
     }
-    
+
     return s;
   }
 }

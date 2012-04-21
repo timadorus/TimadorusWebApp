@@ -7,6 +7,7 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.CClass;
+import org.timadorus.webapp.client.character.attributes.CharacterColors;
 import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.attributes.Race;
 import org.timadorus.webapp.client.character.attributes.Skill;
@@ -127,8 +128,8 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
     Character character = new Character();
     character.setName("Test");
     character.setCharacterID("123");
-    character.setHairColor("#000000");
-    character.setSkinColor("#FFFFFF");
+    character.setHairColor(CharacterColors.BLACK);
+    character.setSkinColor(CharacterColors.WHITE);
     CClass cclass = new CClass("Class", "A Class");
     character.setCharClass(cclass);
     Faction fac = new Faction();
