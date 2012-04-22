@@ -1,10 +1,18 @@
 package org.timadorus.webapp.client.character.ui.potstat;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -42,8 +50,11 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
    */
   private FlexTable getPotStatGrid;
 
-  public PotStatsWidget(Character characterIn) {
+  private final DefaultTimadorusWebApp entry;
+
+  public PotStatsWidget(DefaultTimadorusWebApp entry, Character characterIn) {
     super();
+    this.entry = entry;
 
     nextButton = new Button("weiter");
     prevButton = new Button("zurück");
@@ -142,5 +153,58 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
       }
     };
     prevButton.addClickHandler(clickHandler);
+  }
+  
+  /**
+   * 
+   * @author sage
+   * 
+   */
+  private class PotFieldCallback implements AsyncCallback<Integer> {
+
+    private int fieldNum;
+    private final List<Integer> potStats;
+
+    /**
+     * 
+     * @param fieldNum
+     *          the number of the pot field to set.
+     * @param potStats 
+     */
+    public PotFieldCallback(int fieldNum, List<Integer> potStats) {
+      this.fieldNum = fieldNum;
+      this.potStats = potStats;
+    }
+
+    @Override
+    public void onFailure(Throwable caught) {
+      entry.showDialogBox("Remote Service Failure",
+                               "Client/Server Create Character Service Failure!\n"
+                                   + "please contact the support service or server admin. \n"
+                                   + "RPC that failed was: int makePotStat(int)");
+    }
+
+    @Override
+    public void onSuccess(Integer result) {
+      potStats.add(fieldNum, result);
+      addGridEntry(fieldNum + 1, 2, result.toString());
+    }
+  };
+  
+  @Override
+  public List<Integer> calculatePotStats(List<Integer> tempStat) {
+    CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
+
+    AsyncCallback<Integer> asyncCallback;
+    
+    List<Integer> potStats = new ArrayList<Integer>();
+
+    for (int i = 0; i < tempStat.size(); i++) {
+      asyncCallback = new PotFieldCallback(i, potStats);
+      int temp = tempStat.get(i);
+      createServiceAsync.makePotStat(temp, asyncCallback);
+    }
+    
+    return potStats;
   }
 }

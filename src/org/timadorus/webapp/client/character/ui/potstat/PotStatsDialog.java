@@ -1,6 +1,6 @@
 package org.timadorus.webapp.client.character.ui.potstat;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
@@ -10,11 +10,7 @@ import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.character.ui.SelectSkillPanel;
 import org.timadorus.webapp.client.character.ui.SelectTempStatsPanel;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
@@ -34,40 +30,9 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
     public void addNextButtonHandler(DefaultActionHandler handler);
 
     public void addPrevButtonHandler(DefaultActionHandler handler);
+    
+    public List<Integer> calculatePotStats(List<Integer> tempStat);
   }
-
-  /**
-   * 
-   * @author sage
-   * 
-   */
-  private class PotFieldCallback implements AsyncCallback<Integer> {
-
-    private int fieldNum;
-
-    /**
-     * 
-     * @param fieldNum
-     *          the number of the pot field to set.
-     */
-    public PotFieldCallback(int fieldNum) {
-      this.fieldNum = fieldNum;
-    }
-
-    @Override
-    public void onFailure(Throwable caught) {
-      getEntry().showDialogBox("Remote Service Failure",
-                               "Client/Server Create Character Service Failure!\n"
-                                   + "please contact the support service or server admin. \n"
-                                   + "RPC that failed was: int makePotStat(int)");
-    }
-
-    @Override
-    public void onSuccess(Integer result) {
-      potStats.add(fieldNum, result);
-      getDisplay().addGridEntry(fieldNum + 1, 2, result.toString());
-    }
-  };
 
   private Character character;
 
@@ -76,7 +41,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
   /**
    * list holding characters potstats
    */
-  private ArrayList<Integer> potStats;
+  private List<Integer> potStats;
 
   public PotStatsDialog(Display display, DefaultTimadorusWebApp entry, Character character,
                         User user) {
@@ -101,24 +66,12 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
       }
     });
 
-    potStats = new ArrayList<Integer>();
+    potStats = getDisplay().calculatePotStats(character.getTempStat());
     character.setPotStats(potStats);
-
-    calculatePotStats();
   }
 
   // calculates potStats
-  public void calculatePotStats() {
-    CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
 
-    AsyncCallback<Integer> asyncCallback;
-
-    for (int i = 0; i < character.getTempStat().size(); i++) {
-      asyncCallback = new PotFieldCallback(i);
-      int temp = character.getTempStat().get(i);
-      createServiceAsync.makePotStat(temp, asyncCallback);
-    }
-  }
 
   // clear "content" #div and add Class SelectTempStats to it
   public void
@@ -144,7 +97,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
 
   public static PotStatsDialog getDialog(DefaultTimadorusWebApp entry, Character character,
                                          User user) {
-    PotStatsDialog.Display display = new PotStatsWidget(character);
+    PotStatsDialog.Display display = new PotStatsWidget(entry, character);
     PotStatsDialog dialog = new PotStatsDialog(display, entry, character, user);
     return dialog;
   }
