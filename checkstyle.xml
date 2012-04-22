@@ -75,7 +75,7 @@
         <module name="AvoidNestedBlocks" />
 
         <!-- Checks for coding problems -->
-        <module name="MagicNumber" />
+        <!-- module name="MagicNumber" /-->
         <module name="CovariantEquals" />
         <!-- TODO enable and fix violations -->
         <!--  <module name="DeclarationOrder" />  -->

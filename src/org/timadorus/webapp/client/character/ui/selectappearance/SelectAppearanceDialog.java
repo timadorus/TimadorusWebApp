@@ -7,8 +7,8 @@ import org.timadorus.webapp.client.character.attributes.CharacterColors;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.SelectSkillLevel1Panel;
 import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
+import org.timadorus.webapp.client.character.ui.selectskilllevel.SelectSkillLevelDialog;
 
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -68,8 +68,7 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
 
   private boolean skinColorChosen;
 
-  public SelectAppearanceDialog(Display display, DefaultTimadorusWebApp entry, Character character,
-                                User user) {
+  public SelectAppearanceDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
     super(display, entry);
 
     this.character = character;
@@ -259,8 +258,7 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
    */
   public void loadSelectSkillLvl1Panel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(getEntry(),
-                                                                                  character, user));
+    RootPanel.get("content").add(SelectSkillLevelDialog.getDialog(getEntry(), character, user).getFormPanel());
   }
 
   /**
@@ -268,12 +266,10 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
    */
   public void loadSelectNamePanel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectNameDialog.getDialog(getEntry(), character, user)
-                                     .getFormPanel());
+    RootPanel.get("content").add(SelectNameDialog.getDialog(getEntry(), character, user).getFormPanel());
   }
 
-  public static SelectAppearanceDialog getDialog(DefaultTimadorusWebApp entry, Character character,
-                                                 User user) {
+  public static SelectAppearanceDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
     SelectAppearanceDialog.Display display = new SelectAppearanceWidget(character);
     SelectAppearanceDialog dialog = new SelectAppearanceDialog(display, entry, character, user);
     return dialog;

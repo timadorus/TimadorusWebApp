@@ -1,15 +1,13 @@
-package org.timadorus.webapp.client.character.ui;
+package org.timadorus.webapp.client.character.ui.selectskilllevel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 
-import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.Skill;
+import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -28,13 +26,9 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 //FormPanel for selecting Skill-Level-1 items of a Character-Object
-public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
+public class SelectSkillLevelWidget extends FormPanel implements ChangeHandler, SelectSkillLevelDialog.Display {
 
-  private final DefaultTimadorusWebApp entry;
-
-  private final Character character;
-
-  private User user;
+  // private final DefaultTimadorusWebApp entry;
 
   private Button nextButton = new Button("weiter");
 
@@ -54,7 +48,7 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
 
   private ListBox addedskillListBox = new ListBox();
 
-  private Set<String> tlist = new HashSet<String>();
+  // private Set<String> addedSkillList = new HashSet<String>();
 
   private Label skillLabel = new Label("L1 Fertigkeiten wählen: ");
 
@@ -66,46 +60,15 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
 
   private Button resetPage = new Button("reset");
 
-  private List<Skill> backupList;
-
   private List<TextBox[]> tbObjList = new ArrayList<TextBox[]>();
 
   private String[] titleList = { "Skill-Name", "Cost", "Rank", "Rk_Bn", "Stat_Bn", "Level_Bn", "Item", "Total" };
 
-  public SelectSkillLevel1Panel(final DefaultTimadorusWebApp entryIn, final Character characterIn, User user) {
+  private List<TextBoxHandler> textBoxHandler;
+
+  public SelectSkillLevelWidget(Character characterIn, List<Skill> chooseableSkills) {
     super();
-    this.entry = entryIn;
-    this.character = characterIn;
-    this.user = user;
 
-    // TestValues
-
-    // Create a handler for the sendButton and nameField
-    class MyHandler implements ClickHandler {
-      public void onClick(ClickEvent event) {
-        Object source = event.getSource();
-        if (source.equals(prevButton)) {
-          loadSelectSkillPanel();
-
-        } else if (source.equals(nextButton)) {
-          onNextButtonClick();
-
-        } else if (source.equals(skillListBox)) {
-          onSkillListBoxClick();
-
-        } else if (source.equals(addButton)) {
-          onAddButtonClick();
-
-        } else if (source.equals(removeButton)) {
-          onRemoveButtonClick();
-
-        } else if (source.equals(resetPage)) {
-          onResetButtonClick(); // reset Seite
-        }
-
-      }
-
-    }
     addedskillLabel.setStyleName("labelColorRed");
     nextButton.setEnabled(false);
     Image progressBar = new Image("media/images/progressbar_7.png");
@@ -113,7 +76,7 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
     selectSkillGrid.setBorderWidth(0);
     selectSkillGrid.setStylePrimaryName("selectGrid");
 
-    for (Skill skill : entryIn.getTestValues().getSkillsLevel1()) {
+    for (Skill skill : chooseableSkills) {
       skillListBox.addItem(skill.getName());
     }
 
@@ -163,46 +126,6 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
 
-    // Add Handlers
-    MyHandler handler = new MyHandler();
-
-    nextButton.addClickHandler(handler);
-    prevButton.addClickHandler(handler);
-
-    addButton.addClickHandler(handler);
-    removeButton.addClickHandler(handler);
-
-    skillListBox.addClickHandler(handler);
-    addedskillListBox.addClickHandler(handler);
-    resetPage.addClickHandler(handler);
-
-  }
-
-  private void onNextButtonClick() {
-    saveSelectedSkillsInCharacter();
-    loadSelectAppearancePanel();
-  }
-
-  private void onAddButtonClick() {
-    String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
-
-    if (!tlist.contains(skillName)) {
-      addedskillListBox.addItem(skillName);
-      tlist.add(skillName);
-      skillCostTable();
-    }
-    readyToSave();
-  }
-
-  public void loadSelectSkillPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character, user));
-  }
-
-  public static SelectSkillLevel1Panel getSelectSkillLevel1Panel(DefaultTimadorusWebApp entry, Character character,
-    User user) {
-
-    return new SelectSkillLevel1Panel(entry, character, user);
   }
 
   private static final HTML getInformation() {
@@ -211,46 +134,18 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
     return information;
   }
 
-  public DefaultTimadorusWebApp getEntry() {
-    return entry;
-  }
+  public void reloadSkillCostTable(Set<String> addedSkillList, List<Skill> skillLevel1) {
 
-  public void saveSelectedSkillsInCharacter() {
-    for (String skillName : tlist) {
-      for (Skill skill : entry.getTestValues().getSkillsLevel1()) {
-        if (skill.getName().equals(skillName)) {
-          character.getSkillListLevel1().add(skill);
-
-        }
-      }
-    }
-  }
-
-  public void readyToSave() {
-    if (tlist.isEmpty()) {
-      addedskillLabel.setStyleName("labelColorRed");
-      nextButton.setEnabled(false);
-      resetPage.setEnabled(false);
-    } else {
-      addedskillLabel.setStyleName("labelColorGreen");
-      nextButton.setEnabled(true);
-      resetPage.setEnabled(true);
-    }
-  }
-
-  public void skillCostTable() {
-    backupList = new ArrayList<Skill>(entry.getTestValues().getBackupSkills_Level1());
     Set<Skill> skillSet = new HashSet<Skill>();
 
-    for (String skillName : tlist) {
-      ListIterator<Skill> skillIterator = entry.getTestValues().getSkillsLevel1().listIterator();
-      while (skillIterator.hasNext()) {
-        Skill newSkill = (Skill) skillIterator.next();
-        if (newSkill.getName().equals(skillName)) {
-          skillSet.add(newSkill);
+    for (String skillName : addedSkillList) {
+      for (Skill skill : skillLevel1) {
+        if (skill.getName().equals(skillName)) {
+          skillSet.add(skill);
         }
       }
     }
+
     panel.remove(selectStatGrid);
     selectStatGrid = getSkillCostTableLabel();
 
@@ -322,9 +217,70 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
   }
 
   @Override
+  public FormPanel getFormPanel() {
+    return this;
+  }
+
+  @Override
+  public String getSelectedItemAddedSkills() {
+    int selectedIndex = addedskillListBox.getSelectedIndex();
+    try {
+      return addedskillListBox.getValue(selectedIndex);
+    } catch (IndexOutOfBoundsException ex) {
+      return null;
+    }
+  }
+
+  @Override
+  public void removeItemAddedSkills(String itemname) {
+    for (int i = 0; i < addedskillListBox.getItemCount(); i++) {
+      if (addedskillListBox.getItemText(i).equals(itemname)) {
+        addedskillListBox.removeItem(i);
+      }
+    }
+  }
+
+  public void readyToSave(boolean hasSelectedItems) {
+    if (!hasSelectedItems) {
+      addedskillLabel.setStyleName("labelColorRed");
+      nextButton.setEnabled(false);
+      resetPage.setEnabled(false);
+    } else {
+      addedskillLabel.setStyleName("labelColorGreen");
+      nextButton.setEnabled(true);
+      resetPage.setEnabled(true);
+    }
+  }
+
+  @Override
+  public String getSelectedItemSkills() {
+    try {
+      return skillListBox.getValue(skillListBox.getSelectedIndex());
+    } catch (IndexOutOfBoundsException ex) {
+      return null;
+    }
+  }
+
+  @Override
+  public void addItemAddedSkills(String item) {
+    addedskillListBox.addItem(item);
+  }
+
+  @Override
+  public void addTextBoxHanlder(TextBoxHandler handler) {
+    textBoxHandler.add(handler);
+  }
+
+  @Override
   public void onChange(ChangeEvent event) {
-    String evTexboxID = "" + ((Object) (TextBox) event.getSource()).hashCode();
     String[] skInfo = new String[3];
+
+    TextBox textBox = (TextBox) event.getSource();
+    String id = String.valueOf(textBox.hashCode());
+
+    String title = ((TextBox) event.getSource()).getTitle();
+    String value = ((TextBox) event.getSource()).getValue();
+
     for (TextBox[] tb : tbObjList) {
       String skillN = "";
       for (int i = 0; i < tb.length; i++) {
@@ -336,90 +292,82 @@ public class SelectSkillLevel1Panel extends FormPanel implements ChangeHandler {
           }
 
           String texBoxID = "" + ((Object) tb[i]).hashCode();
-          if (texBoxID.equals(evTexboxID)) {
-            String skAtt = ((TextBox) event.getSource()).getTitle();
-            String newAttrWert = ((TextBox) event.getSource()).getValue();
+          if (texBoxID.equals(id)) {
             skInfo[0] = skillN;
-            skInfo[1] = skAtt;
-            skInfo[2] = newAttrWert;
+            skInfo[1] = title;
+            skInfo[2] = value;
           }
         }
       }
     }
+    for (TextBoxHandler tbh : textBoxHandler) {
+      tbh.onChange(skInfo);
+    }
+  }
 
-    List<Skill> skillList = entry.getTestValues().getSkillsLevel1();
-    for (Skill skill : skillList) {
-      if (skill.getName().equals(skInfo[0])) {
-        if (skInfo[1].equalsIgnoreCase("Cost")) {
-          skill.setCost(Integer.valueOf(skInfo[2]));
-        }
-        if (skInfo[1].equalsIgnoreCase("Rank")) {
-          skill.setRank(Integer.valueOf(skInfo[2]));
-        }
-        if (skInfo[1].equalsIgnoreCase("Rk_Bn")) {
-          skill.setRk_Bn(Integer.valueOf(skInfo[2]));
-        }
-        if (skInfo[1].equalsIgnoreCase("Stat_Bn")) {
-          skill.setStat_Bn(Integer.valueOf(skInfo[2]));
-        }
-        if (skInfo[1].equalsIgnoreCase("Level_Bn")) {
-          skill.setLevel_Bn(Integer.valueOf(skInfo[2]));
-        }
-        if (skInfo[1].equalsIgnoreCase("Item")) {
-          skill.setItem(Integer.valueOf(skInfo[2]));
-        }
+  @Override
+  public void addNextButtonHandler(final DefaultActionHandler handler) {
+    nextButton.addClickHandler(new ClickHandler() {
 
-        skill.setTotal("update");
-        skillList.remove(skill);
-        skillList.add(skill);
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
       }
-    }
-
-    // überschreibe alte originale Skill-Liste mit der über die GUI editierten Skill-Liste
-    entry.getTestValues().setSkills(skillList);
-
-    if (event.getSource().equals(prevButton)) {
-      // TODO: loadSelectStatsPanelS0();
-      // nextButton onclick
-    }
+    });
   }
 
-  public void onResetButtonClick() {
-    entry.getTestValues().setSkillsLevel1(new ArrayList<Skill>(backupList)); // reset to "Skill begin list"
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(entry, character, user));
-  }
+  @Override
+  public void addPrevButtonHandler(final DefaultActionHandler handler) {
+    prevButton.addClickHandler(new ClickHandler() {
 
-  public void loadSelectAppearancePanel() {
-    RootPanel.get("content").clear();
-  }
-
-  private void onRemoveButtonClick() {
-    int selectedIndex = addedskillListBox.getSelectedIndex();
-    String skillName = addedskillListBox.getValue(selectedIndex);
-
-    if (addedskillListBox.getItemCount() > 0) {
-      if (selectedIndex >= 0) {
-        addedskillListBox.removeItem(selectedIndex);
-        tlist.remove(skillName);
-        skillCostTable();
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
       }
-    }
-    readyToSave();
+    });
   }
 
-  private void onSkillListBoxClick() {
-    // show skill informations
-    String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
-    ListIterator<Skill> skillIterator = entry.getTestValues().getSkillsLevel1().listIterator();
-    RootPanel.get("information").clear();
-    while (skillIterator.hasNext()) {
-      Skill newSkill = (Skill) skillIterator.next();
-      if (newSkill.getName().equals(skillName)) {
-        RootPanel.get("information").add(new HTML("<h1>" + newSkill.getName() + "</h1><p>" + newSkill.getDescription()
-                                             + "</p>" + "<p>" + newSkill.toString() + "</p>"));
+  @Override
+  public void addAddButtonHandler(final DefaultActionHandler handler) {
+    addButton.addClickHandler(new ClickHandler() {
 
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
       }
-    }
+    });
+  }
+
+  @Override
+  public void addRemoveButtonHandler(final DefaultActionHandler handler) {
+    removeButton.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void addResetButtonHandler(final DefaultActionHandler handler) {
+    resetPage.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void addSkillListBoxHandler(final DefaultActionHandler handler) {
+    skillListBox.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
   }
 }

@@ -11,6 +11,7 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.Skill;
 import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
+import org.timadorus.webapp.client.character.ui.selectskilllevel.SelectSkillLevelDialog;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -34,43 +35,40 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
   final DefaultTimadorusWebApp entry;
 
   final Character character;
-  
+
   User user;
 
-  Button nextButton = new Button("weiter");
+  private Button nextButton = new Button("weiter");
 
-  Button prevButton = new Button("zurück");
+  private Button prevButton = new Button("zurück");
 
-  VerticalPanel panel = new VerticalPanel();
+  private VerticalPanel panel = new VerticalPanel();
 
-  FlexTable buttonGrid = new FlexTable();
+  private FlexTable buttonGrid = new FlexTable();
 
-  FlexTable selectSkillGrid = new FlexTable();
+  private FlexTable selectSkillGrid = new FlexTable();
 
-  ListBox skillListBox = new ListBox();
+  private ListBox skillListBox = new ListBox();
 
-  Button hinzufuegenButton = new Button("+");
+  private Button addButton = new Button("+");
 
-  Button entferneButton = new Button("-");
+  private Button removeButton = new Button("-");
 
-  ListBox addedskillListBox = new ListBox();
+  private ListBox addedskillListBox = new ListBox();
 
   private Set<String> tlist = new HashSet<String>();
 
-  Label skillLabel = new Label("Fertigkeiten wählen: ");
+  private Label skillLabel = new Label("Fertigkeiten wählen: ");
 
-  Label addedskillLabel = new Label("Ausgewählte Fertigkeiten: ");
+  private Label addedskillLabel = new Label("Ausgewählte Fertigkeiten: ");
 
-  FlexTable selectStatGrid = new FlexTable();
+  private FlexTable selectStatGrid = new FlexTable();
 
-  FlexTable selectSkillGridBox = new FlexTable();
+  private FlexTable selectSkillGridBox = new FlexTable();
 
-  Button resetPage = new Button("reset");
-  
-  List<Skill> backupList; //=new ArrayList<Skill>(entry.getTestValues().getSkills());
+  private Button resetPage = new Button("reset");
 
-  // Map<String,TextBox[]> tbMap=new HashMap(); // Map lässt sich nicht Compilieren unter GWT 2.0
-  List<TextBox[]> tbObjList = new ArrayList<TextBox[]>();
+  private List<TextBox[]> tbObjList = new ArrayList<TextBox[]>();
 
   private String[] titleList = { "Skill-Name", "Cost", "Rank", "Rk_Bn", "Stat_Bn", "Level_Bn", "Item", "Total" };
 
@@ -87,53 +85,23 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
       public void onClick(ClickEvent event) {
         // prevButton onclick
         if (event.getSource().equals(prevButton)) {
-          loadGetPotStatsPanel();
+
+          onPrevButtonClick();
           // nextButton onclick
         } else if (event.getSource().equals(nextButton)) {
-          saveSelectedSkillsInCharacter();
-          loadSelectSkillLevel1Panel();
+          onNextButtonClick();
 
         } else if (event.getSource().equals(skillListBox)) {
           // show skill informations
-          String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
-          ListIterator<Skill> skillIterator = entryIn.getTestValues().getSkills().listIterator();
-          RootPanel.get("information").clear();
-          while (skillIterator.hasNext()) {
-            Skill newSkill = (Skill) skillIterator.next();
-            if (newSkill.getName().equals(skillName)) {
-              RootPanel.get("information").add(
-                                               new HTML("<h1>" + newSkill.getName() + "</h1><p>"
-                                                   + newSkill.getDescription() + "</p>" + "<p>" + newSkill.toString()
-                                                   + "</p>"));
+          onSkillListBoxClick();
 
-            }
-          }
+        } else if (event.getSource().equals(addButton)) {
 
-        } else if (event.getSource().equals(hinzufuegenButton)) {
-
-          String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
-
-          if (!tlist.contains(skillName)) {
-            addedskillListBox.addItem(skillName);
-            tlist.add(skillName);
-            skillCostTable();
-          }
-          readyToSave();
-
-        } else if (event.getSource().equals(entferneButton)) {
-          String skillName = addedskillListBox.getValue(addedskillListBox.getSelectedIndex());
-          int ind = addedskillListBox.getSelectedIndex();
-          if (addedskillListBox.getItemCount() > 0) {
-            if (ind >= 0) {
-              addedskillListBox.removeItem(ind);
-              tlist.remove(skillName);
-              skillCostTable();
-            }
-
-          }
-          readyToSave();
+          onAddButtonClick();
+        } else if (event.getSource().equals(removeButton)) {
+          onRemoveButtonClick();
         } else if (event.getSource().equals(resetPage)) {
-          loadSelectSkillPanel(); //reset Seite
+          loadSelectSkillPanel(); // reset Seite
         }
 
       }
@@ -146,23 +114,19 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
     selectSkillGrid.setBorderWidth(0);
     selectSkillGrid.setStylePrimaryName("selectGrid");
 
-    ListIterator<Skill> skillIterator = entryIn.getTestValues().getSkills().listIterator();
-    while (skillIterator.hasNext()) {
-      Skill newSkill = (Skill) skillIterator.next();
-      skillListBox.addItem(newSkill.getName());
+    for (Skill skill : entryIn.getTestValues().getSkills()) {
+      skillListBox.addItem(skill.getName());
     }
 
     skillListBox.setVisibleItemCount(skillListBox.getItemCount());
     addedskillListBox.setVisibleItemCount(skillListBox.getItemCount());
     addedskillListBox.setWidth("150");
 
-    // Label choosenskillLabel = new Label("Ausgewählte Fertigkeiten: ");
     selectSkillGrid.setWidget(0, 0, skillLabel);
     selectSkillGrid.setWidget(0, 12, addedskillLabel);
-    // selectSkillGrid.setWidget(1, 1, choosenskillLabel);
     selectSkillGrid.setWidget(1, 0, skillListBox);
-    selectSkillGrid.setWidget(1, 8, hinzufuegenButton);
-    selectSkillGrid.setWidget(2, 8, entferneButton);
+    selectSkillGrid.setWidget(1, 8, addButton);
+    selectSkillGrid.setWidget(2, 8, removeButton);
     selectSkillGrid.setWidget(1, 12, addedskillListBox);
 
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
@@ -207,13 +171,62 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
     nextButton.addClickHandler(handler);
     prevButton.addClickHandler(handler);
 
-    hinzufuegenButton.addClickHandler(handler);
-    entferneButton.addClickHandler(handler);
+    addButton.addClickHandler(handler);
+    removeButton.addClickHandler(handler);
 
     skillListBox.addClickHandler(handler);
     addedskillListBox.addClickHandler(handler);
     resetPage.addClickHandler(handler);
 
+  }
+
+  private void onNextButtonClick() {
+    saveSelectedSkillsInCharacter();
+    loadSelectSkillLevel1Panel();
+  }
+
+  private void onSkillListBoxClick() {
+    String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
+    ListIterator<Skill> skillIterator = entry.getTestValues().getSkills().listIterator();
+    RootPanel.get("information").clear();
+    while (skillIterator.hasNext()) {
+      Skill newSkill = (Skill) skillIterator.next();
+      if (newSkill.getName().equals(skillName)) {
+        RootPanel.get("information").add(new HTML("<h1>" + newSkill.getName() + "</h1><p>" + newSkill.getDescription()
+                                             + "</p>" + "<p>" + newSkill.toString() + "</p>"));
+
+      }
+    }
+  }
+
+  private void onAddButtonClick() {
+    String skillName = skillListBox.getValue(skillListBox.getSelectedIndex());
+
+    if (!tlist.contains(skillName)) {
+      addedskillListBox.addItem(skillName);
+      tlist.add(skillName);
+      skillCostTable();
+    }
+    readyToSave();
+
+  }
+
+  private void onRemoveButtonClick() {
+    String skillName = addedskillListBox.getValue(addedskillListBox.getSelectedIndex());
+    int ind = addedskillListBox.getSelectedIndex();
+    if (addedskillListBox.getItemCount() > 0) {
+      if (ind >= 0) {
+        addedskillListBox.removeItem(ind);
+        tlist.remove(skillName);
+        skillCostTable();
+      }
+
+    }
+    readyToSave();
+  }
+
+  private void onPrevButtonClick() {
+    loadGetPotStatsPanel();
   }
 
   public void loadGetPotStatsPanel() {
@@ -233,8 +246,7 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
 
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Fertigkeiten Wählen</h1><p>Wählen sie hier die Fertigkeiten ihres Charakteres. "
-                                + "Beachten Sie, dass bestimmte Fertigkeiten ab bestimmten Level-Grad zu beziehen "
-                                + "sind.</p>");
+        + "Beachten Sie, dass bestimmte Fertigkeiten ab bestimmten Level-Grad zu beziehen " + "sind.</p>");
     return information;
   }
 
@@ -243,7 +255,7 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
   }
 
   public void saveSelectedSkillsInCharacter() {
-    character.setSkillList(new ArrayList<Skill>()); //delete old List
+    character.setSkillList(new ArrayList<Skill>()); // delete old List
     for (String skillName : tlist) {
       ListIterator<Skill> skillIterator = entry.getTestValues().getSkills().listIterator();
       while (skillIterator.hasNext()) {
@@ -269,7 +281,6 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
   }
 
   public void skillCostTable() {
-    backupList = new ArrayList<Skill>(entry.getTestValues().getBackupSkills());
     Set<Skill> skillSet = new HashSet<Skill>();
 
     for (String skillName : tlist) {
@@ -286,9 +297,7 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
 
     }
     panel.remove(selectStatGrid);
-    // panel.remove(saveSkCostButton);
 
-    //selectStatGrid.removeAllRows();
     selectStatGrid = getSkillCostTableLabel();
 
     int j = 0;
@@ -297,7 +306,6 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
 
       tbArr = new TextBox[8];
       for (int i = 0; i < 8; i++) {
-       
 
         TextBox tb = new TextBox();
         if (i == 0) {
@@ -313,8 +321,6 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
 
         tb.addChangeHandler(this);
       }
-      // tbMap.put(skill.getName(), tbArr); //merke zu jedem Skill die TextBox-Felder im Map
-      // tbArray[j]=tbArr; //merke zu jedem Skill die TextBox-Felder im Object-Array
       tbObjList.add(tbArr); // merke zu jedem Skill die TextBox-Felder in einer Liste
       j++;
 
@@ -324,8 +330,6 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
     } else {
       selectSkillGrid.remove(resetPage);
     }
-
-    // panel = new VerticalPanel();
 
     panel.add(selectStatGrid);
 
@@ -348,7 +352,6 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
     selectStatGrid1.setWidget(0, 0, new Label("Skill                 "));
     selectStatGrid1.setWidget(0, 1, new Label("Cost   "));
     selectStatGrid1.setWidget(0, 2, new Label("Rank   "));
-    // selectStatGrid1.setWidget(0, 3, new Label(""));
     selectStatGrid1.setWidget(0, 3, new Label("Rk_Bn  "));
     selectStatGrid1.setWidget(0, 4, new Label("Stat_Bn"));
     selectStatGrid1.setWidget(0, 5, new Label("Level_Bn."));
@@ -372,29 +375,22 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
   @Override
   public void onChange(ChangeEvent event) {
     System.out.println("\n" + ((TextBox) event.getSource()).getValue());
-//    Object otb = ((TextBox) event.getSource()).getValue();
-//    String evTexboxText=((TextBox) event.getSource()).getText(); 
     String evTexboxID = "" + ((Object) (TextBox) event.getSource()).hashCode();
     String[] skInfo = new String[3];
     for (TextBox[] tb : tbObjList) {
       String skillN = "";
-//      String skillAttTotal="";
       for (int i = 0; i < tb.length; i++) {
-        
+
         if (tb[i] != null) {
-          
+
           if (i == 0) {
-             skillN = tb[i].getText();
-             //getRk_Bn()+getStat_Bn();
-             int m = Integer.valueOf(tb[3].getText()) + Integer.valueOf(tb[4].getText()); //update "Total"-Cell
-             tb[7].setText("" + m);
+            skillN = tb[i].getText();
+            int m = Integer.valueOf(tb[3].getText()) + Integer.valueOf(tb[4].getText()); // update "Total"-Cell
+            tb[7].setText("" + m);
           }
-          
-//          String texbText=tb[i].getText();
+
           String texBoxID = "" + ((Object) tb[i]).hashCode();
           if (texBoxID.equals(evTexboxID)) {
-//          if (textBox.getText().equalsIgnoreCase(evTBSkName)) {
-//            String skillName = tb[i].getText();
             String skAtt = ((TextBox) event.getSource()).getTitle();
             String newAttrWert = ((TextBox) event.getSource()).getValue();
             skInfo[0] = skillN;
@@ -403,7 +399,6 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
             // int Cost, int Rank, int Rk_Bn, int Stat_Bn, int Level_Bn, int Item, int Total) {
 
           }
-          // System.out.println(((Object)textBox).hashCode());
         }
       }
 
@@ -434,29 +429,23 @@ public class SelectSkillPanel extends FormPanel implements ChangeHandler {
         skill.setTotal("update");
         skillList.remove(skill);
         skillList.add(skill);
-        
+
       }
     }
     // überschreibe alte originale Skill-Liste mit der über die GUI editierten Skill-Liste
     entry.getTestValues().setSkills(skillList);
-    
-    if (event.getSource().equals(prevButton)) {
-      // loadSelectStatsPanelS0();
-      // nextButton onclick
-    }
-    // else
 
   }
-  
+
   public void loadSelectSkillPanel() {
-    entry.getTestValues().setSkills(new ArrayList<Skill>(backupList)); //reset to "Skill begin list"
+    entry.getTestValues().setSkills(entry.getTestValues().getBackupSkills()); // reset to "Skill begin list"
     RootPanel.get("content").clear();
     RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character, user));
   }
-  
+
   public void loadSelectSkillLevel1Panel() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillLevel1Panel.getSelectSkillLevel1Panel(entry, character, user));
+    RootPanel.get("content").add(SelectSkillLevelDialog.getDialog(getEntry(), character, user).getFormPanel());
   }
 
 }
