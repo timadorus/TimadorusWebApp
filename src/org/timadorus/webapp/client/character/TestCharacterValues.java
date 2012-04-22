@@ -1,12 +1,15 @@
 package org.timadorus.webapp.client.character;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.timadorus.webapp.client.character.attributes.CClass;
+import org.timadorus.webapp.client.character.attributes.CharacterColors;
 import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.attributes.Race;
 import org.timadorus.webapp.client.character.attributes.Skill;
+import org.timadorus.webapp.client.character.attributes.Stat;
 
 //This class serves dummy-Values for create-Character-progress
 public class TestCharacterValues {
@@ -511,7 +514,59 @@ public class TestCharacterValues {
     this.backupSkillsLevel1 = backupSkillsLevel1;
   }
   
-  
+  public Character createTestCharacter(String aUserName) {
+    Character character = new Character();
+    character.setName("Test");
+    character.setCharacterID("123");
+    character.setHairColor(CharacterColors.BLACK);
+    character.setSkinColor(CharacterColors.WHITE);
+    CClass cclass = new CClass("Class", "A Class");
+    character.setCharClass(cclass);
+    Faction fac = new Faction();
+    fac.setDescription("Bla");
+    final long fracId = (long) 111;
+    fac.setFractionID(fracId);
+    fac.setName("Faction");
+    final long raceId = (long) 222;
+    Race race = new Race(raceId, "Race", "A Race");
+    race.addFaction(fac);
+    race.addClass(cclass);
+    fac.setRace(race);
+    character.setRace(race);
+    character.setFaction(fac);
+    character.setGender("Male");
+    final long key = (long) 333;
+    character.setKey(key);
+    List<Integer> potStats = new LinkedList<Integer>();
+    final Integer potStat = 123;
+    potStats.add(potStat);
+    character.setPotStats(potStats);
+    List<Skill> skillList = new LinkedList<Skill>();
+    final int cost = 1;
+    final int rank = 2;
+    final int rkBn = 3;
+    final int statBn = 4;
+    final int lvlBn = 5;
+    final int item = 6;
+    Skill skill = new Skill("defLabelIn", "lvlBonusCatIn", "stat1In", "stat2In", "actionTypeIn",
+                            "calcTypeIn", "localeDescLabelIn", "localeDescLanguageIn", true,
+                            "descriptionIn", cost, rank, rkBn, statBn, lvlBn, item);
+    skillList.add(skill);
+    character.setSkillList(skillList);
+    character.setSkillListLevel1(skillList);
+    List<Stat> statList = new LinkedList<Stat>();
+    Stat stat = new Stat("Stat", "A stat");
+    statList.add(stat);
+    character.setStatList(statList);
+    List<Integer> tempStat = new LinkedList<Integer>();
+    tempStat.add(new Integer(1));
+    character.setTempStat(tempStat);
+    character.setTempStats(tempStat);
+    character.setComplete(true);
+    character.setAllAttrInfo();
+    character.setUsername(aUserName);
+    return character;
+  }  
   
   
   

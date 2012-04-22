@@ -21,6 +21,7 @@ package org.timadorus.webapp.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.timadorus.webapp.tests.character.ui.premadecharacter.PremadeCharacterDialogTest;
 import org.timadorus.webapp.tests.character.ui.ready.ReadyDialogTest;
 import org.timadorus.webapp.tests.character.ui.selectappearance.SelectAppearanceDialogTest;
 import org.timadorus.webapp.tests.character.ui.selectclass.SelectClassDialogTest;
@@ -51,6 +52,7 @@ import org.timadorus.webapp.tests.server.UtilTest;
                       SelectNameDialogTest.class,
                       SelectClassDialogTest.class,
                       SelectAppearanceDialogTest.class,
+                      PremadeCharacterDialogTest.class,
                       // server
                       CreateCharacterServiceTest.class,
                       UtilTest.class,
