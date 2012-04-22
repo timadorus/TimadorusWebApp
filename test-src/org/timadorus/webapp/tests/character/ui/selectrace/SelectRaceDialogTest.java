@@ -14,6 +14,8 @@ import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
 
 public class SelectRaceDialogTest {
   private static final String RACE_WITZBOLD = "Witzbold";
+  private static final String RACE_WITZBOLDT = "Witzboldt";
+  private static final String GENDER = "Gender";
   
   private SelectRaceDialog mySelectRaceDialog;
   
@@ -36,7 +38,7 @@ public class SelectRaceDialogTest {
   }
   
   @Test
-  public void testSaveSelectedGender() {
+  public void testSaveSelectedRace() {
     Mockito.when(myDisplayMock.getSelectedRace()).thenReturn(RACE_WITZBOLD);
     
     mySelectRaceDialog.saveSelectedRace();
@@ -44,5 +46,33 @@ public class SelectRaceDialogTest {
     Assert.assertNotNull("Race should have been set.", myCharacter.getRace());
     Assert.assertEquals("The name of the Race should be " + RACE_WITZBOLD, 
                         RACE_WITZBOLD, myCharacter.getRace().getName());
+  }
+  
+  @Test
+  public void testSaveSelectedRaceNull() {
+    Mockito.when(myDisplayMock.getSelectedRace()).thenReturn(RACE_WITZBOLDT);
+    
+    mySelectRaceDialog.saveSelectedRace();
+    
+    Assert.assertNull("Race shouldn't have been set.", myCharacter.getRace());
+  }
+  
+  @Test
+  public void testSaveSelectedGender() {
+    Mockito.when(myDisplayMock.getSelectedGender()).thenReturn(GENDER);
+    
+    mySelectRaceDialog.saveSelectedGender();
+    
+    Assert.assertEquals("Gender should be " + GENDER,  GENDER, myCharacter.getGender());
+  }
+  
+  @Test
+  public void testGetCharacter() {
+    Assert.assertEquals("Character should be equal", myCharacter, mySelectRaceDialog.getCharacter());
+  }
+  
+  @Test
+  public void testGetUer() {
+    Assert.assertEquals("User should be equal", myUser, mySelectRaceDialog.getUser());
   }
 }
