@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.timadorus.webapp.tests.character.ui.ready.ReadyDialogTest;
 import org.timadorus.webapp.tests.character.ui.selectfraction.SelectFactionDialogTest;
+import org.timadorus.webapp.tests.character.ui.selectname.SelectNameDialogTest;
 import org.timadorus.webapp.tests.character.ui.selectrace.SelectRaceDialogTest;
 import org.timadorus.webapp.tests.client.HistoryStatesTest;
 import org.timadorus.webapp.tests.client.MenuDialogTest;
@@ -45,6 +46,7 @@ import org.timadorus.webapp.tests.server.UtilTest;
                       HistoryStatesTest.class,
                       SelectFactionDialogTest.class,
                       SelectRaceDialogTest.class,
+                      SelectNameDialogTest.class,
                       // server
                       CreateCharacterServiceTest.class,
                       UtilTest.class,
