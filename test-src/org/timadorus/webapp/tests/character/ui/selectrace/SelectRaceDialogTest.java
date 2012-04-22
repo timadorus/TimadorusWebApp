@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
@@ -20,7 +20,7 @@ public class SelectRaceDialogTest {
   private SelectRaceDialog mySelectRaceDialog;
   
   @Mock private SelectRaceDialog.Display myDisplayMock;
-  @Mock private TimadorusWebApp myTimadorusWebAppMock;
+  @Mock private DefaultTimadorusWebApp myTimadorusWebAppMock;
   
   private Character myCharacter;
   private User myUser;

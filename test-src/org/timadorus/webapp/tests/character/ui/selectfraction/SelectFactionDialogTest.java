@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.timadorus.webapp.client.TimadorusWebApp;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
@@ -20,7 +20,7 @@ public class SelectFactionDialogTest {
   private SelectFactionDialog mySelectFactionDialog;
   private Display myDisplayMock;
   private Character myCharacter;
-  private TimadorusWebApp myTimadorusWebAppMock;
+  private DefaultTimadorusWebApp myTimadorusWebAppMock;
   
   @Before
   public void setUp() {
@@ -28,7 +28,7 @@ public class SelectFactionDialogTest {
     
     myDisplayMock = Mockito.mock(SelectFactionDialog.Display.class);
 
-    myTimadorusWebAppMock = Mockito.mock(TimadorusWebApp.class);
+    myTimadorusWebAppMock = Mockito.mock(DefaultTimadorusWebApp.class);
     Mockito.when(myTimadorusWebAppMock.getTestValues()).thenReturn(new TestCharacterValues());
     
     mySelectFactionDialog = new SelectFactionDialog(myDisplayMock, myTimadorusWebAppMock, 
