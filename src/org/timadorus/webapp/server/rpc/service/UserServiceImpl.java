@@ -142,4 +142,14 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
     out += Util.checkEmailAdresse(user);
     return out;
   }
+  
+  /**
+   * this method adds a new user to the user list and to the database, by delegating it to the RegisteredUserList
+   * @param user user The new user, which shall be added
+   * @return  ActivationCode as String on success, null otherwise
+   */
+  public String addUser(User user) {
+     return userList.addUser(user);
+      }
+  
 }
