@@ -33,11 +33,13 @@ public class SelectFactionDialogTest {
     
     mySelectFactionDialog = new SelectFactionDialog(myDisplayMock, myTimadorusWebAppMock, 
                                                                          myCharacter, null);
-    
+  }
+
+  @Test
+  public void testVerifyHandler() {
     Mockito.verify(myDisplayMock).addNextButtonHandler(Mockito.isA(DefaultActionHandler.class));
     Mockito.verify(myDisplayMock).addPrevButtonHandler(Mockito.isA(DefaultActionHandler.class));
     Mockito.verify(myDisplayMock).addSelectFactionGridHandler(Mockito.isA(DefaultActionHandler.class));
-
   }
   
   @Test

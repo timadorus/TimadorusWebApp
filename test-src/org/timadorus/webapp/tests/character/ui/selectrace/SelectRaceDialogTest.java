@@ -36,7 +36,10 @@ public class SelectRaceDialogTest {
     mySelectRaceDialog = new SelectRaceDialog(myDisplayMock, myTimadorusWebAppMock, myCharacter, myUser);
     
     Mockito.when(myTimadorusWebAppMock.getTestValues()).thenReturn(new TestCharacterValues());
-    
+  }
+  
+  @Test
+  public void testVerifyHandler() {
     Mockito.verify(myDisplayMock).addNextButtonHandler(Mockito.isA(DefaultActionHandler.class));
     Mockito.verify(myDisplayMock).addPrevButtonHandler(Mockito.isA(DefaultActionHandler.class));
     Mockito.verify(myDisplayMock).addRaceSelectionHanlder(Mockito.isA(DefaultActionHandler.class));

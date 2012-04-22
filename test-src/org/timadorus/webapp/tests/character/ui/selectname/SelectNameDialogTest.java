@@ -31,7 +31,10 @@ public class SelectNameDialogTest {
     myUser = new User();
     
     mySelectNameDialog = new SelectNameDialog(myDisplayMock, myDefaultTimadorusWebApp, myCharacter, myUser);
-    
+  }
+
+  @Test 
+  public void testVerifyHandler() {
     Mockito.verify(myDisplayMock).addNextButtonHandler(Mockito.isA(DefaultActionHandler.class));
     Mockito.verify(myDisplayMock).addPrevButtonHandler(Mockito.isA(DefaultActionHandler.class));
   }
