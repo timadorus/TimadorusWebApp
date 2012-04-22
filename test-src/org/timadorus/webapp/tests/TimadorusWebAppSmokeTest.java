@@ -30,6 +30,7 @@ import org.timadorus.webapp.tests.character.ui.selectclass.SelectClassDialogTest
 import org.timadorus.webapp.tests.character.ui.selectfraction.SelectFactionDialogTest;
 import org.timadorus.webapp.tests.character.ui.selectname.SelectNameDialogTest;
 import org.timadorus.webapp.tests.character.ui.selectrace.SelectRaceDialogTest;
+import org.timadorus.webapp.tests.character.ui.selectskilllevel.SelectSkillLevelDialogTest;
 import org.timadorus.webapp.tests.client.HistoryStatesTest;
 import org.timadorus.webapp.tests.client.MenuDialogTest;
 import org.timadorus.webapp.tests.client.RoleTest;
@@ -57,6 +58,7 @@ import org.timadorus.webapp.tests.server.UtilTest;
                       PremadeCharacterDialogTest.class,
                       PotStatsDialogTest.class,
                       CreateDialogTest.class,
+                      SelectSkillLevelDialogTest.class,
                       // server
                       CreateCharacterServiceTest.class,
                       UtilTest.class,
