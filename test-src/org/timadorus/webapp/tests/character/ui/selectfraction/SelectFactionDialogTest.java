@@ -35,7 +35,7 @@ public class SelectFactionDialogTest {
                                                                          myCharacter, null);
     
     Mockito.verify(myDisplayMock).addNextButtonHandler(Mockito.isA(DefaultActionHandler.class));
-    Mockito.verify(myDisplayMock).addNextButtonHandler(Mockito.isA(DefaultActionHandler.class));
+    Mockito.verify(myDisplayMock).addPrevButtonHandler(Mockito.isA(DefaultActionHandler.class));
     Mockito.verify(myDisplayMock).addSelectFactionGridHandler(Mockito.isA(DefaultActionHandler.class));
 
   }
