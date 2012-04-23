@@ -1,10 +1,13 @@
 package org.timadorus.webapp.tests.character.ui.selectname;
 
-import org.junit.Assert;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
@@ -13,8 +16,6 @@ import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
 
 public class SelectNameDialogTest {
-  private static final String NAME = "name";
-  
   private SelectNameDialog mySelectNameDialog;
   
   @Mock private SelectNameDialog.Display myDisplayMock;
@@ -33,28 +34,35 @@ public class SelectNameDialogTest {
     mySelectNameDialog = new SelectNameDialog(myDisplayMock, myDefaultTimadorusWebApp, myCharacter, myUser);
   }
 
-  @Test 
-  public void testVerifyHandler() {
-    Mockito.verify(myDisplayMock).addNextButtonHandler(Mockito.isA(DefaultActionHandler.class));
-    Mockito.verify(myDisplayMock).addPrevButtonHandler(Mockito.isA(DefaultActionHandler.class));
-  }
-  
   @Test
-  public void testSaveSelectedName() {
-    mySelectNameDialog.saveSelectedName(NAME);
+  public void testNextButtonHandler() {
+    final String theCharacterName = "blablabla";
+    final String theUserName = "blablablubb";
+    myUser.setUsername(theUserName);
+    when(myDisplayMock.getCharacterName()).thenReturn(theCharacterName);
     
-    Assert.assertEquals("Name should be " + NAME, NAME, myCharacter.getName());
+    ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+    verify(myDisplayMock).addNextButtonHandler(theArgumentCaptor.capture());
+    
+    theArgumentCaptor.getValue().onAction();
+    
+    verify(myDisplayMock).sendCharacterToServerToSave(myCharacter);
+    verify(myDisplayMock).loadSelectCharacterReadyPanel(myDefaultTimadorusWebApp, myCharacter);
+    
+    Assert.assertEquals("The UserName of the Character should be " + theUserName, 
+                        theUserName, myCharacter.getUsername());
+    Assert.assertEquals("The CharacterName of the Character should be " + theCharacterName, 
+                        theCharacterName, myCharacter.getName());
   }
   
   @Test
-  public void testGetCharacter() {
-    Assert.assertEquals("Character should be equal", myCharacter, mySelectNameDialog.getCharacter());
+  public void testPrevButtonHandler() {
+    ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+    verify(myDisplayMock).addPrevButtonHandler(theArgumentCaptor.capture());
+    
+    theArgumentCaptor.getValue().onAction();
+    
+    verify(myDisplayMock).loadSelectAppearancePanel(myDefaultTimadorusWebApp, myCharacter, myUser);
   }
-  
-  @Test
-  public void testGetUer() {
-    Assert.assertEquals("User should be equal", myUser, mySelectNameDialog.getUser());
-  }
-  
-  
+ 
 }

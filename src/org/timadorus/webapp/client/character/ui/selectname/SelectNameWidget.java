@@ -6,9 +6,13 @@ import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
 import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanceDialog;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -147,5 +151,26 @@ public class SelectNameWidget extends FormPanel implements SelectNameDialog.Disp
 
       }
     });
+  }
+  
+  public void sendCharacterToServerToSave(Character aCharacter) {
+    CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
+
+    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+
+      @Override
+      public void onFailure(Throwable caught) {
+        // TODO Auto-generated method stub
+        System.out.println("Client/Server Create Character Service Failure!");
+      }
+
+      @Override
+      public void onSuccess(String result) {
+        // TODO Auto-generated method stub
+        System.out.println(result);
+      }
+    };
+
+    createServiceAsync.createCharacter(aCharacter, asyncCallback);
   }
 }

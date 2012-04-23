@@ -6,11 +6,6 @@ import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * 
@@ -47,6 +42,8 @@ public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> {
     public void loadSelectCharacterReadyPanel(DefaultTimadorusWebApp entry, Character character);
 
     public void loadSelectAppearancePanel(DefaultTimadorusWebApp entry, Character character, User user);
+    
+    public void sendCharacterToServerToSave(Character aCharacter);
   }
 
   private Character character;
@@ -61,9 +58,10 @@ public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> {
 
       @Override
       public void onAction() {
-        saveSelectedName(getDisplay().getCharacterName());
+        getCharacter().setName(getDisplay().getCharacterName());
         getCharacter().setUsername(getUser().getUsername());
-        sendCharacterToServerToSave();
+        
+        getDisplay().sendCharacterToServerToSave(getCharacter());
         getDisplay().loadSelectCharacterReadyPanel(getEntry(), getCharacter());
       }
     });
@@ -76,36 +74,11 @@ public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> {
     });
   }
 
-  private void sendCharacterToServerToSave() {
-    CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
-
-    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-
-      @Override
-      public void onFailure(Throwable caught) {
-        // TODO Auto-generated method stub
-        System.out.println("Client/Server Create Character Service Failure!");
-      }
-
-      @Override
-      public void onSuccess(String result) {
-        // TODO Auto-generated method stub
-        System.out.println(result);
-      }
-    };
-
-    createServiceAsync.createCharacter(character, asyncCallback);
-  }
-
-  public void saveSelectedName(String text) {
-    character.setName(text);
-  }
-
-  public Character getCharacter() {
+  private Character getCharacter() {
     return character;
   }
 
-  public User getUser() {
+  private User getUser() {
     return user;
   }
 
