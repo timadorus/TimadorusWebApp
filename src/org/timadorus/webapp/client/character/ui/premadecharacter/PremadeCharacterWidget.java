@@ -6,9 +6,14 @@ import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -210,5 +215,27 @@ public class PremadeCharacterWidget extends FormPanel implements PremadeCharacte
       }
     };
     prevButton.addClickHandler(clickHandler);
+  }
+
+  @Override
+  public void sendCharacterToServer(Character character) {
+      CreateCharacterServiceAsync createCharacterServiceAsync = GWT
+          .create(CreateCharacterService.class);
+      AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+
+        public void onSuccess(String result) {
+          if (result.equals("SUCCESS")) {
+            History.newItem("welcome");
+          } else {
+            System.out.println("Character creation failed!");
+            History.newItem("welcome");
+          }
+        }
+
+        public void onFailure(Throwable caught) {
+          System.out.println(caught);
+        }
+      };
+      createCharacterServiceAsync.createCharacter(character, asyncCallback);
   }
 }

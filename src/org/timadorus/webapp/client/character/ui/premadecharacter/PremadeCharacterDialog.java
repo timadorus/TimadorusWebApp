@@ -6,12 +6,6 @@ import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog.Display> {
 
@@ -46,6 +40,8 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
     public void loadCharacterPanel(DefaultTimadorusWebApp entry, User user);
 
     public void setInformation(String text);
+    
+    public void sendCharacterToServer(Character character);
   }
 
   private User user;
@@ -80,7 +76,7 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
       @Override
       public void onAction() {
         Character character = getEntry().getTestValues().createTestCharacter(getUser().getUsername());
-        sendToServer(character);
+        getDisplay().sendCharacterToServer(character);
         getDisplay().loadCharacterReadyPanel(character, getEntry());
       }
     });
@@ -93,29 +89,6 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
     });
 
   }
-
-  private void sendToServer(Character character) {
-    CreateCharacterServiceAsync createCharacterServiceAsync = GWT
-        .create(CreateCharacterService.class);
-    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-
-      public void onSuccess(String result) {
-        if (result.equals("SUCCESS")) {
-          History.newItem("welcome");
-        } else {
-          System.out.println("Character creation failed!");
-          History.newItem("welcome");
-        }
-      }
-
-      public void onFailure(Throwable caught) {
-        System.out.println(caught);
-      }
-    };
-    createCharacterServiceAsync.createCharacter(character, asyncCallback);
-  }
-
-  
 
   // return and stores information for this panel
   private String getBarbarianInformation() {
