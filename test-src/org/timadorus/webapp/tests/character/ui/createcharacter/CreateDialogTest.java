@@ -1,10 +1,14 @@
 package org.timadorus.webapp.tests.character.ui.createcharacter;
 
-import org.junit.Assert;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
@@ -30,19 +34,68 @@ public class CreateDialogTest {
    
    myCreateDialog = new CreateDialog(myDisplayMock, myTimadorusWebAppMock, myUser);
    
-   Mockito.when(myTimadorusWebAppMock.getTestValues()).thenReturn(new TestCharacterValues());
+   when(myTimadorusWebAppMock.getTestValues()).thenReturn(new TestCharacterValues());
  }
  
  @Test
- public void testVerifyHandler() {
-   Mockito.verify(myDisplayMock).setHandlerPremade(Mockito.isA(DefaultActionHandler.class));
-   Mockito.verify(myDisplayMock).setHandlerCustom(Mockito.isA(DefaultActionHandler.class));
-   Mockito.verify(myDisplayMock).setHandlerNextButton(Mockito.isA(DefaultActionHandler.class));
+ public void testHandlerPremade() {
+   ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+   verify(myDisplayMock).setHandlerPremade(theArgumentCaptor.capture());
+   
+   theArgumentCaptor.getValue().onAction();
+   
+   verify(myDisplayMock).setPremadeInformation(anyString());
  }
  
  @Test
- public void testTrue() {
-   Assert.assertNotNull(myCreateDialog);
+ public void testHandlerCustom() {
+   ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+   verify(myDisplayMock).setHandlerCustom(theArgumentCaptor.capture());
+   
+   theArgumentCaptor.getValue().onAction();
+   
+   verify(myDisplayMock).setCustomInformation(anyString());
+ }
+ 
+ @Test
+ public void testHandlerNextButtonCustom() {
+   when(myDisplayMock.isCustom()).thenReturn(Boolean.TRUE);
+   
+   ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+   verify(myDisplayMock).setHandlerNextButton(theArgumentCaptor.capture());
+   
+   theArgumentCaptor.getValue().onAction();
+   
+   verify(myDisplayMock).loadCustomCharacter(myUser, myTimadorusWebAppMock);
+   verify(myDisplayMock, never()).loadPremadeCharacter(myUser, myTimadorusWebAppMock);
+ }
+ 
+ @Test
+ public void testHandlerNextButtonPremade() {
+   when(myDisplayMock.isCustom()).thenReturn(Boolean.FALSE);
+   when(myDisplayMock.isPremade()).thenReturn(Boolean.TRUE);
+   
+   ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+   verify(myDisplayMock).setHandlerNextButton(theArgumentCaptor.capture());
+   
+   theArgumentCaptor.getValue().onAction();
+   
+   verify(myDisplayMock, never()).loadCustomCharacter(myUser, myTimadorusWebAppMock);
+   verify(myDisplayMock).loadPremadeCharacter(myUser, myTimadorusWebAppMock);
+ }
+ 
+ @Test
+ public void testHandlerNextButtonNotCustomNotPremade() {
+   when(myDisplayMock.isCustom()).thenReturn(Boolean.FALSE);
+   when(myDisplayMock.isPremade()).thenReturn(Boolean.FALSE);
+   
+   ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+   verify(myDisplayMock).setHandlerNextButton(theArgumentCaptor.capture());
+   
+   theArgumentCaptor.getValue().onAction();
+   
+   verify(myDisplayMock, never()).loadCustomCharacter(myUser, myTimadorusWebAppMock);
+   verify(myDisplayMock, never()).loadPremadeCharacter(myUser, myTimadorusWebAppMock);
  }
   
 }

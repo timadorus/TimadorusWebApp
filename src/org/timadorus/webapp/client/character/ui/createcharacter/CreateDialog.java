@@ -33,6 +33,7 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> {
 
   public CreateDialog(Display display, DefaultTimadorusWebApp entry, User user) {
     super(display, entry);
+    this.user = user;
     display.setHandlerPremade(new DefaultActionHandler() {
 
       @Override
