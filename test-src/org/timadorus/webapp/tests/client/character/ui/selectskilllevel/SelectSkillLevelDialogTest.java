@@ -1,4 +1,4 @@
-package org.timadorus.webapp.tests.character.ui.selectskilllevel;
+package org.timadorus.webapp.tests.client.character.ui.selectskilllevel;
 
 import org.junit.Assert;
 import org.junit.Before;

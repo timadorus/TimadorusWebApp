@@ -1,4 +1,4 @@
-package org.timadorus.webapp.tests.character.ui.createcharacter;
+package org.timadorus.webapp.tests.client.character.ui.createcharacter;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;

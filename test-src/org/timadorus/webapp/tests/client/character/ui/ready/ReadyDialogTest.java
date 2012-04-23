@@ -1,4 +1,4 @@
-package org.timadorus.webapp.tests.character.ui.ready;
+package org.timadorus.webapp.tests.client.character.ui.ready;
 
 import org.junit.Before;
 import org.junit.Test;

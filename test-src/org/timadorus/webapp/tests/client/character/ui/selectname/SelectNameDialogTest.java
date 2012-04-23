@@ -1,4 +1,4 @@
-package org.timadorus.webapp.tests.character.ui.selectname;
+package org.timadorus.webapp.tests.client.character.ui.selectname;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

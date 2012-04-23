@@ -1,4 +1,4 @@
-package org.timadorus.webapp.tests.character.ui.selectfraction;
+package org.timadorus.webapp.tests.client.character.ui.selectfraction;
 
 import junit.framework.Assert;
 

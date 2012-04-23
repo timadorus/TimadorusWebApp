@@ -1,4 +1,4 @@
-package org.timadorus.webapp.tests.character.ui.premadecharacter;
+package org.timadorus.webapp.tests.client.character.ui.premadecharacter;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;

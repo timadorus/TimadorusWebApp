@@ -1,4 +1,4 @@
-package org.timadorus.webapp.tests.character.ui.potstat;
+package org.timadorus.webapp.tests.client.character.ui.potstat;
 
 import static org.mockito.Mockito.verify;
 

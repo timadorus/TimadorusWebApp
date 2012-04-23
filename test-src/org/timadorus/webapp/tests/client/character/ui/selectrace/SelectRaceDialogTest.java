@@ -1,4 +1,4 @@
-package org.timadorus.webapp.tests.character.ui.selectrace;
+package org.timadorus.webapp.tests.client.character.ui.selectrace;
 
 import org.junit.Assert;
 import org.junit.Before;

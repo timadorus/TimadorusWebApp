@@ -1,4 +1,4 @@
-package org.timadorus.webapp.tests.character.ui.selectappearance;
+package org.timadorus.webapp.tests.client.character.ui.selectappearance;
 
 import org.junit.Assert;
 import org.junit.Before;
