@@ -38,6 +38,8 @@ import org.timadorus.webapp.tests.client.character.ui.selectskilllevel.SelectSki
 import org.timadorus.webapp.tests.server.CreateCharacterServiceTest;
 import org.timadorus.webapp.tests.server.RegisteredUserListTest;
 import org.timadorus.webapp.tests.server.UtilTest;
+import org.timadorus.webapp.tests.shared.ActionTest;
+import org.timadorus.webapp.tests.shared.ResponseTest;
 
 /**
  * @author sage
@@ -68,8 +70,11 @@ import org.timadorus.webapp.tests.server.UtilTest;
                      CreateCharacterServiceTest.class, 
                      RegisteredUserListTest.class,
                      // UserProviderTest.class,
-                     UtilTest.class
-
+                     UtilTest.class,
+                     
+                     // shared
+                     ActionTest.class,
+                     ResponseTest.class
 })
 public class TimadorusWebAppSmokeTest {
 
