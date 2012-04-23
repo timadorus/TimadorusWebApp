@@ -16,7 +16,6 @@ import org.timadorus.webapp.client.character.TestCharacterValues;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 
-//TODO - this Test is mostly useless because there are only private Methods...
 public class CreateDialogTest {
 
  private CreateDialog myCreateDialog;
