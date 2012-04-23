@@ -28,5 +28,7 @@
     <suppress checks="MagicNumber" files="GetPotStatsPanel.java" />
     <suppress checks="MagicNumber" files="SelectAppearancePanel.java" />
     <suppress checks="MagicNumber" files="ShowCharacterPanel.java" />
+    <suppress checks="MagicNumber" files="SelectSkillLevelWidget.java"/>
+    <suppress checks="MagicNumber" files="SelectAppearanceWidget.java"/>
 
 </suppressions>
