@@ -7,10 +7,6 @@ import org.timadorus.webapp.client.character.attributes.CharacterColors;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
-import org.timadorus.webapp.client.character.ui.selectskilllevel.SelectSkillLevelDialog;
-
-import com.google.gwt.user.client.ui.RootPanel;
 
 public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog.Display> {
 
@@ -58,6 +54,10 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
     public void setHairColorText(String text);
 
     public void setSkinColorText(String text);
+    
+    public void loadSelectSkillLvl1Panel(DefaultTimadorusWebApp entry, Character character, User user);
+    
+    public void loadSelectNamePanel(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
   private Character character;
@@ -196,7 +196,7 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
 
       @Override
       public void onAction() {
-        loadSelectNamePanel();
+        getDisplay().loadSelectNamePanel(getEntry(), getCharacter(), getUser());
       }
     });
 
@@ -205,7 +205,7 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
 
       @Override
       public void onAction() {
-        loadSelectSkillLvl1Panel();
+        getDisplay().loadSelectSkillLvl1Panel(getEntry(), getCharacter(), getUser());
       }
     });
 
@@ -235,6 +235,14 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
     getDisplay().addYellowSkinHandler(allChoosenHandler);
     getDisplay().addBlueSkinHandler(allChoosenHandler);
   }
+  
+  private Character getCharacter() {
+    return character;
+  }
+
+  private User getUser() {
+    return user;
+  }
 
   /**
    * Sets the given {@link CharacterColors} to the skin of the character.
@@ -253,21 +261,7 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
     hairColorChosen = true;
   }
 
-  /**
-   * Loads the SelectSkillLvl1Panel.
-   */
-  public void loadSelectSkillLvl1Panel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillLevelDialog.getDialog(getEntry(), character, user).getFormPanel());
-  }
 
-  /**
-   * Loads the SelectSkillNamePanel.
-   */
-  public void loadSelectNamePanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectNameDialog.getDialog(getEntry(), character, user).getFormPanel());
-  }
 
   public static SelectAppearanceDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
     SelectAppearanceDialog.Display display = new SelectAppearanceWidget(character);

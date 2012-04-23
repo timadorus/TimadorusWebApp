@@ -1,7 +1,11 @@
 package org.timadorus.webapp.client.character.ui.selectappearance;
 
+import org.timadorus.webapp.beans.User;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
+import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
+import org.timadorus.webapp.client.character.ui.selectskilllevel.SelectSkillLevelDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -371,6 +375,24 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
   @Override
   public void setSkinColorText(String text) {
     skinColor.setText(text);
+  }
+  
+  /**
+   * Loads the SelectSkillLvl1Panel.
+   * @param entry TODO
+   * @param character TODO
+   * @param user TODO
+   */
+  public void loadSelectSkillLvl1Panel(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectSkillLevelDialog.getDialog(entry, character, user).getFormPanel());
+  }
 
+  /**
+   * Loads the SelectSkillNamePanel.
+   */
+  public void loadSelectNamePanel(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectNameDialog.getDialog(entry, character, user).getFormPanel());
   }
 }
