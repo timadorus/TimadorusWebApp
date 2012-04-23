@@ -44,34 +44,33 @@ import org.timadorus.webapp.tests.server.UtilTest;
  * 
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ 
-    // character ui
-    CreateDialogTest.class,
-    PotStatsDialogTest.class,
-    PremadeCharacterDialogTest.class,
-    ReadyDialogTest.class,
-    SelectAppearanceDialogTest.class,
-    SelectClassDialogTest.class,
-    SelectFactionDialogTest.class,
-    SelectNameDialogTest.class,
-    SelectRaceDialogTest.class,
-    SelectSkillLevelDialogTest.class,
-  
-    // client
-    HistoryStatesTest.class,
-    MenuDialogTest.class, 
-    RoleTest.class,
-    SessionIdTest.class,
-    
-    // server
-//    CharacterProviderTest.class,
-    CreateCharacterServiceTest.class,
-    RegisteredUserListTest.class, 
-//    UserProviderTest.class,
-    UtilTest.class, 
-    
-})
+@Suite.SuiteClasses({
+                     // character ui
+                     CreateDialogTest.class, 
+                     PotStatsDialogTest.class, 
+                     PremadeCharacterDialogTest.class,
+                     ReadyDialogTest.class, 
+                     SelectAppearanceDialogTest.class, 
+                     SelectClassDialogTest.class,
+                     SelectFactionDialogTest.class, 
+                     SelectNameDialogTest.class, 
+                     SelectRaceDialogTest.class,
+                     SelectSkillLevelDialogTest.class,
 
+                     // client
+                     HistoryStatesTest.class, 
+                     MenuDialogTest.class, 
+                     RoleTest.class, 
+                     SessionIdTest.class,
+
+                     // server
+                     // CharacterProviderTest.class,
+                     CreateCharacterServiceTest.class, 
+                     RegisteredUserListTest.class,
+                     // UserProviderTest.class,
+                     UtilTest.class
+
+})
 public class TimadorusWebAppSmokeTest {
 
 }
