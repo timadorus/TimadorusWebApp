@@ -3,9 +3,12 @@ package org.timadorus.webapp.client.character.ui.potstat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
+import org.timadorus.webapp.client.character.ui.SelectSkillPanel;
+import org.timadorus.webapp.client.character.ui.SelectTempStatsPanel;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
@@ -206,5 +209,21 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
     }
     
     return potStats;
+  }
+  
+  // clear "content" #div and add Class SelectTempStats to it
+  @Override
+  public void
+      loadSelectTempStatsPanel(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character,
+                                                                              user));
+  }
+
+  // clear "content" #div and add Class SelectSkillPanel to it
+  @Override
+  public void loadSelectSkillPanel(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character, user));
   }
 }

@@ -8,10 +8,6 @@ import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.SelectSkillPanel;
-import org.timadorus.webapp.client.character.ui.SelectTempStatsPanel;
-
-import com.google.gwt.user.client.ui.RootPanel;
 
 public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
   public interface Display extends DefaultDisplay {
@@ -32,6 +28,10 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
     public void addPrevButtonHandler(DefaultActionHandler handler);
     
     public List<Integer> calculatePotStats(List<Integer> tempStat);
+    
+    public void loadSelectTempStatsPanel(DefaultTimadorusWebApp entry, Character character, User user);
+    
+    public void loadSelectSkillPanel(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
   private Character character;
@@ -54,7 +54,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
 
       @Override
       public void onAction() {
-        loadSelectTempStatsPanel(getEntry(), getCharacter(), getUser());
+        getDisplay().loadSelectTempStatsPanel(getEntry(), getCharacter(), getUser());
       }
     });
 
@@ -62,7 +62,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
 
       @Override
       public void onAction() {
-        loadSelectSkillPanel(getEntry(), getCharacter(), getUser());
+        getDisplay().loadSelectSkillPanel(getEntry(), getCharacter(), getUser());
       }
     });
 
@@ -73,19 +73,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
   // calculates potStats
 
 
-  // clear "content" #div and add Class SelectTempStats to it
-  public void
-      loadSelectTempStatsPanel(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character,
-                                                                              user));
-  }
 
-  // clear "content" #div and add Class SelectSkillPanel to it
-  public void loadSelectSkillPanel(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character, user));
-  }
 
   public Character getCharacter() {
     return character;

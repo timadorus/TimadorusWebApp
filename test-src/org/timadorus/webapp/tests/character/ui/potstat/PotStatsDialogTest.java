@@ -1,10 +1,13 @@
 package org.timadorus.webapp.tests.character.ui.potstat;
 
+import static org.mockito.Mockito.verify;
+
 import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -39,9 +42,23 @@ public class PotStatsDialogTest {
   }
   
   @Test
-  public void testVerifyHandler() {
-    Mockito.verify(myDisplayMock).addNextButtonHandler(Mockito.isA(DefaultActionHandler.class));
-    Mockito.verify(myDisplayMock).addPrevButtonHandler(Mockito.isA(DefaultActionHandler.class));
+  public void testNextButtonHandler() {
+    ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+    verify(myDisplayMock).addNextButtonHandler(theArgumentCaptor.capture());
+    
+    theArgumentCaptor.getValue().onAction();
+    
+    verify(myDisplayMock).loadSelectTempStatsPanel(myDefaultTimadorusWebApp, myCharacter, myUser);
+  }
+  
+  @Test
+  public void testPrevButtonHandler() {
+    ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+    verify(myDisplayMock).addPrevButtonHandler(theArgumentCaptor.capture());
+    
+    theArgumentCaptor.getValue().onAction();
+    
+    verify(myDisplayMock).loadSelectSkillPanel(myDefaultTimadorusWebApp, myCharacter, myUser);
   }
   
   @Test
