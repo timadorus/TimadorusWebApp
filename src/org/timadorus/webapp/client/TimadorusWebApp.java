@@ -4,7 +4,7 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.campaign.CreateCampaignPanel;
 import org.timadorus.webapp.client.campaign.EditCampaignPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
-import org.timadorus.webapp.client.character.ui.ShowCharacterlistPanel;
+import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterlistPanel;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 import org.timadorus.webapp.client.login.LoginPanel;
 import org.timadorus.webapp.client.profile.ProfilePanel;
