@@ -190,7 +190,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
         loadRegisterPanel();
         break;
       default:
-        // TODO - Any default-behavior? Maybe the welcome-panel!? (aaz214 - 15.04.2012) 
+        // TODO - Any default-behavior? Maybe the welcome-panel!? (aaz214 - 15.04.2012)
       }
     }
     // TODO - Any default-behavior? Maybe the welcome-panel!? (aaz214 - 16.04.2012)
@@ -292,7 +292,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     RootPanel.get("information").clear();
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see org.timadorus.webapp.client.DefaultTimadorusWebApp#setLoggedin(boolean)
    */
   @Override
@@ -305,7 +307,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     }
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see org.timadorus.webapp.client.DefaultTimadorusWebApp#isLoggedin()
    */
   @Override
@@ -313,7 +317,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     return loggedin;
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see org.timadorus.webapp.client.DefaultTimadorusWebApp#showDialogBox(java.lang.String, java.lang.String)
    */
   @Override
@@ -346,7 +352,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     });
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see org.timadorus.webapp.client.DefaultTimadorusWebApp#getTestValues()
    */
   @Override

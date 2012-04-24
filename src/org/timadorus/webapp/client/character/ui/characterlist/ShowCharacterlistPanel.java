@@ -30,8 +30,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Panel to show a list of characters
+ * 
  * @author aaz210
- *
+ * 
  */
 public final class ShowCharacterlistPanel extends FormPanel {
 
@@ -60,9 +61,9 @@ public final class ShowCharacterlistPanel extends FormPanel {
     panel = new VerticalPanel();
     headline = new HTML("<h1>Liste der registrierten Charaktere</h1>");
     passbox = new PasswordTextBox();
-    confirm = new Button("Löschen bestÃ¤tigen");
-    back = new Button("Zurück");
-    
+    confirm = new Button("Loeschen bestaetigen");
+    back = new Button("Zurueck");
+
     getCharactersFromServer();
 
     // creates a handler for the back button
@@ -115,9 +116,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
         }
       }
 
-      /**
-       * Shows a dialog box with the error message.
-       */
+      // Shows a dialog box with the error message.
       public void onFailure(Throwable caught) {
         getTimadorus().showDialogBox("Fehlermeldung", "Fehler bei der Abfrage der Charactere");
         System.out.println(caught);
@@ -141,7 +140,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
 
       int i = 0;
       for (final Character character : characterList) {
-        final Button delete = new Button("Löschen");
+        final Button delete = new Button("Loeschen");
         final Button details = new Button("Details");
 
         class MyHandler implements ClickHandler {

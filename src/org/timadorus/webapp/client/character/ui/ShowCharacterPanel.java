@@ -102,19 +102,7 @@ public final class ShowCharacterPanel extends FormPanel {
        */
       public void onClick(ClickEvent event) {
         if (event.getSource().equals(delete)) {
-          RootPanel.get("content").clear();
-          final int gridRows = 4;
-          grid = new Grid(gridRows, 1);
-          HTML headline = new HTML("<h1>Charakter löschen</h1>");
-          grid.setWidget(0, 0, new Label("Sind Sie sich sicher, dass Sie diesen Charakter löschen wollen?"));
-          grid.setWidget(1, 0, passbox);
-          grid.setWidget(2, 0, confirm);
-          final int row = 3;
-          grid.setWidget(row, 0, back2);
-          panel.clear();
-          panel.add(headline);
-          panel.add(grid);
-          RootPanel.get("content").add(panel);
+          onDeleteButtonClick();
         } else if (event.getSource().equals(back)) {
           RootPanel.get("content").clear();
           RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(entryIn, userIn));
@@ -173,6 +161,22 @@ public final class ShowCharacterPanel extends FormPanel {
     ConfirmHandler handler2 = new ConfirmHandler();
     confirm.addClickHandler(handler2);
     passbox.addKeyUpHandler(handler2);
+  }
+
+  public void onDeleteButtonClick() {
+    RootPanel.get("content").clear();
+    final int gridRows = 4;
+    grid = new Grid(gridRows, 1);
+    HTML headline = new HTML("<h1>Charakter löschen</h1>");
+    grid.setWidget(0, 0, new Label("Sind Sie sich sicher, dass Sie diesen Charakter löschen wollen?"));
+    grid.setWidget(1, 0, passbox);
+    grid.setWidget(2, 0, confirm);
+    final int row = 3;
+    grid.setWidget(row, 0, back2);
+    panel.clear();
+    panel.add(headline);
+    panel.add(grid);
+    RootPanel.get("content").add(panel);
   }
 
   /**
