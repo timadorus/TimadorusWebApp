@@ -5,9 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.timadorus.webapp.beans.User;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.attributes.Skill;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
+import org.timadorus.webapp.client.character.ui.SelectSkillPanel;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -370,4 +373,35 @@ public class SelectSkillLevelWidget extends FormPanel implements ChangeHandler, 
       }
     });
   }
+  
+  @Override
+  public void loadSkillLevelDialog(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectSkillLevelDialog.getDialog(entry, character, user).getFormPanel());
+  }
+
+  @Override
+  public void loadSelectAppearancePanel() {
+    RootPanel.get("content").clear();
+  }
+  
+  @Override
+  public void loadSelectSkillPanel(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character, user));
+  }
+  
+  @Override
+  public void showSkillInformation(String skillName, List<Skill> skillsLevel1) {
+    // show skill informations
+    RootPanel.get("information").clear();
+
+    for (Skill newSkill : skillsLevel1) {
+      if (newSkill.getName().equals(skillName)) {
+        RootPanel.get("information").add(new HTML("<h1>" + newSkill.getName() + "</h1><p>" + newSkill.getDescription()
+                                             + "</p>" + "<p>" + newSkill.toString() + "</p>"));
+      }
+    }
+  }
+  
 }
