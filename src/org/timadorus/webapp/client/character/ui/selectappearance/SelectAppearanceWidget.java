@@ -73,12 +73,12 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
   private FlexTable buttonGrid;
 
   private static int zero = 0;
-  private static int one = 0;
-  private static int two = 0;
-  private static int three = 0;
-  private static int four = 0;
-  private static int five = 0;
-  private static int six = 0;
+  private static int one = 1;
+  private static int two = 2;
+  private static int three = 3;
+  private static int four = 4;
+  private static int five = 5;
+  private static int six = 6;
   
   public SelectAppearanceWidget(Character characterIn) {
     super();
