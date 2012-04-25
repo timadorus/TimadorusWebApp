@@ -54,7 +54,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
 
       @Override
       public void onAction() {
-        getDisplay().loadSelectTempStatsPanel(getEntry(), getCharacter(), getUser());
+        getDisplay().loadSelectSkillPanel(getEntry(), getCharacter(), getUser());
       }
     });
 
@@ -62,7 +62,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
 
       @Override
       public void onAction() {
-        getDisplay().loadSelectSkillPanel(getEntry(), getCharacter(), getUser());
+        getDisplay().loadSelectTempStatsPanel(getEntry(), getCharacter(), getUser());
       }
     });
 

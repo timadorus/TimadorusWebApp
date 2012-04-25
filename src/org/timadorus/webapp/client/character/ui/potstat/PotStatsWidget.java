@@ -7,8 +7,8 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.SelectSkillPanel;
 import org.timadorus.webapp.client.character.ui.SelectTempStatsPanel;
+import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel0Dialog;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
@@ -224,6 +224,6 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
   @Override
   public void loadSelectSkillPanel(DefaultTimadorusWebApp entry, Character character, User user) {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillPanel.getSelectSkillPanel(entry, character, user));
+    RootPanel.get("content").add(SelectSkillLevel0Dialog.getDialog(entry, character, user).getFormPanel());
   }
 }

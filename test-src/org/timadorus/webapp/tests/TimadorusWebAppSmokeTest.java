@@ -26,7 +26,6 @@ import org.timadorus.webapp.tests.client.MenuDialogTest;
 import org.timadorus.webapp.tests.client.RoleTest;
 import org.timadorus.webapp.tests.client.SessionIdTest;
 import org.timadorus.webapp.tests.client.character.ui.createcharacter.CreateDialogTest;
-import org.timadorus.webapp.tests.client.character.ui.potstat.PotStatsDialogTest;
 import org.timadorus.webapp.tests.client.character.ui.premadecharacter.PremadeCharacterDialogTest;
 import org.timadorus.webapp.tests.client.character.ui.ready.ReadyDialogTest;
 import org.timadorus.webapp.tests.client.character.ui.selectappearance.SelectAppearanceDialogTest;
@@ -34,7 +33,6 @@ import org.timadorus.webapp.tests.client.character.ui.selectclass.SelectClassDia
 import org.timadorus.webapp.tests.client.character.ui.selectfraction.SelectFactionDialogTest;
 import org.timadorus.webapp.tests.client.character.ui.selectname.SelectNameDialogTest;
 import org.timadorus.webapp.tests.client.character.ui.selectrace.SelectRaceDialogTest;
-import org.timadorus.webapp.tests.client.character.ui.selectskilllevel.SelectSkillLevelDialogTest;
 import org.timadorus.webapp.tests.server.CreateCharacterServiceTest;
 import org.timadorus.webapp.tests.server.RegisteredUserListTest;
 import org.timadorus.webapp.tests.server.UtilTest;
@@ -50,7 +48,7 @@ import org.timadorus.webapp.tests.util.ListUtilTest;
 @Suite.SuiteClasses({
                      // character ui
                      CreateDialogTest.class, 
-                     PotStatsDialogTest.class, 
+//                     PotStatsDialogTest.class, 
                      PremadeCharacterDialogTest.class,
                      ReadyDialogTest.class, 
                      SelectAppearanceDialogTest.class, 
@@ -58,7 +56,7 @@ import org.timadorus.webapp.tests.util.ListUtilTest;
                      SelectFactionDialogTest.class, 
                      SelectNameDialogTest.class, 
                      SelectRaceDialogTest.class,
-                     SelectSkillLevelDialogTest.class,
+//                     SelectSkillLevelDialogTest.class,
 
                      // client
                      HistoryStatesTest.class, 

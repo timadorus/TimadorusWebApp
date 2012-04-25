@@ -1,5 +1,6 @@
-package org.timadorus.webapp.client.character.ui.selectskilllevel;
+package org.timadorus.webapp.client.character.ui.selectskill;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -12,8 +13,10 @@ import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 
 import com.google.gwt.dev.util.collect.HashSet;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
 
-public class SelectSkillLevelDialog extends DefaultDialog<SelectSkillLevelDialog.Display> {
+public class DefaultSelectSkillLevelDialog extends DefaultDialog<DefaultSelectSkillLevelDialog.Display> {
 
   public interface Display extends DefaultDisplay {
     public String getSelectedItemSkills();
@@ -41,27 +44,26 @@ public class SelectSkillLevelDialog extends DefaultDialog<SelectSkillLevelDialog
     public void addResetButtonHandler(DefaultActionHandler handler);
 
     public void addSkillListBoxHandler(DefaultActionHandler handler);
-    
-    public void loadSkillLevelDialog(DefaultTimadorusWebApp entry, Character character, User user);
-    
-    public void loadSelectAppearancePanel();
-    
-    public void loadSelectSkillPanel(DefaultTimadorusWebApp entry, Character character, User user);
-    
-    public void showSkillInformation(String skillName, List<Skill> skillsLevel1);
   }
 
   private Character character;
 
   private User user;
 
-  private Set<String> addedSkillList;
+  protected Set<String> addedSkillList;
 
-  public SelectSkillLevelDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
+  private List<Skill> backupSkillList;
+
+  protected List<Skill> skillList;
+
+  public DefaultSelectSkillLevelDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user,
+                                 List<Skill> skills) {
     super(display, entry);
 
     this.character = character;
     this.user = user;
+    this.skillList = skills;
+    this.backupSkillList = new ArrayList<Skill>(skills);
 
     addedSkillList = new HashSet<String>();
     getDisplay().addAddButtonHandler(new DefaultActionHandler() {
@@ -76,8 +78,7 @@ public class SelectSkillLevelDialog extends DefaultDialog<SelectSkillLevelDialog
 
       @Override
       public void onAction() {
-        saveSelectedSkillsInCharacter();
-        getDisplay().loadSelectAppearancePanel();
+        onNextButtonClick();
       }
     });
 
@@ -85,7 +86,7 @@ public class SelectSkillLevelDialog extends DefaultDialog<SelectSkillLevelDialog
 
       @Override
       public void onAction() {
-        getDisplay().loadSelectSkillPanel(getEntry(), getCharacter(), getUser());
+        onPrevButtonClick();
       }
     });
 
@@ -101,16 +102,14 @@ public class SelectSkillLevelDialog extends DefaultDialog<SelectSkillLevelDialog
 
       @Override
       public void onAction() {
-        getEntry().getTestValues().setSkillsLevel1(getEntry().getTestValues().getBackupSkills_Level1());
-        getDisplay().loadSkillLevelDialog(getEntry(), getCharacter(), getUser());
+        onResetButtonClick();
       }
     });
     getDisplay().addSkillListBoxHandler(new DefaultActionHandler() {
 
       @Override
       public void onAction() {
-        getDisplay().showSkillInformation(getDisplay().getSelectedItemSkills(), 
-                                          getEntry().getTestValues().getSkillsLevel1());
+        onSkillListBoxClick();
       }
     });
 
@@ -123,26 +122,55 @@ public class SelectSkillLevelDialog extends DefaultDialog<SelectSkillLevelDialog
     });
   }
 
+  public void onResetButtonClick() {
+    skillList = backupSkillList;
+    // getEntry().getTestValues().setSkillsLevel1(backupSkillList);
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(DefaultSelectSkillLevelDialog.getDialog(getEntry(), character, user).getFormPanel());
+  }
+
+  public void loadSelectAppearancePanel() {
+    RootPanel.get("content").clear();
+  }
+
   private void onRemoveButtonClick() {
     String skillName = getDisplay().getSelectedItemAddedSkills();
 
     if (skillName != null) {
       getDisplay().removeItemAddedSkills(skillName);
       addedSkillList.remove(skillName);
-      getDisplay().reloadSkillCostTable(addedSkillList, getEntry().getTestValues().getSkillsLevel1());
+      getDisplay().reloadSkillCostTable(addedSkillList, skillList);
     }
     getDisplay().readyToSave(!addedSkillList.isEmpty());
   }
 
+  private void onSkillListBoxClick() {
+    // show skill informations
+    String skillName = getDisplay().getSelectedItemSkills();
 
-  private void saveSelectedSkillsInCharacter() {
+    RootPanel.get("information").clear();
+
+    for (Skill newSkill : skillList) {
+      if (newSkill.getName().equals(skillName)) {
+        RootPanel.get("information").add(new HTML("<h1>" + newSkill.getName() + "</h1><p>" + newSkill.getDescription()
+                                             + "</p>" + "<p>" + newSkill.toString() + "</p>"));
+      }
+    }
+  }
+
+  public void saveSelectedSkillsInCharacter() {
     for (String skillName : addedSkillList) {
-      for (Skill skill : getEntry().getTestValues().getSkillsLevel1()) {
+      for (Skill skill : skillList) {
         if (skill.getName().equals(skillName)) {
           character.getSkillListLevel1().add(skill);
         }
       }
     }
+  }
+
+  protected void onNextButtonClick() {
+    saveSelectedSkillsInCharacter();
+    // loadSelectAppearancePanel();
   }
 
   private void onAddButtonClick() {
@@ -151,14 +179,14 @@ public class SelectSkillLevelDialog extends DefaultDialog<SelectSkillLevelDialog
     if (!addedSkillList.contains(skillName)) {
       getDisplay().addItemAddedSkills(skillName);
       addedSkillList.add(skillName);
-      getDisplay().reloadSkillCostTable(addedSkillList, getEntry().getTestValues().getSkillsLevel1());
+      getDisplay().reloadSkillCostTable(addedSkillList, skillList);
     }
     getDisplay().readyToSave(!addedSkillList.isEmpty());
   }
 
   private void onTextboxChange(String[] skInfo) {
 
-    List<Skill> skillList = getEntry().getTestValues().getSkillsLevel1();
+    // List<Skill> skillList = getEntry().getTestValues().getSkillsLevel1();
     for (Skill skill : skillList) {
       if (skill.getName().equals(skInfo[0])) {
         if (skInfo[1].equalsIgnoreCase("Cost")) {
@@ -185,25 +213,23 @@ public class SelectSkillLevelDialog extends DefaultDialog<SelectSkillLevelDialog
         skillList.add(skill);
       }
     }
-
-    // überschreibe alte originale Skill-Liste mit der über die GUI editierten Skill-Liste
-    getEntry().getTestValues().setSkills(skillList);
-
   }
 
-  private Character getCharacter() {
+  protected void onPrevButtonClick() {
+  }
+
+  public Character getCharacter() {
     return character;
   }
 
-  private User getUser() {
+  public User getUser() {
     return user;
   }
 
-  public static SelectSkillLevelDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    SelectSkillLevelDialog.Display display = new SelectSkillLevelWidget(character, entry.getTestValues()
-        .getSkillsLevel1());
-    SelectSkillLevelDialog dialog = new SelectSkillLevelDialog(display, entry, character, user);
+  public static DefaultSelectSkillLevelDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
+    List<Skill> skills = entry.getTestValues().getSkillsLevel1();
+    DefaultSelectSkillLevelDialog.Display display = new DefaultSkillLevelWidget(character, skills);
+    DefaultSelectSkillLevelDialog dialog = new DefaultSelectSkillLevelDialog(display, entry, character, user, skills);
     return dialog;
   }
-
 }
