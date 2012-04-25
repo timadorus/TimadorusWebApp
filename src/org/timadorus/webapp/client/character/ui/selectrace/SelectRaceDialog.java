@@ -1,6 +1,5 @@
 package org.timadorus.webapp.client.character.ui.selectrace;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.timadorus.webapp.beans.User;
@@ -12,9 +11,8 @@ import org.timadorus.webapp.client.character.attributes.Race;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.RootPanel;
+import org.timadorus.webapp.util.ListUtil;
+import org.timadorus.webapp.util.ListUtil.DefaultListCollector;
 
 public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> {
   public interface Display extends DefaultDisplay {
@@ -22,7 +20,7 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> {
 
     public String getSelectedGender();
 
-    public void addRaceSelectionHanlder(DefaultActionHandler handler);
+    public void addRaceSelectionHandler(DefaultActionHandler handler);
 
     /**
      * Adds an action handler to the next button.
@@ -72,57 +70,21 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> {
         getDisplay().loadCharacterPanel(getUser(), getEntry());
       }
     });
-    display.addRaceSelectionHanlder(new DefaultActionHandler() {
+    display.addRaceSelectionHandler(new DefaultActionHandler() {
 
       @Override
       public void onAction() {
-        doRaceSelection();
+        onRaceSelectionHandler();
       }
     });
   }
 
-  private void doRaceSelection() {
-
-    RootPanel.get("information").clear();
-
-    Race newRace = getRaceByName(getDisplay().getSelectedRace());
-
-    RootPanel.get("information").add(new HTML("<h1>" + newRace.getName() + "</h1><p>"
-                                         + newRace.getDescription() + "</p>"));
-
-    // Show available Classes
-    RootPanel.get("information").add(new HTML("<h2>Wählbare Klassen</h2>"));
-
-    String availableClasses = new String("<ul>");
-    for (CClass newClass : newRace.getAvailableClasses()) {
-
-      availableClasses = availableClasses + "<li>" + newClass.getName() + "</li>";
-    }
-    availableClasses = availableClasses + "</ul>";
-    RootPanel.get("information").add(new HTML(availableClasses));
-
-    // Show available Factions
-    RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
-
-    String availableFactions4 = new String("<ul>");
-    String nextFaction = new String();
-
-    for (Faction newFaction : newRace.getAvailableFactions()) {
-      nextFaction = newFaction.getName();
-      availableFactions4 = availableFactions4 + "<li>" + nextFaction + "</li>";
-
-    }
-    availableFactions4 = availableFactions4 + "</ul>";
-    RootPanel.get("information").add(new HTML(availableFactions4));
-
-  }
-
-  public void saveSelectedRace() {
+  private void saveSelectedRace() {
     Race race = getRaceByName(getDisplay().getSelectedRace());
     character.setRace(race);
   }
 
-  public void saveSelectedGender() {
+  private void saveSelectedGender() {
     character.setGender(getDisplay().getSelectedGender());
   }
 
@@ -135,20 +97,52 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> {
     return null;
   }
 
-  public Character getCharacter() {
+  private Character getCharacter() {
     return character;
   }
 
-  public User getUser() {
+  private User getUser() {
     return user;
   }
 
+  private void onRaceSelectionHandler() {
+    Race race = getRaceByName(getDisplay().getSelectedRace());
+    
+    DefaultListCollector<CClass, String> defaultListCollector = new DefaultListCollector<CClass, String>() {
+
+      @Override
+      public String collect(CClass aCollectableObject) {
+        return aCollectableObject.getName();
+      }
+      
+    };
+    
+    List<String> theNamesOfAvailbaleClasses = 
+        ListUtil.collectListItems(defaultListCollector, race.getAvailableClasses());
+    
+    DefaultListCollector<Faction, String> aListCollector2 = new DefaultListCollector<Faction, String>() {
+
+      @Override
+      public String collect(Faction aCollectableObject) {
+        return aCollectableObject.getName();
+      }
+      
+    };
+    List<String> theNameOfAvailbaleFactions = ListUtil.collectListItems(aListCollector2, race.getAvailableFactions());
+    
+    getDisplay().showRaceSelection(race.getName(), race.getDescription(), 
+                                   theNamesOfAvailbaleClasses, theNameOfAvailbaleFactions);
+  }
+
   public static SelectRaceDialog getDialog(DefaultTimadorusWebApp entry, User user, Character character) {
-    List<Race> races = entry.getTestValues().getRaces();
-    List<String> racenames = new ArrayList<String>();
-    for (Race race : races) {
-      racenames.add(race.getName());
-    }
+    List<String> racenames = ListUtil.collectListItems(new DefaultListCollector<Race, String>() {
+      @Override
+      public String collect(Race aCollectableObject) {
+        return aCollectableObject.getName();
+      }
+      
+    }, entry.getTestValues().getRaces()); 
+        
     SelectRaceDialog.Display display = new SelectRaceWidget(racenames);
     SelectRaceDialog dialog = new SelectRaceDialog(display, entry, character, user);
     return dialog;

@@ -1,8 +1,15 @@
 package org.timadorus.webapp.tests.client.character.ui.selectrace;
 
-import org.junit.Assert;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.anyListOf;
+import static org.mockito.Mockito.eq;
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -15,72 +22,72 @@ import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
 
 public class SelectRaceDialogTest {
   private static final String RACE_WITZBOLD = "Witzbold";
+
   private static final String RACE_WITZBOLDT = "Witzboldt";
+
   private static final String GENDER = "Gender";
-  
+
   private SelectRaceDialog mySelectRaceDialog;
-  
-  @Mock private SelectRaceDialog.Display myDisplayMock;
-  @Mock private DefaultTimadorusWebApp myTimadorusWebAppMock;
-  
+
+  @Mock
+  private SelectRaceDialog.Display myDisplayMock;
+
+  @Mock
+  private DefaultTimadorusWebApp myTimadorusWebAppMock;
+
   private Character myCharacter;
+
   private User myUser;
-  
+
   @Before
   public void setUp() {
     MockitoAnnotations.initMocks(this);
-    
+
     myCharacter = new Character();
     myUser = new User();
-    
+
     mySelectRaceDialog = new SelectRaceDialog(myDisplayMock, myTimadorusWebAppMock, myCharacter, myUser);
-    
+
     Mockito.when(myTimadorusWebAppMock.getTestValues()).thenReturn(new TestCharacterValues());
   }
-  
+
   @Test
-  public void testVerifyHandler() {
-    Mockito.verify(myDisplayMock).addNextButtonHandler(Mockito.isA(DefaultActionHandler.class));
-    Mockito.verify(myDisplayMock).addPrevButtonHandler(Mockito.isA(DefaultActionHandler.class));
-    Mockito.verify(myDisplayMock).addRaceSelectionHanlder(Mockito.isA(DefaultActionHandler.class));
+  public void testPrevButtonHandler() {
+    ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+    verify(myDisplayMock).addPrevButtonHandler(theArgumentCaptor.capture());
+
+    theArgumentCaptor.getValue().onAction();
+
+    verify(myDisplayMock).loadCharacterPanel(myUser, myTimadorusWebAppMock);
   }
-  
+
   @Test
-  public void testSaveSelectedRace() {
-    Mockito.when(myDisplayMock.getSelectedRace()).thenReturn(RACE_WITZBOLD);
+  public void testNextButtonHandler() {
+    when(myDisplayMock.getSelectedRace()).thenReturn(RACE_WITZBOLD);
+    when(myDisplayMock.getSelectedGender()).thenReturn(GENDER);
+
+    ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+    verify(myDisplayMock).addNextButtonHandler(theArgumentCaptor.capture());
     
-    mySelectRaceDialog.saveSelectedRace();
+    theArgumentCaptor.getValue().onAction();
+
+    Assert.assertEquals("Character Race should be " + RACE_WITZBOLD, RACE_WITZBOLD, myCharacter.getRace().getName());
+    Assert.assertEquals("Character Gender should be " + GENDER, GENDER, myCharacter.getGender());
     
-    Assert.assertNotNull("Race should have been set.", myCharacter.getRace());
-    Assert.assertEquals("The name of the Race should be " + RACE_WITZBOLD, 
-                        RACE_WITZBOLD, myCharacter.getRace().getName());
+    verify(myDisplayMock).loadSelectClassPanel(myTimadorusWebAppMock, myUser, myCharacter);
   }
-  
+
   @Test
-  public void testSaveSelectedRaceNull() {
-    Mockito.when(myDisplayMock.getSelectedRace()).thenReturn(RACE_WITZBOLDT);
+  public void testRaceSelectionHandler() {
+    when(myDisplayMock.getSelectedRace()).thenReturn(RACE_WITZBOLD);
+
+    ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+    verify(myDisplayMock).addRaceSelectionHandler(theArgumentCaptor.capture());
     
-    mySelectRaceDialog.saveSelectedRace();
+    theArgumentCaptor.getValue().onAction();
     
-    Assert.assertNull("Race shouldn't have been set.", myCharacter.getRace());
+    verify(myDisplayMock).showRaceSelection(eq(RACE_WITZBOLD), anyString(), 
+                                            anyListOf(String.class), anyListOf(String.class));
   }
-  
-  @Test
-  public void testSaveSelectedGender() {
-    Mockito.when(myDisplayMock.getSelectedGender()).thenReturn(GENDER);
-    
-    mySelectRaceDialog.saveSelectedGender();
-    
-    Assert.assertEquals("Gender should be " + GENDER,  GENDER, myCharacter.getGender());
-  }
-  
-  @Test
-  public void testGetCharacter() {
-    Assert.assertEquals("Character should be equal", myCharacter, mySelectRaceDialog.getCharacter());
-  }
-  
-  @Test
-  public void testGetUer() {
-    Assert.assertEquals("User should be equal", myUser, mySelectRaceDialog.getUser());
-  }
+
 }

@@ -40,6 +40,7 @@ import org.timadorus.webapp.tests.server.RegisteredUserListTest;
 import org.timadorus.webapp.tests.server.UtilTest;
 import org.timadorus.webapp.tests.shared.ActionTest;
 import org.timadorus.webapp.tests.shared.ResponseTest;
+import org.timadorus.webapp.tests.util.ListUtilTest;
 
 /**
  * @author sage
@@ -74,7 +75,10 @@ import org.timadorus.webapp.tests.shared.ResponseTest;
                      
                      // shared
                      ActionTest.class,
-                     ResponseTest.class
+                     ResponseTest.class,
+                     
+                     // util
+                     ListUtilTest.class
 })
 public class TimadorusWebAppSmokeTest {
 

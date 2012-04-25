@@ -161,7 +161,7 @@ public class SelectRaceWidget extends FormPanel implements SelectRaceDialog.Disp
   }
 
   @Override
-  public void addRaceSelectionHanlder(final DefaultActionHandler handler) {
+  public void addRaceSelectionHandler(final DefaultActionHandler handler) {
     raceListBox.addClickHandler(new ClickHandler() {
 
       @Override
