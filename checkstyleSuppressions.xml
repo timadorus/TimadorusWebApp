@@ -30,5 +30,6 @@
     <suppress checks="MagicNumber" files="ShowCharacterPanel.java" />
     <suppress checks="MagicNumber" files="SelectSkillLevelWidget.java"/>
     <suppress checks="MagicNumber" files="SelectAppearanceWidget.java"/>
+    <suppress checks="MagicNumber" files="DefaultSkillLevelWidget.java"/>
 
 </suppressions>
