@@ -1,5 +1,6 @@
 package org.timadorus.webapp.client.campaign;
 
+import org.timadorus.webapp.beans.Campaign;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignService;

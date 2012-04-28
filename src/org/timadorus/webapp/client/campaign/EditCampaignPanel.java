@@ -2,6 +2,7 @@ package org.timadorus.webapp.client.campaign;
 
 import java.util.List;
 
+import org.timadorus.webapp.beans.Campaign;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignService;
