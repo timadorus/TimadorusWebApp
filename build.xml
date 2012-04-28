@@ -318,7 +318,11 @@
 
 			<!-- path to files that are to be considered for enhancement -->
 			<fileset dir="${war.classes}">
-				<include name="**/*.class" />
+				<include name="**/User.class" />
+				<include name="**/Character.class" />
+				<include name="**/Faction.class" />
+				<include name="**/Race.class" />
+				<include name="**/CClass.class" />
 			</fileset>
 		</datanucleusenhancer>
 	</target>

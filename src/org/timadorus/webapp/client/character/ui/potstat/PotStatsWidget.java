@@ -7,8 +7,8 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.SelectTempStatsPanel;
 import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel0Dialog;
+import org.timadorus.webapp.client.character.ui.selecttempstats.SelectTempStatsDialog;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
@@ -98,8 +98,7 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 5 von 7"));
-    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: "
-        + characterIn.getRace().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
     panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
         + characterIn.getFaction().getName()));
 
@@ -118,10 +117,9 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
 
   // returns and hols current panel information
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Attribute bekommen</h1><p>Ausgehend von ihren Wahl der temporären Attribute, "
-                                    + "erhalten sie hier zusätzliche Punkte.</p><p>Diese Punkte werden anhand einer "
-                                    + "Tabelle ausgewürfelt.</p>");
+    HTML information = new HTML("<h1>Attribute bekommen</h1><p>Ausgehend von ihren Wahl der temporären Attribute, "
+        + "erhalten sie hier zusätzliche Punkte.</p><p>Diese Punkte werden anhand einer "
+        + "Tabelle ausgewürfelt.</p>");
     return information;
   }
 
@@ -157,7 +155,7 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
     };
     prevButton.addClickHandler(clickHandler);
   }
-  
+
   /**
    * 
    * @author sage
@@ -166,13 +164,14 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
   private class PotFieldCallback implements AsyncCallback<Integer> {
 
     private int fieldNum;
+
     private final List<Integer> potStats;
 
     /**
      * 
      * @param fieldNum
      *          the number of the pot field to set.
-     * @param potStats 
+     * @param potStats
      */
     public PotFieldCallback(int fieldNum, List<Integer> potStats) {
       this.fieldNum = fieldNum;
@@ -181,10 +180,8 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
 
     @Override
     public void onFailure(Throwable caught) {
-      entry.showDialogBox("Remote Service Failure",
-                               "Client/Server Create Character Service Failure!\n"
-                                   + "please contact the support service or server admin. \n"
-                                   + "RPC that failed was: int makePotStat(int)");
+      entry.showDialogBox("Remote Service Failure", "Client/Server Create Character Service Failure!\n"
+          + "please contact the support service or server admin. \n" + "RPC that failed was: int makePotStat(int)");
     }
 
     @Override
@@ -193,13 +190,13 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
       addGridEntry(fieldNum + 1, 2, result.toString());
     }
   };
-  
+
   @Override
   public List<Integer> calculatePotStats(List<Integer> tempStat) {
     CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
 
     AsyncCallback<Integer> asyncCallback;
-    
+
     List<Integer> potStats = new ArrayList<Integer>();
 
     for (int i = 0; i < tempStat.size(); i++) {
@@ -207,17 +204,15 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
       int temp = tempStat.get(i);
       createServiceAsync.makePotStat(temp, asyncCallback);
     }
-    
+
     return potStats;
   }
-  
+
   // clear "content" #div and add Class SelectTempStats to it
   @Override
-  public void
-      loadSelectTempStatsPanel(DefaultTimadorusWebApp entry, Character character, User user) {
+  public void loadSelectTempStatsPanel(DefaultTimadorusWebApp entry, Character character, User user) {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(entry, character,
-                                                                              user));
+    RootPanel.get("content").add(SelectTempStatsDialog.getDialog(entry, user, character).getFormPanel());
   }
 
   // clear "content" #div and add Class SelectSkillPanel to it

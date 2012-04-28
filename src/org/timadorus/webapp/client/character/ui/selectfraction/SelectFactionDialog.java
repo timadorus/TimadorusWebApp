@@ -7,8 +7,8 @@ import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.SelectTempStatsPanel;
 import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
+import org.timadorus.webapp.client.character.ui.selecttempstats.SelectTempStatsDialog;
 
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -69,8 +69,7 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
 
         for (Faction faction : getEntry().getTestValues().getFactions()) {
           if (faction.getName().equals(factionName)) {
-            getDisplay().setInformation("<h1>" + faction.getName() + "</h1><p>"
-                                            + faction.getDescription() + "</p>");
+            getDisplay().setInformation("<h1>" + faction.getName() + "</h1><p>" + faction.getDescription() + "</p>");
           }
         }
       }
@@ -80,9 +79,7 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
   // returns currently select faction from the listbox
   public Faction getSelectedFaction() {
     for (Faction faction : getEntry().getTestValues().getFactions()) {
-      if (faction.getName().equals(getDisplay().getSelectedFaction())) {
-        return faction;
-      }
+      if (faction.getName().equals(getDisplay().getSelectedFaction())) { return faction; }
     }
     return null;
   }
@@ -96,16 +93,14 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
   public void loadSelectClassPanel() {
     // TODO should be moved into the widget
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectClassDialog.getSelecteddDialog(getEntry(), character, user)
-                                     .getFormPanel());
+    RootPanel.get("content").add(SelectClassDialog.getSelecteddDialog(getEntry(), character, user).getFormPanel());
   }
 
   // clear "content" #div and add Class SelectTempStats to it
   public void loadSelectTempStatsPanel() {
     // TODO should be moved into the widget
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectTempStatsPanel.getSelectTempStatsPanel(getEntry(),
-                                                                              character, user));
+    RootPanel.get("content").add(SelectTempStatsDialog.getDialog(getEntry(), user, character).getFormPanel());
   }
 
   public static SelectFactionDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
