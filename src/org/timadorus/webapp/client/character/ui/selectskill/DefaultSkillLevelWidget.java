@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.timadorus.webapp.client.character.Character;
-import org.timadorus.webapp.client.character.attributes.Skill;
+import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.Skill;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 
 import com.google.gwt.event.dom.client.ChangeEvent;

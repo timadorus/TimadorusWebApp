@@ -8,8 +8,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.server.RegisteredUserList;
 

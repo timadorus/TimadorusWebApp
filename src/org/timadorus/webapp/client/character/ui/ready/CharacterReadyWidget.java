@@ -1,6 +1,6 @@
 package org.timadorus.webapp.client.character.ui.ready;
 
-import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.beans.Character;
 
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;

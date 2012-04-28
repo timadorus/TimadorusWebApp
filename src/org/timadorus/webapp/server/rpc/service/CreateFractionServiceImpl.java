@@ -7,8 +7,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
-import org.timadorus.webapp.client.campaign.Campaign;
-import org.timadorus.webapp.client.campaign.Fraction;
+import org.timadorus.webapp.beans.Campaign;
+import org.timadorus.webapp.beans.Fraction;
 import org.timadorus.webapp.client.rpc.service.CreateFractionService;
 import org.timadorus.webapp.server.RegisteredUserList;
 

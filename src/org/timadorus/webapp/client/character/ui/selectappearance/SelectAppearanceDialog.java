@@ -1,9 +1,9 @@
 package org.timadorus.webapp.client.character.ui.selectappearance;
 
+import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.CharacterColors;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
-import org.timadorus.webapp.client.character.attributes.CharacterColors;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;

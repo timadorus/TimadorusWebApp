@@ -1,8 +1,8 @@
 package org.timadorus.webapp.client.character.ui.selectfraction;
 
+import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.Faction;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
-import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 
 import com.google.gwt.event.dom.client.ClickEvent;

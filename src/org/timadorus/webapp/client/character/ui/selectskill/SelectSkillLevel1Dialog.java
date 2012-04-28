@@ -2,10 +2,10 @@ package org.timadorus.webapp.client.character.ui.selectskill;
 
 import java.util.List;
 
+import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.Skill;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
-import org.timadorus.webapp.client.character.attributes.Skill;
 import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanceDialog;
 
 import com.google.gwt.user.client.ui.RootPanel;

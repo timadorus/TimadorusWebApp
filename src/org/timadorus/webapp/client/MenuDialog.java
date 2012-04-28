@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.timadorus.webapp.beans.Campaign;
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.campaign.Campaign;
 
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasWidgets;

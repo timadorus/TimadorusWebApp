@@ -2,9 +2,9 @@ package org.timadorus.webapp.client.character.ui.characterlist;
 
 import java.util.List;
 
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.ShowCharacterPanel;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;

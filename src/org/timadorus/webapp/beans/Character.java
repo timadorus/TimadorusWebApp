@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.timadorus.webapp.client.character;
+package org.timadorus.webapp.beans;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -16,12 +16,6 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.annotations.Unique;
 
-import org.timadorus.webapp.client.character.attributes.CClass;
-import org.timadorus.webapp.client.character.attributes.Faction;
-import org.timadorus.webapp.client.character.attributes.Race;
-import org.timadorus.webapp.client.character.attributes.Skill;
-import org.timadorus.webapp.client.character.attributes.CharacterColors;
-import org.timadorus.webapp.client.character.attributes.Stat;
 
 /**
  * @author kilic_a, willat_j This class represents a Character-Object, which will build at the client-Side and afterward

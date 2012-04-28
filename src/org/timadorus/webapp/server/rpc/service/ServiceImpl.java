@@ -2,9 +2,9 @@ package org.timadorus.webapp.server.rpc.service;
 
 import java.util.List;
 
+import org.timadorus.webapp.beans.Campaign;
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.campaign.Campaign;
-import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.service.Service;
 import org.timadorus.webapp.server.rpc.service.campaign.CampaignProvider;
 import org.timadorus.webapp.server.rpc.service.character.CharacterProvider;

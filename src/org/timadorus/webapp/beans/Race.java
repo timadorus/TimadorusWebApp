@@ -1,4 +1,4 @@
-package org.timadorus.webapp.client.character.attributes;
+package org.timadorus.webapp.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;

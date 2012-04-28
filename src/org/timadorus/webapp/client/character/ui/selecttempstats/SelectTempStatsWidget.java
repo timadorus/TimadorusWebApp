@@ -3,7 +3,7 @@ package org.timadorus.webapp.client.character.ui.selecttempstats;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.timadorus.webapp.client.character.Character;
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 
 import com.google.gwt.event.dom.client.ClickEvent;

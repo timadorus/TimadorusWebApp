@@ -1,7 +1,7 @@
 package org.timadorus.webapp.client.character.ui.ready;
 
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 

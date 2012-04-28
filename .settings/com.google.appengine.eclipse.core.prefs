@@ -3,3 +3,4 @@ filesCopiedToWebInfLib=appengine-api-1.0-sdk-1.6.4.jar|appengine-api-labs-1.6.4.
 gaeIsEclipseDefaultInstPath=false
 googleCloudSqlEnabled=false
 localDevMySqlEnabled=true
+ormEnhancementInclusions=src/org/timadorus/webapp/beans/

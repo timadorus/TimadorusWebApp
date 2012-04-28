@@ -1,10 +1,10 @@
 package org.timadorus.webapp.client.character.ui;
 
+import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.Skill;
+import org.timadorus.webapp.beans.Stat;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
-import org.timadorus.webapp.client.character.attributes.Skill;
-import org.timadorus.webapp.client.character.attributes.Stat;
 import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterlistPanel;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;

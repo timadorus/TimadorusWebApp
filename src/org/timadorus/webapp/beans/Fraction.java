@@ -1,4 +1,4 @@
-package org.timadorus.webapp.client.campaign;
+package org.timadorus.webapp.beans;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package org.timadorus.webapp.client.character.attributes;
+package org.timadorus.webapp.beans;
 
 /**
  * This enumeration holds all supported skin colors for the characters.

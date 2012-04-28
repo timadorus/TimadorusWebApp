@@ -2,8 +2,8 @@ package org.timadorus.webapp.client.character.ui.selectclass;
 
 import java.util.List;
 
-import org.timadorus.webapp.client.character.Character;
-import org.timadorus.webapp.client.character.attributes.CClass;
+import org.timadorus.webapp.beans.CClass;
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 
 import com.google.gwt.event.dom.client.ClickEvent;

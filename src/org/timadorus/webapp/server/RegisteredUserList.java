@@ -15,8 +15,8 @@ import javax.jdo.Query;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.character.Character;
 
 /**
  * Includes some user data for login.

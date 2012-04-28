@@ -1,10 +1,10 @@
 package org.timadorus.webapp.client.character.ui.selectclass;
 
+import org.timadorus.webapp.beans.CClass;
+import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.Faction;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.Character;
-import org.timadorus.webapp.client.character.attributes.CClass;
-import org.timadorus.webapp.client.character.attributes.Faction;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;

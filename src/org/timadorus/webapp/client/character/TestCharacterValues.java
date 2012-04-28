@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.timadorus.webapp.client.character.attributes.CClass;
-import org.timadorus.webapp.client.character.attributes.CharacterColors;
-import org.timadorus.webapp.client.character.attributes.Faction;
-import org.timadorus.webapp.client.character.attributes.Race;
-import org.timadorus.webapp.client.character.attributes.Skill;
-import org.timadorus.webapp.client.character.attributes.Stat;
+import org.timadorus.webapp.beans.CClass;
+import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.CharacterColors;
+import org.timadorus.webapp.beans.Faction;
+import org.timadorus.webapp.beans.Race;
+import org.timadorus.webapp.beans.Skill;
+import org.timadorus.webapp.beans.Stat;
 
 //This class serves dummy-Values for create-Character-progress
 public class TestCharacterValues {
