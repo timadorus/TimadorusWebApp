@@ -6,7 +6,7 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterlistPanel;
+import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListDialog;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
 
@@ -31,7 +31,7 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
      * 
      * @param handler
      */
-    public void addCharacterDeleteHandler(CharacterDeleteHandler handler);
+    public void addCharacterDeleteHandler(CharacterActionHandler handler);
 
     public void addBackButtonHandler(DefaultActionHandler handler);
 
@@ -74,10 +74,10 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
       }
     });
 
-    display.addCharacterDeleteHandler(new CharacterDeleteHandler() {
+    display.addCharacterDeleteHandler(new CharacterActionHandler() {
 
       @Override
-      public void onDelete(Character character, String password) {
+      public void onAction(Character character, String password) {
         System.out.println("handle Event");
         if (password.equals(getUser().getPassword())) {
           System.out.println("Deleting " + character.getName());
@@ -101,7 +101,7 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
 
   public void onBackButtonClick() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(getEntry(), user));
+    RootPanel.get("content").add(ShowCharacterListDialog.getDialog(getEntry(), getUser()).getFormPanel());
   }
 
   /**
@@ -121,7 +121,7 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
           } else {
             System.out.println("Unsuccessfully deleted");
           }
-          setContent(ShowCharacterlistPanel.getShowCharacterlistPanel(getEntry(), user));
+          setContent(ShowCharacterListDialog.getDialog(getEntry(), getUser()).getFormPanel());
         }
       }
 

@@ -355,12 +355,12 @@ public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialo
   }
 
   @Override
-  public void addCharacterDeleteHandler(final CharacterDeleteHandler handler) {
+  public void addCharacterDeleteHandler(final CharacterActionHandler handler) {
     confirm.addClickHandler(new ClickHandler() {
 
       @Override
       public void onClick(ClickEvent event) {
-        handler.onDelete(character, passbox.getText());
+        handler.onAction(character, passbox.getText());
       }
     });
     passbox.addKeyUpHandler(new KeyUpHandler() {
@@ -368,7 +368,7 @@ public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialo
       @Override
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-          handler.onDelete(character, passbox.getText());
+          handler.onAction(character, passbox.getText());
         }
       }
     });

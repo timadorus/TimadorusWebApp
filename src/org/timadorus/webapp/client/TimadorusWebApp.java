@@ -4,7 +4,7 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.campaign.CreateCampaignPanel;
 import org.timadorus.webapp.client.campaign.EditCampaignPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
-import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterlistPanel;
+import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListDialog;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 import org.timadorus.webapp.client.login.LoginPanel;
 import org.timadorus.webapp.client.profile.ProfilePanel;
@@ -222,10 +222,8 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
   private void loadShowCharacterlistPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Liste der registrierten Charaktere"));
-    RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(this,
-                                                                                  LoginPanel.getLoginPanel(sessionId,
-                                                                                                           this)
-                                                                                      .getUser()));
+    User user = LoginPanel.getLoginPanel(sessionId, this).getUser();
+    RootPanel.get("content").add(ShowCharacterListDialog.getDialog(this, user).getFormPanel());
   }
 
   /**
