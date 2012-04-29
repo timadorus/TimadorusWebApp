@@ -26,6 +26,7 @@ import org.timadorus.webapp.tests.client.MenuDialogTest;
 import org.timadorus.webapp.tests.client.RoleTest;
 import org.timadorus.webapp.tests.client.SessionIdTest;
 import org.timadorus.webapp.tests.client.character.ui.createcharacter.CreateDialogTest;
+import org.timadorus.webapp.tests.client.character.ui.potstat.PotStatsDialogTest;
 import org.timadorus.webapp.tests.client.character.ui.premadecharacter.PremadeCharacterDialogTest;
 import org.timadorus.webapp.tests.client.character.ui.ready.ReadyDialogTest;
 import org.timadorus.webapp.tests.client.character.ui.selectappearance.SelectAppearanceDialogTest;
@@ -48,7 +49,7 @@ import org.timadorus.webapp.tests.util.ListUtilTest;
 @Suite.SuiteClasses({
                      // character ui
                      CreateDialogTest.class, 
-//                     PotStatsDialogTest.class, 
+                     PotStatsDialogTest.class, 
                      PremadeCharacterDialogTest.class,
                      ReadyDialogTest.class, 
                      SelectAppearanceDialogTest.class, 

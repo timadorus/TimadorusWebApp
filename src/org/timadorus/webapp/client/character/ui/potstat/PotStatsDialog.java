@@ -70,16 +70,11 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
     character.setPotStats(potStats);
   }
 
-  // calculates potStats
-
-
-
-
-  public Character getCharacter() {
+  private Character getCharacter() {
     return character;
   }
 
-  public User getUser() {
+  private User getUser() {
     return user;
   }
 

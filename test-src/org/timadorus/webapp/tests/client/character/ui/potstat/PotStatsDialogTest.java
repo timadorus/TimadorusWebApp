@@ -48,7 +48,7 @@ public class PotStatsDialogTest {
     
     theArgumentCaptor.getValue().onAction();
     
-    verify(myDisplayMock).loadSelectTempStatsPanel(myDefaultTimadorusWebApp, myCharacter, myUser);
+    verify(myDisplayMock).loadSelectSkillPanel(myDefaultTimadorusWebApp, myCharacter, myUser);
   }
   
   @Test
@@ -58,7 +58,7 @@ public class PotStatsDialogTest {
     
     theArgumentCaptor.getValue().onAction();
     
-    verify(myDisplayMock).loadSelectSkillPanel(myDefaultTimadorusWebApp, myCharacter, myUser);
+    verify(myDisplayMock).loadSelectTempStatsPanel(myDefaultTimadorusWebApp, myCharacter, myUser);
   }
   
   @Test
@@ -66,15 +66,6 @@ public class PotStatsDialogTest {
     Assert.assertTrue("PotStats should be empty", 
                        myCharacter.getPotStats() != null && myCharacter.getPotStats().size() == 0);
   }
-  
-  @Test
-  public void testGetUser() {
-    Assert.assertEquals("User should be equal", myUser, myPotStatsDialog.getUser());
-  }
-  
-  @Test
-  public void testGetCharacter() {
-    Assert.assertEquals("Character should be equal", myCharacter, myPotStatsDialog.getCharacter());
-  }
-  
+
+ 
 }
