@@ -5,7 +5,7 @@ import java.util.List;
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.ui.ShowCharacterPanel;
+import org.timadorus.webapp.client.character.ui.showcharacter.ShowCharacterDialog;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
 
@@ -186,7 +186,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
         confirm.addClickHandler(confirmHandler);
         passbox.addKeyUpHandler(confirmHandler);
 
-        grid.setWidget(i, 0, ShowCharacterPanel.getShowShortCharacterPanel(entry, user, character));
+        grid.setWidget(i, 0, ShowCharacterDialog.getShortDisplay(entry, character, getUser()).getFormPanel());
         grid.setWidget(i, 1, details);
         grid.setWidget(i, 2, delete);
         i++;
@@ -206,7 +206,7 @@ public final class ShowCharacterlistPanel extends FormPanel {
     grid.clear();
     panel.clear();
     headline = new HTML("<h1>Charakter-Details</h1>");
-    grid.setWidget(0, 0, ShowCharacterPanel.getShowDetailCharacterPanel(entry, user, character));
+    grid.setWidget(0, 0, ShowCharacterDialog.getDetailDisplay(entry, character, user).getFormPanel());
     panel.add(headline);
     panel.add(grid);
   }

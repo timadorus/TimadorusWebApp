@@ -1,21 +1,15 @@
-package org.timadorus.webapp.client.character.ui;
+package org.timadorus.webapp.client.character.ui.showcharacter;
 
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Skill;
 import org.timadorus.webapp.beans.Stat;
-import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterlistPanel;
-import org.timadorus.webapp.client.rpc.service.CharacterService;
-import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
+import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -26,10 +20,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 // Panel to show information about the character
-public final class ShowCharacterPanel extends FormPanel {
+public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialog.Display {
 
   public static final int SHORT_MODE = 1;
 
@@ -45,144 +38,65 @@ public final class ShowCharacterPanel extends FormPanel {
 
   private final int detailColumns = 2;
 
-  DefaultTimadorusWebApp entry;
+  private VerticalPanel panel;
 
-  VerticalPanel panel = new VerticalPanel();
+  private Grid grid;
 
-  private Grid grid = new Grid(rows, columns);
+  private Grid detailGrid;
 
-  private Grid detailGrid = new Grid(detailRows, detailColumns);
+  private Label name;
 
-  private Label name = new Label("Name:");
+  private Label gender;
 
-  private Label gender = new Label("Gender:");
+  private Label race;
 
-  private Label race = new Label("Race:");
+  private Label cclass;
 
-  private Label cclass = new Label("Klasse:");
+  private Label faction;
 
-  private Label faction = new Label("Faction:");
+  private Button back;
 
-  private Button back = new Button("Zurück");
+  private Button delete;
 
-  private Button delete = new Button("Löschen");
+  private Button confirm;
 
-  private Button confirm = new Button("Löschung bestätigen");
+  private PasswordTextBox passbox;
 
-  private PasswordTextBox passbox = new PasswordTextBox();
-
-  Button back2 = new Button("Zurück");
-
-  private User user;
+  private Button back2;
 
   private Character character;
 
-  private ShowCharacterPanel(final DefaultTimadorusWebApp entryIn, final User userIn, final Character characterIn,
-                             int modeIn) {
+  public ShowCharacterWidget(final Character character, int modeIn) {
     super();
 
-    this.entry = entryIn;
-    this.user = userIn;
-    this.character = characterIn;
+    this.character = character;
+
+    panel = new VerticalPanel();
+    grid = new Grid(rows, columns);
+    detailGrid = new Grid(detailRows, detailColumns);
+    name = new Label("Name:");
+    gender = new Label("Gender:");
+    race = new Label("Race:");
+    cclass = new Label("Klasse:");
+    faction = new Label("Faction:");
+    back = new Button("Zurück");
+    back2 = new Button("Zurück");
+    delete = new Button("Löschen");
+    confirm = new Button("Löschung bestätigen");
+    passbox = new PasswordTextBox();
 
     if (modeIn == SHORT_MODE) {
-      buildShortMode();
+      buildShortMode(character);
     } else if (modeIn == DETAIL_MODE) {
-      buildDetailMode();
+      buildDetailMode(character);
     }
 
-    // creates a handler for delete and back buttons
-    class MyHandler implements ClickHandler {
-
-      /**
-       * Will be triggered if the the button has been clicked.
-       * 
-       * @param event
-       *          The ClickEvent object
-       */
-      public void onClick(ClickEvent event) {
-        if (event.getSource().equals(delete)) {
-          onDeleteButtonClick();
-        } else if (event.getSource().equals(back)) {
-          RootPanel.get("content").clear();
-          RootPanel.get("content").add(ShowCharacterlistPanel.getShowCharacterlistPanel(entryIn, userIn));
-        } else if (event.getSource().equals(back2)) {
-          RootPanel.get("content").clear();
-          RootPanel.get("content").add(ShowCharacterPanel.getShowDetailCharacterPanel(entry, user, character));
-        }
-      }
-    }
-
-    // creates a handler for confirm button
-    class ConfirmHandler implements ClickHandler, KeyUpHandler {
-      /**
-       * Will be triggered if the button was clicked.
-       * 
-       * @param event
-       *          The click event
-       */
-      public void onClick(ClickEvent event) {
-        System.out.println("Löschung bestätigen Button geklickt");
-        handleEvent();
-      }
-
-      /**
-       * Will be triggered if the "Enter" button was hit while located in an input field.
-       * 
-       * @param event
-       *          The KeyUpEvent object
-       */
-      public void onKeyUp(KeyUpEvent event) {
-        if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-          handleEvent();
-        }
-      }
-
-      /**
-       * Handles the character deletion.
-       */
-      private void handleEvent() {
-        System.out.println("handle Event");
-        if (passbox.getText().equals(user.getPassword())) {
-          System.out.println("Deleting " + character.getName());
-          deleteCharacter(character);
-          showDialogBox("Information", "Ihr Charakter wurde erfolgreich entfernt!");
-        } else {
-          passbox.setText("");
-          showDialogBox("Fehlermeldung", "Passwort falsch! Versuchen Sie es erneut!");
-        }
-      }
-    }
-
-    MyHandler handler = new MyHandler();
-    delete.addClickHandler(handler);
-    back.addClickHandler(handler);
-    back2.addClickHandler(handler);
-    ConfirmHandler handler2 = new ConfirmHandler();
-    confirm.addClickHandler(handler2);
-    passbox.addKeyUpHandler(handler2);
-  }
-
-  public void onDeleteButtonClick() {
-    RootPanel.get("content").clear();
-    final int gridRows = 4;
-    grid = new Grid(gridRows, 1);
-    HTML headline = new HTML("<h1>Charakter löschen</h1>");
-    grid.setWidget(0, 0, new Label("Sind Sie sich sicher, dass Sie diesen Charakter löschen wollen?"));
-    grid.setWidget(1, 0, passbox);
-    grid.setWidget(2, 0, confirm);
-    final int row = 3;
-    grid.setWidget(row, 0, back2);
-    panel.clear();
-    panel.add(headline);
-    panel.add(grid);
-    RootPanel.get("content").add(panel);
   }
 
   /**
    * Builds the panel with only low detail of the character.
    */
-  private void buildShortMode() {
+  private void buildShortMode(Character character) {
     grid.setBorderWidth(1);
 
     // Display name
@@ -224,7 +138,7 @@ public final class ShowCharacterPanel extends FormPanel {
   /**
    * Builds the panel with high detail of the character.
    */
-  private void buildDetailMode() {
+  private void buildDetailMode(Character character) {
     detailGrid.setBorderWidth(1);
 
     // Display name
@@ -343,93 +257,6 @@ public final class ShowCharacterPanel extends FormPanel {
   }
 
   /**
-   * Gets the ShowCharacterPanel with low detail mode.
-   * 
-   * @param entry
-   *          the entry point of the application
-   * @param c
-   *          the current character
-   * @param user
-   *          the current user
-   */
-  public static final ShowCharacterPanel getShowShortCharacterPanel(DefaultTimadorusWebApp e, User u, Character c) {
-    return new ShowCharacterPanel(e, u, c, ShowCharacterPanel.SHORT_MODE);
-  }
-
-  /**
-   * Gets the ShowCharacterPanel with high detail mode.
-   * 
-   * @param entry
-   *          the entry point of the application
-   * @param c
-   *          the current character
-   * @param user
-   *          the current user
-   * @return the ShowCharacterPanel
-   */
-  public static final ShowCharacterPanel getShowDetailCharacterPanel(DefaultTimadorusWebApp e, User u, Character c) {
-    return new ShowCharacterPanel(e, u, c, ShowCharacterPanel.DETAIL_MODE);
-  }
-
-  /**
-   * Gets the user.
-   * 
-   * @return the current user
-   */
-  public User getUser() {
-    return user;
-  }
-
-  /**
-   * Sets the user.
-   * 
-   * @param userIn
-   *          the user who is supposed to be the current user
-   */
-  public void setUser(User userIn) {
-    this.user = userIn;
-  }
-
-  /**
-   * Deletes the character.
-   * 
-   * @param character
-   *          the character to delete
-   */
-  private void deleteCharacter(Character character) {
-    CharacterServiceAsync characterServiceAsync = GWT.create(CharacterService.class);
-    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-
-      public void onSuccess(String result) {
-        if (result != null) {
-          if (result.equals("OK")) {
-            System.out.println("Successfully deleted");
-          } else {
-            System.out.println("Unsuccessfully deleted");
-          }
-          setContent(ShowCharacterlistPanel.getShowCharacterlistPanel(entry, user));
-        }
-      }
-
-      public void onFailure(Throwable caught) {
-        System.out.println(caught);
-      }
-    };
-    characterServiceAsync.deleteCharacter(character, asyncCallback);
-  }
-
-  /**
-   * Clears the panel and adds a widget
-   * 
-   * @param w
-   *          the widget to be added
-   */
-  private void setContent(Widget w) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(w);
-  }
-
-  /**
    * Shows a dialog box.
    * 
    * @param title
@@ -470,5 +297,91 @@ public final class ShowCharacterPanel extends FormPanel {
         dialogBox.hide();
       }
     });
+  }
+
+  @Override
+  public void onDeleteButtonClick() {
+    RootPanel.get("content").clear();
+    final int gridRows = 4;
+    grid = new Grid(gridRows, 1);
+    HTML headline = new HTML("<h1>Charakter löschen</h1>");
+    grid.setWidget(0, 0, new Label("Sind Sie sich sicher, dass Sie diesen Charakter löschen wollen?"));
+    grid.setWidget(1, 0, passbox);
+    grid.setWidget(2, 0, confirm);
+    final int row = 3;
+    grid.setWidget(row, 0, back2);
+    panel.clear();
+    panel.add(headline);
+    panel.add(grid);
+    RootPanel.get("content").add(panel);
+  }
+
+  @Override
+  public FormPanel getFormPanel() {
+    return this;
+  }
+
+  @Override
+  public void addDeleteButtonHandler(final DefaultActionHandler handler) {
+    delete.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void addBackButtonHandler(final DefaultActionHandler handler) {
+    back.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void addBack2ButtonHandler(final DefaultActionHandler handler) {
+    back2.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void addCharacterDeleteHandler(final CharacterDeleteHandler handler) {
+    confirm.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onDelete(character, passbox.getText());
+      }
+    });
+    passbox.addKeyUpHandler(new KeyUpHandler() {
+
+      @Override
+      public void onKeyUp(KeyUpEvent event) {
+        if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+          handler.onDelete(character, passbox.getText());
+        }
+      }
+    });
+  }
+
+  @Override
+  public void characterDeleteSuccessfull() {
+    showDialogBox("Information", "Ihr Charakter wurde erfolgreich entfernt!");
+  }
+
+  @Override
+  public void characterDeleteFailure() {
+    passbox.setText("");
+    showDialogBox("Fehlermeldung", "Passwort falsch! Versuchen Sie es erneut!");
   }
 }
