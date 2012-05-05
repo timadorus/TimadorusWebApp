@@ -44,6 +44,10 @@ public class DefaultSelectSkillLevelDialog extends DefaultDialog<DefaultSelectSk
     public void addResetButtonHandler(DefaultActionHandler handler);
 
     public void addSkillListBoxHandler(DefaultActionHandler handler);
+
+    public void onNextButtonClick(DefaultTimadorusWebApp entry, Character character, User user);
+
+    public void onPrevButtonClick(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
   private Character character;
@@ -57,7 +61,7 @@ public class DefaultSelectSkillLevelDialog extends DefaultDialog<DefaultSelectSk
   protected List<Skill> skillList;
 
   public DefaultSelectSkillLevelDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user,
-                                 List<Skill> skills) {
+                                       List<Skill> skills) {
     super(display, entry);
 
     this.character = character;

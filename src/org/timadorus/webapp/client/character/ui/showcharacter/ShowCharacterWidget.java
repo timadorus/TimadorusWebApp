@@ -3,7 +3,10 @@ package org.timadorus.webapp.client.character.ui.showcharacter;
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Skill;
 import org.timadorus.webapp.beans.Stat;
+import org.timadorus.webapp.beans.User;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
+import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -20,6 +23,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 // Panel to show information about the character
 public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialog.Display {
@@ -383,5 +387,23 @@ public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialo
   public void characterDeleteFailure() {
     passbox.setText("");
     showDialogBox("Fehlermeldung", "Passwort falsch! Versuchen Sie es erneut!");
+  }
+
+  @Override
+  public void loadShowCharacterDialog(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(ShowCharacterDialog.getDetailDisplay(entry, character, user).getFormPanel());
+  }
+
+  @Override
+  public void loadShowCharacterListsDialog(DefaultTimadorusWebApp entry, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(ShowCharacterListDialog.getDialog(entry, user).getFormPanel());
+  }
+
+  @Override
+  public void setContent(Widget w) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(w);
   }
 }

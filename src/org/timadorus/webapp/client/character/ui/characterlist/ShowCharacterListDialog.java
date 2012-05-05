@@ -10,7 +10,6 @@ import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.character.ui.showcharacter.CharacterActionHandler;
-import org.timadorus.webapp.client.character.ui.showcharacter.ShowCharacterDialog;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
 
@@ -37,6 +36,10 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
 
     public void setWidget(Widget widget);
 
+    public void loadShowCharacterDialog(DefaultTimadorusWebApp entry, Character character, User user);
+    
+    public void loadShowCharacterListDialog(DefaultTimadorusWebApp entry, User user);
+    
   }
 
   private User user;
@@ -70,7 +73,7 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
 
       @Override
       public void onAction(Character character, String password) {
-        getDisplay().setWidget(ShowCharacterDialog.getDetailDisplay(getEntry(), character, getUser()).getFormPanel());
+        getDisplay().loadShowCharacterDialog(getEntry(), character, getUser());
       }
     });
   }
@@ -104,7 +107,7 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
   }
 
   public void onBackButtonClick() {
-    RootPanel.get("content").add(ShowCharacterListDialog.getDialog(getEntry(), getUser()).getFormPanel());
+    getDisplay().loadShowCharacterListDialog(getEntry(), getUser());
   }
 
   /**

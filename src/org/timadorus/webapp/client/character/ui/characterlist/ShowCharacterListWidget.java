@@ -275,4 +275,14 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
   public void addDetailsButtonHandler(CharacterActionHandler handler) {
     this.detailsHandler = handler;
   }
+
+  @Override
+  public void loadShowCharacterDialog(DefaultTimadorusWebApp entry, Character character, User user) {
+    setWidget(ShowCharacterDialog.getDetailDisplay(entry, character, user).getFormPanel());
+  }
+
+  @Override
+  public void loadShowCharacterListDialog(DefaultTimadorusWebApp entry, User user) {
+    RootPanel.get("content").add(ShowCharacterListDialog.getDialog(entry, user).getFormPanel());
+  }
 }

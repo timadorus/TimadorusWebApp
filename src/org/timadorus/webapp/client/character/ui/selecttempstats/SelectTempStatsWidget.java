@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.User;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
+import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
+import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -293,6 +297,18 @@ public class SelectTempStatsWidget extends FormPanel implements SelectTempStatsD
         }
       });
     }
+  }
+
+  @Override
+  public void loadSelectFactionPanel(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectFactionDialog.getDialog(entry, character, user).getFormPanel());
+  }
+
+  @Override
+  public void loadGetPotStatsPanel(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(PotStatsDialog.getDialog(entry, character, user).getFormPanel());
   }
 
 }

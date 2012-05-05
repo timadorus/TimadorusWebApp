@@ -2,8 +2,11 @@ package org.timadorus.webapp.client.character.ui.selectfraction;
 
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Faction;
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
+import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
+import org.timadorus.webapp.client.character.ui.selecttempstats.SelectTempStatsDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -85,8 +88,7 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 3 von 9"));
-    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: "
-        + characterIn.getRace().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
     panel.add(new Label("Klasse: " + characterIn.getCharClass().getName()));
 
     panel.add(headline);
@@ -105,10 +107,9 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
 
   // returns and hols current panel information
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Fraktionen wählen</h1><p>Wählen sie hier die Fraktionen ihres Charakteres. "
-                                    + "Beachten sie, dass bestimmte Fraktionen nur von bestimmten Rassen sowie Klassen "
-                                    + "gewählt werden können.</p>");
+    HTML information = new HTML("<h1>Fraktionen wählen</h1><p>Wählen sie hier die Fraktionen ihres Charakteres. "
+        + "Beachten sie, dass bestimmte Fraktionen nur von bestimmten Rassen sowie Klassen "
+        + "gewählt werden können.</p>");
     return information;
   }
 
@@ -165,5 +166,17 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
   public void setInformation(String msg) {
     RootPanel.get("information").clear();
     RootPanel.get("information").add(new HTML(msg));
+  }
+
+  @Override
+  public void loadSelectClassPanel(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectClassDialog.getSelecteddDialog(entry, character, user).getFormPanel());
+  }
+
+  @Override
+  public void loadSelectTempStatsPanel(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectTempStatsDialog.getDialog(entry, user, character).getFormPanel());
   }
 }

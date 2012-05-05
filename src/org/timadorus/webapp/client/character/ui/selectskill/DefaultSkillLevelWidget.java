@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Skill;
+import org.timadorus.webapp.beans.User;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -367,5 +369,17 @@ public class DefaultSkillLevelWidget extends FormPanel implements ChangeHandler,
         handler.onAction();
       }
     });
+  }
+
+  @Override
+  public void onNextButtonClick(DefaultTimadorusWebApp entry, Character character, User user) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void onPrevButtonClick(DefaultTimadorusWebApp entry, Character character, User user) {
+    // TODO Auto-generated method stub
+    
   }
 }

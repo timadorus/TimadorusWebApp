@@ -6,9 +6,6 @@ import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Skill;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanceDialog;
-
-import com.google.gwt.user.client.ui.RootPanel;
 
 public class SelectSkillLevel1Dialog extends DefaultSelectSkillLevelDialog {
 
@@ -38,17 +35,13 @@ public class SelectSkillLevel1Dialog extends DefaultSelectSkillLevelDialog {
 
   @Override
   public void onPrevButtonClick() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillLevel0Dialog.getDialog(getEntry(), getCharacter(), getUser())
-                                     .getFormPanel());
+    getDisplay().onPrevButtonClick(getEntry(), getCharacter(), getUser());
   }
 
   @Override
   protected void onNextButtonClick() {
     super.onNextButtonClick();
-    RootPanel.get("content").clear();
-    RootPanel.get("content")
-        .add(SelectAppearanceDialog.getDialog(getEntry(), getCharacter(), getUser()).getFormPanel());
+    getDisplay().onNextButtonClick(getEntry(), getCharacter(), getUser());
   }
 
 }

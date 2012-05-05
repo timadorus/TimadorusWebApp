@@ -8,8 +8,6 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
-import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -29,6 +27,9 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
     public void setNextButtonHandler(DefaultActionHandler handler);
 
     public void setClassGridButtonHandler(DefaultActionHandler handler);
+    
+    public void loadSelectRaceDialog(DefaultTimadorusWebApp entry, Character character, User user);
+    public void loadSelectFactionDialog(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
   private Character character;
@@ -89,15 +90,13 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
 
   // clear "content" #div and add Class SelectRacePanel to it
   private void doPrevButtonClick() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRaceDialog.getDialog(getEntry(), user, character).getFormPanel());
+    getDisplay().loadSelectRaceDialog(getEntry(), character, user);
   }
 
   // clear "content" #div and add Class SelectFactionPanel to it
   private void doNextButtonClick() {
     character.setCharClass(getSelectedClass());
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionDialog.getDialog(getEntry(), character, user).getFormPanel());
+    getDisplay().loadSelectFactionDialog(getEntry(), character, user);
   }
 
   private CClass getSelectedClass() {

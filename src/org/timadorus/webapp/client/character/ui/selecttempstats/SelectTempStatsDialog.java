@@ -9,10 +9,6 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
-import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
-
-import com.google.gwt.user.client.ui.RootPanel;
 
 public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.Display> {
 
@@ -34,6 +30,10 @@ public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.D
     public void setStatCostColorRed(int index);
 
     public void setStatCostColorGreen(int index);
+
+    public void loadSelectFactionPanel(DefaultTimadorusWebApp entry, Character character, User user);
+
+    public void loadGetPotStatsPanel(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
   private User user;
@@ -145,14 +145,12 @@ public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.D
 
   // clear "content" #div and add Class SelectFactionPanel to it
   public void loadSelectFactionPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionDialog.getDialog(getEntry(), getCharacter(), getUser()).getFormPanel());
+    getDisplay().loadSelectFactionPanel(getEntry(), getCharacter(), getUser());
   }
 
   // clear "content" #div and add Class GetPotStatsPanel to it
   public void loadGetPotStatsPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(PotStatsDialog.getDialog(getEntry(), getCharacter(), getUser()).getFormPanel());
+    getDisplay().loadGetPotStatsPanel(getEntry(), getCharacter(), getUser());
   }
 
   /**

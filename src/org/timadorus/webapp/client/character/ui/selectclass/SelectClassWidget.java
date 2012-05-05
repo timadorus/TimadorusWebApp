@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.timadorus.webapp.beans.CClass;
 import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.User;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
+import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
+import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -73,8 +77,7 @@ public class SelectClassWidget extends FormPanel implements SelectClassDialog.Di
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 2 von 9"));
-    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: "
-        + characterIn.getRace().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
 
     panel.add(headline);
     panel.add(selectClassGrid);
@@ -99,11 +102,9 @@ public class SelectClassWidget extends FormPanel implements SelectClassDialog.Di
 
   // returns and hols current panel information
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. "
-                                    + "Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können."
-                                    + "</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie "
-                                    + "Fraktionen wählen können.</p>");
+    HTML information = new HTML("<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. "
+        + "Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können."
+        + "</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie " + "Fraktionen wählen können.</p>");
     return information;
   }
 
@@ -146,6 +147,18 @@ public class SelectClassWidget extends FormPanel implements SelectClassDialog.Di
 
       }
     });
+  }
+
+  @Override
+  public void loadSelectRaceDialog(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectRaceDialog.getDialog(entry, user, character).getFormPanel());
+  }
+
+  @Override
+  public void loadSelectFactionDialog(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(SelectFactionDialog.getDialog(entry, character, user).getFormPanel());
   }
 
 }

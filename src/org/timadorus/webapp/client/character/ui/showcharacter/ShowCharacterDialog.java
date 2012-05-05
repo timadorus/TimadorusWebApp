@@ -12,7 +12,6 @@ import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Display> {
@@ -42,6 +41,12 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
     public void characterDeleteSuccessfull();
 
     public void characterDeleteFailure();
+
+    public void loadShowCharacterDialog(DefaultTimadorusWebApp entry, Character character, User user);
+
+    public void loadShowCharacterListsDialog(DefaultTimadorusWebApp entry, User user);
+
+    public void setContent(Widget w);
   }
 
   private Character character;
@@ -95,13 +100,11 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
   }
 
   public void onBackButton2Click() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(ShowCharacterDialog.getDetailDisplay(getEntry(), character, getUser()).getFormPanel());
+    getDisplay().loadShowCharacterDialog(getEntry(), character, getUser());
   }
 
   public void onBackButtonClick() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(ShowCharacterListDialog.getDialog(getEntry(), getUser()).getFormPanel());
+    getDisplay().loadShowCharacterListsDialog(getEntry(), getUser());
   }
 
   /**
@@ -139,8 +142,7 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
    *          the widget to be added
    */
   private void setContent(Widget w) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(w);
+    getDisplay().setContent(w);
   }
 
   public static ShowCharacterDialog getShortDisplay(DefaultTimadorusWebApp entry, Character character, User user) {
