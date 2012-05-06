@@ -319,6 +319,8 @@
 			<!-- path to files that are to be considered for enhancement -->
 			<fileset dir="${war.classes}">
 				<include name="org/timadorus/webapp/beans/**" />
+				<include name="org/timadorus/webapp/server/Configuration.class" />
+				
 				<!--include name="**/Character.class" />
 				<include name="**/Faction.class" />
 				<include name="**/Race.class" />
