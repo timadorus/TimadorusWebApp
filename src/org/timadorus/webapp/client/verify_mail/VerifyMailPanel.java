@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
+import org.timadorus.webapp.client.events.ShowHandler;
+import org.timadorus.webapp.client.events.ShowVerifyMailEvent;
 import org.timadorus.webapp.client.rpc.service.UserService;
 import org.timadorus.webapp.client.rpc.service.UserServiceAsync;
 
@@ -32,47 +34,59 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * This panel is essential while verifying the E-Mail to activate
- * a user account.
+ * This panel is essential while verifying the E-Mail to activate a user account.
  * 
  * @author Malte Kantak
  */
 @SuppressWarnings("deprecation")
-public final class VerifyMailPanel extends FormPanel implements HistoryListener {
+public final class VerifyMailPanel extends FormPanel implements HistoryListener, ShowHandler {
 
-  private final int gridRows    = 4;
+  private final int gridRows = 4;
+
   private final int gridColumns = 2;
-  
-  private Panel panel = new VerticalPanel(); 
-  private Grid grid   = new Grid(gridRows, gridColumns);
 
-  private HTML headline             = new HTML("<h1>E-Mail Addresse bestätigen</h1>");
-  private TextBox userBox           = new TextBox();
-  private PasswordTextBox passBox   = new PasswordTextBox();
-  private Label userLabel           = new Label("Benutzername");;
-  private Label passLabel           = new Label("Passwort");
-  private HTML errorHTML            = new HTML();
-  private Button submit             = new Button("Bestätigen");
-  
-  public  User user;
+  private Panel panel = new VerticalPanel();
+
+  private Grid grid = new Grid(gridRows, gridColumns);
+
+  private HTML headline = new HTML("<h1>E-Mail Addresse bestätigen</h1>");
+
+  private TextBox userBox = new TextBox();
+
+  private PasswordTextBox passBox = new PasswordTextBox();
+
+  private Label userLabel = new Label("Benutzername");;
+
+  private Label passLabel = new Label("Passwort");
+
+  private HTML errorHTML = new HTML();
+
+  private Button submit = new Button("Bestätigen");
+
+  public User user;
+
   private DefaultTimadorusWebApp entry;
+
   private String activationCode;
 
   private static final long TWO_MIN = 1000 * 60 * 2;
 
   /**
    * Private constructor.
-   *  
-   * @param entryIn The timadorus web app object
+   * 
+   * @param entryIn
+   *          The timadorus web app object
    */
   private VerifyMailPanel(DefaultTimadorusWebApp entryIn) {
     super();
 
     this.entry = entryIn;
-    this.user  = new User();
-    
+    this.user = new User();
+
+    entry.getEventBus().addHandler(ShowVerifyMailEvent.SHOWDIALOG, this);
+
     setupHistory();
-    
+
     activationCode = Window.Location.getParameter("activationCode");
 
     // CHECKSTYLE OFF
@@ -91,7 +105,8 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
       /**
        * Will be triggered if button was clicked.
        * 
-       * @param event The click event
+       * @param event
+       *          The click event
        */
       public void onClick(ClickEvent event) {
         handleEvent();
@@ -100,7 +115,8 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
       /**
        * Will be triggered if the "Enter" button was hit while focused in an inputfield.
        * 
-       * @param event The KeyUpEvent
+       * @param event
+       *          The KeyUpEvent
        */
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
@@ -115,7 +131,7 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
         clearError();
         getUser().setUsername(userBox.getText());
         getUser().setPassword(passBox.getText());
-        
+
         if (getUser().getUsername().equals("") || user.getPassword().equals("")) {
           verifyInvalid("Bitte Felder ausfüllen!");
           History.newItem("verfyMail");
@@ -134,22 +150,11 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
 
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
           public void onSuccess(String result) {
-            if (result != null) {
-              if (result.equals(User.USER_VERIFIED)) {
-                getUser().setActive(true);
-                entry.setLoggedin(true);
-                Cookies.setCookie("session", result, new Date(System.currentTimeMillis() + TWO_MIN));
-                System.out.println("Login session => " + result);
-                History.newItem("login");
-              } else {
-                handleError(result);
-              }
-            }
+            onSuccessCallback(result);
           }
+
           public void onFailure(Throwable caught) {
-            getTimadorus().showDialogBox("Fehlermeldung", "Fehler bei der Anmeldung");
-            verifyInvalid("Fehler bei der Anmeldung!");
-            History.newItem("verifyMail");
+            onFailureCallback(caught);
           }
         };
 
@@ -166,16 +171,37 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
     panel.add(headline);
     panel.add(new Label("ActivationCode: " + activationCode));
     panel.add(grid);
-    
+
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
     setStyleName("formPanel");
   }
-  
+
+  private void onSuccessCallback(String result) {
+    if (result != null) {
+      if (result.equals(User.USER_VERIFIED)) {
+        getUser().setActive(true);
+        entry.setLoggedin(true);
+        Cookies.setCookie("session", result, new Date(System.currentTimeMillis() + TWO_MIN));
+        System.out.println("Login session => " + result);
+        History.newItem("login");
+      } else {
+        handleError(result);
+      }
+    }
+  }
+
+  private void onFailureCallback(Throwable caught) {
+    getTimadorus().showDialogBox("Fehlermeldung", "Fehler bei der Anmeldung");
+    verifyInvalid("Fehler bei der Anmeldung!");
+    History.newItem("verifyMail");
+  }
+
   /**
    * Handles error responses from the server and displays error messages.
    * 
-   * @param result The result from the server
+   * @param result
+   *          The result from the server
    */
   private void handleError(String result) {
     if (result.equals(User.USER_ALREADY_ACTIVATED)) {
@@ -196,7 +222,8 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
   /**
    * Returns an instance of this class.
    * 
-   * @param entry The timadorus web app object
+   * @param entry
+   *          The timadorus web app object
    * @return An instance of this class
    */
   public static final VerifyMailPanel getVerifyMailPanel(DefaultTimadorusWebApp entry) {
@@ -213,7 +240,8 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
   /**
    * If the verification was invalid, the error message will be formatted and inserted here.
    * 
-   * @param message The error message
+   * @param message
+   *          The error message
    */
   private void verifyInvalid(String message) {
     errorHTML.setHTML("<span class=\"error\">" + message + "</span>");
@@ -233,10 +261,12 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
   /**
    * Unimplemented method.
    * 
-   * @param historyToken The history token
+   * @param historyToken
+   *          The history token
    */
   @Override
-  public void onHistoryChanged(String historyToken) { }
+  public void onHistoryChanged(String historyToken) {
+  }
 
   /**
    * Returns the timadorus web app object.
@@ -246,7 +276,7 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
   private DefaultTimadorusWebApp getTimadorus() {
     return entry;
   }
-  
+
   /**
    * Returns the current User object.
    * 
@@ -254,5 +284,12 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener 
    */
   private User getUser() {
     return user;
+  }
+
+  @Override
+  public void show() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("E-Mail bestätigen"));
+    RootPanel.get("content").add(this);
   }
 }

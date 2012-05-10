@@ -2,6 +2,8 @@ package org.timadorus.webapp.client.register;
 
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
+import org.timadorus.webapp.client.events.ShowHandler;
+import org.timadorus.webapp.client.events.ShowRegisterEvent;
 import org.timadorus.webapp.client.service.Service;
 import org.timadorus.webapp.client.service.ServiceAsync;
 import org.timadorus.webapp.client.service.ServiceType;
@@ -24,7 +26,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 //FormPanel for Registering
 @SuppressWarnings("deprecation")
-public class RegisterPanel extends FormPanel implements HistoryListener {
+public class RegisterPanel extends FormPanel implements HistoryListener, ShowHandler {
 
   private final int rows = 9;
 
@@ -85,9 +87,10 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
     History.addHistoryListener(this);
   }
 
-  public RegisterPanel(DefaultTimadorusWebApp timadorusWebApp) {
+  public RegisterPanel(DefaultTimadorusWebApp entry) {
     super();
-    this.entry = timadorusWebApp;
+    this.entry = entry;
+    entry.getEventBus().addHandler(ShowRegisterEvent.SHOWDIALOG, this);
     setupHistory();
 
     grid.setWidget(0, 0, new Label("Vorname"));
@@ -329,5 +332,12 @@ public class RegisterPanel extends FormPanel implements HistoryListener {
 
   @Override
   public void onHistoryChanged(String historyToken) {
+  }
+
+  @Override
+  public void show() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Benutzregistrierung"));
+    RootPanel.get("content").add(this);
   }
 }

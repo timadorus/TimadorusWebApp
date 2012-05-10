@@ -5,6 +5,10 @@ import java.util.Date;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.SessionId;
+import org.timadorus.webapp.client.events.ShowLoginEvent;
+import org.timadorus.webapp.client.events.ShowLoginHandler;
+import org.timadorus.webapp.client.events.ShowLogoutEvent;
+import org.timadorus.webapp.client.events.ShowLogoutHandler;
 import org.timadorus.webapp.client.rpc.service.LoginService;
 import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
 
@@ -33,7 +37,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 //FormPanel for Login
 @SuppressWarnings("deprecation")
-public class LoginPanel extends FormPanel implements HistoryListener {
+public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginHandler, ShowLogoutHandler {
 
   private final int rows = 4;
   
@@ -69,6 +73,10 @@ public class LoginPanel extends FormPanel implements HistoryListener {
     super();
 
     this.entry = entryIn;
+    
+    entry.getEventBus().addHandler(ShowLoginEvent.SHOWDIALOG, this);
+    entry.getEventBus().addHandler(ShowLogoutEvent.SHOWLOGOUT, this);
+    
     setUser(new User());
     logincounter = 0;
     setupHistory();
@@ -268,4 +276,22 @@ public class LoginPanel extends FormPanel implements HistoryListener {
   public void setUser(User userIn) {
     this.user = userIn;
   }
+
+  @Override
+  public void showLogout() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die Möglichkeit, sich wieder "
+                                     + "einzuloggen:"));
+
+    RootPanel.get("content").add(this);
+    RootPanel.get("information").clear();
+  }
+
+  @Override
+  public void showLogin() {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("In bestehenden Account einloggen:"));
+    RootPanel.get("content").add(this);
+  }
+
 }

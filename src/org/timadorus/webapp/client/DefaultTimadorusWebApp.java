@@ -2,6 +2,8 @@ package org.timadorus.webapp.client;
 
 import org.timadorus.webapp.client.character.TestCharacterValues;
 
+import com.google.gwt.event.shared.HandlerManager;
+
 public interface DefaultTimadorusWebApp {
 
   /**
@@ -18,5 +20,7 @@ public interface DefaultTimadorusWebApp {
   public abstract void showDialogBox(String title, String message);
 
   public abstract TestCharacterValues getTestValues();
+  
+  public HandlerManager getEventBus();
 
 }

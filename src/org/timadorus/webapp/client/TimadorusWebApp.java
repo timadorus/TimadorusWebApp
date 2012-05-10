@@ -6,6 +6,10 @@ import org.timadorus.webapp.client.campaign.EditCampaignPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListDialog;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
+import org.timadorus.webapp.client.events.ShowLoginEvent;
+import org.timadorus.webapp.client.events.ShowLogoutEvent;
+import org.timadorus.webapp.client.events.ShowRegisterEvent;
+import org.timadorus.webapp.client.events.ShowVerifyMailEvent;
 import org.timadorus.webapp.client.login.LoginPanel;
 import org.timadorus.webapp.client.profile.ProfilePanel;
 import org.timadorus.webapp.client.register.RegisterPanel;
@@ -17,6 +21,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
@@ -44,6 +49,14 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
 
   private MenuDialog menu = new MenuDialog(new MenuWidget());
 
+  private HandlerManager eventBus;
+
+  private LoginPanel loginPanel;
+
+  private VerifyMailPanel verfiyMailPanel;
+  
+  private RegisterPanel registerPanel;
+
   public TimadorusWebApp() {
     this.sessionId = new SessionId();
 
@@ -62,6 +75,12 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
   }
 
   public void onModuleLoad() {
+
+    eventBus = new HandlerManager(this);
+
+    loginPanel = LoginPanel.getLoginPanel(sessionId, this);
+    verfiyMailPanel = VerifyMailPanel.getVerifyMailPanel(this);
+    registerPanel = RegisterPanel.getRegisterPanel(this);
 
     menu.go(RootPanel.get("menu"));
 
@@ -250,27 +269,21 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
    * A new RegisterPanel will be loaded and showed on the webpage.
    */
   private void loadRegisterPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Benutzregistrierung"));
-    RootPanel.get("content").add(RegisterPanel.getRegisterPanel(this));
+    eventBus.fireEvent(new ShowRegisterEvent());
   }
 
   /**
    * A new VerifyMailPanel will be loaded and showed on the webpage.
    */
   private void loadVerifyMailPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("E-Mail bestätigen"));
-    RootPanel.get("content").add(VerifyMailPanel.getVerifyMailPanel(this));
+    eventBus.fireEvent(new ShowVerifyMailEvent());
   }
 
   /**
    * A new LoginPanel will be loaded and showed on the webpage.
    */
   private void loadLoginPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("In bestehenden Account einloggen:"));
-    RootPanel.get("content").add(LoginPanel.getLoginPanel(sessionId, this));
+    eventBus.fireEvent(new ShowLoginEvent());
   }
 
   /**
@@ -278,16 +291,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
    */
   private void loadLogoutPanel() {
 
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die Möglichkeit, sich wieder "
-                                     + "einzuloggen:"));
-    /* getLoginPanel().setStylePrimaryName("loginpanel"); */
-
-    RootPanel.get("content").add(LoginPanel.getLoginPanel(new SessionId(), new TimadorusWebApp()));
+    eventBus.fireEvent(new ShowLogoutEvent());
     loggedin = false;
-    menu.resetUser();
-
-    RootPanel.get("information").clear();
+    menu.resetUser();    
   }
 
   /*
@@ -362,5 +368,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
 
   public void setTestValues(TestCharacterValues testValuesIn) {
     this.testValues = testValuesIn;
+  }
+
+  public HandlerManager getEventBus() {
+    return eventBus;
   }
 }
