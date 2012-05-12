@@ -20,6 +20,10 @@ public class DefaultDialog<T extends DefaultDisplay> {
     return display;
   }
 
+  protected void setDisplay(T display) {
+    this.display = display;
+  }
+
   public FormPanel getFormPanel() {
     return display.getFormPanel();
   }

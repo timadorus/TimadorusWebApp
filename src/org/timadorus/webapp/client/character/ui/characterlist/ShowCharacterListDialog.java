@@ -10,15 +10,19 @@ import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.character.ui.showcharacter.CharacterActionHandler;
+import org.timadorus.webapp.client.events.ShowCharacterListEvent;
+import org.timadorus.webapp.client.events.ShowDialogHandler;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDialog.Display> {
+public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDialog.Display> implements
+    ShowDialogHandler {
 
   public interface Display extends DefaultDisplay {
 
@@ -37,9 +41,9 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
     public void setWidget(Widget widget);
 
     public void loadShowCharacterDialog(DefaultTimadorusWebApp entry, Character character, User user);
-    
+
     public void loadShowCharacterListDialog(DefaultTimadorusWebApp entry, User user);
-    
+
   }
 
   private User user;
@@ -47,6 +51,16 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
   public ShowCharacterListDialog(Display display, DefaultTimadorusWebApp entry, User user) {
     super(display, entry);
     this.user = user;
+    entry.addHandler(ShowCharacterListEvent.SHOWDIALOG, this);
+    if (display != null) {
+      setDisplay(display);
+    }
+
+  }
+
+  @Override
+  protected void setDisplay(Display display) {
+    super.setDisplay(display);
     getDisplay().addBackButtonHandler(new DefaultActionHandler() {
 
       @Override
@@ -126,6 +140,20 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
   }
 
   public static ShowCharacterListDialog getDialog(DefaultTimadorusWebApp entry, User user) {
+    // List<Character> characterList = new CharacterListSync(user).getCharacterList();
+    // if (characterList == null) {
+    // entry.showDialogBox("Fehlermeldung", "Fehler bei der Abfrage der Charactere");
+    // characterList = new ArrayList<Character>();
+    // }
+    //
+    // ShowCharacterListDialog.Display display = new ShowCharacterListWidget(entry, user, characterList);
+    ShowCharacterListDialog dialog = new ShowCharacterListDialog(null, entry, user);
+    return dialog;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    // loading widget
     List<Character> characterList = new CharacterListSync(user).getCharacterList();
     if (characterList == null) {
       entry.showDialogBox("Fehlermeldung", "Fehler bei der Abfrage der Charactere");
@@ -133,7 +161,10 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
     }
 
     ShowCharacterListDialog.Display display = new ShowCharacterListWidget(entry, user, characterList);
-    ShowCharacterListDialog dialog = new ShowCharacterListDialog(display, entry, user);
-    return dialog;
+    setDisplay(display);
+
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Liste der registrierten Charaktere"));
+    RootPanel.get("content").add(this.getFormPanel());
   }
 }

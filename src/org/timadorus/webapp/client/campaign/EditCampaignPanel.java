@@ -3,8 +3,11 @@ package org.timadorus.webapp.client.campaign;
 import java.util.List;
 
 import org.timadorus.webapp.beans.Campaign;
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
+import org.timadorus.webapp.client.events.ShowDialogHandler;
+import org.timadorus.webapp.client.events.ShowEditCampaignEvent;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignService;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignServiceAsync;
 
@@ -21,40 +24,33 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class EditCampaignPanel extends FormPanel {
+public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
 
   DefaultTimadorusWebApp entry;
-  
+
   User user;
 
-  VerticalPanel panel       = new VerticalPanel();
-  private Grid grid       = new Grid(1, 1);
+  VerticalPanel panel = new VerticalPanel();
+
+  private Grid grid = new Grid(1, 1);
+
   HTML headline = new HTML("<h1>Kampagne verwalten</h1>");
-  Label campaignNameLabel         = new Label("Name der Kampagne");
-  Label descriptionLabel        = new Label("Beschreibung");
+
+  Label campaignNameLabel = new Label("Name der Kampagne");
+
+  Label descriptionLabel = new Label("Beschreibung");
 
   public EditCampaignPanel(DefaultTimadorusWebApp entryIn, final User user) {
     super();
     this.entry = entryIn;
     this.user = user;
-    
-    CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
-    AsyncCallback<List<Campaign>> asyncCallback = new AsyncCallback<List<Campaign>>() {
-      
-      public void onSuccess(List<Campaign> result) {
-        if (result != null) {
-          updateCampaignList(result);
-        }
-      }
-      
-      public void onFailure(Throwable caught) {
-        System.out.println(caught);
-      }
-    };
-    
-    createCampaignServiceAsync.getCampaigns(user.getUsername(), asyncCallback);
- 
-    // Style Components   
+
+    entry.addHandler(ShowEditCampaignEvent.SHOWDIALOG, this);
+
+    if (user != null) {
+      getCampaigns(user);
+    }
+    // Style Components
     grid.setWidget(0, 0, new Label("Waiting for ajax response..."));
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
@@ -62,41 +58,60 @@ public class EditCampaignPanel extends FormPanel {
 
     panel.add(headline);
     panel.add(grid);
-    
+
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
 
     RootPanel.get("information").clear();
     RootPanel.get("information").add(getInformation());
-    
+
   }
 
+  private void getCampaigns(User user) {
+    CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
+    AsyncCallback<List<Campaign>> asyncCallback = new AsyncCallback<List<Campaign>>() {
+
+      public void onSuccess(List<Campaign> result) {
+        if (result != null) {
+          updateCampaignList(result);
+        }
+      }
+
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
+    };
+
+    createCampaignServiceAsync.getCampaigns(user.getUsername(), asyncCallback);
+  }
 
   /**
    * Updates the campaign list.
-   * @param result The campaign of the user
+   * 
+   * @param result
+   *          The campaign of the user
    */
   private void updateCampaignList(List<Campaign> result) {
     if (result.size() > 0) {
       final int columns = 4;
       grid = new Grid(result.size(), columns);
       grid.setBorderWidth(1);
-    
+
       int i = 0;
       for (final Campaign campaign : result) {
         final Button edit = new Button("Bearbeiten");
-        
+
         class MyHandler implements ClickHandler {
           public void onClick(ClickEvent event) {
             if (event.getSource().equals(edit)) {
               RootPanel.get("content").add(CreateFractionPanel.getCreateFractionPanel(entry, user, campaign));
-            }    
-          }      
+            }
+          }
         }
-        
+
         MyHandler handler = new MyHandler();
         edit.addClickHandler(handler);
-        
+
         grid.setWidget(i, 0, new HTML(campaign.getCampaignID().toString()));
         grid.setWidget(i, 1, new HTML(campaign.getName()));
         grid.setWidget(i, 2, new HTML(campaign.getBeschreibung()));
@@ -114,19 +129,27 @@ public class EditCampaignPanel extends FormPanel {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
   }
-  
-  
+
   public static EditCampaignPanel getCampaignPanel(DefaultTimadorusWebApp entry, User user) {
     return new EditCampaignPanel(entry, user);
   }
 
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Kampagne verwalten</h1><p>Hier kannst du deine Kampagne verwalten. "
-                                + "Wähle eine Kampagne um eine Fraktion dafür anzulegen.</p>");
+        + "Wähle eine Kampagne um eine Fraktion dafür anzulegen.</p>");
     return information;
   }
 
   public DefaultTimadorusWebApp getEntry() {
     return entry;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.user = user;
+    getCampaigns(user);
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Kampagne verwalten"));
+    RootPanel.get("content").add(this);
   }
 }

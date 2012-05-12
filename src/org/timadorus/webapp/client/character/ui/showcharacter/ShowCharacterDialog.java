@@ -6,13 +6,12 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListDialog;
+import org.timadorus.webapp.client.events.ShowCharacterListEvent;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Widget;
 
 public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Display> {
 
@@ -45,8 +44,6 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
     public void loadShowCharacterDialog(DefaultTimadorusWebApp entry, Character character, User user);
 
     public void loadShowCharacterListsDialog(DefaultTimadorusWebApp entry, User user);
-
-    public void setContent(Widget w);
   }
 
   private Character character;
@@ -124,7 +121,8 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
           } else {
             System.out.println("Unsuccessfully deleted");
           }
-          setContent(ShowCharacterListDialog.getDialog(getEntry(), getUser()).getFormPanel());
+          // setContent(ShowCharacterListDialog.getDialog(getEntry(), getUser()).getFormPanel());
+          getEntry().fireEvent(new ShowCharacterListEvent(getUser()));
         }
       }
 
@@ -133,16 +131,6 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
       }
     };
     characterServiceAsync.deleteCharacter(character, asyncCallback);
-  }
-
-  /**
-   * Clears the panel and adds a widget
-   * 
-   * @param w
-   *          the widget to be added
-   */
-  private void setContent(Widget w) {
-    getDisplay().setContent(w);
   }
 
   public static ShowCharacterDialog getShortDisplay(DefaultTimadorusWebApp entry, Character character, User user) {

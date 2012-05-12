@@ -9,9 +9,12 @@ import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
 import org.timadorus.webapp.client.events.CreateCampaineEvent;
 import org.timadorus.webapp.client.events.CreateCharacterEvent;
+import org.timadorus.webapp.client.events.ShowCharacterListEvent;
+import org.timadorus.webapp.client.events.ShowEditCampaignEvent;
 import org.timadorus.webapp.client.events.ShowLoginEvent;
 import org.timadorus.webapp.client.events.ShowLogoutEvent;
 import org.timadorus.webapp.client.events.ShowLogoutHandler;
+import org.timadorus.webapp.client.events.ShowProfileEvent;
 import org.timadorus.webapp.client.events.ShowRegisterEvent;
 import org.timadorus.webapp.client.events.ShowVerifyMailEvent;
 import org.timadorus.webapp.client.login.LoginPanel;
@@ -37,7 +40,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -69,6 +71,12 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
 
   private SelectRaceDialog selectRaceDialog;
 
+  private ProfilePanel profilePanel;
+
+  private ShowCharacterListDialog characterListDialog;
+
+  private EditCampaignPanel editCampaignPanel;
+
   public TimadorusWebApp() {
     this.sessionId = new SessionId();
 
@@ -98,6 +106,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     createCampaignPanel = CreateCampaignPanel.getCampaignPanel(this, loginPanel.getUser());
     selectRaceDialog = SelectRaceDialog.getDialog(this, null, null);
     createCharacterDialog = CreateDialog.getCreateDialog(this, null);
+    profilePanel = ProfilePanel.getProfilePanel(this, null);
+    characterListDialog = ShowCharacterListDialog.getDialog(this, null);
+    editCampaignPanel = EditCampaignPanel.getCampaignPanel(this, null);
 
     menu.go(RootPanel.get("menu"));
 
@@ -236,9 +247,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
    * A new ProfilePanel will be loaded and showed on the webpage.
    */
   private void loadProfilePanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Profil bearbeiten"));
-    RootPanel.get("content").add(ProfilePanel.getProfilePanel(this, loginPanel.getUser()));
+
+    User user = loginPanel.getUser();
+    fireEvent(new ShowProfileEvent(user));
   }
 
   /**
@@ -246,47 +257,43 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
    */
   private void loadCreateCharacterPanel() {
     User user = loginPanel.getUser();
-    eventBus.fireEvent(new CreateCharacterEvent(user));
+    fireEvent(new CreateCharacterEvent(user));
   }
 
   /**
    * A new CharacterListPanel will be loaded and showed on the webpage.
    */
   private void loadShowCharacterlistPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Liste der registrierten Charaktere"));
     User user = LoginPanel.getLoginPanel(sessionId, this).getUser();
-    RootPanel.get("content").add(ShowCharacterListDialog.getDialog(this, user).getFormPanel());
+    fireEvent(new ShowCharacterListEvent(user));
   }
 
   /**
    * A new CreateCampaignPanel will be loaded and showed on the webpage.
    */
   private void loadCreateCampaignPanel() {
-    eventBus.fireEvent(new CreateCampaineEvent(loginPanel.getUser()));
+    fireEvent(new CreateCampaineEvent(loginPanel.getUser()));
   }
 
   /**
    * A new EditCampaignPanel will be loaded and showed on the webpage.
    */
   private void loadEditCampaignPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Kampagne verwalten"));
-    RootPanel.get("content").add(EditCampaignPanel.getCampaignPanel(this, loginPanel.getUser()));
+    fireEvent(new ShowEditCampaignEvent(loginPanel.getUser()));
   }
 
   /**
    * A new RegisterPanel will be loaded and showed on the webpage.
    */
   private void loadRegisterPanel() {
-    eventBus.fireEvent(new ShowRegisterEvent());
+    fireEvent(new ShowRegisterEvent());
   }
 
   /**
    * A new VerifyMailPanel will be loaded and showed on the webpage.
    */
   private void loadVerifyMailPanel() {
-    eventBus.fireEvent(new ShowVerifyMailEvent());
+    fireEvent(new ShowVerifyMailEvent());
   }
 
   /*

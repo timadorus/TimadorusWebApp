@@ -1,8 +1,11 @@
 package org.timadorus.webapp.client.profile;
 
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.HistoryStates;
+import org.timadorus.webapp.client.events.ShowDialogHandler;
+import org.timadorus.webapp.client.events.ShowProfileEvent;
 import org.timadorus.webapp.client.rpc.service.UserService;
 import org.timadorus.webapp.client.rpc.service.UserServiceAsync;
 
@@ -31,7 +34,7 @@ import com.google.gwt.user.client.ui.Widget;
  * A profile panel. Supplies the options to change the user data or to delete the user.
  */
 @SuppressWarnings("deprecation")
-public class ProfilePanel extends FormPanel implements HistoryListener {
+public class ProfilePanel extends FormPanel implements HistoryListener, ShowDialogHandler {
   
   private DefaultTimadorusWebApp entry;
   
@@ -97,9 +100,11 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
     this.entry = timadorusWebApp;
     this.user  = user;
     
+    entry.addHandler(ShowProfileEvent.SHOWDIALOG, this);
+    
     setupHistory();
     
-    getProfileDataFromServer();
+//    getProfileDataFromServer();
     
     Grid grid = new Grid(1, 1);
     grid.setWidget(0, 0, new Label("Waiting for ajax response..."));
@@ -446,24 +451,14 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
  // Initialize delete section
     deleteGrid.setWidget(0, 0, delete);
     
-    /**
-     * A BackHandler class as implmenetation of ClickHandler.
-     * Describes the handler for history back option.
-     */
-    class BackHandler implements ClickHandler {
+
+    back.addClickHandler(new ClickHandler() {
       
-      /**
-       * If clicked, "welcome" will be added as new history item.
-       * 
-       * @param event The event object
-       */
+      @Override
       public void onClick(ClickEvent event) {
         History.newItem(HistoryStates.WELCOME_STATE.getStringRepresentation());
       }
-    }
-    
-    BackHandler bh = new BackHandler();
-    back.addClickHandler(bh);
+    });
     
     /**
      * The handler class for the delete action.
@@ -585,7 +580,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
    * @param user The user object
    * @return The ProfilePanel object
    */
-  public static Widget getProfilePanel(DefaultTimadorusWebApp entry, User user) {
+  public static ProfilePanel getProfilePanel(DefaultTimadorusWebApp entry, User user) {
     return new ProfilePanel(entry, user);
   }
 
@@ -615,4 +610,16 @@ public class ProfilePanel extends FormPanel implements HistoryListener {
    */
   @Override
   public void onHistoryChanged(String arg0) { }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.user = user;
+    
+    getProfileDataFromServer();
+    
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Profil bearbeiten"));
+    RootPanel.get("content").add(this);    
+    
+  }
 }

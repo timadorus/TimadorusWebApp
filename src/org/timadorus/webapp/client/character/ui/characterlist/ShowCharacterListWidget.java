@@ -8,6 +8,7 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.showcharacter.CharacterActionHandler;
 import org.timadorus.webapp.client.character.ui.showcharacter.ShowCharacterDialog;
+import org.timadorus.webapp.client.events.ShowCharacterListEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -283,6 +284,6 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
 
   @Override
   public void loadShowCharacterListDialog(DefaultTimadorusWebApp entry, User user) {
-    RootPanel.get("content").add(ShowCharacterListDialog.getDialog(entry, user).getFormPanel());
+    entry.fireEvent(new ShowCharacterListEvent(user));
   }
 }
