@@ -6,8 +6,12 @@ import org.timadorus.webapp.client.campaign.EditCampaignPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListDialog;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
+import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
+import org.timadorus.webapp.client.events.CreateCampaineEvent;
+import org.timadorus.webapp.client.events.CreateCharacterEvent;
 import org.timadorus.webapp.client.events.ShowLoginEvent;
 import org.timadorus.webapp.client.events.ShowLogoutEvent;
+import org.timadorus.webapp.client.events.ShowLogoutHandler;
 import org.timadorus.webapp.client.events.ShowRegisterEvent;
 import org.timadorus.webapp.client.events.ShowVerifyMailEvent;
 import org.timadorus.webapp.client.login.LoginPanel;
@@ -21,6 +25,8 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
@@ -36,7 +42,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 @SuppressWarnings("deprecation")
-public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTimadorusWebApp {
+public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTimadorusWebApp, ShowLogoutHandler {
 
   // SessionID
   private SessionId sessionId = new SessionId();
@@ -54,8 +60,14 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
   private LoginPanel loginPanel;
 
   private VerifyMailPanel verfiyMailPanel;
-  
+
   private RegisterPanel registerPanel;
+
+  private CreateCampaignPanel createCampaignPanel;
+
+  private CreateDialog createCharacterDialog;
+
+  private SelectRaceDialog selectRaceDialog;
 
   public TimadorusWebApp() {
     this.sessionId = new SessionId();
@@ -78,9 +90,14 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
 
     eventBus = new HandlerManager(this);
 
+    eventBus.addHandler(ShowLogoutEvent.SHOWLOGOUT, this);
+
     loginPanel = LoginPanel.getLoginPanel(sessionId, this);
     verfiyMailPanel = VerifyMailPanel.getVerifyMailPanel(this);
     registerPanel = RegisterPanel.getRegisterPanel(this);
+    createCampaignPanel = CreateCampaignPanel.getCampaignPanel(this, loginPanel.getUser());
+    selectRaceDialog = SelectRaceDialog.getDialog(this, null, null);
+    createCharacterDialog = CreateDialog.getCreateDialog(this, null);
 
     menu.go(RootPanel.get("menu"));
 
@@ -149,10 +166,10 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     if (theHistoryState != null) {
       switch (theHistoryState) {
       case LOGIN_STATE:
-        loadLoginPanel();
+        eventBus.fireEvent(new ShowLoginEvent());
         break;
       case LOGOUT_STATE:
-        loadLogoutPanel();
+        eventBus.fireEvent(new ShowLogoutEvent());
         break;
       case PROFILE_STATE:
         loadProfilePanel();
@@ -221,18 +238,15 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
   private void loadProfilePanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Profil bearbeiten"));
-    RootPanel.get("content").add(ProfilePanel
-                                     .getProfilePanel(this, LoginPanel.getLoginPanel(sessionId, this).getUser()));
+    RootPanel.get("content").add(ProfilePanel.getProfilePanel(this, loginPanel.getUser()));
   }
 
   /**
    * A new CreateCharacterPanel will be loaded and showed on the webpage.
    */
   private void loadCreateCharacterPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Charakter erstellen / bearbeiten"));
-    User user = LoginPanel.getLoginPanel(sessionId, this).getUser();
-    RootPanel.get("content").add(CreateDialog.getCreateDialog(this, user).getFormPanel());
+    User user = loginPanel.getUser();
+    eventBus.fireEvent(new CreateCharacterEvent(user));
   }
 
   /**
@@ -249,10 +263,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
    * A new CreateCampaignPanel will be loaded and showed on the webpage.
    */
   private void loadCreateCampaignPanel() {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Kampagne erstellen"));
-    RootPanel.get("content").add(CreateCampaignPanel.getCampaignPanel(this, LoginPanel.getLoginPanel(sessionId, this)
-                                     .getUser()));
+    eventBus.fireEvent(new CreateCampaineEvent(loginPanel.getUser()));
   }
 
   /**
@@ -261,8 +272,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
   private void loadEditCampaignPanel() {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Kampagne verwalten"));
-    RootPanel.get("content").add(EditCampaignPanel.getCampaignPanel(this, LoginPanel.getLoginPanel(sessionId, this)
-                                     .getUser()));
+    RootPanel.get("content").add(EditCampaignPanel.getCampaignPanel(this, loginPanel.getUser()));
   }
 
   /**
@@ -277,23 +287,6 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
    */
   private void loadVerifyMailPanel() {
     eventBus.fireEvent(new ShowVerifyMailEvent());
-  }
-
-  /**
-   * A new LoginPanel will be loaded and showed on the webpage.
-   */
-  private void loadLoginPanel() {
-    eventBus.fireEvent(new ShowLoginEvent());
-  }
-
-  /**
-   * A new LogoutPanel will be loaded and showed on the webpage.
-   */
-  private void loadLogoutPanel() {
-
-    eventBus.fireEvent(new ShowLogoutEvent());
-    loggedin = false;
-    menu.resetUser();    
   }
 
   /*
@@ -370,7 +363,23 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     this.testValues = testValuesIn;
   }
 
-  public HandlerManager getEventBus() {
-    return eventBus;
+  // public HandlerManager getEventBus() {
+  // return eventBus;
+  // }
+
+  @Override
+  public void showLogout() {
+    loggedin = false;
+    menu.resetUser();
   }
+
+  @Override
+  public <T extends EventHandler> void addHandler(GwtEvent.Type<T> type, final T handler) {
+    eventBus.addHandler(type, handler);
+  }
+
+  public void fireEvent(GwtEvent<? extends EventHandler> event) {
+    eventBus.fireEvent(event);
+  }
+
 }

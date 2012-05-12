@@ -1,8 +1,11 @@
 package org.timadorus.webapp.client.campaign;
 
 import org.timadorus.webapp.beans.Campaign;
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
+import org.timadorus.webapp.client.events.CreateCampaineEvent;
+import org.timadorus.webapp.client.events.ShowDialogHandler;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignService;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignServiceAsync;
 
@@ -24,48 +27,58 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class CreateCampaignPanel extends FormPanel {
+public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler {
 
   private static final int CELL_SPACING = 8;
 
   DefaultTimadorusWebApp entry;
-  
+
   User user;
 
-  Button saveButton         = new Button("Speichern");
-  VerticalPanel panel       = new VerticalPanel();
-  FlexTable selectGrid      = new FlexTable();
-  Label campaignNameLabel         = new Label("Name der Kampagne");
-  Label descriptionLabel        = new Label("Beschreibung");
+  Button saveButton = new Button("Speichern");
+
+  VerticalPanel panel = new VerticalPanel();
+
+  FlexTable selectGrid = new FlexTable();
+
+  Label campaignNameLabel = new Label("Name der Kampagne");
+
+  Label descriptionLabel = new Label("Beschreibung");
+
   Label checkCampaignNameLabel = new Label("");
+
   TextBox campaignNameTextBox = new TextBox();
+
   TextArea descriptionTextArea = new TextArea();
 
   public CreateCampaignPanel(DefaultTimadorusWebApp entryIn, final User user) {
     super();
     this.entry = entryIn;
     this.user = user;
-    
- // Create a key-up handler for the nameField
+
+    entry.addHandler(CreateCampaineEvent.SHOWDIALOG, this);
+
+    // Create a key-up handler for the nameField
     class MyKeyUpHandler implements KeyUpHandler {
 
       @Override
       public void onKeyUp(KeyUpEvent event) {
         checkCampaign(campaignNameTextBox.getText());
       }
+
       private void checkCampaign(String campaignName) {
         CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-          
+
           public void onSuccess(String result) {
             if (result.equals("SUCCESS")) {
               checkCampaignNameLabel.setText("");
             } else {
               checkCampaignNameLabel.setStyleName("error");
               checkCampaignNameLabel.setText("Ist bereits vergeben");
-            }            
+            }
           }
-          
+
           public void onFailure(Throwable caught) {
             System.out.println(caught);
           }
@@ -73,57 +86,33 @@ public class CreateCampaignPanel extends FormPanel {
         createCampaignServiceAsync.existsCampaign(campaignName, asyncCallback);
       }
     }
-    
+
     // Create a handler for the saveButton and nameField
     class MyHandler implements ClickHandler {
       public void onClick(ClickEvent event) {
 
         if (event.getSource().equals(saveButton)) {
-          Campaign campaign = new Campaign();
-          campaign.setName(campaignNameTextBox.getText());
-          campaign.setBeschreibung(descriptionTextArea.getText());
-          campaign.setUsername(user.getUsername());
-          sendToServer(campaign);
-          loadSavedCampaignPanel(user);        
+          onSaveButtonClick();
         }
-      }
-      
-      private void sendToServer(Campaign campaign) {
-        CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
-        AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-          
-          public void onSuccess(String result) {
-            if (result.equals("SUCCESS")) {
-              System.out.println("Sucess");
-            } else {
-              System.out.println("Failure");
-            }            
-          }
-          
-          public void onFailure(Throwable caught) {
-            System.out.println(caught);
-          }
-        };
-        createCampaignServiceAsync.createCampaign(campaign, asyncCallback);
       }
     }
 
     // Style Components
     saveButton.setStylePrimaryName("saveButton");
-    
+
     campaignNameTextBox.setSize("180px", "20px");
-    
+
     descriptionTextArea.setSize("180px", "100px");
 
     selectGrid.setCellSpacing(CELL_SPACING);
-    
+
     selectGrid.getCellFormatter().setAlignment(1, 1, HasHorizontalAlignment.ALIGN_LEFT, HasVerticalAlignment.ALIGN_TOP);
     selectGrid.setBorderWidth(0);
     selectGrid.setStylePrimaryName("selectGrid");
 
     selectGrid.setWidget(0, 0, campaignNameLabel);
     selectGrid.setWidget(1, 0, descriptionLabel);
-    
+
     selectGrid.setWidget(0, 1, campaignNameTextBox);
     selectGrid.setWidget(1, 1, descriptionTextArea);
     selectGrid.setWidget(0, 2, checkCampaignNameLabel);
@@ -153,6 +142,35 @@ public class CreateCampaignPanel extends FormPanel {
     campaignNameTextBox.addKeyUpHandler(keyUpHandler);
   }
 
+  public void onSaveButtonClick() {
+    // TODO User auf null checken
+    Campaign campaign = new Campaign();
+    campaign.setName(campaignNameTextBox.getText());
+    campaign.setBeschreibung(descriptionTextArea.getText());
+    campaign.setUsername(user.getUsername());
+    sendToServer(campaign);
+    loadSavedCampaignPanel(user);
+  }
+
+  private void sendToServer(Campaign campaign) {
+    CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
+    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+
+      public void onSuccess(String result) {
+        if (result.equals("SUCCESS")) {
+          System.out.println("Sucess");
+        } else {
+          System.out.println("Failure");
+        }
+      }
+
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
+    };
+    createCampaignServiceAsync.createCampaign(campaign, asyncCallback);
+  }
+
   public void loadSavedCampaignPanel(User userIn) {
     RootPanel.get("information").clear();
     RootPanel.get("content").clear();
@@ -161,18 +179,26 @@ public class CreateCampaignPanel extends FormPanel {
     panel.add(savedText);
     RootPanel.get("content").add(panel);
   }
-  
+
   public static CreateCampaignPanel getCampaignPanel(DefaultTimadorusWebApp entry, User user) {
     return new CreateCampaignPanel(entry, user);
   }
 
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Kampagne anlegen</h1><p>Hier kannst du eine neue Kampagne anlegen. "
-                                + "Wähle einen Namen für deine Kampagne und gebe eine Kurzbeschreibung an.</p>");
+        + "Wähle einen Namen für deine Kampagne und gebe eine Kurzbeschreibung an.</p>");
     return information;
   }
 
   public DefaultTimadorusWebApp getEntry() {
     return entry;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.user = user;
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Kampagne erstellen"));
+    RootPanel.get("content").add(this);
   }
 }

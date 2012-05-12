@@ -8,6 +8,7 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.events.SelectRaceEvent;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -27,8 +28,9 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
     public void setNextButtonHandler(DefaultActionHandler handler);
 
     public void setClassGridButtonHandler(DefaultActionHandler handler);
-    
+
     public void loadSelectRaceDialog(DefaultTimadorusWebApp entry, Character character, User user);
+
     public void loadSelectFactionDialog(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
@@ -69,8 +71,8 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
     RootPanel.get("information").clear();
     for (CClass newClass : getEntry().getTestValues().getClasses()) {
       if (newClass.getName().equals(className)) {
-        RootPanel.get("information").add(new HTML("<h1>" + newClass.getName() + "</h1><p>"
-                                             + newClass.getDescription() + "</p>"));
+        RootPanel.get("information").add(new HTML("<h1>" + newClass.getName() + "</h1><p>" + newClass.getDescription()
+                                             + "</p>"));
 
         // Show available Factions in "information" #div
         RootPanel.get("information").add(new HTML("<h2>Wählbare Fraktionen</h2>"));
@@ -90,7 +92,7 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
 
   // clear "content" #div and add Class SelectRacePanel to it
   private void doPrevButtonClick() {
-    getDisplay().loadSelectRaceDialog(getEntry(), character, user);
+    getEntry().fireEvent(new SelectRaceEvent(user, character));
   }
 
   // clear "content" #div and add Class SelectFactionPanel to it
@@ -104,9 +106,7 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
     for (CClass selectedClass : getEntry().getTestValues().getClasses()) {
       String className = selectedClass.getName();
       String selectedName = getDisplay().getSelectedClass();
-      if (className.equals(selectedName)) {
-        return selectedClass;
-      }
+      if (className.equals(selectedName)) { return selectedClass; }
     }
     return null;
   }
@@ -120,10 +120,8 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
    * @param user
    * @return {@link SelectClassDialog}
    */
-  public static SelectClassDialog getSelecteddDialog(DefaultTimadorusWebApp entry, Character character,
-    User user) {
-    SelectClassDialog.Display display = new SelectClassWidget(character,
-                                                              entry.getTestValues().getClasses());
+  public static SelectClassDialog getSelecteddDialog(DefaultTimadorusWebApp entry, Character character, User user) {
+    SelectClassDialog.Display display = new SelectClassWidget(character, entry.getTestValues().getClasses());
     SelectClassDialog dialog = new SelectClassDialog(display, entry, character, user);
     return dialog;
   }

@@ -83,7 +83,7 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener,
     this.entry = entryIn;
     this.user = new User();
 
-    entry.getEventBus().addHandler(ShowVerifyMailEvent.SHOWDIALOG, this);
+    entry.addHandler(ShowVerifyMailEvent.SHOWDIALOG, this);
 
     setupHistory();
 

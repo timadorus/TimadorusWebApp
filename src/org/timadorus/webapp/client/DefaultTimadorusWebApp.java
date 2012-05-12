@@ -2,7 +2,8 @@ package org.timadorus.webapp.client;
 
 import org.timadorus.webapp.client.character.TestCharacterValues;
 
-import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
 
 public interface DefaultTimadorusWebApp {
 
@@ -21,6 +22,7 @@ public interface DefaultTimadorusWebApp {
 
   public abstract TestCharacterValues getTestValues();
   
-  public HandlerManager getEventBus();
-
+  public <T extends EventHandler> void addHandler(GwtEvent.Type<T> type, final T handler);
+  
+  public void fireEvent(GwtEvent<? extends EventHandler> event);
 }

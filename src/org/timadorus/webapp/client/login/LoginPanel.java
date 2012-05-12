@@ -74,8 +74,8 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
 
     this.entry = entryIn;
     
-    entry.getEventBus().addHandler(ShowLoginEvent.SHOWDIALOG, this);
-    entry.getEventBus().addHandler(ShowLogoutEvent.SHOWLOGOUT, this);
+    entry.addHandler(ShowLoginEvent.SHOWDIALOG, this);
+    entry.addHandler(ShowLogoutEvent.SHOWLOGOUT, this);
     
     setUser(new User());
     logincounter = 0;

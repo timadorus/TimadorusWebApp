@@ -90,7 +90,7 @@ public class RegisterPanel extends FormPanel implements HistoryListener, ShowHan
   public RegisterPanel(DefaultTimadorusWebApp entry) {
     super();
     this.entry = entry;
-    entry.getEventBus().addHandler(ShowRegisterEvent.SHOWDIALOG, this);
+    entry.addHandler(ShowRegisterEvent.SHOWDIALOG, this);
     setupHistory();
 
     grid.setWidget(0, 0, new Label("Vorname"));

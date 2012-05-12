@@ -65,7 +65,6 @@ public class CreateDialogTest {
    
    theArgumentCaptor.getValue().onAction();
    
-   verify(myDisplayMock).loadCustomCharacter(myUser, myTimadorusWebAppMock);
    verify(myDisplayMock, never()).loadPremadeCharacter(myUser, myTimadorusWebAppMock);
  }
  
@@ -79,7 +78,6 @@ public class CreateDialogTest {
    
    theArgumentCaptor.getValue().onAction();
    
-   verify(myDisplayMock, never()).loadCustomCharacter(myUser, myTimadorusWebAppMock);
    verify(myDisplayMock).loadPremadeCharacter(myUser, myTimadorusWebAppMock);
  }
  
@@ -93,7 +91,6 @@ public class CreateDialogTest {
    
    theArgumentCaptor.getValue().onAction();
    
-   verify(myDisplayMock, never()).loadCustomCharacter(myUser, myTimadorusWebAppMock);
    verify(myDisplayMock, never()).loadPremadeCharacter(myUser, myTimadorusWebAppMock);
  }
   

@@ -1,12 +1,19 @@
 package org.timadorus.webapp.client.character.ui.createcharacter;
 
+import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
+import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.events.CreateCharacterEvent;
+import org.timadorus.webapp.client.events.SelectRaceEvent;
+import org.timadorus.webapp.client.events.ShowDialogHandler;
 
-public class CreateDialog extends DefaultDialog<CreateDialog.Display> {
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
+
+public class CreateDialog extends DefaultDialog<CreateDialog.Display> implements ShowDialogHandler {
 
   public interface Display extends DefaultDisplay {
 
@@ -26,13 +33,13 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> {
 
     public void loadPremadeCharacter(User user, DefaultTimadorusWebApp entry);
 
-    public void loadCustomCharacter(User user, DefaultTimadorusWebApp entry);
   }
 
   private User user;
 
   public CreateDialog(Display display, DefaultTimadorusWebApp entry, User user) {
     super(display, entry);
+    entry.addHandler(CreateCharacterEvent.SHOWDIALOG, this);
     this.user = user;
     display.setHandlerPremade(new DefaultActionHandler() {
 
@@ -55,7 +62,7 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> {
       @Override
       public void onAction() {
         if (getDisplay().isCustom()) {
-          getDisplay().loadCustomCharacter(getUser(), getEntry());
+          getEntry().fireEvent(new SelectRaceEvent(getUser(), Character.getInstance()));
         } else if (getDisplay().isPremade()) {
           getDisplay().loadPremadeCharacter(getUser(), getEntry());
         }
@@ -95,5 +102,13 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> {
     CreateDialog.Display display = new CreateCharacterWidget();
     CreateDialog dialog = new CreateDialog(display, entry, user);
     return dialog;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.user = user;
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(new Label("Charakter erstellen / bearbeiten"));
+    RootPanel.get("content").add(getFormPanel());
   }
 }

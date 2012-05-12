@@ -11,10 +11,14 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.events.SelectRaceEvent;
+import org.timadorus.webapp.client.events.ShowDialogHandler;
 import org.timadorus.webapp.util.ListUtil;
 import org.timadorus.webapp.util.ListUtil.DefaultListCollector;
 
-public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> {
+import com.google.gwt.user.client.ui.RootPanel;
+
+public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> implements ShowDialogHandler {
   public interface Display extends DefaultDisplay {
     public String getSelectedRace();
 
@@ -54,6 +58,9 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> {
     super(display, entry);
     this.character = character;
     this.user = user;
+    
+    entry.addHandler(SelectRaceEvent.SHOWDIALOG, this);
+    
     display.addNextButtonHandler(new DefaultActionHandler() {
 
       @Override
@@ -146,6 +153,14 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> {
     SelectRaceDialog.Display display = new SelectRaceWidget(racenames);
     SelectRaceDialog dialog = new SelectRaceDialog(display, entry, character, user);
     return dialog;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.character = character;
+    this.user = user;
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(getFormPanel());
   }
 
 }

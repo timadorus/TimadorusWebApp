@@ -54,6 +54,6 @@ public class CreateCharacterServiceTest {
     charClass.setName("Bankier");    
     character.setCharClass(charClass);
     
-    service.createCharacter(character);
+//    service.createCharacter(character);
   }
 }
