@@ -4,8 +4,8 @@ import java.util.Date;
 
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.events.ShowHandler;
-import org.timadorus.webapp.client.events.ShowVerifyMailEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowVerifyMailEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowHandler;
 import org.timadorus.webapp.client.rpc.service.UserService;
 import org.timadorus.webapp.client.rpc.service.UserServiceAsync;
 

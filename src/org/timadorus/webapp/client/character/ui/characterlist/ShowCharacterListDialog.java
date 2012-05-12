@@ -10,8 +10,8 @@ import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.character.ui.showcharacter.CharacterActionHandler;
-import org.timadorus.webapp.client.events.ShowCharacterListEvent;
-import org.timadorus.webapp.client.events.ShowDialogHandler;
+import org.timadorus.webapp.client.eventhandling.events.ShowCharacterListEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
 

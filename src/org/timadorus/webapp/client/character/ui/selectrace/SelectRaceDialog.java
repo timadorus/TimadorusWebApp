@@ -11,8 +11,8 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.events.SelectRaceEvent;
-import org.timadorus.webapp.client.events.ShowDialogHandler;
+import org.timadorus.webapp.client.eventhandling.events.SelectRaceEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 import org.timadorus.webapp.util.ListUtil;
 import org.timadorus.webapp.util.ListUtil.DefaultListCollector;
 

@@ -4,8 +4,8 @@ import org.timadorus.webapp.beans.Campaign;
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.events.CreateCampaineEvent;
-import org.timadorus.webapp.client.events.ShowDialogHandler;
+import org.timadorus.webapp.client.eventhandling.events.CreateCampaineEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignService;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignServiceAsync;
 

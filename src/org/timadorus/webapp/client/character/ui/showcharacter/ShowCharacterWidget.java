@@ -6,7 +6,7 @@ import org.timadorus.webapp.beans.Stat;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.events.ShowCharacterListEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowCharacterListEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

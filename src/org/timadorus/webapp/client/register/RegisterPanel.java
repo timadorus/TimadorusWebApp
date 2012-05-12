@@ -2,8 +2,8 @@ package org.timadorus.webapp.client.register;
 
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.events.ShowHandler;
-import org.timadorus.webapp.client.events.ShowRegisterEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowRegisterEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowHandler;
 import org.timadorus.webapp.client.service.Service;
 import org.timadorus.webapp.client.service.ServiceAsync;
 import org.timadorus.webapp.client.service.ServiceType;

@@ -5,10 +5,10 @@ import java.util.Date;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.SessionId;
-import org.timadorus.webapp.client.events.ShowLoginEvent;
-import org.timadorus.webapp.client.events.ShowLoginHandler;
-import org.timadorus.webapp.client.events.ShowLogoutEvent;
-import org.timadorus.webapp.client.events.ShowLogoutHandler;
+import org.timadorus.webapp.client.eventhandling.events.ShowLoginEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowLogoutEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowLoginHandler;
+import org.timadorus.webapp.client.eventhandling.handler.ShowLogoutHandler;
 import org.timadorus.webapp.client.rpc.service.LoginService;
 import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
 

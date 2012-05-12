@@ -6,8 +6,9 @@ import org.timadorus.webapp.beans.Campaign;
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.events.ShowDialogHandler;
-import org.timadorus.webapp.client.events.ShowEditCampaignEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowCreateFractionEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowEditCampaignEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignService;
 import org.timadorus.webapp.client.rpc.service.CreateCampaignServiceAsync;
 
@@ -59,12 +60,6 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
     panel.add(headline);
     panel.add(grid);
 
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(panel);
-
-    RootPanel.get("information").clear();
-    RootPanel.get("information").add(getInformation());
-
   }
 
   private void getCampaigns(User user) {
@@ -104,7 +99,7 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
         class MyHandler implements ClickHandler {
           public void onClick(ClickEvent event) {
             if (event.getSource().equals(edit)) {
-              RootPanel.get("content").add(CreateFractionPanel.getCreateFractionPanel(entry, user, campaign));
+              getEntry().fireEvent(new ShowCreateFractionEvent(user, campaign));
             }
           }
         }
@@ -126,8 +121,7 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
     panel.clear();
     panel.add(headline);
     panel.add(grid);
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(panel);
+    getEntry().fireEvent(new ShowEditCampaignEvent(user));
   }
 
   public static EditCampaignPanel getCampaignPanel(DefaultTimadorusWebApp entry, User user) {
@@ -151,5 +145,7 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Kampagne verwalten"));
     RootPanel.get("content").add(this);
+    RootPanel.get("information").clear();
+    RootPanel.get("information").add(getInformation());
   }
 }

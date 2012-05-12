@@ -4,6 +4,8 @@ import org.timadorus.webapp.beans.Campaign;
 import org.timadorus.webapp.beans.Fraction;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
+import org.timadorus.webapp.client.eventhandling.events.ShowCreateFractionEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowCreateFractionHandler;
 import org.timadorus.webapp.client.rpc.service.CreateFractionService;
 import org.timadorus.webapp.client.rpc.service.CreateFractionServiceAsync;
 
@@ -27,72 +29,43 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class CreateFractionPanel extends FormPanel {
+public class CreateFractionPanel extends FormPanel implements ShowCreateFractionHandler {
 
-  private static final int CELL_SPACING = 8;
+  // Create a key-up handler for the nameField
+  class MyKeyUpHandler implements KeyUpHandler {
 
-  DefaultTimadorusWebApp entry;
-  User user;
-  Campaign campaign;
-  
-  Button saveButton         = new Button("Speichern");
-  VerticalPanel panel       = new VerticalPanel();
-  FlexTable selectGrid      = new FlexTable();
-
-  Label fractionNameLabel         = new Label("Name der Fraktion");
-  Label fractionDisplayNameLabel         = new Label("Anzeigename der Fraktion");
-  Label descriptionLabel        = new Label("Beschreibung");
-  Label informationLabel        = new Label("Informationen");
-  Label templateLabel        = new Label("Vorlage-Fraktion");
-  Label setTemplateLabel        = new Label("Dauerhafte Übernahme der Vorlage");
-  Label checkFractionNameLabel = new Label("");
-  
-  TextBox fractionNameTextBox = new TextBox();
-  TextBox fractionDisplayNameTextBox = new TextBox();
-  TextArea descriptionTextArea = new TextArea();
-  TextArea informationTextArea = new TextArea();
-  ListBox templateListBox = new ListBox();
-  CheckBox setTemplateCheckBox = new CheckBox();
-
-  public CreateFractionPanel(DefaultTimadorusWebApp entryIn, final User user, final Campaign campaign) {
-    super();
-    this.entry = entryIn;
-    this.user = user;
-    this.campaign = campaign;
-    
-    // Create a key-up handler for the nameField
-    class MyKeyUpHandler implements KeyUpHandler {
-
-      @Override
-      public void onKeyUp(KeyUpEvent event) {
-        checkFraction(fractionNameTextBox.getText(), campaign.getName());
-      }
-      private void checkFraction(String fractionName, String campaignName) {
-        CreateFractionServiceAsync createFractionServiceAsync = GWT.create(CreateFractionService.class);
-        AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-          
-          public void onSuccess(String result) {
-            if (result.equals("SUCCESS")) {
-              checkFractionNameLabel.setText("");
-            } else {
-              checkFractionNameLabel.setStyleName("error");
-              checkFractionNameLabel.setText("Ist bereits vergeben");
-            }            
-          }
-          
-          public void onFailure(Throwable caught) {
-            System.out.println(caught);
-          }
-        };
-        createFractionServiceAsync.existsFraction(fractionName, campaignName, asyncCallback);
-      }
+    @Override
+    public void onKeyUp(KeyUpEvent event) {
+      checkFraction(fractionNameTextBox.getText(), campaign.getName());
     }
-    
-    // Create a handler for the saveButton and nameField
-    class MyHandler implements ClickHandler {
-      public void onClick(ClickEvent event) {
 
-        if (event.getSource().equals(saveButton)) {
+    private void checkFraction(String fractionName, String campaignName) {
+      CreateFractionServiceAsync createFractionServiceAsync = GWT.create(CreateFractionService.class);
+      AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+
+        public void onSuccess(String result) {
+          if (result.equals("SUCCESS")) {
+            checkFractionNameLabel.setText("");
+          } else {
+            checkFractionNameLabel.setStyleName("error");
+            checkFractionNameLabel.setText("Ist bereits vergeben");
+          }
+        }
+
+        public void onFailure(Throwable caught) {
+          System.out.println(caught);
+        }
+      };
+      createFractionServiceAsync.existsFraction(fractionName, campaignName, asyncCallback);
+    }
+  }
+
+  // Create a handler for the saveButton and nameField
+  class MyHandler implements ClickHandler {
+    public void onClick(ClickEvent event) {
+
+      if (event.getSource().equals(saveButton)) {
+        if (user != null && campaign != null) {
           Fraction fraction = new Fraction();
           fraction.setCampaignName(campaign.getName());
           fraction.setName(fractionNameTextBox.getText());
@@ -100,35 +73,82 @@ public class CreateFractionPanel extends FormPanel {
           fraction.setBeschreibung(descriptionTextArea.getText());
           fraction.setInformationen(informationTextArea.getText());
           sendToServer(fraction);
-          loadSavedFractionPanel(user);        
+          loadSavedFractionPanel(user);
         }
       }
-      
-      private void sendToServer(Fraction fraction) {
-        CreateFractionServiceAsync createFractionServiceAsync = GWT.create(CreateFractionService.class);
-        AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-          
-          public void onSuccess(String result) {
-            if (result.equals("SUCCESS")) {
-              System.out.println("Sucess");
-            } else {
-              System.out.println("Failure");
-            }            
-          }
-          
-          public void onFailure(Throwable caught) {
-            System.out.println(caught);
-          }
-        };
-        createFractionServiceAsync.createFraction(fraction, asyncCallback);
-      }
     }
-    
+
+    private void sendToServer(Fraction fraction) {
+      CreateFractionServiceAsync createFractionServiceAsync = GWT.create(CreateFractionService.class);
+      AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+
+        public void onSuccess(String result) {
+          if (result.equals("SUCCESS")) {
+            System.out.println("Sucess");
+          } else {
+            System.out.println("Failure");
+          }
+        }
+
+        public void onFailure(Throwable caught) {
+          System.out.println(caught);
+        }
+      };
+      createFractionServiceAsync.createFraction(fraction, asyncCallback);
+    }
+  }
+
+  private static final int CELL_SPACING = 8;
+
+  DefaultTimadorusWebApp entry;
+
+  User user;
+
+  Campaign campaign;
+
+  Button saveButton = new Button("Speichern");
+
+  VerticalPanel panel = new VerticalPanel();
+
+  FlexTable selectGrid = new FlexTable();
+
+  Label fractionNameLabel = new Label("Name der Fraktion");
+
+  Label fractionDisplayNameLabel = new Label("Anzeigename der Fraktion");
+
+  Label descriptionLabel = new Label("Beschreibung");
+
+  Label informationLabel = new Label("Informationen");
+
+  Label templateLabel = new Label("Vorlage-Fraktion");
+
+  Label setTemplateLabel = new Label("Dauerhafte Übernahme der Vorlage");
+
+  Label checkFractionNameLabel = new Label("");
+
+  TextBox fractionNameTextBox = new TextBox();
+
+  TextBox fractionDisplayNameTextBox = new TextBox();
+
+  TextArea descriptionTextArea = new TextArea();
+
+  TextArea informationTextArea = new TextArea();
+
+  ListBox templateListBox = new ListBox();
+
+  CheckBox setTemplateCheckBox = new CheckBox();
+
+  public CreateFractionPanel(DefaultTimadorusWebApp entryIn) {
+    super();
+    this.entry = entryIn;
+    this.user = null;
+    this.campaign = null;
+
     // Style Components
     HTML headline = new HTML("<h1>Fraktion anlegen</h1>");
-    
+
     saveButton.setStylePrimaryName("saveButton");
-    
+
     fractionNameTextBox.setSize("180px", "20px");
     fractionDisplayNameTextBox.setSize("180px", "20px");
     descriptionTextArea.setSize("180px", "100px");
@@ -136,7 +156,7 @@ public class CreateFractionPanel extends FormPanel {
     setTemplateCheckBox.setEnabled(false);
 
     selectGrid.setCellSpacing(CELL_SPACING);
-    
+
     selectGrid.getCellFormatter().setAlignment(1, 1, HasHorizontalAlignment.ALIGN_LEFT, HasVerticalAlignment.ALIGN_TOP);
     selectGrid.setBorderWidth(0);
     selectGrid.setStylePrimaryName("selectGrid");
@@ -147,7 +167,7 @@ public class CreateFractionPanel extends FormPanel {
     selectGrid.setWidget(2 + 1, 0, informationLabel);
     selectGrid.setWidget(2 + 2, 0, templateLabel);
     selectGrid.setWidget(2 + 2 + 1, 0, setTemplateLabel);
-    
+
     selectGrid.setWidget(0, 1, fractionNameTextBox);
     selectGrid.setWidget(1, 1, fractionDisplayNameTextBox);
     selectGrid.setWidget(2, 1, descriptionTextArea);
@@ -165,40 +185,50 @@ public class CreateFractionPanel extends FormPanel {
     panel.add(selectGrid);
     panel.add(saveButton);
 
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(panel);
-
-    RootPanel.get("information").clear();
-    RootPanel.get("information").add(getInformation());
-    
     // Add Handlers
-    MyHandler handler = new MyHandler();    
+    MyHandler handler = new MyHandler();
     saveButton.addClickHandler(handler);
-    
+
     MyKeyUpHandler keyUpHandler = new MyKeyUpHandler();
     fractionNameTextBox.addKeyUpHandler(keyUpHandler);
   }
-  
+
   public void loadSavedFractionPanel(User userIn) {
-    RootPanel.get("information").clear();
-    RootPanel.get("content").clear();
-    panel.clear();
-    HTML savedText = new HTML("<h1>Fraktion gespeichert</h1><p>Die Fraktion wurde erfolgreich hinzugefügt</p>");
-    panel.add(savedText);
-    RootPanel.get("content").add(panel);
+    getEntry().fireEvent(new ShowCreateFractionEvent(userIn, campaign, "<h1>Fraktion gespeichert</h1><p>Die Fraktion "
+                             + "wurde erfolgreich hinzugefügt</p>"));
   }
-  
-  public static CreateFractionPanel getCreateFractionPanel(DefaultTimadorusWebApp entry, User user, Campaign campaign) {
-    return new CreateFractionPanel(entry, user, campaign);
+
+  public static CreateFractionPanel getCreateFractionPanel(DefaultTimadorusWebApp entry) {
+    return new CreateFractionPanel(entry);
   }
 
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Fraktion anlegen</h1><p>Hier kannst du deiner Kampagne eine Fraktion hinzufügen."
-                                + "</p>");
+        + "</p>");
     return information;
   }
 
   public DefaultTimadorusWebApp getEntry() {
     return entry;
+  }
+
+  @Override
+  public void show(User user, Campaign campaign, String text) {
+    this.user = user;
+    this.campaign = campaign;
+
+    if (text.isEmpty()) {
+      // TODO why isn't RootPanel.clear() called?
+      RootPanel.get("content").add(this);
+      RootPanel.get("information").clear();
+      RootPanel.get("information").add(getInformation());
+    } else {
+      RootPanel.get("information").clear();
+      RootPanel.get("content").clear();
+      panel.clear();
+      HTML savedText = new HTML(text);
+      panel.add(savedText);
+      RootPanel.get("content").add(panel);
+    }
   }
 }

@@ -6,9 +6,9 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
-import org.timadorus.webapp.client.events.CreateCharacterEvent;
-import org.timadorus.webapp.client.events.SelectRaceEvent;
-import org.timadorus.webapp.client.events.ShowDialogHandler;
+import org.timadorus.webapp.client.eventhandling.events.CreateCharacterEvent;
+import org.timadorus.webapp.client.eventhandling.events.SelectRaceEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
