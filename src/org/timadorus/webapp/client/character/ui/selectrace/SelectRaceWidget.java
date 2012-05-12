@@ -59,6 +59,7 @@ public class SelectRaceWidget extends FormPanel implements SelectRaceDialog.Disp
     selectMale = new RadioButton("selectGender", "männlich");
     selectFemale = new RadioButton("selectGender", "weiblich");
     selectGenderGrid = new FlexTable();
+    selectRaceGrid = new FlexTable();
     buttonGrid = new FlexTable();
     raceListBox = new ListBox();
 
