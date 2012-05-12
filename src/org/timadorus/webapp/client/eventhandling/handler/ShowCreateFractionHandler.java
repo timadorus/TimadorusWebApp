@@ -11,8 +11,9 @@ public interface ShowCreateFractionHandler extends EventHandler {
    * 
    * @param user
    * @param campaign
-   * @param text The text is optional. It will be displayed on top of the content.
+   * @param text
+   *          The text is optional. It will be displayed on top of the content.
    */
-  public void show( User user, Campaign campaign, String text);
-  
+  public void show(User user, Campaign campaign, String text);
+
 }

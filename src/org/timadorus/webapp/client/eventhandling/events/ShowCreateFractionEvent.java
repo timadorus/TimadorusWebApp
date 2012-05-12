@@ -8,7 +8,8 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class ShowCreateFractionEvent extends GwtEvent<ShowCreateFractionHandler> {
 
-  public static final GwtEvent.Type<ShowCreateFractionHandler> SHOWDIALOG = new GwtEvent.Type<ShowCreateFractionHandler>();
+  public static final GwtEvent.Type<ShowCreateFractionHandler> SHOWDIALOG = 
+      new GwtEvent.Type<ShowCreateFractionHandler>();
 
   private User user;
 
