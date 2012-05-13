@@ -24,5 +24,8 @@
 	<classpathentry kind="lib" path="lib/testing/selenium-java-2.21.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/testing/selenium-server-2.21.0.jar"/>
+	<classpathentry kind="lib" path="lib/testing/selenium-api-2.21.0.jar"/>
+	<classpathentry kind="lib" path="lib/testing/selenium-remote-driver-2.21.0.jar"/>
+	<classpathentry kind="lib" path="lib/testing/guava-11.0.1.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

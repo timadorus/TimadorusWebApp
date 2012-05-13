@@ -139,6 +139,7 @@
 	<target name="clean" description="delete the target folders">
 		<delete dir="${war.classes}" />
 		<delete dir="${war.lib}" failonerror="false" />
+		<delete dir="${bin.dir}"/>
 	</target>
 
 
@@ -303,6 +304,63 @@
     			<xml outfile="${coverage.dir}/coverage.xml" />
     		</report>
     	</emma>
+    </target>
+
+	<property name="selenium.properties" value="selenium.properties"/>
+   	<property file="${test-src.dir}/${selenium.properties}"/>
+
+    <!-- ================================= 
+          target: test-acceptance             
+         ================================= -->
+    <target name="test-acceptance" depends="enhance,test-compile" description="set up and run all acceptance tests">
+    	<!-- Is the web-app-server running? -->
+    	<fail message="No Web-App-Server running">
+   			<condition>
+   				<not>
+					<socket port="${Selenium.WebApp.Port}" server="${Selenium.WebApp.Host}" />
+ 				</not>
+  			</condition>
+		</fail>
+		
+		<!-- Is the site availbale? -->
+		<fail message="Site not availbale">
+   			<condition>
+			 	<not>
+	 				<http url="${Selenium.WebApp.Root}" />
+	 			</not>
+ 			</condition>
+		</fail>
+		
+		<!-- Is the selenium grid server running? -->
+		<fail message="No selenium grid server running">
+   			<condition>
+   				<not>
+   					<socket port="${Selenium.GridServer.Port}" server="${Selenium.GridServer.Host}" />
+ 				</not>
+  			</condition>
+		</fail>
+		
+		<!-- Is a grid node launched? -->
+		<fail message="No selenium grid node launched">
+   			<condition>
+   				<not>
+   					<socket port="${Selenium.GridNode.Port}" server="${Selenium.GridNode.Host}" />
+ 				</not>
+  			</condition>
+		</fail>
+
+		<copy file="${test-src.dir}/${selenium.properties}" todir="${bin.dir}"/>
+	 
+    	<junit fork="yes" haltonfailure="yes" showoutput="on">
+    		<classpath>
+    			<pathelement path="${instrumented.bindir}"/>
+    			<path refid="testing.classpath"/>
+    		</classpath>
+    		<formatter type="xml"/>
+    		<formatter type="plain" usefile="false"/>
+    		<test name="org.timadorus.webapp.tests.acceptance.TimadorusWebAppAcceptanceTest"
+    			todir="${test-report.dir}"/>
+   		</junit>
     </target>
 
 	<!-- Target:enhance | run the byte enhancement of the required java classes 
