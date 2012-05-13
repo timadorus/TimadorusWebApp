@@ -2,6 +2,7 @@ package org.timadorus.webapp.tests.selenium;
 
 import org.openqa.selenium.server.SeleniumServer;
 
+import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.SeleneseTestCase;
 import com.thoughtworks.selenium.Wait;
 
@@ -10,6 +11,8 @@ public class WebTestCase extends SeleneseTestCase {
 
   private final long defaultTimeout = 30;
   private final long secondsInMilliseconds = 1000;
+  
+  protected DefaultSelenium selenium;
 
   protected SeleniumServer server;
 

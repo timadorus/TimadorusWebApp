@@ -47,15 +47,14 @@
 		
 		<!-- JDO -->
 		<dependency org="javax.jdo" name="jdo-api" rev="3.0" conf="compile->default"/>
-
 		
 		<!-- Checkstyle -->
 		<dependency org="com.puppycrawl.tools" name="checkstyle" rev="5.4" conf="testing->default" />
 		
 		<!-- Selenium -->
-		<dependency org="org.seleniumhq.selenium" name="selenium-server" rev="2.0b3" conf ="testing->default" />
-		<dependency org="org.seleniumhq.selenium.client-drivers" name="selenium-java-client-driver" rev="1.0.2" conf ="testing->default" />
-		
+		<dependency org="org.seleniumhq.selenium" name="selenium-java" rev="2.21.0"/>
+		<dependency org="org.seleniumhq.selenium" name="selenium-server" rev="2.21.0"/>
+	
 		<!-- Winstone -->
 		<dependency org="org.jvnet.hudson.winstone" name="winstone" rev="0.9.10-hudson-24" conf="*->default" />
 		
