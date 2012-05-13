@@ -104,7 +104,8 @@ public class SelectClassWidget extends FormPanel implements SelectClassDialog.Di
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. "
         + "Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können."
-        + "</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie " + "Fraktionen wählen können.</p>");
+        + "</p><p>Beachten sie, dass bestimmte Klassen nur bestimmte Rassen sowie " 
+        + "Fraktionen wählen können.</p>");
     return information;
   }
 
