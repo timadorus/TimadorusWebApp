@@ -6,6 +6,12 @@ import org.timadorus.webapp.client.campaign.EditCampaignPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListDialog;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
+import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
+import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterDialog;
+import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
+import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
+import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
+import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
 import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
 import org.timadorus.webapp.client.eventhandling.events.CreateCampaineEvent;
 import org.timadorus.webapp.client.eventhandling.events.CreateCharacterEvent;
@@ -77,6 +83,18 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
 
   private EditCampaignPanel editCampaignPanel;
 
+  private PremadeCharacterDialog premadeCharacterDialog;
+
+  private PotStatsDialog potStatsDialog;
+
+  private ReadyDialog characterReadyDialog;
+
+  private SelectClassDialog selectClassDialog;
+
+  private SelectFactionDialog selectFactionDialog;
+  
+  private SelectNameDialog selectNameDialog;
+
   public TimadorusWebApp() {
     this.sessionId = new SessionId();
 
@@ -109,7 +127,13 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     profilePanel = ProfilePanel.getProfilePanel(this, null);
     characterListDialog = ShowCharacterListDialog.getDialog(this, null);
     editCampaignPanel = EditCampaignPanel.getCampaignPanel(this, null);
-
+    premadeCharacterDialog = PremadeCharacterDialog.getDialog(this, null);
+    potStatsDialog = PotStatsDialog.getDialog(this);
+    characterReadyDialog = ReadyDialog.getReadyDialog(this, null);
+    selectClassDialog = SelectClassDialog.getSelecteddDialog(this, null, null);
+    selectFactionDialog = new SelectFactionDialog(null, this, null, null);
+    selectNameDialog = new SelectNameDialog(null, this, null, null);
+    
     menu.go(RootPanel.get("menu"));
 
     FlowPanel vp = new FlowPanel();
