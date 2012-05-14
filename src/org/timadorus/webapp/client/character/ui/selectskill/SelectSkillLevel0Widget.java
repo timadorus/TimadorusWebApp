@@ -6,7 +6,7 @@ import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Skill;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
+import org.timadorus.webapp.client.eventhandling.events.ShowPotStatsDialogEvent;
 
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -26,8 +26,7 @@ public class SelectSkillLevel0Widget extends DefaultSkillLevelWidget {
 
   @Override
   public void onPrevButtonClick(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(PotStatsDialog.getDialog(entry, character, user).getFormPanel());
+    entry.fireEvent(new ShowPotStatsDialogEvent(user, character));
   }
   
 }

@@ -4,8 +4,8 @@ import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
-import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanceDialog;
+import org.timadorus.webapp.client.eventhandling.events.ShowReadyDialogEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectAppearanceEvent;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
@@ -26,8 +26,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * FormPanel for setting name of Character-Object
+ * 
  * @author aaz210
- *
+ * 
  */
 public class SelectNameWidget extends FormPanel implements SelectNameDialog.Display {
 
@@ -78,8 +79,7 @@ public class SelectNameWidget extends FormPanel implements SelectNameDialog.Disp
 
     panel.add(progressBar);
     panel.add(new Label("Schritt 9 von 9"));
-    panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: "
-        + character.getRace().getName()));
+    panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
     panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: "
         + character.getFaction().getName()));
     panel.add(new Label("Skills_L0: " + character.getSkillListNames()));
@@ -101,14 +101,11 @@ public class SelectNameWidget extends FormPanel implements SelectNameDialog.Disp
   }
 
   public void loadSelectAppearancePanel(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectAppearanceDialog.getDialog(entry, character, user).getFormPanel());
+    entry.fireEvent(new ShowSelectAppearanceEvent(user, character));
   }
 
   public void loadSelectCharacterReadyPanel(DefaultTimadorusWebApp entry, Character character) {
-    RootPanel.get("content").clear();
-    ReadyDialog readyDialog = ReadyDialog.getReadyDialog(entry, character);
-    RootPanel.get("content").add(readyDialog.getFormPanel());
+    entry.fireEvent(new ShowReadyDialogEvent(character));
   }
 
   private static final HTML getInformation() {
@@ -152,7 +149,7 @@ public class SelectNameWidget extends FormPanel implements SelectNameDialog.Disp
       }
     });
   }
-  
+
   public void sendCharacterToServerToSave(Character aCharacter) {
     CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
 

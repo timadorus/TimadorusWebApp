@@ -7,8 +7,8 @@ import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
-import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
+import org.timadorus.webapp.client.eventhandling.events.ShowPotStatsDialogEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectFractionEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -24,12 +24,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 // Panel for selecting TempStats
 public class SelectTempStatsWidget extends FormPanel implements SelectTempStatsDialog.Display {
-
-  // final DefaultTimadorusWebApp entry;
-  //
-  // final Character character;
-  //
-  // User user;
 
   HTML statPointLabel = new HTML("<h2>Verteilbare Punkte:</h2>");
 
@@ -51,11 +45,6 @@ public class SelectTempStatsWidget extends FormPanel implements SelectTempStatsD
   FlexTable statPointGrid = new FlexTable(); // grid for available statpoints
 
   int statCosts = 1;
-
-  // int statPoints = 420;
-
-  // // list for handling tempstats
-  // List<Integer> tempStats = new ArrayList<Integer>();
 
   // lists for buttons
   List<Image> incStatButtons = new ArrayList<Image>();
@@ -301,14 +290,12 @@ public class SelectTempStatsWidget extends FormPanel implements SelectTempStatsD
 
   @Override
   public void loadSelectFactionPanel(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionDialog.getDialog(entry, character, user).getFormPanel());
+    entry.fireEvent(new ShowSelectFractionEvent(user, character));
   }
 
   @Override
   public void loadGetPotStatsPanel(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(PotStatsDialog.getDialog(entry, character, user).getFormPanel());
+    entry.fireEvent(new ShowPotStatsDialogEvent(user, character));
   }
 
 }

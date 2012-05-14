@@ -7,7 +7,7 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
-import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectClassEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -126,9 +126,7 @@ public class SelectRaceWidget extends FormPanel implements SelectRaceDialog.Disp
   }
 
   public void loadSelectClassPanel(DefaultTimadorusWebApp entry, User user, Character character) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectClassDialog.getSelecteddDialog(entry, character, user)
-                                     .getFormPanel());
+    entry.fireEvent(new ShowSelectClassEvent(user, character));
   }
 
   public String getSelectedRace() {
@@ -148,11 +146,9 @@ public class SelectRaceWidget extends FormPanel implements SelectRaceDialog.Disp
   }
 
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Rasse und Geschlecht wählen</h1><p>Wählen sie hier das Geschlecht "
-                                    + "und die Rasse ihres Charakteres. Beachten sie, dass bestimmte"
-                                    + " Rassen nur bestimmte Klassen sowie "
-                                    + "Fraktionen wählen können.</p>");
+    HTML information = new HTML("<h1>Rasse und Geschlecht wählen</h1><p>Wählen sie hier das Geschlecht "
+        + "und die Rasse ihres Charakteres. Beachten sie, dass bestimmte" + " Rassen nur bestimmte Klassen sowie "
+        + "Fraktionen wählen können.</p>");
     return information;
   }
 
@@ -197,13 +193,12 @@ public class SelectRaceWidget extends FormPanel implements SelectRaceDialog.Disp
   }
 
   @Override
-  public void showRaceSelection(String raceName, String raceDescription,
-                                List<String> availableClasses, List<String> availableFactions) {
+  public void showRaceSelection(String raceName, String raceDescription, List<String> availableClasses,
+    List<String> availableFactions) {
 
     RootPanel.get("information").clear();
 
-    RootPanel.get("information").add(new HTML("<h1>" + raceName + "</h1><p>" + raceDescription
-                                         + "</p>"));
+    RootPanel.get("information").add(new HTML("<h1>" + raceName + "</h1><p>" + raceDescription + "</p>"));
 
     // Show available Classes
     RootPanel.get("information").add(new HTML("<h2>Wählbare Klassen</h2>"));

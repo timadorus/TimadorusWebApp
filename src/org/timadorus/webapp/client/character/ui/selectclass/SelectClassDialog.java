@@ -9,11 +9,12 @@ import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.eventhandling.events.SelectRaceEvent;
-
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectClassEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> {
+public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> implements ShowDialogHandler {
   public interface Display extends DefaultDisplay {
 
     /**
@@ -42,22 +43,26 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
     super(display, entry);
     this.character = character;
     this.user = user;
+    entry.addHandler(ShowSelectClassEvent.SHOWDIALOG, this);
 
-    display.setClassGridButtonHandler(new DefaultActionHandler() {
+  }
+
+  private void initDisplay() {
+    getDisplay().setClassGridButtonHandler(new DefaultActionHandler() {
 
       @Override
       public void onAction() {
         doClassGridClick();
       }
     });
-    display.setNextButtonHandler(new DefaultActionHandler() {
+    getDisplay().setNextButtonHandler(new DefaultActionHandler() {
 
       @Override
       public void onAction() {
         doNextButtonClick();
       }
     });
-    display.setPrevButtonHandler(new DefaultActionHandler() {
+    getDisplay().setPrevButtonHandler(new DefaultActionHandler() {
 
       @Override
       public void onAction() {
@@ -124,6 +129,17 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
     SelectClassDialog.Display display = new SelectClassWidget(character, entry.getTestValues().getClasses());
     SelectClassDialog dialog = new SelectClassDialog(display, entry, character, user);
     return dialog;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.character = character;
+    this.user = user;
+    SelectClassDialog.Display display = new SelectClassWidget(character, entry.getTestValues().getClasses());
+    setDisplay(display);
+    initDisplay();
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(getFormPanel());
   }
 
 }

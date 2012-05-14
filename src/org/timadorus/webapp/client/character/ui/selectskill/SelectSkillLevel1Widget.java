@@ -6,7 +6,7 @@ import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Skill;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanceDialog;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectAppearanceEvent;
 
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -18,8 +18,7 @@ public class SelectSkillLevel1Widget extends DefaultSkillLevelWidget {
 
   @Override
   public void onNextButtonClick(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectAppearanceDialog.getDialog(entry, character, user).getFormPanel());
+    entry.fireEvent(new ShowSelectAppearanceEvent(user, character));
   }
 
   @Override

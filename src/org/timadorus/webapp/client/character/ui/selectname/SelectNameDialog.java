@@ -6,13 +6,17 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectNameEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
+
+import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * 
  * @author aaz210
  * 
  */
-public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> {
+public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> implements ShowDialogHandler {
 
   public interface Display extends DefaultDisplay {
 
@@ -42,7 +46,7 @@ public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> {
     public void loadSelectCharacterReadyPanel(DefaultTimadorusWebApp entry, Character character);
 
     public void loadSelectAppearancePanel(DefaultTimadorusWebApp entry, Character character, User user);
-    
+
     public void sendCharacterToServerToSave(Character aCharacter);
   }
 
@@ -54,13 +58,18 @@ public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> {
     super(display, entry);
     this.character = character;
     this.user = user;
+    entry.addHandler(ShowSelectNameEvent.SHOWDIALOG, this);
+  }
+
+  private void initDisplay(Display display) {
+    setDisplay(display);
     display.addNextButtonHandler(new DefaultActionHandler() {
 
       @Override
       public void onAction() {
         getCharacter().setName(getDisplay().getCharacterName());
         getCharacter().setUsername(getUser().getUsername());
-        
+
         getDisplay().sendCharacterToServerToSave(getCharacter());
         getDisplay().loadSelectCharacterReadyPanel(getEntry(), getCharacter());
       }
@@ -83,9 +92,19 @@ public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> {
   }
 
   public static SelectNameDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    SelectNameDialog.Display display = new SelectNameWidget(character);
-    SelectNameDialog dialog = new SelectNameDialog(display, entry, character, user);
+    // SelectNameDialog.Display display = new SelectNameWidget(character);
+    SelectNameDialog dialog = new SelectNameDialog(null, entry, character, user);
     return dialog;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.character = character;
+    this.user = user;
+    SelectNameDialog.Display display = new SelectNameWidget(character);
+    initDisplay(display);
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(getFormPanel());
   }
 
 }

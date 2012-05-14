@@ -7,8 +7,8 @@ import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
 import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectFractionEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -158,8 +158,7 @@ public class SelectClassWidget extends FormPanel implements SelectClassDialog.Di
 
   @Override
   public void loadSelectFactionDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectFactionDialog.getDialog(entry, character, user).getFormPanel());
+    entry.fireEvent(new ShowSelectFractionEvent(user, character));
   }
 
 }

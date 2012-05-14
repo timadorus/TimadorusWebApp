@@ -7,8 +7,12 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectFractionEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
-public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Display> {
+import com.google.gwt.user.client.ui.RootPanel;
+
+public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Display> implements ShowDialogHandler {
 
   public interface Display extends DefaultDisplay {
     /**
@@ -44,7 +48,11 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
     super(display, entry);
     this.character = character;
     this.user = user;
+    entry.addHandler(ShowSelectFractionEvent.SHOWDIALOG, this);
+  }
 
+  private void intiDisplay(Display display) {
+    setDisplay(display);
     display.addPrevButtonHandler(new DefaultActionHandler() {
 
       @Override
@@ -103,6 +111,16 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
     SelectFactionDialog.Display display = new SelectFactionWidget(entry, character);
     SelectFactionDialog dialog = new SelectFactionDialog(display, entry, character, user);
     return dialog;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.character = character;
+    this.user = user;
+    SelectFactionDialog.Display display = new SelectFactionWidget(entry, character);
+    intiDisplay(display);
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(getFormPanel());
   }
 
 }
