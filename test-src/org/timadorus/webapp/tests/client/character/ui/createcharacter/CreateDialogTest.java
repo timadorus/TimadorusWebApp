@@ -1,7 +1,6 @@
 package org.timadorus.webapp.tests.client.character.ui.createcharacter;
 
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -65,7 +64,6 @@ public class CreateDialogTest {
    
    theArgumentCaptor.getValue().onAction();
    
-   verify(myDisplayMock, never()).loadPremadeCharacter(myUser, myTimadorusWebAppMock);
  }
  
  @Test
@@ -78,7 +76,6 @@ public class CreateDialogTest {
    
    theArgumentCaptor.getValue().onAction();
    
-   verify(myDisplayMock).loadPremadeCharacter(myUser, myTimadorusWebAppMock);
  }
  
  @Test
@@ -91,7 +88,6 @@ public class CreateDialogTest {
    
    theArgumentCaptor.getValue().onAction();
    
-   verify(myDisplayMock, never()).loadPremadeCharacter(myUser, myTimadorusWebAppMock);
  }
   
 }
