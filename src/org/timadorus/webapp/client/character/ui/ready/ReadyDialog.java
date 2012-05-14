@@ -1,11 +1,16 @@
 package org.timadorus.webapp.client.character.ui.ready;
 
 import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
+import org.timadorus.webapp.client.eventhandling.events.ShowReadyDialogEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
-public class ReadyDialog extends DefaultDialog<ReadyDialog.Display> {
+import com.google.gwt.user.client.ui.RootPanel;
+
+public class ReadyDialog extends DefaultDialog<ReadyDialog.Display> implements ShowDialogHandler {
   public interface Display extends DefaultDisplay {
 
     public void setContragulationMessage(String msg);
@@ -21,7 +26,7 @@ public class ReadyDialog extends DefaultDialog<ReadyDialog.Display> {
 
   public ReadyDialog(ReadyDialog.Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
-    
+    entry.addHandler(ShowReadyDialogEvent.SHOWDIALOG, this);
     this.getDisplay().setContragulationMessage(congratulationMsg);
     this.getDisplay().setInformationMessage(informationMsg);
   }
@@ -30,6 +35,12 @@ public class ReadyDialog extends DefaultDialog<ReadyDialog.Display> {
     ReadyDialog.Display display = (Display) new CharacterReadyWidget(characterIn);
     ReadyDialog dialog = new ReadyDialog(display, entry);
     return dialog;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(this.getFormPanel());
   }
 
 }

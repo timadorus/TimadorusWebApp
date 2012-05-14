@@ -4,8 +4,8 @@ import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
 import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel1Dialog;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectNameEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -392,7 +392,6 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
    * Loads the SelectSkillNamePanel.
    */
   public void loadSelectNamePanel(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectNameDialog.getDialog(entry, character, user).getFormPanel());
+    entry.fireEvent(new ShowSelectNameEvent(user, character));
   }
 }

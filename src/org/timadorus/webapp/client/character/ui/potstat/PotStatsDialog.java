@@ -8,8 +8,12 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.events.ShowPotStatsDialogEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
-public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
+import com.google.gwt.user.client.ui.RootPanel;
+
+public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implements ShowDialogHandler {
   public interface Display extends DefaultDisplay {
     /**
      * Sets a new HTML element to the diplayed grid.
@@ -26,11 +30,11 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
     public void addNextButtonHandler(DefaultActionHandler handler);
 
     public void addPrevButtonHandler(DefaultActionHandler handler);
-    
+
     public List<Integer> calculatePotStats(List<Integer> tempStat);
-    
+
     public void loadSelectTempStatsPanel(DefaultTimadorusWebApp entry, Character character, User user);
-    
+
     public void loadSelectSkillPanel(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
@@ -43,13 +47,13 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
    */
   private List<Integer> potStats;
 
-  public PotStatsDialog(Display display, DefaultTimadorusWebApp entry, Character character,
-                        User user) {
+  public PotStatsDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
+    entry.addHandler(ShowPotStatsDialogEvent.SHOWDIALOG, this);
+  }
 
-    this.user = user;
-    this.character = character;
-
+  private void initDisplay(Display display) {
+    setDisplay(display);
     display.addNextButtonHandler(new DefaultActionHandler() {
 
       @Override
@@ -65,9 +69,6 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
         getDisplay().loadSelectTempStatsPanel(getEntry(), getCharacter(), getUser());
       }
     });
-
-    potStats = getDisplay().calculatePotStats(character.getTempStat());
-    character.setPotStats(potStats);
   }
 
   private Character getCharacter() {
@@ -78,11 +79,24 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> {
     return user;
   }
 
-  public static PotStatsDialog getDialog(DefaultTimadorusWebApp entry, Character character,
-                                         User user) {
-    PotStatsDialog.Display display = new PotStatsWidget(entry, character);
-    PotStatsDialog dialog = new PotStatsDialog(display, entry, character, user);
+  public static PotStatsDialog getDialog(DefaultTimadorusWebApp entry) {
+    PotStatsDialog dialog = new PotStatsDialog(null, entry);
     return dialog;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    PotStatsDialog.Display display = new PotStatsWidget(getEntry(), character);
+    initDisplay(display);
+    
+    this.user = user;
+    this.character = character;
+
+    potStats = getDisplay().calculatePotStats(character.getTempStat());
+    this.character.setPotStats(potStats);
+
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(getFormPanel());
   }
 
 }

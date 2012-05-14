@@ -1,9 +1,6 @@
 package org.timadorus.webapp.client.character.ui.createcharacter;
 
-import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterDialog;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -174,11 +171,5 @@ public class CreateCharacterWidget extends FormPanel implements CreateDialog.Dis
   @Override
   public boolean isCustom() {
     return selectCustom.getValue();
-  }
-
-  @Override
-  public void loadPremadeCharacter(User user, DefaultTimadorusWebApp entry) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(PremadeCharacterDialog.getDialog(entry, user).getFormPanel());
   }
 }

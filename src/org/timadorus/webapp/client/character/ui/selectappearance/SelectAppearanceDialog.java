@@ -7,8 +7,12 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectAppearanceEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
-public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog.Display> {
+import com.google.gwt.user.client.ui.RootPanel;
+
+public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog.Display> implements ShowDialogHandler {
 
   public interface Display extends DefaultDisplay {
     public void addBlackHairHandler(DefaultActionHandler handler);
@@ -54,9 +58,9 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
     public void setHairColorText(String text);
 
     public void setSkinColorText(String text);
-    
+
     public void loadSelectSkillLvl1Panel(DefaultTimadorusWebApp entry, Character character, User user);
-    
+
     public void loadSelectNamePanel(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
@@ -71,12 +75,17 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
   public SelectAppearanceDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
     super(display, entry);
 
+    entry.addHandler(ShowSelectAppearanceEvent.SHOWDIALOG, this);
+
     this.character = character;
     this.user = user;
 
     hairColorChosen = false;
     skinColorChosen = false;
 
+  }
+
+  private void initDisplay() {
     getDisplay().setNextButtonEnable(false);
 
     // === Black =============================
@@ -235,7 +244,7 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
     getDisplay().addYellowSkinHandler(allChoosenHandler);
     getDisplay().addBlueSkinHandler(allChoosenHandler);
   }
-  
+
   private Character getCharacter() {
     return character;
   }
@@ -261,11 +270,24 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
     hairColorChosen = true;
   }
 
-
-
   public static SelectAppearanceDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
     SelectAppearanceDialog.Display display = new SelectAppearanceWidget(character);
     SelectAppearanceDialog dialog = new SelectAppearanceDialog(display, entry, character, user);
     return dialog;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.character = character;
+    this.user = user;
+
+    SelectAppearanceDialog.Display display = new SelectAppearanceWidget(character);
+
+    setDisplay(display);
+
+    initDisplay();
+
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(getFormPanel());
   }
 }

@@ -8,7 +8,9 @@ import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.eventhandling.events.CreateCharacterEvent;
 import org.timadorus.webapp.client.eventhandling.events.SelectRaceEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowPremadeCharacterEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
+
 
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -30,8 +32,6 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> implements
     public boolean isPremade();
 
     public boolean isCustom();
-
-    public void loadPremadeCharacter(User user, DefaultTimadorusWebApp entry);
 
   }
 
@@ -64,7 +64,7 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> implements
         if (getDisplay().isCustom()) {
           getEntry().fireEvent(new SelectRaceEvent(getUser(), Character.getInstance()));
         } else if (getDisplay().isPremade()) {
-          getDisplay().loadPremadeCharacter(getUser(), getEntry());
+          getEntry().fireEvent(new ShowPremadeCharacterEvent(getUser()));
         }
       }
     });

@@ -6,8 +6,16 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
+import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 
-public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog.Display> {
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.RootPanel;
+
+public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog.Display> implements ShowDialogHandler {
 
   public interface Display extends DefaultDisplay {
     /**
@@ -40,8 +48,6 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
     public void loadCharacterPanel(DefaultTimadorusWebApp entry, User user);
 
     public void setInformation(String text);
-    
-    public void sendCharacterToServer(Character character);
   }
 
   private User user;
@@ -75,9 +81,11 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
 
       @Override
       public void onAction() {
-        Character character = getEntry().getTestValues().createTestCharacter(getUser().getUsername());
-        getDisplay().sendCharacterToServer(character);
-        getDisplay().loadCharacterReadyPanel(character, getEntry());
+        if (getUser() != null) {
+          Character character = getEntry().getTestValues().createTestCharacter(getUser().getUsername());
+          sendCharacterToServer(character);
+          getDisplay().loadCharacterReadyPanel(character, getEntry());
+        }
       }
     });
     display.addPrevButtonHandler(new DefaultActionHandler() {
@@ -112,8 +120,7 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
         + "Wäldern deiner Heimat. Du metzelst deine Feinde nieder wie Vieh und "
         + "watest knöcheltief in ihrem Blut, und du fürchtest keinen Gegner. Nach "
         + "gewonnener Schlacht lässt du dich mit Met vollaufen und suchst dir ein "
-        + "Weib, das dir einen bläst. Kurz: Du bist ein BARBAR!</p> "
-        + "Quelle: http://www.wildelande.de/spiel.html";
+        + "Weib, das dir einen bläst. Kurz: Du bist ein BARBAR!</p> " + "Quelle: http://www.wildelande.de/spiel.html";
   }
 
   private String getHunterInformation() {
@@ -130,6 +137,34 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
     PremadeCharacterDialog.Display display = new PremadeCharacterWidget();
     PremadeCharacterDialog dialog = new PremadeCharacterDialog(display, entry, user);
     return dialog;
+  }
+
+  public void sendCharacterToServer(Character character) {
+    CreateCharacterServiceAsync createCharacterServiceAsync = GWT
+        .create(CreateCharacterService.class);
+    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+
+      public void onSuccess(String result) {
+        if (result.equals("SUCCESS")) {
+          History.newItem("welcome");
+        } else {
+          System.out.println("Character creation failed!");
+          History.newItem("welcome");
+        }
+      }
+
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
+    };
+    createCharacterServiceAsync.createCharacter(character, asyncCallback);
+}
+  
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.user = user;
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(getFormPanel());
   }
 
 }
