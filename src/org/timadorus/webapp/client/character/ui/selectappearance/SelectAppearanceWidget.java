@@ -1,11 +1,7 @@
 package org.timadorus.webapp.client.character.ui.selectappearance;
 
 import org.timadorus.webapp.beans.Character;
-import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel1Dialog;
-import org.timadorus.webapp.client.eventhandling.events.ShowSelectNameEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -73,13 +69,19 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
   private FlexTable buttonGrid;
 
   private static int zero = 0;
+
   private static int one = 1;
+
   private static int two = 2;
+
   private static int three = 3;
+
   private static int four = 4;
+
   private static int five = 5;
+
   private static int six = 6;
-  
+
   public SelectAppearanceWidget(Character characterIn) {
     super();
 
@@ -128,8 +130,7 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
 
     panel.add(progressBar);
     panel.add(new Label("Schritt 8 von 9"));
-    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: "
-        + characterIn.getRace().getName()));
+    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
     panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
         + characterIn.getFaction().getName()));
     panel.add(new Label("Skills_L0: " + characterIn.getSkillListNames()));
@@ -176,8 +177,7 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
    * @return the HTML that specifies the text and of the information panel
    */
   private static final HTML getInformation() {
-    HTML information = new HTML(
-                                "<h1>Aussehen wählen</h1><p>Wählen Sie hier das Aussehen ihres Charakters.</p>");
+    HTML information = new HTML("<h1>Aussehen wählen</h1><p>Wählen Sie hier das Aussehen ihres Charakters.</p>");
     return information;
   }
 
@@ -375,23 +375,5 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
   @Override
   public void setSkinColorText(String text) {
     skinColor.setText(text);
-  }
-  
-  /**
-   * Loads the SelectSkillLvl1Panel.
-   * @param entry TODO
-   * @param character TODO
-   * @param user TODO
-   */
-  public void loadSelectSkillLvl1Panel(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectSkillLevel1Dialog.getDialog(entry, character, user).getFormPanel());
-  }
-
-  /**
-   * Loads the SelectSkillNamePanel.
-   */
-  public void loadSelectNamePanel(DefaultTimadorusWebApp entry, Character character, User user) {
-    entry.fireEvent(new ShowSelectNameEvent(user, character));
   }
 }

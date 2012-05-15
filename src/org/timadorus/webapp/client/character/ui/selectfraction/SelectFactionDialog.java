@@ -7,7 +7,9 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectClassEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowSelectFractionEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectTempStatsEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
 import com.google.gwt.user.client.ui.RootPanel;
@@ -27,10 +29,6 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
     public void addNextButtonHandler(DefaultActionHandler handler);
 
     public void addSelectFactionGridHandler(DefaultActionHandler handler);
-
-    public void loadSelectClassPanel(DefaultTimadorusWebApp entry, Character character, User user);
-
-    public void loadSelectTempStatsPanel(DefaultTimadorusWebApp entry, Character character, User user);
 
     /**
      * Clears the root information panel and places the given message in it.
@@ -99,12 +97,12 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
 
   // clear "content" #div and add Class SelectClassPanel to it
   public void loadSelectClassPanel() {
-    getDisplay().loadSelectClassPanel(getEntry(), character, user);
+    getEntry().fireEvent(new ShowSelectClassEvent(user, character));
   }
 
   // clear "content" #div and add Class SelectTempStats to it
   public void loadSelectTempStatsPanel() {
-    getDisplay().loadSelectTempStatsPanel(getEntry(), character, user);
+    getEntry().fireEvent(new ShowSelectTempStatsEvent(user, character));
   }
 
   public static SelectFactionDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {

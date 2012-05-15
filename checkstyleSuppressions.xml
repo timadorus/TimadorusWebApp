@@ -35,4 +35,7 @@
     <suppress checks="MagicNumber" files="SelectTempStatsWidget.java"/>
     <suppress checks="MagicNumber" files="ShowCharacterWidget.java"/>
 
+	<!-- to high complexity -->
+    <suppress checks="ClassFanOutComplexity" files="TimadorusWebApp.java"/>
+
 </suppressions>

@@ -389,12 +389,6 @@ public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialo
   }
 
   @Override
-  public void loadShowCharacterDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(ShowCharacterDialog.getDetailDisplay(entry, character, user).getFormPanel());
-  }
-
-  @Override
   public void loadShowCharacterListsDialog(DefaultTimadorusWebApp entry, User user) {
     entry.fireEvent(new ShowCharacterListEvent(user));
   }

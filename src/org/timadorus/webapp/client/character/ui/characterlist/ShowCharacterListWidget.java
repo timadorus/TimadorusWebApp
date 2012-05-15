@@ -7,8 +7,9 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.showcharacter.CharacterActionHandler;
-import org.timadorus.webapp.client.character.ui.showcharacter.ShowCharacterDialog;
 import org.timadorus.webapp.client.eventhandling.events.ShowCharacterListEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectCharacterDetailEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectCharacterShortEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -114,7 +115,8 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
         confirm.addClickHandler(confirmHandler);
         passbox.addKeyUpHandler(confirmHandler);
 
-        grid.setWidget(i, 0, ShowCharacterDialog.getShortDisplay(entry, character, user).getFormPanel());
+//        grid.setWidget(i, 0, ShowCharacterDialog.getShortDisplay(entry, character, user).getFormPanel());
+        entry.fireEvent(new ShowSelectCharacterShortEvent(grid, i, 0, user, character));
         grid.setWidget(i, 1, details);
         grid.setWidget(i, 2, delete);
         i++;
@@ -154,11 +156,6 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
     }
     panel.add(headline);
     panel.add(grid);
-  }
-
-  @Override
-  public void setWidget(Widget widget) {
-    grid.setWidget(0, 0, widget);
   }
 
   @Override
@@ -279,7 +276,7 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
 
   @Override
   public void loadShowCharacterDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    setWidget(ShowCharacterDialog.getDetailDisplay(entry, character, user).getFormPanel());
+    entry.fireEvent(new ShowSelectCharacterDetailEvent(grid, 0, 0, user, character));
   }
 
   @Override

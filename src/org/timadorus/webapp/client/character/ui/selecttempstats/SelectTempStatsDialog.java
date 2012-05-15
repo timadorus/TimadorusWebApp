@@ -9,8 +9,12 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectTempStatsEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
-public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.Display> {
+import com.google.gwt.user.client.ui.RootPanel;
+
+public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.Display> implements ShowDialogHandler {
 
   public interface Display extends DefaultDisplay {
     public void addNextButtonHandler(DefaultActionHandler handler);
@@ -54,7 +58,11 @@ public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.D
     super(display, entry);
     tempStats = new ArrayList<Integer>();
     this.statPoints = statPoints;
+    entry.addHandler(ShowSelectTempStatsEvent.SHOWDIALOG, this);
+  }
 
+  private void initDisplay(Display display) {
+    setDisplay(display);
     display.addNextButtonHandler(new DefaultActionHandler() {
 
       @Override
@@ -230,16 +238,26 @@ public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.D
 
   public static SelectTempStatsDialog getDialog(DefaultTimadorusWebApp entry, User user, Character character) {
     int statPoints = 420;
-    List<Integer> tempStats = new ArrayList<Integer>();
-    for (int i = 0; i < 12; i++) {
-      tempStats.add(character.getStatList().get(i).getTempStat());
-    }
-    SelectTempStatsDialog.Display display = new SelectTempStatsWidget(character, tempStats, statPoints);
-    SelectTempStatsDialog dialog = new SelectTempStatsDialog(display, entry, character, user, tempStats, statPoints);
+    
+    SelectTempStatsDialog dialog = new SelectTempStatsDialog(null, entry, character, user, null, statPoints);
     return dialog;
   }
 
   public List<Integer> getTempStats() {
     return tempStats;
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    List<Integer> temporaryStats = new ArrayList<Integer>();
+    for (int i = 0; i < 12; i++) {
+      temporaryStats.add(character.getStatList().get(i).getTempStat());
+    }
+    SelectTempStatsDialog.Display display = new SelectTempStatsWidget(character, temporaryStats, statPoints);
+    initDisplay(display);
+    this.character = character;
+    this.user = user;
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(getFormPanel());
   }
 }

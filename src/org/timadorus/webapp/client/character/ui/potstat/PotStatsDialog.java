@@ -9,6 +9,8 @@ import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.eventhandling.events.ShowPotStatsDialogEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectSkill0Event;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectTempStatsEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
 import com.google.gwt.user.client.ui.RootPanel;
@@ -33,9 +35,6 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
 
     public List<Integer> calculatePotStats(List<Integer> tempStat);
 
-    public void loadSelectTempStatsPanel(DefaultTimadorusWebApp entry, Character character, User user);
-
-    public void loadSelectSkillPanel(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
   private Character character;
@@ -58,7 +57,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
 
       @Override
       public void onAction() {
-        getDisplay().loadSelectSkillPanel(getEntry(), getCharacter(), getUser());
+        getEntry().fireEvent(new ShowSelectSkill0Event(getUser(), getCharacter()));
       }
     });
 
@@ -66,7 +65,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
 
       @Override
       public void onAction() {
-        getDisplay().loadSelectTempStatsPanel(getEntry(), getCharacter(), getUser());
+        getEntry().fireEvent(new ShowSelectTempStatsEvent(getUser(), getCharacter()));
       }
     });
   }

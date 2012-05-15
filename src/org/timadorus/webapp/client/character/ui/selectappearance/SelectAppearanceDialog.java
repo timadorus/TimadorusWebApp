@@ -8,6 +8,8 @@ import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.eventhandling.events.ShowSelectAppearanceEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectNameEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectSkill1Event;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
 import com.google.gwt.user.client.ui.RootPanel;
@@ -59,9 +61,6 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
 
     public void setSkinColorText(String text);
 
-    public void loadSelectSkillLvl1Panel(DefaultTimadorusWebApp entry, Character character, User user);
-
-    public void loadSelectNamePanel(DefaultTimadorusWebApp entry, Character character, User user);
   }
 
   private Character character;
@@ -205,7 +204,7 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
 
       @Override
       public void onAction() {
-        getDisplay().loadSelectNamePanel(getEntry(), getCharacter(), getUser());
+        getEntry().fireEvent(new ShowSelectNameEvent(getUser(), getCharacter()));
       }
     });
 
@@ -214,7 +213,7 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
 
       @Override
       public void onAction() {
-        getDisplay().loadSelectSkillLvl1Panel(getEntry(), getCharacter(), getUser());
+        getEntry().fireEvent(new ShowSelectSkill1Event(getUser(), getCharacter()));
       }
     });
 

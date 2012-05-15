@@ -12,6 +12,7 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectAppearanceEvent;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -70,6 +71,11 @@ public class DefaultSelectSkillLevelDialog extends DefaultDialog<DefaultSelectSk
     this.backupSkillList = new ArrayList<Skill>(skills);
 
     addedSkillList = new HashSet<String>();
+    
+  }
+
+  protected void initDisplay(Display display) {
+    setDisplay(display);
     getDisplay().addAddButtonHandler(new DefaultActionHandler() {
 
       @Override
@@ -127,14 +133,11 @@ public class DefaultSelectSkillLevelDialog extends DefaultDialog<DefaultSelectSk
   }
 
   public void onResetButtonClick() {
-    skillList = backupSkillList;
-    // getEntry().getTestValues().setSkillsLevel1(backupSkillList);
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(DefaultSelectSkillLevelDialog.getDialog(getEntry(), character, user).getFormPanel());
+    skillList = new ArrayList<Skill>(backupSkillList);
   }
 
   public void loadSelectAppearancePanel() {
-    RootPanel.get("content").clear();
+   getEntry().fireEvent(new ShowSelectAppearanceEvent(getUser(), getCharacter()));
   }
 
   private void onRemoveButtonClick() {
@@ -174,7 +177,7 @@ public class DefaultSelectSkillLevelDialog extends DefaultDialog<DefaultSelectSk
 
   protected void onNextButtonClick() {
     saveSelectedSkillsInCharacter();
-    // loadSelectAppearancePanel();
+    loadSelectAppearancePanel();
   }
 
   private void onAddButtonClick() {
@@ -228,6 +231,14 @@ public class DefaultSelectSkillLevelDialog extends DefaultDialog<DefaultSelectSk
 
   public User getUser() {
     return user;
+  }
+
+  protected void setCharacter(Character character) {
+    this.character = character;
+  }
+
+  protected void setUser(User user) {
+    this.user = user;
   }
 
   public static DefaultSelectSkillLevelDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {

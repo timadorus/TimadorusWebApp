@@ -13,6 +13,10 @@ import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
 import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
 import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
 import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
+import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel0Dialog;
+import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel1Dialog;
+import org.timadorus.webapp.client.character.ui.selecttempstats.SelectTempStatsDialog;
+import org.timadorus.webapp.client.character.ui.showcharacter.ShowCharacterDialog;
 import org.timadorus.webapp.client.eventhandling.events.CreateCampaineEvent;
 import org.timadorus.webapp.client.eventhandling.events.CreateCharacterEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowCharacterListEvent;
@@ -92,9 +96,17 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
   private SelectClassDialog selectClassDialog;
 
   private SelectFactionDialog selectFactionDialog;
-  
+
   private SelectNameDialog selectNameDialog;
 
+  private SelectSkillLevel0Dialog selectSkillLevel0Dialog;
+
+  private SelectSkillLevel1Dialog selectSkillLevel1Dialog;
+
+  private SelectTempStatsDialog selectTempStatsDialog;
+
+  private ShowCharacterDialog showCharacterDialog;
+  
   public TimadorusWebApp() {
     this.sessionId = new SessionId();
 
@@ -133,6 +145,10 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     selectClassDialog = SelectClassDialog.getSelecteddDialog(this, null, null);
     selectFactionDialog = new SelectFactionDialog(null, this, null, null);
     selectNameDialog = new SelectNameDialog(null, this, null, null);
+    selectSkillLevel0Dialog = SelectSkillLevel0Dialog.getDialog(this, null, null);
+    selectSkillLevel1Dialog = SelectSkillLevel1Dialog.getDialog(this, null, null);
+    selectTempStatsDialog = SelectTempStatsDialog.getDialog(this, null, null);
+    showCharacterDialog = ShowCharacterDialog.getDetailDisplay(this, null, null);
     
     menu.go(RootPanel.get("menu"));
 

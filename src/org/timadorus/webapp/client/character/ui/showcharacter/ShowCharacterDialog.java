@@ -6,14 +6,22 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.events.ShowCharacterEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowCharacterListEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectCharacterDetailEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectCharacterShortEvent;
+import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
+import org.timadorus.webapp.client.eventhandling.handler.ShowSelectCharDetailHandler;
+import org.timadorus.webapp.client.eventhandling.handler.ShowSelectCharShortHandler;
 import org.timadorus.webapp.client.rpc.service.CharacterService;
 import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Grid;
 
-public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Display> {
+public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Display> implements
+    ShowSelectCharShortHandler, ShowSelectCharDetailHandler, ShowDialogHandler {
 
   public interface Display extends DefaultDisplay {
 
@@ -41,8 +49,6 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
 
     public void characterDeleteFailure();
 
-    public void loadShowCharacterDialog(DefaultTimadorusWebApp entry, Character character, User user);
-
     public void loadShowCharacterListsDialog(DefaultTimadorusWebApp entry, User user);
   }
 
@@ -54,6 +60,12 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
     super(display, entry);
     this.character = character;
     this.user = user;
+    entry.addHandler(ShowSelectCharacterShortEvent.SHOWDIALOG, this);
+    entry.addHandler(ShowSelectCharacterDetailEvent.SHOWDIALOG, this);
+  }
+
+  private void initDisplay(Display display) {
+    setDisplay(display);
     display.addBackButtonHandler(new DefaultActionHandler() {
 
       @Override
@@ -97,7 +109,7 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
   }
 
   public void onBackButton2Click() {
-    getDisplay().loadShowCharacterDialog(getEntry(), character, getUser());
+    getEntry().fireEvent(new ShowCharacterEvent(getUser(), character));
   }
 
   public void onBackButtonClick() {
@@ -133,15 +145,41 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
     characterServiceAsync.deleteCharacter(character, asyncCallback);
   }
 
-  public static ShowCharacterDialog getShortDisplay(DefaultTimadorusWebApp entry, Character character, User user) {
-    ShowCharacterDialog.Display display = new ShowCharacterWidget(character, ShowCharacterWidget.SHORT_MODE);
-    ShowCharacterDialog dialog = new ShowCharacterDialog(display, entry, character, user);
+  // public static ShowCharacterDialog getShortDisplay(DefaultTimadorusWebApp entry, Character character, User user) {
+  //
+  // ShowCharacterDialog dialog = new ShowCharacterDialog(null, entry, character, user);
+  // return dialog;
+  // }
+
+  public static ShowCharacterDialog getDetailDisplay(DefaultTimadorusWebApp entry, Character character, User user) {
+
+    ShowCharacterDialog dialog = new ShowCharacterDialog(null, entry, character, user);
     return dialog;
   }
 
-  public static ShowCharacterDialog getDetailDisplay(DefaultTimadorusWebApp entry, Character character, User user) {
+  @Override
+  public void showShort(Grid grid, int row, int column, User user, Character character) {
+    this.character = character;
+    this.user = user;
+    ShowCharacterDialog.Display display = new ShowCharacterWidget(character, ShowCharacterWidget.SHORT_MODE);
+    initDisplay(display);
+    grid.setWidget(row, column, getFormPanel());
+  }
+
+  @Override
+  public void showDetail(Grid grid, int row, int column, User user, Character character) {
+    this.character = character;
+    this.user = user;
     ShowCharacterDialog.Display display = new ShowCharacterWidget(character, ShowCharacterWidget.DETAIL_MODE);
-    ShowCharacterDialog dialog = new ShowCharacterDialog(display, entry, character, user);
-    return dialog;
+    initDisplay(display);
+    grid.setWidget(row, column, getFormPanel());
+  }
+
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.character = character;
+    this.user = user;
+    ShowCharacterDialog.Display display = new ShowCharacterWidget(character, ShowCharacterWidget.DETAIL_MODE);
+    initDisplay(display);
   }
 }
