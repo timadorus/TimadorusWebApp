@@ -6,8 +6,12 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.eventhandling.events.ShowCreateFractionEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowCreateFractionHandler;
-import org.timadorus.webapp.client.rpc.service.CreateFractionService;
-import org.timadorus.webapp.client.rpc.service.CreateFractionServiceAsync;
+import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.client.service.ServiceAsync;
+import org.timadorus.webapp.client.service.ServiceType;
+import org.timadorus.webapp.shared.Action;
+import org.timadorus.webapp.shared.Response;
+import org.timadorus.webapp.shared.transporttypes.ExsFractionTransporttype;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -40,7 +44,32 @@ public class CreateFractionPanel extends FormPanel implements ShowCreateFraction
     }
 
     private void checkFraction(String fractionName, String campaignName) {
-      CreateFractionServiceAsync createFractionServiceAsync = GWT.create(CreateFractionService.class);
+      
+      
+      
+      Action<ExsFractionTransporttype> action = new Action<ExsFractionTransporttype>(ServiceType.EXSFRACTION, 
+          new ExsFractionTransporttype(fractionName, campaignName));
+      AsyncCallback<Response<String>> response = new AsyncCallback<Response<String>>() {
+
+        @Override
+        public void onFailure(Throwable caught) {
+          System.out.println(caught);
+        }
+
+        @Override
+        public void onSuccess(Response<String> result) {
+          if (result.getResult().equals("SUCCESS")) {
+            System.out.println("Sucess");
+          } else {
+            System.out.println("Failure");
+          }
+        }
+      };
+      
+      exsService.execute(action, response);  
+      
+      
+    /*  CreateFractionServiceAsync createFractionServiceAsync = GWT.create(CreateFractionService.class);
       AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
 
         public void onSuccess(String result) {
@@ -56,8 +85,10 @@ public class CreateFractionPanel extends FormPanel implements ShowCreateFraction
           System.out.println(caught);
         }
       };
-      createFractionServiceAsync.existsFraction(fractionName, campaignName, asyncCallback);
+      createFractionServiceAsync.existsFraction(fractionName, campaignName, asyncCallback);*/
     }
+    
+    
   }
 
   // Create a handler for the saveButton and nameField
@@ -79,27 +110,38 @@ public class CreateFractionPanel extends FormPanel implements ShowCreateFraction
     }
 
     private void sendToServer(Fraction fraction) {
-      CreateFractionServiceAsync createFractionServiceAsync = GWT.create(CreateFractionService.class);
-      AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
+      
+      Action<Fraction> action = new Action<Fraction>(ServiceType.CRTFRACTION, fraction);
+      AsyncCallback<Response<String>> response = new AsyncCallback<Response<String>>() {
 
-        public void onSuccess(String result) {
-          if (result.equals("SUCCESS")) {
+        @Override
+        public void onFailure(Throwable caught) {
+          System.out.println(caught);
+        }
+
+        @Override
+        public void onSuccess(Response<String> result) {
+          if (result.getResult().equals("SUCCESS")) {
             System.out.println("Sucess");
           } else {
             System.out.println("Failure");
           }
         }
-
-        public void onFailure(Throwable caught) {
-          System.out.println(caught);
-        }
       };
-      createFractionServiceAsync.createFraction(fraction, asyncCallback);
+      
+      crtService.execute(action, response);  
+   
     }
+    
+    
   }
 
   private static final int CELL_SPACING = 8;
 
+  private final ServiceAsync<Fraction, String> crtService = GWT.create(Service.class);
+  
+  private final ServiceAsync<ExsFractionTransporttype, String> exsService = GWT.create(Service.class);
+  
   DefaultTimadorusWebApp entry;
 
   User user;

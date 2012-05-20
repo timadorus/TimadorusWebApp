@@ -9,8 +9,11 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.eventhandling.events.ShowCreateFractionEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowEditCampaignEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
-import org.timadorus.webapp.client.rpc.service.CreateCampaignService;
-import org.timadorus.webapp.client.rpc.service.CreateCampaignServiceAsync;
+import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.client.service.ServiceAsync;
+import org.timadorus.webapp.client.service.ServiceType;
+import org.timadorus.webapp.shared.Action;
+import org.timadorus.webapp.shared.Response;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -40,6 +43,8 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
   Label campaignNameLabel = new Label("Name der Kampagne");
 
   Label descriptionLabel = new Label("Beschreibung");
+  
+  private final ServiceAsync<User, List<Campaign>> getService = GWT.create(Service.class);
 
   public EditCampaignPanel(DefaultTimadorusWebApp entryIn, final User user) {
     super();
@@ -63,6 +68,28 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
   }
 
   private void getCampaigns(User user) {
+    
+    
+    Action<User> action = new Action<User>(ServiceType.GETCAMPAIGN, user);
+    AsyncCallback<Response<List<Campaign>>> response = new AsyncCallback<Response<List<Campaign>>>() {
+
+      @Override
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
+
+      @Override
+      public void onSuccess(Response<List<Campaign>> result) {
+        if (result.getResult() != null) {
+          updateCampaignList(result.getResult());
+        }
+      }
+    };
+    
+    getService.execute(action, response);
+    
+    
+    /*
     CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
     AsyncCallback<List<Campaign>> asyncCallback = new AsyncCallback<List<Campaign>>() {
 
@@ -77,7 +104,8 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
       }
     };
 
-    createCampaignServiceAsync.getCampaigns(user.getUsername(), asyncCallback);
+    createCampaignServiceAsync.getCampaigns(user.getUsername(), asyncCallback); */
+    
   }
 
   /**

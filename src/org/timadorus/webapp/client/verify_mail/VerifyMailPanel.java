@@ -8,7 +8,6 @@ import org.timadorus.webapp.client.eventhandling.events.ShowVerifyMailEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowHandler;
 import org.timadorus.webapp.client.rpc.service.UserService;
 import org.timadorus.webapp.client.rpc.service.UserServiceAsync;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -146,6 +145,9 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener,
        * Send username, password and activation code to the server to verify the users e-mail address.
        */
       private void sendToServer() {
+        
+        //TODO Command-Pattern
+        
         UserServiceAsync userServiceAsync = GWT.create(UserService.class);
 
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
@@ -159,6 +161,7 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener,
         };
 
         userServiceAsync.verifyMail(activationCode, user, asyncCallback);
+       
       }
     }
 

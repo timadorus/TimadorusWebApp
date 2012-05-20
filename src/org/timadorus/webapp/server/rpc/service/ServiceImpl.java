@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.timadorus.webapp.beans.Campaign;
 import org.timadorus.webapp.beans.Character;
+import org.timadorus.webapp.beans.Fraction;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.shared.transporttypes.ExsFractionTransporttype;
 import org.timadorus.webapp.server.rpc.service.campaign.CampaignProvider;
 import org.timadorus.webapp.server.rpc.service.character.CharacterProvider;
+import org.timadorus.webapp.server.rpc.service.fraction.FractionProvider;
 import org.timadorus.webapp.server.rpc.service.register.RegisterProvider;
 import org.timadorus.webapp.server.rpc.service.user.UserProvider;
 import org.timadorus.webapp.shared.Action;
@@ -77,6 +80,18 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
     case GETCAMPAIGN:
       List<Campaign> listCampResponse = CampaignProvider.getCampaigns((String) action.getContent());
       response = new Response<List<Campaign>>(listCampResponse);
+      break;
+    case CRTFRACTION:
+       errorCode = FractionProvider.createFraction((Fraction) action.getContent());      
+       response = new Response<String>(errorCode);
+       break;
+    case EXSFRACTION:
+      
+      ExsFractionTransporttype exsFractionTransport = (ExsFractionTransporttype) action.getContent();
+      
+      errorCode = FractionProvider.existsFraction(exsFractionTransport.getFractionName(),
+                                                  exsFractionTransport.getCampaignName());
+      response = new Response<String>(errorCode);
       break;
     default:
       break;

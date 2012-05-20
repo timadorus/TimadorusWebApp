@@ -11,6 +11,8 @@ import org.timadorus.webapp.client.eventhandling.handler.ShowLoginHandler;
 import org.timadorus.webapp.client.eventhandling.handler.ShowLogoutHandler;
 import org.timadorus.webapp.client.rpc.service.LoginService;
 import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
+import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.client.service.ServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -68,6 +70,8 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
   private int logincounter;
 
   private static LoginPanel loginPanel;
+  
+  private final ServiceAsync<String, String> loginService = GWT.create(Service.class);
 
   public LoginPanel(SessionId session, DefaultTimadorusWebApp entryIn) {
     super();
@@ -153,7 +157,12 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
        */
       private void sendToServer() {
         LoginServiceAsync loginServiceAsync = GWT.create(LoginService.class);
-
+        
+        //TODO Command-Pattern
+        
+        
+        
+        
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
           public void onSuccess(String result) {
             final int maxAttempts = 4;

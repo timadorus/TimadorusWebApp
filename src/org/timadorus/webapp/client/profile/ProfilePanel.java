@@ -126,6 +126,10 @@ public class ProfilePanel extends FormPanel implements HistoryListener, ShowDial
    * Get full user object from the server.
    */
   private void getProfileDataFromServer() {
+    
+    
+    //TODO Command-Pattern
+    
     UserServiceAsync userServiceAsync = GWT.create(UserService.class);
 
     AsyncCallback<User> asyncCallback = new AsyncCallback<User>() {

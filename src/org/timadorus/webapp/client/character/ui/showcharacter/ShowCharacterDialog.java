@@ -13,8 +13,11 @@ import org.timadorus.webapp.client.eventhandling.events.ShowSelectCharacterShort
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 import org.timadorus.webapp.client.eventhandling.handler.ShowSelectCharDetailHandler;
 import org.timadorus.webapp.client.eventhandling.handler.ShowSelectCharShortHandler;
-import org.timadorus.webapp.client.rpc.service.CharacterService;
-import org.timadorus.webapp.client.rpc.service.CharacterServiceAsync;
+import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.client.service.ServiceAsync;
+import org.timadorus.webapp.client.service.ServiceType;
+import org.timadorus.webapp.shared.Action;
+import org.timadorus.webapp.shared.Response;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -55,6 +58,8 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
   private Character character;
 
   private User user;
+  
+  private final ServiceAsync<Character, String> delService = GWT.create(Service.class);
 
   public ShowCharacterDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
     super(display, entry);
@@ -123,12 +128,19 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
    *          the character to delete
    */
   private void deleteCharacter(Character character) {
-    CharacterServiceAsync characterServiceAsync = GWT.create(CharacterService.class);
-    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
 
-      public void onSuccess(String result) {
-        if (result != null) {
-          if (result.equals("OK")) {
+    Action<Character> action = new Action<Character>(ServiceType.DELCHARACTER, character);
+    AsyncCallback<Response<String>> response = new AsyncCallback<Response<String>>() {
+
+      @Override
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
+
+      @Override
+      public void onSuccess(Response<String> result) {
+        if (result.getResult() != null) {
+          if (result.getResult().equals("OK")) {
             System.out.println("Successfully deleted");
           } else {
             System.out.println("Unsuccessfully deleted");
@@ -137,12 +149,22 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
           getEntry().fireEvent(new ShowCharacterListEvent(getUser()));
         }
       }
-
-      public void onFailure(Throwable caught) {
-        System.out.println(caught);
-      }
     };
-    characterServiceAsync.deleteCharacter(character, asyncCallback);
+
+    delService.execute(action, response);
+
+    /*
+     * CharacterServiceAsync characterServiceAsync = GWT.create(CharacterService.class); AsyncCallback<String>
+     * asyncCallback = new AsyncCallback<String>() {
+     * 
+     * public void onSuccess(String result) { if (result != null) { if (result.equals("OK")) {
+     * System.out.println("Successfully deleted"); } else { System.out.println("Unsuccessfully deleted"); } //
+     * setContent(ShowCharacterListDialog.getDialog(getEntry(), getUser()).getFormPanel()); getEntry().fireEvent(new
+     * ShowCharacterListEvent(getUser())); } }
+     * 
+     * public void onFailure(Throwable caught) { System.out.println(caught); } };
+     * characterServiceAsync.deleteCharacter(character, asyncCallback);
+     */
   }
 
   // public static ShowCharacterDialog getShortDisplay(DefaultTimadorusWebApp entry, Character character, User user) {

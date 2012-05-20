@@ -6,8 +6,11 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.eventhandling.events.CreateCampaineEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
-import org.timadorus.webapp.client.rpc.service.CreateCampaignService;
-import org.timadorus.webapp.client.rpc.service.CreateCampaignServiceAsync;
+import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.client.service.ServiceAsync;
+import org.timadorus.webapp.client.service.ServiceType;
+import org.timadorus.webapp.shared.Action;
+import org.timadorus.webapp.shared.Response;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -50,6 +53,11 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
   TextBox campaignNameTextBox = new TextBox();
 
   TextArea descriptionTextArea = new TextArea();
+  
+  private final ServiceAsync<Campaign, String> crtService = GWT.create(Service.class);
+  
+  private final ServiceAsync<String, String> exsService = GWT.create(Service.class);
+  
 
   public CreateCampaignPanel(DefaultTimadorusWebApp entryIn, final User user) {
     super();
@@ -67,6 +75,28 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
       }
 
       private void checkCampaign(String campaignName) {
+       
+        Action<String> action = new Action<String>(ServiceType.EXSCAMPAIGN, campaignName);
+        AsyncCallback<Response<String>> response = new AsyncCallback<Response<String>>() {
+
+          @Override
+          public void onFailure(Throwable caught) {
+            System.out.println(caught);
+          }
+
+          @Override
+          public void onSuccess(Response<String> result) {
+            if (result.getResult().equals("SUCCESS")) {
+              checkCampaignNameLabel.setText("");
+            } else {
+              checkCampaignNameLabel.setStyleName("error");
+              checkCampaignNameLabel.setText("Ist bereits vergeben");
+            }
+          }
+        };
+        
+        exsService.execute(action, response);
+        /*
         CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
         AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
 
@@ -83,7 +113,7 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
             System.out.println(caught);
           }
         };
-        createCampaignServiceAsync.existsCampaign(campaignName, asyncCallback);
+        createCampaignServiceAsync.existsCampaign(campaignName, asyncCallback);*/
       }
     }
 
@@ -153,7 +183,28 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
   }
 
   private void sendToServer(Campaign campaign) {
-    CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
+  
+    Action<Campaign> action = new Action<Campaign>(ServiceType.CRTCAMPAIGN, campaign);
+    AsyncCallback<Response<String>> response = new AsyncCallback<Response<String>>() {
+
+      @Override
+      public void onFailure(Throwable caught) {
+        System.out.println(caught);
+      }
+
+      @Override
+      public void onSuccess(Response<String> result) {
+        if (result.getResult().equals("SUCCESS")) {
+          System.out.println("Sucess");
+        } else {
+          System.out.println("Failure");
+        }
+      }
+    };
+    
+    crtService.execute(action, response);
+    
+    /* CreateCampaignServiceAsync createCampaignServiceAsync = GWT.create(CreateCampaignService.class);
     AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
 
       public void onSuccess(String result) {
@@ -169,6 +220,7 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
       }
     };
     createCampaignServiceAsync.createCampaign(campaign, asyncCallback);
+    */
   }
 
   public void loadSavedCampaignPanel(User userIn) {
