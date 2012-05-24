@@ -126,8 +126,8 @@ public class SelectClassDialog extends DefaultDialog<SelectClassDialog.Display> 
    * @return {@link SelectClassDialog}
    */
   public static SelectClassDialog getSelecteddDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    SelectClassDialog.Display display = new SelectClassWidget(character, entry.getTestValues().getClasses());
-    SelectClassDialog dialog = new SelectClassDialog(display, entry, character, user);
+//    SelectClassDialog.Display display = new SelectClassWidget(character, entry.getTestValues().getClasses());
+    SelectClassDialog dialog = new SelectClassDialog(null, entry, character, user);
     return dialog;
   }
 
