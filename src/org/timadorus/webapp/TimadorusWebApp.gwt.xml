@@ -17,13 +17,15 @@
 	<!-- <extend-property name="locale" values="de_DE"></extend-property> -->
 	
 	<!-- User Agent -->
+	<!-- Chrome only
 	<set-property name="user.agent" value="safari" /> 
+	 -->
 
   	<!-- Specify the app entry point class. -->
 	<entry-point class='org.timadorus.webapp.client.TimadorusWebApp'/>
 	
 	<source path='client'/>
-	<source path='beans'/>	
+	<source path='beans'/>
 	<source path='shared'/>
 	<source path='util'/>
 </module>
