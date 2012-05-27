@@ -34,6 +34,12 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
     public void addPrevButtonHandler(DefaultActionHandler handler);
 
     public List<Integer> calculatePotStats(List<Integer> tempStat);
+    
+    /**
+     * Adds the {@link Character} information to the display.
+     * @param character
+     */
+    public void setCharacter(Character character);
 
   }
 
@@ -48,6 +54,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
 
   public PotStatsDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
+    initDisplay(display);
     entry.addHandler(ShowPotStatsDialogEvent.SHOWDIALOG, this);
   }
 
@@ -78,19 +85,19 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
     return user;
   }
 
-  public static PotStatsDialog getDialog(DefaultTimadorusWebApp entry) {
-    PotStatsDialog dialog = new PotStatsDialog(null, entry);
-    return dialog;
-  }
+//  public static PotStatsDialog getDialog(DefaultTimadorusWebApp entry) {
+//    PotStatsDialog dialog = new PotStatsDialog(null, entry);
+//    return dialog;
+//  }
 
   @Override
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
-    PotStatsDialog.Display display = new PotStatsWidget(getEntry(), character);
-    initDisplay(display);
     
     this.user = user;
     this.character = character;
 
+    getDisplay().setCharacter(character);
+    
     potStats = getDisplay().calculatePotStats(character.getTempStat());
     this.character.setPotStats(potStats);
 

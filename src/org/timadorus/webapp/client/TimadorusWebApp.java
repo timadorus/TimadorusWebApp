@@ -8,6 +8,7 @@ import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListD
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateCharacterWidget;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
+import org.timadorus.webapp.client.character.ui.potstat.PotStatsWidget;
 import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterDialog;
 import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
 import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
@@ -141,7 +142,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     characterListDialog = ShowCharacterListDialog.getDialog(this, null);
     editCampaignPanel = EditCampaignPanel.getCampaignPanel(this, null);
     premadeCharacterDialog = PremadeCharacterDialog.getDialog(this, null);
-    potStatsDialog = PotStatsDialog.getDialog(this);
+    potStatsDialog = new PotStatsDialog(new PotStatsWidget(this), this);
     characterReadyDialog = ReadyDialog.getReadyDialog(this, null);
     selectClassDialog = SelectClassDialog.getSelecteddDialog(this, null, null);
     selectFactionDialog = new SelectFactionDialog(null, this, null, null);

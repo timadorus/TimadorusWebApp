@@ -48,11 +48,21 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
   /**
    * grid for showing pot stats
    */
-  private FlexTable getPotStatGrid;
+  private FlexTable myPotStatFlexTable;
+
+  /**
+   * This label contains the gender and race name of the character;
+   */
+  private Label myGenderRaceLbl;
+
+  /**
+   * This label contains the class and faction name of the character;
+   */
+  private Label myClassFactionLbl;
 
   private final DefaultTimadorusWebApp entry;
 
-  public PotStatsWidget(DefaultTimadorusWebApp entry, Character characterIn) {
+  public PotStatsWidget(DefaultTimadorusWebApp entry) {
     super();
     this.entry = entry;
 
@@ -60,26 +70,17 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
     prevButton = new Button("zurück");
     panel = new VerticalPanel();
     buttonGrid = new FlexTable();
-    getPotStatGrid = new FlexTable();
+    myPotStatFlexTable = new FlexTable();
+
+    myGenderRaceLbl = new Label("Geschlecht: | Rasse: ");
+    myClassFactionLbl = new Label("Klasse: | Fraktion: ");
 
     // headline
     HTML headline = new HTML("<h1>Potentielle Attribute erhalten</h1>");
     // progressbar picture
     Image progressBar = new Image("media/images/progressbar_5.png");
 
-    // setting properties for potStatGrid
-    getPotStatGrid.setBorderWidth(0);
-    getPotStatGrid.setStyleName("selectGrid");
-
-    // filling potStatGrid
-    getPotStatGrid.setHTML(0, 0, "Attribut");
-    getPotStatGrid.setHTML(0, 1, "TempStat");
-    getPotStatGrid.setHTML(0, 2, "PotStat");
-
-    for (int i = 0; i < characterIn.getStatList().size(); i++) {
-      getPotStatGrid.setHTML(i + 1, 0, characterIn.getStatList().get(i).toString());
-      getPotStatGrid.setHTML(i + 1, 1, characterIn.getTempStats().get(i).toString());
-    }
+    fillPotStats();
 
     // set properties of buttongrid
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
@@ -95,12 +96,11 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 5 von 7"));
-    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
-    panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
-        + characterIn.getFaction().getName()));
+    panel.add(myGenderRaceLbl);
+    panel.add(myClassFactionLbl);
 
     panel.add(headline);
-    panel.add(getPotStatGrid);
+    panel.add(myPotStatFlexTable);
     panel.add(buttonGrid);
 
     // clearing "information" #div and adding actual informations for this panel
@@ -112,7 +112,46 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
     RootPanel.get("content").add(panel);
   }
 
-  // returns and hols current panel information
+  /**
+   * Fills header values into the PotStat Table and formats it.
+   */
+  private void fillPotStats() {
+    fillPotStats(null);
+  }
+
+  /**
+   * Fills the PotStat table with values of the character. If the {@link Character} is null, an empty table with headers
+   * will be created.
+   * 
+   * @param character
+   */
+  private void fillPotStats(Character character) {
+    // clear previous values
+    myPotStatFlexTable.clear();
+
+    // setting properties for potStatGrid
+    myPotStatFlexTable.setBorderWidth(0);
+    myPotStatFlexTable.setStyleName("selectGrid");
+
+    // filling potStatGrid
+    myPotStatFlexTable.setHTML(0, 0, "Attribut");
+    myPotStatFlexTable.setHTML(0, 1, "TempStat");
+    myPotStatFlexTable.setHTML(0, 2, "PotStat");
+
+    // just add values if a character is available
+    if (character != null) {
+      for (int i = 0; i < character.getStatList().size(); i++) {
+        myPotStatFlexTable.setHTML(i + 1, 0, character.getStatList().get(i).toString());
+        myPotStatFlexTable.setHTML(i + 1, 1, character.getTempStats().get(i).toString());
+      }
+    }
+  }
+
+  /**
+   * returns and holds current panel information
+   * 
+   * @return
+   */
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Attribute bekommen</h1><p>Ausgehend von ihren Wahl der temporären Attribute, "
         + "erhalten sie hier zusätzliche Punkte.</p><p>Diese Punkte werden anhand einer "
@@ -127,7 +166,7 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
 
   @Override
   public void addGridEntry(int row, int column, String text) {
-    getPotStatGrid.setHTML(row, column, text);
+    myPotStatFlexTable.setHTML(row, column, text);
   }
 
   @Override
@@ -203,5 +242,16 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
     }
 
     return potStats;
+  }
+
+  @Override
+  public void setCharacter(Character character) {
+    if (character != null) {
+      // setting informations to labels
+      myClassFactionLbl.setText("Klasse: " + character.getCharClass().toString() + " | Fraktion: "
+          + character.getFaction().toString());
+      myGenderRaceLbl.setText("Geschlaecht: " + character.getGender() + " | Rasse: " + character.getRace().toString());
+      fillPotStats(character);
+    }
   }
 }
