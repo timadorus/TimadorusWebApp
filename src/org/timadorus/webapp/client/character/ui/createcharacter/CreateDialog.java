@@ -11,7 +11,6 @@ import org.timadorus.webapp.client.eventhandling.events.SelectRaceEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowPremadeCharacterEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
-
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -37,10 +36,11 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> implements
 
   private User user;
 
-  public CreateDialog(Display display, DefaultTimadorusWebApp entry, User user) {
+  public CreateDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
+    
     entry.addHandler(CreateCharacterEvent.SHOWDIALOG, this);
-    this.user = user;
+    
     display.setHandlerPremade(new DefaultActionHandler() {
 
       @Override
@@ -98,9 +98,8 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> implements
     return user;
   }
 
-  public static CreateDialog getCreateDialog(DefaultTimadorusWebApp entry, User user) {
-    CreateDialog.Display display = new CreateCharacterWidget();
-    CreateDialog dialog = new CreateDialog(display, entry, user);
+  public static CreateDialog getCreateDialog(Display display, DefaultTimadorusWebApp entry) {
+    CreateDialog dialog = new CreateDialog(display, entry);
     return dialog;
   }
 

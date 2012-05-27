@@ -1,11 +1,6 @@
 package org.timadorus.webapp.client.character.ui.premadecharacter;
 
-import org.timadorus.webapp.beans.Character;
-import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
-import org.timadorus.webapp.client.eventhandling.events.ShowReadyDialogEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -116,20 +111,6 @@ public class PremadeCharacterWidget extends FormPanel implements PremadeCharacte
     setInformation("<h1>Charakterauswahl</h1><p>Wähle zwischen einem von drei vorgefertigten Charakteren."
         + " Klicke auf eine der Charaktere um weitere Informationen zu bekommen");
 
-  }
-
-  // clear "content" #div and add Class CharacterReadyPanel to it
-  public void loadCharacterReadyPanel(Character character, DefaultTimadorusWebApp entry) {
-//    RootPanel.get("content").clear();
-//    ReadyDialog readyDialog = ReadyDialog.getReadyDialog(entry, character);
-//    RootPanel.get("content").add(readyDialog.getFormPanel());
-    entry.fireEvent(new ShowReadyDialogEvent(character));
-  }
-
-  // clear "content" #div and add Class CharacterPanel to it
-  public void loadCharacterPanel(DefaultTimadorusWebApp entry, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(CreateDialog.getCreateDialog(entry, user).getFormPanel());
   }
 
   @Override

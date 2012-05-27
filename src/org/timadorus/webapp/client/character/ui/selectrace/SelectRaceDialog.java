@@ -11,7 +11,9 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.events.CreateCharacterEvent;
 import org.timadorus.webapp.client.eventhandling.events.SelectRaceEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectClassEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 import org.timadorus.webapp.util.ListUtil;
 import org.timadorus.webapp.util.ListUtil.DefaultListCollector;
@@ -42,10 +44,6 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> im
      */
     public void addPrevButtonHandler(DefaultActionHandler handler);
 
-    public void loadSelectClassPanel(DefaultTimadorusWebApp entry, User user, Character character);
-
-    public void loadCharacterPanel(User user, DefaultTimadorusWebApp entry);
-
     public void showRaceSelection(String raceName, String raceDescription,
                                   List<String> availableClasses, List<String> availableFactions);
   }
@@ -67,14 +65,14 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> im
       public void onAction() {
         saveSelectedRace();
         saveSelectedGender();
-        getDisplay().loadSelectClassPanel(getEntry(), getUser(), getCharacter());
+        getEntry().fireEvent(new ShowSelectClassEvent(getUser(), getCharacter()));
       }
     });
     display.addPrevButtonHandler(new DefaultActionHandler() {
 
       @Override
       public void onAction() {
-        getDisplay().loadCharacterPanel(getUser(), getEntry());
+        getEntry().fireEvent(new CreateCharacterEvent(getUser()));
       }
     });
     display.addRaceSelectionHandler(new DefaultActionHandler() {

@@ -5,6 +5,7 @@ import org.timadorus.webapp.client.campaign.CreateCampaignPanel;
 import org.timadorus.webapp.client.campaign.EditCampaignPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListDialog;
+import org.timadorus.webapp.client.character.ui.createcharacter.CreateCharacterWidget;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
 import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterDialog;
@@ -106,7 +107,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
   private SelectTempStatsDialog selectTempStatsDialog;
 
   private ShowCharacterDialog showCharacterDialog;
-  
+
   public TimadorusWebApp() {
     this.sessionId = new SessionId();
 
@@ -135,7 +136,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     registerPanel = RegisterPanel.getRegisterPanel(this);
     createCampaignPanel = CreateCampaignPanel.getCampaignPanel(this, loginPanel.getUser());
     selectRaceDialog = SelectRaceDialog.getDialog(this, null, null);
-    createCharacterDialog = CreateDialog.getCreateDialog(this, null);
+    createCharacterDialog = CreateDialog.getCreateDialog(new CreateCharacterWidget(), this);
     profilePanel = ProfilePanel.getProfilePanel(this, null);
     characterListDialog = ShowCharacterListDialog.getDialog(this, null);
     editCampaignPanel = EditCampaignPanel.getCampaignPanel(this, null);
@@ -149,7 +150,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     selectSkillLevel1Dialog = SelectSkillLevel1Dialog.getDialog(this, null, null);
     selectTempStatsDialog = SelectTempStatsDialog.getDialog(this, null, null);
     showCharacterDialog = ShowCharacterDialog.getDetailDisplay(this, null, null);
-    
+
     menu.go(RootPanel.get("menu"));
 
     FlowPanel vp = new FlowPanel();

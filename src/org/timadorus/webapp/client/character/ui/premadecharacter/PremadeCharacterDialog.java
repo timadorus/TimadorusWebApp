@@ -6,6 +6,8 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
+import org.timadorus.webapp.client.eventhandling.events.CreateCharacterEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowReadyDialogEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
@@ -42,10 +44,6 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
     public void addNextButtonHandler(DefaultActionHandler handler);
 
     public void addPrevButtonHandler(DefaultActionHandler handler);
-
-    public void loadCharacterReadyPanel(Character character, DefaultTimadorusWebApp entry);
-
-    public void loadCharacterPanel(DefaultTimadorusWebApp entry, User user);
 
     public void setInformation(String text);
   }
@@ -84,7 +82,7 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
         if (getUser() != null) {
           Character character = getEntry().getTestValues().createTestCharacter(getUser().getUsername());
           sendCharacterToServer(character);
-          getDisplay().loadCharacterReadyPanel(character, getEntry());
+          getEntry().fireEvent(new ShowReadyDialogEvent(character));
         }
       }
     });
@@ -92,7 +90,7 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
 
       @Override
       public void onAction() {
-        getDisplay().loadCharacterPanel(getEntry(), getUser());
+        getEntry().fireEvent(new CreateCharacterEvent(getUser()));
       }
     });
 

@@ -30,7 +30,7 @@ public class CreateDialogTest {
    
    myUser = new User();
    
-   myCreateDialog = new CreateDialog(myDisplayMock, myTimadorusWebAppMock, myUser);
+   myCreateDialog = new CreateDialog(myDisplayMock, myTimadorusWebAppMock);
    
    when(myTimadorusWebAppMock.getTestValues()).thenReturn(new TestCharacterValues());
  }
