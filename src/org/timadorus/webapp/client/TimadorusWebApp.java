@@ -11,6 +11,7 @@ import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
 import org.timadorus.webapp.client.character.ui.potstat.PotStatsWidget;
 import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterDialog;
 import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterWidget;
+import org.timadorus.webapp.client.character.ui.ready.CharacterReadyWidget;
 import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
 import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
 import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
@@ -144,7 +145,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     editCampaignPanel = EditCampaignPanel.getCampaignPanel(this, null);
     premadeCharacterDialog = PremadeCharacterDialog.getDialog(new PremadeCharacterWidget(), this);
     potStatsDialog = new PotStatsDialog(new PotStatsWidget(this), this);
-    characterReadyDialog = ReadyDialog.getReadyDialog(this, null);
+    characterReadyDialog = new ReadyDialog(new CharacterReadyWidget(), this);
     selectClassDialog = SelectClassDialog.getSelecteddDialog(this, null, null);
     selectFactionDialog = new SelectFactionDialog(null, this, null, null);
     selectNameDialog = new SelectNameDialog(null, this, null, null);

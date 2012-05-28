@@ -31,12 +31,6 @@ public class ReadyDialog extends DefaultDialog<ReadyDialog.Display> implements S
     this.getDisplay().setInformationMessage(informationMsg);
   }
 
-  public static ReadyDialog getReadyDialog(DefaultTimadorusWebApp entry, Character characterIn) {
-    ReadyDialog.Display display = (Display) new CharacterReadyWidget(characterIn);
-    ReadyDialog dialog = new ReadyDialog(display, entry);
-    return dialog;
-  }
-
   @Override
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
     RootPanel.get("content").clear();
