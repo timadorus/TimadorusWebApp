@@ -61,6 +61,13 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
 
     public void setSkinColorText(String text);
 
+    /**
+     * Puts character value into the widget.
+     * 
+     * @param character
+     */
+    public void setCharacter(Character character);
+
   }
 
   private Character character;
@@ -71,13 +78,12 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
 
   private boolean skinColorChosen;
 
-  public SelectAppearanceDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
+  public SelectAppearanceDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
 
-    entry.addHandler(ShowSelectAppearanceEvent.SHOWDIALOG, this);
+    initDisplay();
 
-    this.character = character;
-    this.user = user;
+    entry.addHandler(ShowSelectAppearanceEvent.SHOWDIALOG, this);
 
     hairColorChosen = false;
     skinColorChosen = false;
@@ -269,22 +275,12 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
     hairColorChosen = true;
   }
 
-  public static SelectAppearanceDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    SelectAppearanceDialog.Display display = new SelectAppearanceWidget(character);
-    SelectAppearanceDialog dialog = new SelectAppearanceDialog(display, entry, character, user);
-    return dialog;
-  }
-
   @Override
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
     this.character = character;
     this.user = user;
 
-    SelectAppearanceDialog.Display display = new SelectAppearanceWidget(character);
-
-    setDisplay(display);
-
-    initDisplay();
+    getDisplay().setCharacter(character);
 
     RootPanel.get("content").clear();
     RootPanel.get("content").add(getFormPanel());

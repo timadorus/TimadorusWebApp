@@ -29,7 +29,7 @@ public class SelectAppearanceDialogTest {
     myCharacter = new Character();
     myUser = new User();
     
-    mySelectAppearanceDialog = new SelectAppearanceDialog(myDisplayMock, myTimadorusWebAppMock, myCharacter, myUser);
+    mySelectAppearanceDialog = new SelectAppearanceDialog(myDisplayMock, myTimadorusWebAppMock);
     
     Mockito.when(myTimadorusWebAppMock.getTestValues()).thenReturn(new TestCharacterValues());
   }

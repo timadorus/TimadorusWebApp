@@ -13,6 +13,8 @@ import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacte
 import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterWidget;
 import org.timadorus.webapp.client.character.ui.ready.CharacterReadyWidget;
 import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
+import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanceDialog;
+import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanceWidget;
 import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
 import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
 import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
@@ -111,6 +113,8 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
 
   private ShowCharacterDialog showCharacterDialog;
 
+  private SelectAppearanceDialog selectAppearanceDialog;
+
   public TimadorusWebApp() {
     this.sessionId = new SessionId();
 
@@ -153,6 +157,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     selectSkillLevel1Dialog = SelectSkillLevel1Dialog.getDialog(this, null, null);
     selectTempStatsDialog = SelectTempStatsDialog.getDialog(this, null, null);
     showCharacterDialog = ShowCharacterDialog.getDetailDisplay(this, null, null);
+    selectAppearanceDialog = new SelectAppearanceDialog(new SelectAppearanceWidget(), this);
 
     menu.go(RootPanel.get("menu"));
 

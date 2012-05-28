@@ -68,21 +68,31 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
   // grid for next/prev buttons
   private FlexTable buttonGrid;
 
-  private static int zero = 0;
+  private Label myGenderRaceLbl;
 
-  private static int one = 1;
+  private Label myClassFactionLbl;
 
-  private static int two = 2;
+  private Label mySkillLevel0Lbl;
 
-  private static int three = 3;
+  private Label mySkillLevel1Lbl;
 
-  private static int four = 4;
+  private static int row0 = 0;
+  
+  private static int column0 = 0;
 
-  private static int five = 5;
+  private static int column1 = 1;
 
-  private static int six = 6;
+  private static int column2 = 2;
 
-  public SelectAppearanceWidget(Character characterIn) {
+  private static int column3 = 3;
+
+  private static int column4 = 4;
+
+  private static int column5 = 5;
+
+  private static int column6 = 6;
+
+  public SelectAppearanceWidget() {
     super();
 
     // Init Controls
@@ -109,6 +119,10 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
     selectHairColorGrid = new FlexTable();
     buttonGrid = new FlexTable();
 
+    myGenderRaceLbl = new Label("Geschlecht: | Rasse: ");
+    myClassFactionLbl = new Label("Klasse: | Faction: ");
+    mySkillLevel0Lbl = new Label("");
+    mySkillLevel1Lbl = new Label("");
     // Arrange Controls
 
     nextButton.setEnabled(false);
@@ -121,8 +135,8 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
 
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
-    buttonGrid.setWidget(0, 0, prevButton);
-    buttonGrid.setWidget(0, 1, nextButton);
+    buttonGrid.setWidget(row0, column0, prevButton);
+    buttonGrid.setWidget(row0, column1, nextButton);
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -130,27 +144,26 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
 
     panel.add(progressBar);
     panel.add(new Label("Schritt 8 von 9"));
-    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
-    panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
-        + characterIn.getFaction().getName()));
-    panel.add(new Label("Skills_L0: " + characterIn.getSkillListNames()));
-    panel.add(new Label("Skills_L1: " + characterIn.getSkillLevel1ListNames()));
+    panel.add(myGenderRaceLbl);
+    panel.add(myClassFactionLbl);
+    panel.add(mySkillLevel0Lbl);
+    panel.add(mySkillLevel1Lbl);
 
-    selectSkinColorGrid.setWidget(0, zero, selectWhiteSkinImage);
-    selectSkinColorGrid.setWidget(0, one, selectBlackSkinImage);
-    selectSkinColorGrid.setWidget(0, two, selectBrownSkinImage);
-    selectSkinColorGrid.setWidget(0, three, selectGreenSkinImage);
-    selectSkinColorGrid.setWidget(0, four, selectYellowSkinImage);
-    selectSkinColorGrid.setWidget(0, five, selectRedSkinImage);
-    selectSkinColorGrid.setWidget(0, six, selectBlueSkinImage);
+    selectSkinColorGrid.setWidget(row0, column0, selectWhiteSkinImage);
+    selectSkinColorGrid.setWidget(row0, column1, selectBlackSkinImage);
+    selectSkinColorGrid.setWidget(row0, column2, selectBrownSkinImage);
+    selectSkinColorGrid.setWidget(row0, column3, selectGreenSkinImage);
+    selectSkinColorGrid.setWidget(row0, column4, selectYellowSkinImage);
+    selectSkinColorGrid.setWidget(row0, column5, selectRedSkinImage);
+    selectSkinColorGrid.setWidget(row0, column6, selectBlueSkinImage);
 
-    selectHairColorGrid.setWidget(0, zero, selectWhiteHairImage);
-    selectHairColorGrid.setWidget(0, one, selectBlackHairImage);
-    selectHairColorGrid.setWidget(0, two, selectBrownHairImage);
-    selectHairColorGrid.setWidget(0, three, selectGreenHairImage);
-    selectHairColorGrid.setWidget(0, four, selectYellowHairImage);
-    selectHairColorGrid.setWidget(0, five, selectRedHairImage);
-    selectHairColorGrid.setWidget(0, six, selectBlueHairImage);
+    selectHairColorGrid.setWidget(row0, column0, selectWhiteHairImage);
+    selectHairColorGrid.setWidget(row0, column1, selectBlackHairImage);
+    selectHairColorGrid.setWidget(row0, column2, selectBrownHairImage);
+    selectHairColorGrid.setWidget(row0, column3, selectGreenHairImage);
+    selectHairColorGrid.setWidget(row0, column4, selectYellowHairImage);
+    selectHairColorGrid.setWidget(row0, column5, selectRedHairImage);
+    selectHairColorGrid.setWidget(row0, column6, selectBlueHairImage);
 
     panel.add(headline);
 
@@ -375,5 +388,20 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
   @Override
   public void setSkinColorText(String text) {
     skinColor.setText(text);
+  }
+
+  @Override
+  public void setCharacter(Character character) {
+    String aClass = character.getClass().toString();
+    String aFaction = character.getFaction().toString();
+    String aGender = character.getGender();
+    String aRace = character.getRace().toString();
+    String aSkillLevel0 = character.getSkillListNames();
+    String aSkillLevel1 = character.getSkillLevel1ListNames();
+
+    myClassFactionLbl.setText("Klasse: " + aClass + " | Fraktion: " + aFaction);
+    myGenderRaceLbl.setText("Geschlecht: " + aGender + " | Rasse: " + aRace);
+    mySkillLevel0Lbl.setText(aSkillLevel0);
+    mySkillLevel1Lbl.setText(aSkillLevel1);
   }
 }
