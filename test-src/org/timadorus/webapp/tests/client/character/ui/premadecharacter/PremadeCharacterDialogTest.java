@@ -35,7 +35,7 @@ public class PremadeCharacterDialogTest {
 
     when(myDefaultTimadorusWebAppMock.getTestValues()).thenReturn(new TestCharacterValues());
 
-    myPremadeCharacterDialog = new PremadeCharacterDialog(myDisplayMock, myDefaultTimadorusWebAppMock, myUser);
+    myPremadeCharacterDialog = new PremadeCharacterDialog(myDisplayMock, myDefaultTimadorusWebAppMock);
   }
 
   @Test
@@ -87,12 +87,12 @@ public class PremadeCharacterDialogTest {
 
   @Test
   public void testPrevButtonHandler() {
-//    ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
-//    verify(myDisplayMock).addPrevButtonHandler(theArgumentCaptor.capture());
-//
-//    theArgumentCaptor.getValue().onAction();
-//
-//    verify(myDisplayMock).loadCharacterPanel(myDefaultTimadorusWebAppMock, myUser);
+    // ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+    // verify(myDisplayMock).addPrevButtonHandler(theArgumentCaptor.capture());
+    //
+    // theArgumentCaptor.getValue().onAction();
+    //
+    // verify(myDisplayMock).loadCharacterPanel(myDefaultTimadorusWebAppMock, myUser);
   }
 
   @Test

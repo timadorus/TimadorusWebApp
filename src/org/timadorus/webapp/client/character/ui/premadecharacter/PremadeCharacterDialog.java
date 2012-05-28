@@ -50,9 +50,9 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
 
   private User user;
 
-  public PremadeCharacterDialog(Display display, DefaultTimadorusWebApp entry, User user) {
+  public PremadeCharacterDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
-    this.user = user;
+    
     display.addHunterHandler(new DefaultActionHandler() {
 
       @Override
@@ -131,9 +131,8 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
     return user;
   }
 
-  public static PremadeCharacterDialog getDialog(DefaultTimadorusWebApp entry, User user) {
-    PremadeCharacterDialog.Display display = new PremadeCharacterWidget();
-    PremadeCharacterDialog dialog = new PremadeCharacterDialog(display, entry, user);
+  public static PremadeCharacterDialog getDialog(Display display, DefaultTimadorusWebApp entry) {
+    PremadeCharacterDialog dialog = new PremadeCharacterDialog(display, entry);
     return dialog;
   }
 
