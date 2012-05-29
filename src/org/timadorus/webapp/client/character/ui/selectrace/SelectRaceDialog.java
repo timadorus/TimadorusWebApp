@@ -12,7 +12,7 @@ import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.eventhandling.events.CreateCharacterEvent;
-import org.timadorus.webapp.client.eventhandling.events.SelectRaceEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectRaceEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowSelectClassEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 import org.timadorus.webapp.util.ListUtil;
@@ -57,7 +57,7 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> im
     this.character = character;
     this.user = user;
     
-    entry.addHandler(SelectRaceEvent.SHOWDIALOG, this);
+    entry.addHandler(ShowSelectRaceEvent.SHOWDIALOG, this);
     
     display.addNextButtonHandler(new DefaultActionHandler() {
 

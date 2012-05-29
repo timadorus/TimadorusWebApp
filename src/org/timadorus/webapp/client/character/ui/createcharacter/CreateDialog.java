@@ -7,7 +7,7 @@ import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
 import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.eventhandling.events.CreateCharacterEvent;
-import org.timadorus.webapp.client.eventhandling.events.SelectRaceEvent;
+import org.timadorus.webapp.client.eventhandling.events.ShowSelectRaceEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowPremadeCharacterEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
@@ -62,7 +62,7 @@ public class CreateDialog extends DefaultDialog<CreateDialog.Display> implements
       @Override
       public void onAction() {
         if (getDisplay().isCustom()) {
-          getEntry().fireEvent(new SelectRaceEvent(getUser(), Character.getInstance()));
+          getEntry().fireEvent(new ShowSelectRaceEvent(getUser(), Character.getInstance()));
         } else if (getDisplay().isPremade()) {
           getEntry().fireEvent(new ShowPremadeCharacterEvent(getUser()));
         }

@@ -4,11 +4,7 @@ import java.util.List;
 
 import org.timadorus.webapp.beans.CClass;
 import org.timadorus.webapp.beans.Character;
-import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
-import org.timadorus.webapp.client.eventhandling.events.ShowSelectFractionEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -26,44 +22,48 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 //Panel for selecting characters Class
 public class SelectClassWidget extends FormPanel implements SelectClassDialog.Display {
 
-  Button nextButton = new Button("weiter");
+  Button nextButton;
+  
+  Button prevButton;
+  
+  Label classLabel;
+  
+  Label genderLabel;
+  
+  VerticalPanel panel;
 
-  Button prevButton = new Button("zurück");
+  FlexTable selectClassGrid;
 
-  VerticalPanel panel = new VerticalPanel();
+  FlexTable buttonGrid;
 
-  FlexTable selectClassGrid = new FlexTable(); // grid for handling selections
-
-  FlexTable buttonGrid = new FlexTable(); // grid for next/prev buttons
-
-  ListBox classListBox = new ListBox(); // listbox for available classes
-
-  public SelectClassWidget(Character characterIn, List<CClass> classes) {
+  ListBox classListBox;
+  
+ 
+  public SelectClassWidget() {
     super();
-
-    // headline
+    
+    nextButton = new Button("weiter");
+    prevButton = new Button("zurück");
+    panel = new VerticalPanel();
+    selectClassGrid = new FlexTable();      // grid for handling selections
+    buttonGrid = new FlexTable();           // grid for next/prev buttons
+    classListBox = new ListBox();           // listbox for available classes
+    
     HTML headline = new HTML("<h1>Klasse wählen</h1>");
-    // progress bar picture
     Image progressBar = new Image("media/images/progressbar_2.png");
 
     // setting properties for selectClassGrid
     selectClassGrid.setBorderWidth(0);
     selectClassGrid.setStylePrimaryName("selectGrid");
 
-    // filling the list with available classes
-    for (CClass newClass : classes) {
-      if (characterIn.getRace().containsClass(newClass)) {
-        classListBox.addItem(newClass.getName());
-      }
-    }
-
-    Label classLabel = new Label("Klasse wählen: ");
+    classLabel = new Label("Klasse wählen: ");
+    genderLabel = new Label("Geschlecht: | Rasse: ");
 
     selectClassGrid.setWidget(0, 0, classLabel);
-    selectClassGrid.setWidget(0, 1, classListBox);
+    selectClassGrid.setWidget(0, 1, classListBox);    
 
-    classListBox.setVisibleItemCount(classListBox.getItemCount());
-
+    nextButton.setEnabled(false);
+    
     // set properties of buttongrid
     buttonGrid.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
     buttonGrid.setWidth("350px");
@@ -77,8 +77,8 @@ public class SelectClassWidget extends FormPanel implements SelectClassDialog.Di
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 2 von 9"));
-    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
-
+    panel.add(genderLabel);
+    
     panel.add(headline);
     panel.add(selectClassGrid);
     panel.add(buttonGrid);
@@ -90,17 +90,8 @@ public class SelectClassWidget extends FormPanel implements SelectClassDialog.Di
     // clearing "content" #div and adding this mainpanel to this #div
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
-
   }
-
-  @Override
-  public String getSelectedClass() {
-
-    return classListBox.getValue(classListBox.getSelectedIndex());
-
-  }
-
-  // returns and hols current panel information
+  
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Klasse wählen</h1><p>Wählen sie hier die Klasse ihres Charakteres. "
         + "Die Klasse bestimmt wie gut sie bestimmte Fähigkeiten lernen können."
@@ -108,57 +99,74 @@ public class SelectClassWidget extends FormPanel implements SelectClassDialog.Di
         + "Fraktionen wählen können.</p>");
     return information;
   }
-
+  
+  @Override
+  public void setInformation(HTML information) {
+    RootPanel.get("information").clear();
+    RootPanel.get("information").add(information);
+  }
+  
   @Override
   public FormPanel getFormPanel() {
     return this;
   }
-
+  
   @Override
-  public void setPrevButtonHandler(final DefaultActionHandler handler) {
-    prevButton.addClickHandler(new ClickHandler() {
-
-      @Override
-      public void onClick(ClickEvent event) {
-        handler.onAction();
-
-      }
-    });
-  }
-
-  @Override
-  public void setNextButtonHandler(final DefaultActionHandler handler) {
-    nextButton.addClickHandler(new ClickHandler() {
-
-      @Override
-      public void onClick(ClickEvent event) {
-        handler.onAction();
-
-      }
-    });
-  }
-
-  @Override
-  public void setClassGridButtonHandler(final DefaultActionHandler handler) {
+  public void addClassHandler(final DefaultActionHandler handler) {
     selectClassGrid.addClickHandler(new ClickHandler() {
 
       @Override
       public void onClick(ClickEvent event) {
         handler.onAction();
-
       }
     });
   }
 
   @Override
-  public void loadSelectRaceDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(SelectRaceDialog.getDialog(entry, user, character).getFormPanel());
+  public void addNextButtonHandler(final DefaultActionHandler handler) {
+    nextButton.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent arg0) {
+        handler.onAction();
+      }
+    });
   }
 
   @Override
-  public void loadSelectFactionDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    entry.fireEvent(new ShowSelectFractionEvent(user, character));
-  }
+  public void addPrevButtonHandler(final DefaultActionHandler handler) {
+    prevButton.addClickHandler(new ClickHandler() {
 
+      @Override
+      public void onClick(ClickEvent arg0) {
+        handler.onAction();
+      }
+    });
+  }
+  
+  @Override
+  public void setNextButtonEnable(boolean enabled) {
+    nextButton.setEnabled(enabled);
+  }
+  
+  @Override
+  public String getSelectedClass() {
+
+    return classListBox.getValue(classListBox.getSelectedIndex());
+  }
+  
+  @Override
+  public void setClasses(List<CClass> classes) {
+
+    for (CClass newClass : classes) {
+        classListBox.addItem(newClass.getName());
+    }
+    
+    classListBox.setVisibleItemCount(classListBox.getItemCount());
+  }
+  
+  @Override
+  public void setCharacter(Character c) {
+      genderLabel.setText("Geschlecht: " + c.getGender() + " | Rasse: " + c.getGender());
+  }
 }

@@ -7,7 +7,7 @@ import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
 import com.google.gwt.event.shared.GwtEvent;
 
-public class SelectRaceEvent extends GwtEvent<ShowDialogHandler> {
+public class ShowSelectRaceEvent extends GwtEvent<ShowDialogHandler> {
 
   public static final GwtEvent.Type<ShowDialogHandler> SHOWDIALOG = new GwtEvent.Type<ShowDialogHandler>();
   
@@ -15,7 +15,7 @@ public class SelectRaceEvent extends GwtEvent<ShowDialogHandler> {
   private Character character;
   private User user;
   
-  public SelectRaceEvent(User user, Character character) {
+  public ShowSelectRaceEvent(User user, Character character) {
     super();
     this.entry = null;
     this.character = character;
