@@ -49,6 +49,8 @@ public class DefaultSelectSkillLevelDialog extends DefaultDialog<DefaultSelectSk
     public void onNextButtonClick(DefaultTimadorusWebApp entry, Character character, User user);
 
     public void onPrevButtonClick(DefaultTimadorusWebApp entry, Character character, User user);
+    
+    public void setContent(Character characterIn, List<Skill> chooseableSkills);
   }
 
   private Character character;
@@ -61,16 +63,15 @@ public class DefaultSelectSkillLevelDialog extends DefaultDialog<DefaultSelectSk
 
   protected List<Skill> skillList;
 
-  public DefaultSelectSkillLevelDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user,
-                                       List<Skill> skills) {
+  public DefaultSelectSkillLevelDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
 
-    this.character = character;
-    this.user = user;
-    this.skillList = skills;
-    this.backupSkillList = new ArrayList<Skill>(skills);
+    this.skillList = new ArrayList<Skill>();
+    this.backupSkillList = new ArrayList<Skill>();
 
     addedSkillList = new HashSet<String>();
+    
+    initDisplay(display);
     
   }
 
@@ -241,10 +242,19 @@ public class DefaultSelectSkillLevelDialog extends DefaultDialog<DefaultSelectSk
     this.user = user;
   }
 
-  public static DefaultSelectSkillLevelDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    List<Skill> skills = entry.getTestValues().getSkillsLevel1();
-    DefaultSelectSkillLevelDialog.Display display = new DefaultSkillLevelWidget(character, skills);
-    DefaultSelectSkillLevelDialog dialog = new DefaultSelectSkillLevelDialog(display, entry, character, user, skills);
-    return dialog;
+  public List<Skill> getBackupSkillList() {
+    return backupSkillList;
+  }
+
+  public void setBackupSkillList(List<Skill> backupSkillList) {
+    this.backupSkillList = backupSkillList;
+  }
+
+  public List<Skill> getSkillList() {
+    return skillList;
+  }
+
+  public void setSkillList(List<Skill> skillList) {
+    this.skillList = skillList;
   }
 }

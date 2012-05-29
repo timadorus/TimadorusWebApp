@@ -16,9 +16,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 //FormPanel for selecting Skill-Level-0 items of a Character-Object
 public class SelectSkillLevel0Dialog extends DefaultSelectSkillLevelDialog implements ShowDialogHandler {
 
-  public SelectSkillLevel0Dialog(Display display, DefaultTimadorusWebApp entry, Character character, User user,
-                                 List<Skill> skills) {
-    super(display, entry, character, user, skills);
+  public SelectSkillLevel0Dialog(Display display, DefaultTimadorusWebApp entry) {
+    super(display, entry);
     entry.addHandler(ShowSelectSkill0Event.SHOWDIALOG, this);
   }
 
@@ -31,12 +30,6 @@ public class SelectSkillLevel0Dialog extends DefaultSelectSkillLevelDialog imple
         }
       }
     }
-  }
-
-  public static SelectSkillLevel0Dialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    List<Skill> skills = entry.getTestValues().getSkills();
-    SelectSkillLevel0Dialog dialog = new SelectSkillLevel0Dialog(null, entry, character, user, skills);
-    return dialog;
   }
 
   @Override
@@ -52,10 +45,16 @@ public class SelectSkillLevel0Dialog extends DefaultSelectSkillLevelDialog imple
 
   @Override
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
-    DefaultSelectSkillLevelDialog.Display display = new DefaultSkillLevelWidget(character, skillList);
     setCharacter(character);
     setUser(user);
-    initDisplay(display);
+    
+    List<Skill> skills = entry.getTestValues().getSkills();
+    
+    setBackupSkillList(skills);
+    setSkillList(skills);
+    
+    getDisplay().setContent(character, skills);
+    
     RootPanel.get("content").clear();
     RootPanel.get("content").add(getFormPanel());
   }

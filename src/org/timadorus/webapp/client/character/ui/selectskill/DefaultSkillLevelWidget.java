@@ -34,7 +34,7 @@ public class DefaultSkillLevelWidget extends FormPanel implements ChangeHandler,
 
   private Button nextButton = new Button("weiter");
 
-  private Button prevButton = new Button("zurück");
+  private Button prevButton = new Button("zur&uuml;ck");
 
   private VerticalPanel panel = new VerticalPanel();
 
@@ -50,9 +50,9 @@ public class DefaultSkillLevelWidget extends FormPanel implements ChangeHandler,
 
   private ListBox addedskillListBox = new ListBox();
 
-  private Label skillLabel = new Label("L1 Fertigkeiten wählen: ");
+  private Label skillLabel = new Label("L1 Fertigkeiten w&auml;hlen: ");
 
-  private Label addedskillLabel = new Label("L1 Ausgewählte Fertigkeiten: ");
+  private Label addedskillLabel = new Label("L1 Ausgew&auml:hlte Fertigkeiten: ");
 
   private FlexTable selectStatGrid = new FlexTable();
 
@@ -66,7 +66,13 @@ public class DefaultSkillLevelWidget extends FormPanel implements ChangeHandler,
 
   private List<TextBoxHandler> textBoxHandler;
 
-  public DefaultSkillLevelWidget(Character characterIn, List<Skill> chooseableSkills) {
+  private Label myGenderRaceLabel;
+
+  private Label myClassFactionLabel;
+
+  private Label mySkillLabel;
+
+  public DefaultSkillLevelWidget() {
     super();
 
     addedskillLabel.setStyleName("labelColorRed");
@@ -76,10 +82,7 @@ public class DefaultSkillLevelWidget extends FormPanel implements ChangeHandler,
     selectSkillGrid.setBorderWidth(0);
     selectSkillGrid.setStylePrimaryName("selectGrid");
 
-    for (Skill skill : chooseableSkills) {
-      skillListBox.addItem(skill.getName());
-    }
-
+   
     skillListBox.setVisibleItemCount(skillListBox.getItemCount());
     addedskillListBox.setVisibleItemCount(skillListBox.getItemCount());
     addedskillListBox.setWidth("150");
@@ -99,9 +102,13 @@ public class DefaultSkillLevelWidget extends FormPanel implements ChangeHandler,
 
     selectStatGrid = getSkillCostTableLabel();
 
+    myClassFactionLabel = new Label("Kalsse: | Fraktion: ");
+    myGenderRaceLabel = new Label("Geschlecht: | Rasse: ");
+    mySkillLabel = new Label("Skills: ");
+
     // Add it to the root panel.
 
-    HTML headline = new HTML("<h1>L1 Fertigkeiten wählen</h1>");
+    HTML headline = new HTML("<h1>L1 Fertigkeiten w&auml;hlen</h1>");
 
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -109,10 +116,9 @@ public class DefaultSkillLevelWidget extends FormPanel implements ChangeHandler,
 
     panel.add(progressBar);
     panel.add(new Label("Schritt 7 von 9"));
-    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
-    panel.add(new Label("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
-        + characterIn.getFaction().getName()));
-    panel.add(new Label("Skills_L0: " + characterIn.getSkillListNames()));
+    panel.add(myGenderRaceLabel);
+    panel.add(myClassFactionLabel);
+    panel.add(mySkillLabel);
 
     panel.add(headline);
     panel.add(selectSkillGrid);
@@ -374,12 +380,33 @@ public class DefaultSkillLevelWidget extends FormPanel implements ChangeHandler,
   @Override
   public void onNextButtonClick(DefaultTimadorusWebApp entry, Character character, User user) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void onPrevButtonClick(DefaultTimadorusWebApp entry, Character character, User user) {
     // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void setContent(Character characterIn, List<Skill> chooseableSkills) {
+    //Setting character infomations
+    myGenderRaceLabel
+        .setText("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName());
+    myClassFactionLabel.setText("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
+        + characterIn.getFaction().getName());
+    mySkillLabel.setText("Skills: " + characterIn.getSkillListNames());
     
+    //setting skill inforamtions:
+    skillListBox.clear();
+    
+    for (Skill skill : chooseableSkills) {
+      skillListBox.addItem(skill.getName());
+    }
+
+    skillListBox.setVisibleItemCount(skillListBox.getItemCount());
+    addedskillListBox.setVisibleItemCount(skillListBox.getItemCount());
+    addedskillListBox.setWidth("150");
   }
 }

@@ -44,8 +44,7 @@ public class SelectSkillLevelDialogTest {
 
     TestCharacterValues tcv = new TestCharacterValues();
 
-    mySelectSkillLevelDialog = new SelectSkillLevel1Dialog(myDisplayMock, myDefaultTimadorusWebApp, myCharacter,
-                                                           myUser, tcv.getSkillsLevel1());
+    mySelectSkillLevelDialog = new SelectSkillLevel1Dialog(myDisplayMock, myDefaultTimadorusWebApp);
 
     Mockito.when(myDefaultTimadorusWebApp.getTestValues()).thenReturn(new TestCharacterValues());
   }

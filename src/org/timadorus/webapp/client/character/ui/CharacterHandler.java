@@ -19,6 +19,7 @@ import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
 import org.timadorus.webapp.client.character.ui.selectname.SelectNameWidget;
 import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
 import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceWidget;
+import org.timadorus.webapp.client.character.ui.selectskill.DefaultSkillLevelWidget;
 import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel0Dialog;
 import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel1Dialog;
 import org.timadorus.webapp.client.character.ui.selecttempstats.SelectTempStatsDialog;
@@ -78,8 +79,8 @@ public class CharacterHandler {
     selectClassDialog = new SelectClassDialog(new SelectClassWidget(), getEntry());
     selectFactionDialog = new SelectFactionDialog(null, getEntry(), null, null);
     selectNameDialog = new SelectNameDialog(new SelectNameWidget(), getEntry());
-    selectSkillLevel0Dialog = SelectSkillLevel0Dialog.getDialog(getEntry(), null, null);
-    selectSkillLevel1Dialog = SelectSkillLevel1Dialog.getDialog(getEntry(), null, null);
+    selectSkillLevel0Dialog = new SelectSkillLevel0Dialog(new DefaultSkillLevelWidget(), getEntry());
+    selectSkillLevel1Dialog = new SelectSkillLevel1Dialog(new DefaultSkillLevelWidget(), getEntry());
     selectTempStatsDialog = SelectTempStatsDialog.getDialog(getEntry(), null, null);
     showCharacterDialog = ShowCharacterDialog.getDetailDisplay(getEntry(), null, null);
     selectAppearanceDialog = new SelectAppearanceDialog(new SelectAppearanceWidget(), getEntry());
