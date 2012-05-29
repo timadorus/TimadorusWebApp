@@ -506,7 +506,7 @@
 	</target>
 
 	<!-- Target:build | define the order of the targets run to fullfill the build -->
-	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java" />
+	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java,test-acceptance" />
 	<!-- Old build with embeddedServer:
 	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java,embeddedServer" /> 
 	-->
