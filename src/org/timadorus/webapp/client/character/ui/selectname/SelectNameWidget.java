@@ -44,26 +44,39 @@ public class SelectNameWidget extends FormPanel implements SelectNameDialog.Disp
 
   private TextBox nameTextBox;
 
-  public SelectNameWidget(Character character) {
+  private Label myGenderRaceLabel;
+
+  private Label myClassFactionLabel;
+
+  private Label mySkillLevel0Label;
+
+  private Label mySkillLevel1Label;
+
+  public SelectNameWidget() {
     super();
 
     // inti controls
     nextButton = new Button("weiter");
-    prevButton = new Button("zurück");
+    prevButton = new Button("zur&uuml;ck");
     panel = new VerticalPanel();
     selectNameGrid = new FlexTable();
     buttonGrid = new FlexTable();
     nameTextBox = new TextBox();
 
+    myClassFactionLabel = new Label("Klasse: | Fraktion:");
+    myGenderRaceLabel = new Label("Geschlecht: | Rasse: ");
+    mySkillLevel0Label = new Label("Skills_L0:");
+    mySkillLevel1Label = new Label("Skills_L1:");
+
     // arrange controls
-    HTML headline = new HTML("<h1>Namen wählen</h1>");
+    HTML headline = new HTML("<h1>Namen w&auml;hlen</h1>");
 
     Image progressBar = new Image("media/images/progressbar_7.png");
 
     selectNameGrid.setBorderWidth(0);
     selectNameGrid.setStylePrimaryName("selectGrid");
 
-    Label nameLabel = new Label("Namen wählen");
+    Label nameLabel = new Label("Namen w&auml;hlen");
 
     selectNameGrid.setWidget(0, 0, nameLabel);
     selectNameGrid.setWidget(0, 1, nameTextBox);
@@ -79,11 +92,10 @@ public class SelectNameWidget extends FormPanel implements SelectNameDialog.Disp
 
     panel.add(progressBar);
     panel.add(new Label("Schritt 9 von 9"));
-    panel.add(new Label("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName()));
-    panel.add(new Label("Klasse: " + character.getCharClass().getName() + " | Faction: "
-        + character.getFaction().getName()));
-    panel.add(new Label("Skills_L0: " + character.getSkillListNames()));
-    panel.add(new Label("Skills_L1: " + character.getSkillLevel1ListNames()));
+    panel.add(myGenderRaceLabel);
+    panel.add(myClassFactionLabel);
+    panel.add(mySkillLevel0Label);
+    panel.add(mySkillLevel1Label);
     panel.add(new Label("Hautfarbe: " + "..." + " | Haarfarbe: " + "..."));
 
     panel.add(headline);
@@ -169,5 +181,14 @@ public class SelectNameWidget extends FormPanel implements SelectNameDialog.Disp
     };
 
     createServiceAsync.createCharacter(aCharacter, asyncCallback);
+  }
+
+  @Override
+  public void setCharacter(Character character) {
+    myGenderRaceLabel.setText("Geschlecht: " + character.getGender() + " | Rasse: " + character.getRace().getName());
+    myClassFactionLabel.setText("Klasse: " + character.getCharClass().getName() + " | Faction: "
+        + character.getFaction().getName());
+    mySkillLevel0Label.setText("Skills_L0: " + character.getSkillListNames());
+    mySkillLevel1Label.setText("Skills_L1: " + character.getSkillLevel1ListNames());
   }
 }

@@ -48,16 +48,17 @@ public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> im
     public void loadSelectAppearancePanel(DefaultTimadorusWebApp entry, Character character, User user);
 
     public void sendCharacterToServerToSave(Character aCharacter);
+
+    public void setCharacter(Character character);
   }
 
   private Character character;
 
   private User user;
 
-  public SelectNameDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
+  public SelectNameDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
-    this.character = character;
-    this.user = user;
+    initDisplay(display);
     entry.addHandler(ShowSelectNameEvent.SHOWDIALOG, this);
   }
 
@@ -91,18 +92,16 @@ public class SelectNameDialog extends DefaultDialog<SelectNameDialog.Display> im
     return user;
   }
 
-  public static SelectNameDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    // SelectNameDialog.Display display = new SelectNameWidget(character);
-    SelectNameDialog dialog = new SelectNameDialog(null, entry, character, user);
-    return dialog;
-  }
-
   @Override
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    // settling class variables
     this.character = character;
     this.user = user;
-    SelectNameDialog.Display display = new SelectNameWidget(character);
-    initDisplay(display);
+
+    // updating widget
+    getDisplay().setCharacter(character);
+
+    // Displaying content
     RootPanel.get("content").clear();
     RootPanel.get("content").add(getFormPanel());
   }

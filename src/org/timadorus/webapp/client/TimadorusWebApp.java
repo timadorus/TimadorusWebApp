@@ -19,6 +19,7 @@ import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
 import org.timadorus.webapp.client.character.ui.selectclass.SelectClassWidget;
 import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
 import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
+import org.timadorus.webapp.client.character.ui.selectname.SelectNameWidget;
 import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
 import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel0Dialog;
 import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel1Dialog;
@@ -153,7 +154,7 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     characterReadyDialog = new ReadyDialog(new CharacterReadyWidget(), this);
     selectClassDialog = new SelectClassDialog(new SelectClassWidget(), this);
     selectFactionDialog = new SelectFactionDialog(null, this, null, null);
-    selectNameDialog = new SelectNameDialog(null, this, null, null);
+    selectNameDialog = new SelectNameDialog(new SelectNameWidget(), this);
     selectSkillLevel0Dialog = SelectSkillLevel0Dialog.getDialog(this, null, null);
     selectSkillLevel1Dialog = SelectSkillLevel1Dialog.getDialog(this, null, null);
     selectTempStatsDialog = SelectTempStatsDialog.getDialog(this, null, null);

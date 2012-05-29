@@ -25,7 +25,7 @@ public class SelectNameDialogTest {
     myCharacter = new Character();
     myUser = new User();
     
-    mySelectNameDialog = new SelectNameDialog(myDisplayMock, myDefaultTimadorusWebApp, myCharacter, myUser);
+    mySelectNameDialog = new SelectNameDialog(myDisplayMock, myDefaultTimadorusWebApp);
   }
 
   @Test
