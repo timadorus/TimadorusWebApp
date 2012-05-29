@@ -4,27 +4,7 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.campaign.CreateCampaignPanel;
 import org.timadorus.webapp.client.campaign.EditCampaignPanel;
 import org.timadorus.webapp.client.character.TestCharacterValues;
-import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListDialog;
-import org.timadorus.webapp.client.character.ui.createcharacter.CreateCharacterWidget;
-import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
-import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
-import org.timadorus.webapp.client.character.ui.potstat.PotStatsWidget;
-import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterDialog;
-import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterWidget;
-import org.timadorus.webapp.client.character.ui.ready.CharacterReadyWidget;
-import org.timadorus.webapp.client.character.ui.ready.ReadyDialog;
-import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanceDialog;
-import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanceWidget;
-import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
-import org.timadorus.webapp.client.character.ui.selectclass.SelectClassWidget;
-import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
-import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
-import org.timadorus.webapp.client.character.ui.selectname.SelectNameWidget;
-import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
-import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel0Dialog;
-import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel1Dialog;
-import org.timadorus.webapp.client.character.ui.selecttempstats.SelectTempStatsDialog;
-import org.timadorus.webapp.client.character.ui.showcharacter.ShowCharacterDialog;
+import org.timadorus.webapp.client.character.ui.CharacterHandler;
 import org.timadorus.webapp.client.eventhandling.events.CreateCampaineEvent;
 import org.timadorus.webapp.client.eventhandling.events.CreateCharacterEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowCharacterListEvent;
@@ -85,37 +65,39 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
 
   private CreateCampaignPanel createCampaignPanel;
 
-  private CreateDialog createCharacterDialog;
+//  private CreateDialog createCharacterDialog;
 
-  private SelectRaceDialog selectRaceDialog;
+//  private SelectRaceDialog selectRaceDialog;
 
   private ProfilePanel profilePanel;
 
-  private ShowCharacterListDialog characterListDialog;
+//  private ShowCharacterListDialog characterListDialog;
 
   private EditCampaignPanel editCampaignPanel;
 
-  private PremadeCharacterDialog premadeCharacterDialog;
-
-  private PotStatsDialog potStatsDialog;
-
-  private ReadyDialog characterReadyDialog;
-
-  private SelectClassDialog selectClassDialog;
-
-  private SelectFactionDialog selectFactionDialog;
-
-  private SelectNameDialog selectNameDialog;
-
-  private SelectSkillLevel0Dialog selectSkillLevel0Dialog;
-
-  private SelectSkillLevel1Dialog selectSkillLevel1Dialog;
-
-  private SelectTempStatsDialog selectTempStatsDialog;
-
-  private ShowCharacterDialog showCharacterDialog;
-
-  private SelectAppearanceDialog selectAppearanceDialog;
+//  private PremadeCharacterDialog premadeCharacterDialog;
+//
+//  private PotStatsDialog potStatsDialog;
+//
+//  private ReadyDialog characterReadyDialog;
+//
+//  private SelectClassDialog selectClassDialog;
+//
+//  private SelectFactionDialog selectFactionDialog;
+//
+//  private SelectNameDialog selectNameDialog;
+//
+//  private SelectSkillLevel0Dialog selectSkillLevel0Dialog;
+//
+//  private SelectSkillLevel1Dialog selectSkillLevel1Dialog;
+//
+//  private SelectTempStatsDialog selectTempStatsDialog;
+//
+//  private ShowCharacterDialog showCharacterDialog;
+//
+//  private SelectAppearanceDialog selectAppearanceDialog;
+  
+  private CharacterHandler characterUIHandler;
 
   public TimadorusWebApp() {
     this.sessionId = new SessionId();
@@ -144,23 +126,11 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
     verfiyMailPanel = VerifyMailPanel.getVerifyMailPanel(this);
     registerPanel = RegisterPanel.getRegisterPanel(this);
     createCampaignPanel = CreateCampaignPanel.getCampaignPanel(this, loginPanel.getUser());
-    selectRaceDialog = SelectRaceDialog.getDialog(this, null, null);
-    createCharacterDialog = CreateDialog.getCreateDialog(new CreateCharacterWidget(), this);
     profilePanel = ProfilePanel.getProfilePanel(this, null);
-    characterListDialog = ShowCharacterListDialog.getDialog(this, null);
     editCampaignPanel = EditCampaignPanel.getCampaignPanel(this, null);
-    premadeCharacterDialog = PremadeCharacterDialog.getDialog(new PremadeCharacterWidget(), this);
-    potStatsDialog = new PotStatsDialog(new PotStatsWidget(this), this);
-    characterReadyDialog = new ReadyDialog(new CharacterReadyWidget(), this);
-    selectClassDialog = new SelectClassDialog(new SelectClassWidget(), this);
-    selectFactionDialog = new SelectFactionDialog(null, this, null, null);
-    selectNameDialog = new SelectNameDialog(new SelectNameWidget(), this);
-    selectSkillLevel0Dialog = SelectSkillLevel0Dialog.getDialog(this, null, null);
-    selectSkillLevel1Dialog = SelectSkillLevel1Dialog.getDialog(this, null, null);
-    selectTempStatsDialog = SelectTempStatsDialog.getDialog(this, null, null);
-    showCharacterDialog = ShowCharacterDialog.getDetailDisplay(this, null, null);
-    selectAppearanceDialog = new SelectAppearanceDialog(new SelectAppearanceWidget(), this);
 
+    characterUIHandler = new CharacterHandler(this);
+    
     menu.go(RootPanel.get("menu"));
 
     FlowPanel vp = new FlowPanel();

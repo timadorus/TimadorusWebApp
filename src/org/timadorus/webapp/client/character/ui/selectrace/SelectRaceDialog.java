@@ -44,21 +44,26 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> im
      */
     public void addPrevButtonHandler(DefaultActionHandler handler);
 
-    public void showRaceSelection(String raceName, String raceDescription,
-                                  List<String> availableClasses, List<String> availableFactions);
+    public void showRaceSelection(String raceName, String raceDescription, List<String> availableClasses,
+      List<String> availableFactions);
+
+    /**
+     * Adds the available fist of race names to the widget.
+     * 
+     * @param racenames
+     */
+    public void addRaces(List<String> racenames);
   }
 
   private Character character;
 
   private User user;
 
-  public SelectRaceDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
+  public SelectRaceDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
-    this.character = character;
-    this.user = user;
-    
+
     entry.addHandler(ShowSelectRaceEvent.SHOWDIALOG, this);
-    
+
     display.addNextButtonHandler(new DefaultActionHandler() {
 
       @Override
@@ -95,9 +100,7 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> im
 
   private Race getRaceByName(String name) {
     for (Race race : getEntry().getTestValues().getRaces()) {
-      if (race.getName().equals(name)) {
-        return race;
-      }
+      if (race.getName().equals(name)) { return race; }
     }
     return null;
   }
@@ -112,51 +115,52 @@ public class SelectRaceDialog extends DefaultDialog<SelectRaceDialog.Display> im
 
   private void onRaceSelectionHandler() {
     Race race = getRaceByName(getDisplay().getSelectedRace());
-    
+
     DefaultListCollector<CClass, String> defaultListCollector = new DefaultListCollector<CClass, String>() {
 
       @Override
       public String collect(CClass aCollectableObject) {
         return aCollectableObject.getName();
       }
-      
+
     };
-    
-    List<String> theNamesOfAvailbaleClasses = 
-        ListUtil.collectListItems(defaultListCollector, race.getAvailableClasses());
-    
+
+    List<String> theNamesOfAvailbaleClasses = ListUtil.collectListItems(defaultListCollector,
+                                                                        race.getAvailableClasses());
+
     DefaultListCollector<Faction, String> aListCollector2 = new DefaultListCollector<Faction, String>() {
 
       @Override
       public String collect(Faction aCollectableObject) {
         return aCollectableObject.getName();
       }
-      
+
     };
     List<String> theNameOfAvailbaleFactions = ListUtil.collectListItems(aListCollector2, race.getAvailableFactions());
-    
-    getDisplay().showRaceSelection(race.getName(), race.getDescription(), 
-                                   theNamesOfAvailbaleClasses, theNameOfAvailbaleFactions);
+
+    getDisplay().showRaceSelection(race.getName(), race.getDescription(), theNamesOfAvailbaleClasses,
+                                   theNameOfAvailbaleFactions);
   }
 
-  public static SelectRaceDialog getDialog(DefaultTimadorusWebApp entry, User user, Character character) {
+  @Override
+  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    // setting class variables
+    this.character = character;
+    this.user = user;
+
+    // load race names
     List<String> racenames = ListUtil.collectListItems(new DefaultListCollector<Race, String>() {
       @Override
       public String collect(Race aCollectableObject) {
         return aCollectableObject.getName();
       }
-      
-    }, entry.getTestValues().getRaces()); 
-        
-    SelectRaceDialog.Display display = new SelectRaceWidget(racenames);
-    SelectRaceDialog dialog = new SelectRaceDialog(display, entry, character, user);
-    return dialog;
-  }
 
-  @Override
-  public void show(DefaultTimadorusWebApp entry, Character character, User user) {
-    this.character = character;
-    this.user = user;
+    }, entry.getTestValues().getRaces());
+
+    // putting race names into the widget
+    getDisplay().addRaces(racenames);
+
+    // display content
     RootPanel.get("content").clear();
     RootPanel.get("content").add(getFormPanel());
   }

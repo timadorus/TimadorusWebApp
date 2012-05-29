@@ -44,7 +44,7 @@ public class SelectRaceWidget extends FormPanel implements SelectRaceDialog.Disp
 
   private ListBox raceListBox;
 
-  public SelectRaceWidget(List<String> racenames) {
+  public SelectRaceWidget() {
     super();
 
     // init controls
@@ -74,10 +74,6 @@ public class SelectRaceWidget extends FormPanel implements SelectRaceDialog.Disp
 
     selectRaceGrid.setBorderWidth(0);
     selectRaceGrid.setStylePrimaryName("selectGrid");
-
-    for (String racename : racenames) {
-      raceListBox.addItem(racename);
-    }
 
     Label raceLabel = new Label("Rasse wählen: ");
     selectRaceGrid.setWidget(0, 0, raceLabel);
@@ -208,6 +204,20 @@ public class SelectRaceWidget extends FormPanel implements SelectRaceDialog.Disp
     sb.append("</ul>");
     RootPanel.get("information").add(new HTML(sb.toString()));
 
+  }
+
+  @Override
+  public void addRaces(List<String> racenames) {
+    // delete all old entries
+    raceListBox.clear();
+
+    // add new names
+    for (String racename : racenames) {
+      raceListBox.addItem(racename);
+    }
+
+    // display items
+    raceListBox.setVisibleItemCount(raceListBox.getItemCount());
   }
 
 }

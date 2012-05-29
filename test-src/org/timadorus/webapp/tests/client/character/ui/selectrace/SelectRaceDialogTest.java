@@ -45,7 +45,7 @@ public class SelectRaceDialogTest {
     myCharacter = new Character();
     myUser = new User();
 
-    mySelectRaceDialog = new SelectRaceDialog(myDisplayMock, myTimadorusWebAppMock, myCharacter, myUser);
+    mySelectRaceDialog = new SelectRaceDialog(myDisplayMock, myTimadorusWebAppMock);
 
     Mockito.when(myTimadorusWebAppMock.getTestValues()).thenReturn(new TestCharacterValues());
   }
