@@ -476,15 +476,23 @@
 	        <include name="**/Launcher.class" />
 	      </fileset>
 	    </copy> -->
+	    
+	    <!-- Copy files from war.dir to tmpServer.dir -->
+	    <copy todir="${tmpServer.dir}">
+	        <fileset dir="war.dir"></fileset>
+	    </copy>
 		
 		<!-- build the server .war -->
-		<zip destfile="${tmpServer.dir}/embedded.war" basedir="${war.dir}" />
+		<!-- <zip destfile="${tmpServer.dir}/embedded.war" basedir="${war.dir}" /> -->
 
 		<!-- copy and zip the db to the home root -->
 		<zip destfile="${dbFolder.dir}.zip" basedir="${db.dir}" />
 		
-		<!-- create from jar with server and wepapp from the tmpServer.dir -->
-		<zip destfile="${basedir}/timadorusWebapp.jar" basedir="${tmpServer.dir}" />
+		<!-- create jar with server and wepapp from the tmpServer.dir -->
+		<!-- <zip destfile="${basedir}/timadorusWebapp.jar" basedir="${tmpServer.dir}" /> -->
+		
+		<!-- Pack files into a war file -->
+		<war destfile="${basedir}/timadorusWebapp.war" basedir="${tmpServer.dir}" />
 
 		<!-- delete the temporary folder -->
 		<delete dir="${tmpServer.dir}" />
