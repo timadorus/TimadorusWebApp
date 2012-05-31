@@ -479,7 +479,7 @@
 	    
 	    <!-- Copy files from war.dir to tmpServer.dir -->
 	    <copy todir="${tmpServer.dir}">
-	        <fileset dir="war.dir"></fileset>
+	        <fileset dir="${war.dir}"></fileset>
 	    </copy>
 		
 		<!-- build the server .war -->
