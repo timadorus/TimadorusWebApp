@@ -464,30 +464,32 @@
 	    </copy>
 		
 		<!-- unpack the winstone server into the temporary folder -->
-		<unjar dest="${tmpServer.dir}">
+		<!-- <unjar dest="${tmpServer.dir}">
 			<fileset dir="${lib.dir}/compile">
 				<include name="winstone-0.9.10-hudson-24.jar" />
 			</fileset>
-		</unjar>
+		</unjar> -->
 
 		<!-- copy changed winstone launcher class file to winstone folder -->
-		<copy todir="${tmpServer.dir}/winstone">
+		<!-- <copy todir="${tmpServer.dir}/winstone">
 	      <fileset dir="${sql.dir}">
 	        <include name="**/Launcher.class" />
 	      </fileset>
-	    </copy>
+	    </copy> -->
 		
 		<!-- build the server .war -->
-		<zip destfile="${tmpServer.dir}/embedded.war" basedir="${war.dir}" />
+		<zip destfile="${basedir}/embedded.war" basedir="${war.dir}" />
 
 		<!-- copy and zip the db to the home root -->
-		<zip destfile="${dbFolder.dir}.zip" basedir="${db.dir}" />
+		<!-- <zip destfile="${dbFolder.dir}.zip" basedir="${db.dir}" /> -->
 		
 		<!-- create from jar with server and wepapp from the tmpServer.dir -->
-		<zip destfile="${basedir}/webapp.jar" basedir="${tmpServer.dir}" />
+		<!-- <zip destfile="${basedir}/webapp.jar" basedir="${tmpServer.dir}" /> -->
 
 		<!-- delete the temporary folder -->
 		<delete dir="${tmpServer.dir}" />
+		
+		<!-- <war destfile="${basedir}/timadorusWebapp.war" /> -->
 
 	</target>
 
@@ -506,7 +508,7 @@
 	</target>
 
 	<!-- Target:build | define the order of the targets run to fullfill the build -->
-	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java" />
+	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java, embeddedServer" />
 	<!-- Old build with embeddedServer:
 	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java,embeddedServer" /> 
 	-->
