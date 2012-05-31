@@ -478,13 +478,13 @@
 	    </copy> -->
 		
 		<!-- build the server .war -->
-		<zip destfile="${basedir}/embedded.war" basedir="${war.dir}" />
+		<zip destfile="${tmpServer.dir}/embedded.war" basedir="${war.dir}" />
 
 		<!-- copy and zip the db to the home root -->
-		<!-- <zip destfile="${dbFolder.dir}.zip" basedir="${db.dir}" /> -->
+		<zip destfile="${dbFolder.dir}.zip" basedir="${db.dir}" />
 		
 		<!-- create from jar with server and wepapp from the tmpServer.dir -->
-		<!-- <zip destfile="${basedir}/webapp.jar" basedir="${tmpServer.dir}" /> -->
+		<zip destfile="${basedir}/timadorusWebapp.jar" basedir="${tmpServer.dir}" />
 
 		<!-- delete the temporary folder -->
 		<delete dir="${tmpServer.dir}" />
