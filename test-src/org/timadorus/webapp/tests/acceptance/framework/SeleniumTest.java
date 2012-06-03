@@ -34,8 +34,7 @@ public abstract class SeleniumTest {
     this.myGridServerHost = theProperties.getProperty("Selenium.GridServer.Host");
     this.myGridServerPort = Integer.parseInt(theProperties.getProperty("Selenium.GridServer.Port"));
     this.myBrowser        = theProperties.getProperty("Selenium.Browser");
-    this.myWebAppRoot     = theProperties.getProperty("Selenium.WebApp.RootServer") 
-        + "/" + theProperties.getProperty("Selenium.WebApp.RootSite");
+    this.myWebAppRoot     = theProperties.getProperty("Selenium.WebApp.RootServer");
   }
   
   public DefaultSelenium getSelenium() {
