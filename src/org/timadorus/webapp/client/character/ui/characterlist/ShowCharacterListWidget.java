@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -52,6 +53,8 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
 
   private CharacterActionHandler characterDeleteHandler;
 
+  private Panel gridPanel;
+
   public ShowCharacterListWidget() {
     super();
 
@@ -61,7 +64,9 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
     confirm = new Button("Loeschen bestaetigen");
     back = new Button("Zurueck");
 
-    grid = new Grid();
+    gridPanel = new FormPanel();
+
+    grid = new Grid(1, 1);
     grid.setBorderWidth(0);
 
     grid.setBorderWidth(0);
@@ -75,12 +80,14 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
     grid = new Grid(1, 1);
     grid.setWidget(0, 0, new Label("Waiting for ajax response..."));
 
+    gridPanel.add(grid);
+
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
     panel.setWidth("100%");
 
     panel.add(headline);
-    panel.add(grid);
+    panel.add(gridPanel);
 
     RootPanel.get("content").clear();
     RootPanel.get("content").add(panel);
@@ -228,7 +235,9 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
   @Override
   public void setCharacterList(List<Character> characters, User user, DefaultTimadorusWebApp entry) {
     if (characters.size() > 0) {
-      grid.clear();
+      final int columns = 4;
+      grid = new Grid(characters.size(), columns);
+      grid.setBorderWidth(0);
       int i = 0;
       for (final Character character : characters) {
         final Button delete = new Button("L&ouml;schen");
@@ -288,5 +297,7 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
       grid.setBorderWidth(0);
       grid.setWidget(0, 0, new Label("Es wurden keine Charaktere gefunden."));
     }
+    gridPanel.clear();
+    gridPanel.add(grid);
   }
 }

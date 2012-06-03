@@ -74,6 +74,8 @@ public class DefaultSkillLevelWidget extends FormPanel implements ChangeHandler,
 
   public DefaultSkillLevelWidget() {
     super();
+    
+    textBoxHandler = new ArrayList<TextBoxHandler>();
 
     addedskillLabel.setStyleName("labelColorRed");
     nextButton.setEnabled(false);
