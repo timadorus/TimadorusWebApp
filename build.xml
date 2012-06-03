@@ -350,7 +350,7 @@
     <!-- ================================= 
           target: test-acceptance             
          ================================= -->
-    <target name="test-acceptance" depends="enhance,test-compile,_do_test_selenium_server_status,test-acceptance" description="set up and run all acceptance tests">
+    <target name="test-acceptance" depends="enhance,test-compile,_do_test_selenium_server_status" description="set up and run all acceptance tests">
 		<copy file="${test-src.dir}/${selenium.properties}" todir="${bin.dir}"/>
 	 
     	<junit fork="yes" haltonfailure="yes" showoutput="on">
@@ -518,7 +518,7 @@
 	</target>
 
 	<!-- Target:build | define the order of the targets run to fullfill the build -->
-	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java, embeddedServer" />
+	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java, embeddedServer,test-acceptance" />
 	<!-- Old build with embeddedServer:
 	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java,embeddedServer" /> 
 	-->
