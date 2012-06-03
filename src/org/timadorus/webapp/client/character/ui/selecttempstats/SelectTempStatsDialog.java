@@ -38,6 +38,16 @@ public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.D
     public void loadSelectFactionPanel(DefaultTimadorusWebApp entry, Character character, User user);
 
     public void loadGetPotStatsPanel(DefaultTimadorusWebApp entry, Character character, User user);
+
+    public void setStatPoints(int statPoints);
+
+    /**
+     * Sets the {link Character} and TempStats to the widget. And reloads necessary elements.
+     * 
+     * @param character
+     * @param tempStats
+     */
+    public void setValues(Character character, List<Integer> tempStats);
   }
 
   private User user;
@@ -49,16 +59,18 @@ public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.D
 
   private int statPoints;
 
+  private final int defaultStatPoints = 420;
+
   public int getStatPoints() {
     return statPoints;
   }
 
-  public SelectTempStatsDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user,
-                               List<Integer> tempStats, int statPoints) {
+  public SelectTempStatsDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
     tempStats = new ArrayList<Integer>();
-    this.statPoints = statPoints;
+    this.statPoints = defaultStatPoints;
     entry.addHandler(ShowSelectTempStatsEvent.SHOWDIALOG, this);
+    initDisplay(display);
   }
 
   private void initDisplay(Display display) {
@@ -236,13 +248,6 @@ public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.D
     }
   }
 
-  public static SelectTempStatsDialog getDialog(DefaultTimadorusWebApp entry, User user, Character character) {
-    int statPoints = 420;
-    
-    SelectTempStatsDialog dialog = new SelectTempStatsDialog(null, entry, character, user, null, statPoints);
-    return dialog;
-  }
-
   public List<Integer> getTempStats() {
     return tempStats;
   }
@@ -253,10 +258,12 @@ public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.D
     for (int i = 0; i < 12; i++) {
       temporaryStats.add(character.getStatList().get(i).getTempStat());
     }
-    SelectTempStatsDialog.Display display = new SelectTempStatsWidget(character, temporaryStats, statPoints);
-    initDisplay(display);
     this.character = character;
     this.user = user;
+
+    getDisplay().setStatPoints(defaultStatPoints);
+    getDisplay().setValues(character, temporaryStats);
+
     RootPanel.get("content").clear();
     RootPanel.get("content").add(getFormPanel());
   }
