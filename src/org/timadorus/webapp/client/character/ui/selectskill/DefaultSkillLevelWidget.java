@@ -1,12 +1,14 @@
 package org.timadorus.webapp.client.character.ui.selectskill;
 
 import java.util.ArrayList;
-
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Skill;
+import org.timadorus.webapp.beans.User;
+import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -26,80 +28,68 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 //FormPanel for selecting Skill-Level-1 items of a Character-Object
-public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectSkillLevelDialog.Display {
-  
-  private Button nextButton;
+public class DefaultSkillLevelWidget extends FormPanel implements ChangeHandler, DefaultSelectSkillLevelDialog.Display {
 
-  private Button prevButton;
+  // private final DefaultTimadorusWebApp entry;
 
-  private VerticalPanel panel;
+  private Button nextButton = new Button("weiter");
 
-  private FlexTable buttonGrid;
+  private Button prevButton = new Button("zur&uuml;ck");
 
-  private FlexTable selectSkillGrid;
+  private VerticalPanel panel = new VerticalPanel();
 
-  private ListBox skillListBox;
+  private FlexTable buttonGrid = new FlexTable();
 
-  private Button addButton;
+  private FlexTable selectSkillGrid = new FlexTable();
 
-  private Button removeButton;
+  private ListBox skillListBox = new ListBox();
 
-  private ListBox addedskillListBox;
+  private Button addButton = new Button("+");
 
-  private Label skillLabel;
+  private Button removeButton = new Button("-");
 
-  private Label addedskillLabel;
-  
-  private Label genderLabel;
-  
-  private Label classFactionLabel;
-  
-  private Label skillsL0Label;
+  private ListBox addedskillListBox = new ListBox();
 
-  private FlexTable selectStatGrid;
+  private Label skillLabel = new Label("L1 Fertigkeiten w&auml;hlen: ");
 
-  private FlexTable selectSkillGridBox;
+  private Label addedskillLabel = new Label("L1 Ausgew&auml:hlte Fertigkeiten: ");
 
-  private Button resetPage;
+  private FlexTable selectStatGrid = new FlexTable();
 
-  private List<TextBox[]> textBoxList;
+  private FlexTable selectSkillGridBox = new FlexTable();
 
+  private Button resetPage = new Button("reset");
+
+  private List<TextBox[]> tbObjList = new ArrayList<TextBox[]>();
+
+  private String[] titleList = { "Skill-Name", "Cost", "Rank", "Rk_Bn", "Stat_Bn", "Level_Bn", "Item", "Total" };
 
   private List<TextBoxHandler> textBoxHandler;
 
-  public DefaultSkillLevelWidget() { 
-    super();
+  private Label myGenderRaceLabel;
 
-    textBoxList = new ArrayList<TextBox[]>();    
-    nextButton = new Button("weiter");
-    prevButton = new Button("zur&uuml;ck");
-    panel = new VerticalPanel();
-    buttonGrid = new FlexTable();
-    selectSkillGrid = new FlexTable();
-    skillListBox = new ListBox();
-    addButton = new Button("+");
-    removeButton = new Button("-");
-    addedskillListBox = new ListBox();
-    skillLabel = new Label("L1 Fertigkeiten w&auml;hlen: ");
-    addedskillLabel = new Label("L1 Ausgew&auml;hlte Fertigkeiten: ");
-    selectStatGrid = new FlexTable();
-    selectSkillGridBox = new FlexTable();
-    resetPage = new Button("reset");
-    genderLabel = new Label("Geschlecht: | Rasse: ");
-    classFactionLabel = new Label("Klasse: | Faction: ");
-    skillsL0Label = new Label("Skills L0:");
-   
-    HTML headline = new HTML("<h1>L1 Fertigkeiten w&auml;hlen</h1>");
-    Image progressBar = new Image("media/images/progressbar_7.png");
+  private Label myClassFactionLabel;
+
+  private Label mySkillLabel;
+
+  public DefaultSkillLevelWidget() {
+    super();
     
-    nextButton.setEnabled(false);
+    textBoxHandler = new ArrayList<TextBoxHandler>();
 
     addedskillLabel.setStyleName("labelColorRed");
-    addedskillListBox.setWidth("150");
-    
+    nextButton.setEnabled(false);
+    Image progressBar = new Image("media/images/progressbar_7.png");
+
     selectSkillGrid.setBorderWidth(0);
     selectSkillGrid.setStylePrimaryName("selectGrid");
 
+   
+    skillListBox.setVisibleItemCount(skillListBox.getItemCount());
+    addedskillListBox.setVisibleItemCount(skillListBox.getItemCount());
+    addedskillListBox.setWidth("150");
+
+    // Label choosenskillLabel = new Label("Ausgewählte Fertigkeiten: ");
     selectSkillGrid.setWidget(0, 0, skillLabel);
     selectSkillGrid.setWidget(0, 12, addedskillLabel);
     selectSkillGrid.setWidget(1, 0, skillListBox);
@@ -112,20 +102,26 @@ public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectS
     buttonGrid.setWidget(0, 0, prevButton);
     buttonGrid.setWidget(0, 1, nextButton);
 
-    selectStatGrid = getNewEmptySkillCostTable();
-        
-    // setting properties of the main panel
+    selectStatGrid = getSkillCostTableLabel();
+
+    myClassFactionLabel = new Label("Kalsse: | Fraktion: ");
+    myGenderRaceLabel = new Label("Geschlecht: | Rasse: ");
+    mySkillLabel = new Label("Skills: ");
+
+    // Add it to the root panel.
+
+    HTML headline = new HTML("<h1>L1 Fertigkeiten w&auml;hlen</h1>");
+
     panel.setStyleName("panel");
     panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
     panel.setWidth("100%");
 
-    // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 7 von 9"));
-    panel.add(genderLabel);       
-    panel.add(classFactionLabel);   
-    panel.add(skillsL0Label);  
-    
+    panel.add(myGenderRaceLabel);
+    panel.add(myClassFactionLabel);
+    panel.add(mySkillLabel);
+
     panel.add(headline);
     panel.add(selectSkillGrid);
     panel.add(selectStatGrid);
@@ -141,156 +137,31 @@ public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectS
   }
 
   private static final HTML getInformation() {
-    HTML information = new HTML("<h1>L1 Fertigkeiten W&auml;hlen</h1><p>W&auml;hlen sie hier die L1 Fertigkeiten ihres "
+    HTML information = new HTML("<h1>L1 Fertigkeiten Wählen</h1><p>Wählen sie hier die L1 Fertigkeiten ihres "
         + ". Beachten Sie, dass bestimmte Fertigkeiten ab bestimmten Level-Grad zu beziehen " + "sind.</p>");
     return information;
   }
-  
-  @Override
-  public void setInformation(HTML information) {
-    RootPanel.get("information").clear();
-    RootPanel.get("information").add(information);
-  }
-  
-  @Override
-  public void setCharacter(Character c) {
-      genderLabel.setText("Geschlecht: " + c.getGender() + " | Rasse: " + c.getGender());
-      classFactionLabel.setText("Klasse: " + c.getCharClass().getName() + " | Faction: " + c.getFaction().getName());
-      skillsL0Label.setText("Skills_L0: " + c.getSkillListNames());
-  }
-  
-  @Override
-  public void setNextButtonEnable(boolean enabled) {
-    nextButton.setEnabled(enabled);
-  }
-  
-  @Override
-  public FormPanel getFormPanel() {
-    return this;
-  }
-  
- 
-  @Override
-  public void addNextButtonHandler(final DefaultActionHandler handler) {
-    nextButton.addClickHandler(new ClickHandler() {
 
-      @Override
-      public void onClick(ClickEvent event) {
-        handler.onAction();
+  public void reloadSkillCostTable(Set<String> addedSkillList, List<Skill> skillLevel1) {
+
+    Set<Skill> skillSet = new HashSet<Skill>();
+
+    for (String skillName : addedSkillList) {
+      for (Skill skill : skillLevel1) {
+        if (skill.getName().equals(skillName)) {
+          skillSet.add(skill);
+        }
       }
-    });
-  }
-  
-  @Override
-  public void addPrevButtonHandler(final DefaultActionHandler handler) {
-    prevButton.addClickHandler(new ClickHandler() {
-
-      @Override
-      public void onClick(ClickEvent event) {
-        handler.onAction();
-      }
-    });
-  }
-
-  @Override
-  public void addAddButtonHandler(final DefaultActionHandler handler) {
-    addButton.addClickHandler(new ClickHandler() {
-
-      @Override
-      public void onClick(ClickEvent event) {
-        handler.onAction();
-      }
-    });
-  }
-
-  @Override
-  public void addRemoveButtonHandler(final DefaultActionHandler handler) {
-    removeButton.addClickHandler(new ClickHandler() {
-
-      @Override
-      public void onClick(ClickEvent event) {
-        handler.onAction();
-      }
-    });
-  }
-
-  @Override
-  public void addResetButtonHandler(final DefaultActionHandler handler) {
-    resetPage.addClickHandler(new ClickHandler() {
-
-      @Override
-      public void onClick(ClickEvent event) {
-        handler.onAction();
-      }
-    });
-  }
-
-  @Override
-  public void addSkillListBoxHandler(final DefaultActionHandler handler) {
-    skillListBox.addClickHandler(new ClickHandler() {
-
-      @Override
-      public void onClick(ClickEvent event) {
-        handler.onAction();
-      }
-    });
-  }
-  
-  @Override
-  public void setChooseableSkills(List<Skill> skills) {
-
-    for (Skill skill : skills) {
-      skillListBox.addItem(skill.getName());
     }
 
-    skillListBox.setVisibleItemCount(skillListBox.getItemCount());
-    addedskillListBox.setVisibleItemCount(skillListBox.getItemCount());
-  }
-    
-  private FlexTable getNewEmptySkillCostTable() {
-
-    FlexTable table = new FlexTable();
-    
-    table.setBorderWidth(0);
-    table.setStyleName("selectGrid");
-
-    //append Header
-    table.setWidget(0, 0, new Label("Skill                 "));
-    table.setWidget(0, 1, new Label("Cost   "));
-    table.setWidget(0, 2, new Label("Rank   "));
-    table.setWidget(0, 3, new Label("Rk_Bn  "));
-    table.setWidget(0, 4, new Label("Stat_Bn"));
-    table.setWidget(0, 5, new Label("Level_Bn."));
-    table.setWidget(0, 6, new Label("Item   "));
-    table.setWidget(0, 7, new Label("Total"));
-
-    //append Empty Line to size the table
-    for (int i = 0; i < 8; i++) {
-      TextBox tb = new TextBox();
-      if (i == 0) {
-        tb.setWidth("100");
-      } else {
-        tb.setWidth("60");
-      }
-
-      table.setWidget(1, i, tb);
-    }
-    
-    return table;
-  }
-   
-  @Override
-  public void setSkillCostTable(Set<Skill> skills) { 
-    String[] titleList = { "Skill-Name", "Cost", "Rank", "Rk_Bn", "Stat_Bn", "Level_Bn", "Item", "Total" };
-    
     panel.remove(selectStatGrid);
-    selectStatGrid = getNewEmptySkillCostTable();
-    
-    int j = 0;
-    TextBox[] textBoxes;
+    selectStatGrid = getSkillCostTableLabel();
 
-    for (Skill skill : skills) {
-      textBoxes = new TextBox[8];
+    int j = 0;
+    TextBox[] tbArr = new TextBox[8];
+
+    for (Skill skill : skillSet) {
+      tbArr = new TextBox[8];
       for (int i = 0; i < 8; i++) {
         TextBox tb = new TextBox();
         if (i == 0) {
@@ -301,18 +172,16 @@ public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectS
 
         tb.setText(skill.getGesamtInfo()[i]);
         tb.setTitle(titleList[i]);
-        
         selectStatGrid.setWidget(j + 1, i, tb);
-        textBoxes[i] = tb;
+        tbArr[i] = tb;
 
-        tb.addChangeHandler((ChangeHandler) this);
+        tb.addChangeHandler(this);
       }
-      textBoxList.add(textBoxes); // merke zu jedem Skill die TextBox-Felder in einer Liste
+      tbObjList.add(tbArr); // merke zu jedem Skill die TextBox-Felder in einer Liste
       j++;
+
     }
-    
-    
-    if (skills.size() != 0) {
+    if (skillSet.size() != 0) {
       selectSkillGrid.setWidget(j + 1, 4, resetPage);
     } else {
       selectSkillGrid.remove(resetPage);
@@ -325,7 +194,41 @@ public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectS
 
     RootPanel.get("content").add(panel);
   }
-  
+
+  public FlexTable getSkillCostTableLabel() {
+
+    FlexTable selectStatGrid1 = new FlexTable();
+    selectStatGrid1.setBorderWidth(0);
+    selectStatGrid1.setStyleName("selectGrid");
+
+    selectStatGrid1.setWidget(0, 0, new Label("Skill                 "));
+    selectStatGrid1.setWidget(0, 1, new Label("Cost   "));
+    selectStatGrid1.setWidget(0, 2, new Label("Rank   "));
+    selectStatGrid1.setWidget(0, 3, new Label("Rk_Bn  "));
+    selectStatGrid1.setWidget(0, 4, new Label("Stat_Bn"));
+    selectStatGrid1.setWidget(0, 5, new Label("Level_Bn."));
+    selectStatGrid1.setWidget(0, 6, new Label("Item   "));
+    selectStatGrid1.setWidget(0, 7, new Label("Total"));
+
+    for (int i = 0; i < 8; i++) {
+      TextBox tb = new TextBox();
+      if (i == 0) {
+        tb.setWidth("100");
+      } else {
+        tb.setWidth("60");
+      }
+
+      selectStatGrid1.setWidget(1, i, tb);
+    }
+
+    return selectStatGrid1;
+  }
+
+  @Override
+  public FormPanel getFormPanel() {
+    return this;
+  }
+
   @Override
   public String getSelectedItemAddedSkills() {
     int selectedIndex = addedskillListBox.getSelectedIndex();
@@ -381,12 +284,12 @@ public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectS
     String[] skInfo = new String[3];
 
     TextBox textBox = (TextBox) event.getSource();
-    
     String id = String.valueOf(textBox.hashCode());
+
     String title = ((TextBox) event.getSource()).getTitle();
     String value = ((TextBox) event.getSource()).getValue();
 
-    for (TextBox[] tb : textBoxList) {
+    for (TextBox[] tb : tbObjList) {
       String skillN = "";
       for (int i = 0; i < tb.length; i++) {
         if (tb[i] != null) {
@@ -410,6 +313,102 @@ public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectS
     }
   }
 
-    
+  @Override
+  public void addNextButtonHandler(final DefaultActionHandler handler) {
+    nextButton.addClickHandler(new ClickHandler() {
 
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void addPrevButtonHandler(final DefaultActionHandler handler) {
+    prevButton.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void addAddButtonHandler(final DefaultActionHandler handler) {
+    addButton.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void addRemoveButtonHandler(final DefaultActionHandler handler) {
+    removeButton.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void addResetButtonHandler(final DefaultActionHandler handler) {
+    resetPage.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void addSkillListBoxHandler(final DefaultActionHandler handler) {
+    skillListBox.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        handler.onAction();
+      }
+    });
+  }
+
+  @Override
+  public void onNextButtonClick(DefaultTimadorusWebApp entry, Character character, User user) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void onPrevButtonClick(DefaultTimadorusWebApp entry, Character character, User user) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void setContent(Character characterIn, List<Skill> chooseableSkills) {
+    //Setting character infomations
+    myGenderRaceLabel
+        .setText("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName());
+    myClassFactionLabel.setText("Klasse: " + characterIn.getCharClass().getName() + " | Faction: "
+        + characterIn.getFaction().getName());
+    mySkillLabel.setText("Skills: " + characterIn.getSkillListNames());
+    
+    //setting skill inforamtions:
+    skillListBox.clear();
+    
+    for (Skill skill : chooseableSkills) {
+      skillListBox.addItem(skill.getName());
+    }
+
+    skillListBox.setVisibleItemCount(skillListBox.getItemCount());
+    addedskillListBox.setVisibleItemCount(skillListBox.getItemCount());
+    addedskillListBox.setWidth("150");
+  }
 }

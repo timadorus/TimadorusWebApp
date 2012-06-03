@@ -1,5 +1,6 @@
 package org.timadorus.webapp.tests.client.character.ui.selectskilllevel;
 
+import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.anySetOf;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -58,9 +59,9 @@ public class SelectSkillLevelDialogTest {
 
     theArgumentCaptor.getValue().onAction();
     theArgumentCaptor.getValue().onAction();
-    
+
     verify(myDisplayMock).addItemAddedSkills(aSelectedItemSkill);
-    verify(myDisplayMock).setSkillCostTable(anySetOf(Skill.class));
+    verify(myDisplayMock).reloadSkillCostTable(anySetOf(String.class), anyListOf(Skill.class));
     verify(myDisplayMock, times(2)).readyToSave(true);
 
   }
