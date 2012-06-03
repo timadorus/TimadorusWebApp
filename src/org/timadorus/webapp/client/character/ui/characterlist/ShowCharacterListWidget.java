@@ -52,7 +52,7 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
 
   private CharacterActionHandler characterDeleteHandler;
 
-  public ShowCharacterListWidget(DefaultTimadorusWebApp entry, User user, List<Character> characterList) {
+  public ShowCharacterListWidget() {
     super();
 
     panel = new VerticalPanel();
@@ -61,71 +61,12 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
     confirm = new Button("Loeschen bestaetigen");
     back = new Button("Zurueck");
 
-    if (characterList.size() > 0) {
-      final int columns = 4;
-      grid = new Grid(characterList.size(), columns);
-      grid.setBorderWidth(0);
+    grid = new Grid();
+    grid.setBorderWidth(0);
 
-      int i = 0;
-      for (final Character character : characterList) {
-        final Button delete = new Button("Loeschen");
-        final Button details = new Button("Details");
+    grid.setBorderWidth(0);
+    grid.setWidget(0, 0, new Label("Es wurden keine Charaktere gefunden."));
 
-        // creates a click and keyboard handler for the confirm button
-        class ConfirmHandler implements ClickHandler, KeyUpHandler {
-          /**
-           * Will be triggered if the button was clicked.
-           * 
-           * @param event
-           *          The click event
-           */
-          public void onClick(ClickEvent event) {
-            onConfirmDeleteCharacter(character);
-          }
-
-          /**
-           * Will be triggered if the "Enter" button was hit while located in an input field
-           * 
-           * @param event
-           *          The KeyUpEvent
-           */
-          public void onKeyUp(KeyUpEvent event) {
-            if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-              onConfirmDeleteCharacter(character);
-            }
-          }
-        }
-
-        delete.addClickHandler(new ClickHandler() {
-
-          @Override
-          public void onClick(ClickEvent event) {
-            onDeleteButtonClick();
-          }
-        });
-        details.addClickHandler(new ClickHandler() {
-
-          @Override
-          public void onClick(ClickEvent event) {
-            onDetailsButtonClick(character);
-          }
-        });
-
-        ConfirmHandler confirmHandler = new ConfirmHandler();
-        confirm.addClickHandler(confirmHandler);
-        passbox.addKeyUpHandler(confirmHandler);
-
-//        grid.setWidget(i, 0, ShowCharacterDialog.getShortDisplay(entry, character, user).getFormPanel());
-        entry.fireEvent(new ShowSelectCharacterShortEvent(grid, i, 0, user, character));
-        grid.setWidget(i, 1, details);
-        grid.setWidget(i, 2, delete);
-        i++;
-      }
-    } else {
-      grid = new Grid(1, 1);
-      grid.setBorderWidth(0);
-      grid.setWidget(0, 0, new Label("Es wurden keine Charaktere gefunden."));
-    }
     panel.clear();
     panel.add(headline);
     panel.add(grid);
@@ -282,5 +223,70 @@ public class ShowCharacterListWidget extends FormPanel implements ShowCharacterL
   @Override
   public void loadShowCharacterListDialog(DefaultTimadorusWebApp entry, User user) {
     entry.fireEvent(new ShowCharacterListEvent(user));
+  }
+
+  @Override
+  public void setCharacterList(List<Character> characters, User user, DefaultTimadorusWebApp entry) {
+    if (characters.size() > 0) {
+      grid.clear();
+      int i = 0;
+      for (final Character character : characters) {
+        final Button delete = new Button("L&ouml;schen");
+        final Button details = new Button("Details");
+
+        // creates a click and keyboard handler for the confirm button
+        class ConfirmHandler implements ClickHandler, KeyUpHandler {
+          /**
+           * Will be triggered if the button was clicked.
+           * 
+           * @param event
+           *          The click event
+           */
+          public void onClick(ClickEvent event) {
+            onConfirmDeleteCharacter(character);
+          }
+
+          /**
+           * Will be triggered if the "Enter" button was hit while located in an input field
+           * 
+           * @param event
+           *          The KeyUpEvent
+           */
+          public void onKeyUp(KeyUpEvent event) {
+            if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+              onConfirmDeleteCharacter(character);
+            }
+          }
+        }
+
+        delete.addClickHandler(new ClickHandler() {
+
+          @Override
+          public void onClick(ClickEvent event) {
+            onDeleteButtonClick();
+          }
+        });
+        details.addClickHandler(new ClickHandler() {
+
+          @Override
+          public void onClick(ClickEvent event) {
+            onDetailsButtonClick(character);
+          }
+        });
+
+        ConfirmHandler confirmHandler = new ConfirmHandler();
+        confirm.addClickHandler(confirmHandler);
+        passbox.addKeyUpHandler(confirmHandler);
+
+        entry.fireEvent(new ShowSelectCharacterShortEvent(grid, i, 0, user, character));
+        grid.setWidget(i, 1, details);
+        grid.setWidget(i, 2, delete);
+        i++;
+      }
+    } else {
+      grid = new Grid(1, 1);
+      grid.setBorderWidth(0);
+      grid.setWidget(0, 0, new Label("Es wurden keine Charaktere gefunden."));
+    }
   }
 }

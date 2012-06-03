@@ -3,7 +3,6 @@ package org.timadorus.webapp.client.character.ui.characterlist;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
@@ -48,25 +47,28 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
 
     public void loadShowCharacterListDialog(DefaultTimadorusWebApp entry, User user);
 
+    /**
+     * reloads the character list grid. It is necessary to give the entry point. With the entry a load event for sub
+     * elements can be fired.
+     * 
+     * @param characters
+     * @param entry
+     */
+    public void setCharacterList(List<Character> characters, User user, DefaultTimadorusWebApp entry);
+
   }
 
   private User user;
-  
+
   private final ServiceAsync<Character, String> delService = GWT.create(Service.class);
 
-  public ShowCharacterListDialog(Display display, DefaultTimadorusWebApp entry, User user) {
+  public ShowCharacterListDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
-    this.user = user;
     entry.addHandler(ShowCharacterListEvent.SHOWDIALOG, this);
-    if (display != null) {
-      setDisplay(display);
-    }
-
+    initDisplay();
   }
 
-  @Override
-  protected void setDisplay(Display display) {
-    super.setDisplay(display);
+  private void initDisplay() {
     getDisplay().addBackButtonHandler(new DefaultActionHandler() {
 
       @Override
@@ -105,8 +107,7 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
    *          the character to be deleted
    */
   private void deleteCharacter(Character character) {
-    
-    
+
     Action<Character> action = new Action<Character>(ServiceType.DELCHARACTER, character);
     AsyncCallback<Response<String>> response = new AsyncCallback<Response<String>>() {
 
@@ -123,69 +124,26 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
           } else {
             System.out.println("Unsuccessfully deleted");
           }
-          setContent(ShowCharacterListDialog.getDialog(getEntry(), getUser()).getFormPanel());
+          getEntry().fireEvent(new ShowCharacterListEvent(getUser()));
         }
       }
     };
-    
+
     delService.execute(action, response);
-    
-    
-    /*CharacterServiceAsync characterServiceAsync = GWT.create(CharacterService.class);
-    AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-
-      public void onSuccess(String result) {
-        if (result != null) {
-          if (result.equals("OK")) {
-            System.out.println("Successfully deleted");
-          } else {
-            System.out.println("Unsuccessfully deleted");
-          }
-          setContent(ShowCharacterListDialog.getDialog(getEntry(), getUser()).getFormPanel());
-        }
-      }
-
-      public void onFailure(Throwable caught) {
-        System.out.println(caught);
-      }
-    };
-    characterServiceAsync.deleteCharacter(character, asyncCallback);
-    */
   }
 
   public void onBackButtonClick() {
     getDisplay().loadShowCharacterListDialog(getEntry(), getUser());
   }
 
-  /**
-   * Clears the panel and adds a widget to it.
-   * 
-   * @param w
-   *          the widget to be added.
-   */
-  private void setContent(Widget w) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(w);
-  }
-
   public User getUser() {
     return user;
   }
 
-  public static ShowCharacterListDialog getDialog(DefaultTimadorusWebApp entry, User user) {
-    // List<Character> characterList = new CharacterListSync(user).getCharacterList();
-    // if (characterList == null) {
-    // entry.showDialogBox("Fehlermeldung", "Fehler bei der Abfrage der Charactere");
-    // characterList = new ArrayList<Character>();
-    // }
-    //
-    // ShowCharacterListDialog.Display display = new ShowCharacterListWidget(entry, user, characterList);
-    ShowCharacterListDialog dialog = new ShowCharacterListDialog(null, entry, user);
-    return dialog;
-  }
-
   @Override
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
+    this.user = user;
+
     // loading widget
     List<Character> characterList = new CharacterListSync(user).getCharacterList();
     if (characterList == null) {
@@ -193,8 +151,7 @@ public class ShowCharacterListDialog extends DefaultDialog<ShowCharacterListDial
       characterList = new ArrayList<Character>();
     }
 
-    ShowCharacterListDialog.Display display = new ShowCharacterListWidget(entry, user, characterList);
-    setDisplay(display);
+    getDisplay().setCharacterList(characterList, getUser(), getEntry());
 
     RootPanel.get("content").clear();
     RootPanel.get("content").add(new Label("Liste der registrierten Charaktere"));

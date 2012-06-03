@@ -2,6 +2,7 @@ package org.timadorus.webapp.client.character.ui;
 
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListDialog;
+import org.timadorus.webapp.client.character.ui.characterlist.ShowCharacterListWidget;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateCharacterWidget;
 import org.timadorus.webapp.client.character.ui.createcharacter.CreateDialog;
 import org.timadorus.webapp.client.character.ui.potstat.PotStatsDialog;
@@ -74,7 +75,7 @@ public class CharacterHandler {
   private void init() {
     selectRaceDialog = new SelectRaceDialog(new SelectRaceWidget(), getEntry());
     createCharacterDialog = CreateDialog.getCreateDialog(new CreateCharacterWidget(), getEntry());
-    characterListDialog = ShowCharacterListDialog.getDialog(getEntry(), null);
+    characterListDialog = new ShowCharacterListDialog(new ShowCharacterListWidget(), getEntry());
     premadeCharacterDialog = PremadeCharacterDialog.getDialog(new PremadeCharacterWidget(), getEntry());
     potStatsDialog = new PotStatsDialog(new PotStatsWidget(getEntry()), getEntry());
     characterReadyDialog = new ReadyDialog(new CharacterReadyWidget(), getEntry());
