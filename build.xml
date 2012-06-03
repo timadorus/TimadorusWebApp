@@ -309,11 +309,8 @@
 	<property name="selenium.properties" value="selenium.properties"/>
    	<property file="${test-src.dir}/${selenium.properties}"/>
 
-    <!-- ================================= 
-          target: test-acceptance             
-         ================================= -->
-    <target name="test-acceptance" depends="enhance,test-compile" description="set up and run all acceptance tests">
-    	<!-- Is the web-app-server running? -->
+	<target name="_do_test_selenium_server_status">
+		<!-- Is the web-app-server running? -->
     	<fail message="No Web-App-Server running">
    			<condition>
    				<not>
@@ -348,7 +345,12 @@
  				</not>
   			</condition>
 		</fail>
+	</target>
 
+    <!-- ================================= 
+          target: test-acceptance             
+         ================================= -->
+    <target name="test-acceptance" depends="enhance,test-compile,_do_test_selenium_server_status" description="set up and run all acceptance tests">
 		<copy file="${test-src.dir}/${selenium.properties}" todir="${bin.dir}"/>
 	 
     	<junit fork="yes" haltonfailure="yes" showoutput="on">
@@ -516,7 +518,7 @@
 	</target>
 
 	<!-- Target:build | define the order of the targets run to fullfill the build -->
-	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java, embeddedServer" />
+	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java, embeddedServer,test-acceptance" />
 	<!-- Old build with embeddedServer:
 	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java,embeddedServer" /> 
 	-->
