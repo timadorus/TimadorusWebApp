@@ -25,6 +25,7 @@ import org.timadorus.webapp.client.character.ui.selectskill.SelectSkillLevel1Dia
 import org.timadorus.webapp.client.character.ui.selecttempstats.SelectTempStatsDialog;
 import org.timadorus.webapp.client.character.ui.selecttempstats.SelectTempStatsWidget;
 import org.timadorus.webapp.client.character.ui.showcharacter.ShowCharacterDialog;
+import org.timadorus.webapp.client.character.ui.showcharacter.ShowCharacterWidget;
 
 /**
  * This class holds and initiate the UI elements of the character handling.
@@ -83,7 +84,7 @@ public class CharacterHandler {
     selectSkillLevel0Dialog = new SelectSkillLevel0Dialog(new DefaultSkillLevelWidget(), getEntry());
     selectSkillLevel1Dialog = new SelectSkillLevel1Dialog(new DefaultSkillLevelWidget(), getEntry());
     selectTempStatsDialog = new SelectTempStatsDialog(new SelectTempStatsWidget(), getEntry());
-    showCharacterDialog = ShowCharacterDialog.getDetailDisplay(getEntry(), null, null);
+    showCharacterDialog = new ShowCharacterDialog(new ShowCharacterWidget(), getEntry());
     selectAppearanceDialog = new SelectAppearanceDialog(new SelectAppearanceWidget(), getEntry());
   }
 

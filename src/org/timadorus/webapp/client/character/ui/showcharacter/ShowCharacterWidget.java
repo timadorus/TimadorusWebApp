@@ -27,8 +27,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 // Panel to show information about the character
 public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialog.Display {
 
+  /**
+   * Indicates the simple display mode.
+   */
   public static final int SHORT_MODE = 1;
 
+  /**
+   * Indicates a full detail display mode of the character.
+   */
   public static final int DETAIL_MODE = 2;
 
   private final int rows = 3;
@@ -69,10 +75,8 @@ public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialo
 
   private Character character;
 
-  public ShowCharacterWidget(final Character character, int modeIn) {
+  public ShowCharacterWidget() {
     super();
-
-    this.character = character;
 
     panel = new VerticalPanel();
     grid = new Grid(rows, columns);
@@ -87,13 +91,6 @@ public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialo
     delete = new Button("Löschen");
     confirm = new Button("Löschung bestätigen");
     passbox = new PasswordTextBox();
-
-    if (modeIn == SHORT_MODE) {
-      buildShortMode(character);
-    } else if (modeIn == DETAIL_MODE) {
-      buildDetailMode(character);
-    }
-
   }
 
   /**
@@ -363,7 +360,12 @@ public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialo
 
       @Override
       public void onClick(ClickEvent event) {
-        handler.onAction(character, passbox.getText());
+        if (character != null) {
+          handler.onAction(character, passbox.getText());
+        } else {
+          System.err.println("ShowCharacterWidget 366: no character set");
+          // TODO show error message
+        }
       }
     });
     passbox.addKeyUpHandler(new KeyUpHandler() {
@@ -371,7 +373,12 @@ public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialo
       @Override
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-          handler.onAction(character, passbox.getText());
+          if (character != null) {
+            handler.onAction(character, passbox.getText());
+          } else {
+            System.err.println("ShowCharacterWidget 379: no character set");
+            // TODO show error message
+          }
         }
       }
     });
@@ -391,5 +398,15 @@ public class ShowCharacterWidget extends FormPanel implements ShowCharacterDialo
   @Override
   public void loadShowCharacterListsDialog(DefaultTimadorusWebApp entry, User user) {
     entry.fireEvent(new ShowCharacterListEvent(user));
+  }
+
+  @Override
+  public void setMode(int mode, Character character) {
+    this.character = character;
+    if (mode == SHORT_MODE) {
+      buildShortMode(character);
+    } else if (mode == DETAIL_MODE) {
+      buildDetailMode(character);
+    } 
   }
 }

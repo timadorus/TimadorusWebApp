@@ -22,6 +22,7 @@ import org.timadorus.webapp.shared.Response;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.RootPanel;
 
 public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Display> implements
     ShowSelectCharShortHandler, ShowSelectCharDetailHandler, ShowDialogHandler {
@@ -53,20 +54,30 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
     public void characterDeleteFailure();
 
     public void loadShowCharacterListsDialog(DefaultTimadorusWebApp entry, User user);
+
+    /**
+     * Loads the defined mode of the panel with the given character. Possible modes are
+     * {@link ShowCharacterWidget#SHORT_MODE} and {@link ShowCharacterWidget#DETAIL_MODE}.
+     * 
+     * @param mode
+     *          static variable of {@link ShowCharacterWidget}.
+     * @param character
+     *          {@link Character} to be displayed.
+     */
+    public void setMode(int mode, Character character);
   }
 
   private Character character;
 
   private User user;
-  
+
   private final ServiceAsync<Character, String> delService = GWT.create(Service.class);
 
-  public ShowCharacterDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
+  public ShowCharacterDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
-    this.character = character;
-    this.user = user;
     entry.addHandler(ShowSelectCharacterShortEvent.SHOWDIALOG, this);
     entry.addHandler(ShowSelectCharacterDetailEvent.SHOWDIALOG, this);
+    initDisplay(display);
   }
 
   private void initDisplay(Display display) {
@@ -152,39 +163,13 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
     };
 
     delService.execute(action, response);
-
-    /*
-     * CharacterServiceAsync characterServiceAsync = GWT.create(CharacterService.class); AsyncCallback<String>
-     * asyncCallback = new AsyncCallback<String>() {
-     * 
-     * public void onSuccess(String result) { if (result != null) { if (result.equals("OK")) {
-     * System.out.println("Successfully deleted"); } else { System.out.println("Unsuccessfully deleted"); } //
-     * setContent(ShowCharacterListDialog.getDialog(getEntry(), getUser()).getFormPanel()); getEntry().fireEvent(new
-     * ShowCharacterListEvent(getUser())); } }
-     * 
-     * public void onFailure(Throwable caught) { System.out.println(caught); } };
-     * characterServiceAsync.deleteCharacter(character, asyncCallback);
-     */
-  }
-
-  // public static ShowCharacterDialog getShortDisplay(DefaultTimadorusWebApp entry, Character character, User user) {
-  //
-  // ShowCharacterDialog dialog = new ShowCharacterDialog(null, entry, character, user);
-  // return dialog;
-  // }
-
-  public static ShowCharacterDialog getDetailDisplay(DefaultTimadorusWebApp entry, Character character, User user) {
-
-    ShowCharacterDialog dialog = new ShowCharacterDialog(null, entry, character, user);
-    return dialog;
   }
 
   @Override
   public void showShort(Grid grid, int row, int column, User user, Character character) {
     this.character = character;
     this.user = user;
-    ShowCharacterDialog.Display display = new ShowCharacterWidget(character, ShowCharacterWidget.SHORT_MODE);
-    initDisplay(display);
+    getDisplay().setMode(ShowCharacterWidget.SHORT_MODE, character);
     grid.setWidget(row, column, getFormPanel());
   }
 
@@ -192,8 +177,7 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
   public void showDetail(Grid grid, int row, int column, User user, Character character) {
     this.character = character;
     this.user = user;
-    ShowCharacterDialog.Display display = new ShowCharacterWidget(character, ShowCharacterWidget.DETAIL_MODE);
-    initDisplay(display);
+    getDisplay().setMode(ShowCharacterWidget.DETAIL_MODE, character);
     grid.setWidget(row, column, getFormPanel());
   }
 
@@ -201,7 +185,8 @@ public class ShowCharacterDialog extends DefaultDialog<ShowCharacterDialog.Displ
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
     this.character = character;
     this.user = user;
-    ShowCharacterDialog.Display display = new ShowCharacterWidget(character, ShowCharacterWidget.DETAIL_MODE);
-    initDisplay(display);
+    getDisplay().setMode(ShowCharacterWidget.DETAIL_MODE, character);
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(getFormPanel());
   }
 }
