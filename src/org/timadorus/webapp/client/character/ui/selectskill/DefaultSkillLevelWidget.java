@@ -72,7 +72,7 @@ public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectS
 
     textBoxList = new ArrayList<TextBox[]>();    
     nextButton = new Button("weiter");
-    prevButton = new Button("zurück");
+    prevButton = new Button("zur&uuml;ck");
     panel = new VerticalPanel();
     buttonGrid = new FlexTable();
     selectSkillGrid = new FlexTable();
@@ -80,8 +80,8 @@ public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectS
     addButton = new Button("+");
     removeButton = new Button("-");
     addedskillListBox = new ListBox();
-    skillLabel = new Label("L1 Fertigkeiten wählen: ");
-    addedskillLabel = new Label("L1 Ausgewählte Fertigkeiten: ");
+    skillLabel = new Label("L1 Fertigkeiten w&auml;hlen: ");
+    addedskillLabel = new Label("L1 Ausgew&auml;hlte Fertigkeiten: ");
     selectStatGrid = new FlexTable();
     selectSkillGridBox = new FlexTable();
     resetPage = new Button("reset");
@@ -89,7 +89,7 @@ public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectS
     classFactionLabel = new Label("Klasse: | Faction: ");
     skillsL0Label = new Label("Skills L0:");
    
-    HTML headline = new HTML("<h1>L1 Fertigkeiten wählen</h1>");
+    HTML headline = new HTML("<h1>L1 Fertigkeiten w&auml;hlen</h1>");
     Image progressBar = new Image("media/images/progressbar_7.png");
     
     nextButton.setEnabled(false);
@@ -141,7 +141,7 @@ public class DefaultSkillLevelWidget extends FormPanel implements DefaultSelectS
   }
 
   private static final HTML getInformation() {
-    HTML information = new HTML("<h1>L1 Fertigkeiten Wählen</h1><p>Wählen sie hier die L1 Fertigkeiten ihres "
+    HTML information = new HTML("<h1>L1 Fertigkeiten W&auml;hlen</h1><p>W&auml;hlen sie hier die L1 Fertigkeiten ihres "
         + ". Beachten Sie, dass bestimmte Fertigkeiten ab bestimmten Level-Grad zu beziehen " + "sind.</p>");
     return information;
   }
