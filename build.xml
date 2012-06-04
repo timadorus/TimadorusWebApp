@@ -504,6 +504,8 @@
 		<!-- folder for all other derived/compiled files -->
 		<mkdir dir="${bin.dir}"/>
 		
+		<mkdir dir="${test-report.dir}"/>
+		
 		<copy file="${test-src.dir}/${selenium.properties}" todir="${bin.dir}"/>
 		
 	</target>
