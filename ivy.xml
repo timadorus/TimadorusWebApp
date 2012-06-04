@@ -15,7 +15,7 @@
 	<dependencies>
 
 		<!--  other Timadorus parts -->
-		<dependency org="de.harper-hall" name="bookkeeper" rev="0.1" />
+		<dependency org="de.harper-hall" name="bookkeeper" rev="0.1+" />
 
 		<!-- GWT -->
 		<dependency org="com.google.gwt" name="gwt-user" rev="2.4.0" />
