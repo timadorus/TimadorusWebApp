@@ -306,6 +306,21 @@
     	</emma>
     </target>
 
+	<!-- Target: compile the test code -->
+	<target name="acceptance-test-compile" depends="clean,init">
+
+		<!-- run the compilation -->
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${bin.dir}" source="${source}" target="${target}">
+
+			<!-- source folder -->
+			<src path="test-src" />
+			<include name="org/timadorus/webapp/tests/acceptance/**"/>
+
+			<!-- appropriate classpath from above  -->
+			<classpath refid="testing.classpath" />
+		</javac>
+	</target>
+	
 	<property name="selenium.properties" value="selenium.properties"/>
    	<property file="${test-src.dir}/${selenium.properties}"/>
 
@@ -350,7 +365,7 @@
     <!-- ================================= 
           target: test-acceptance             
          ================================= -->
-    <target name="test-acceptance" depends="resolve,java-compile,test-compile,_do_test_selenium_server_status" description="set up and run all acceptance tests">
+    <target name="test-acceptance" depends="resolve,acceptance-test-compile,_do_test_selenium_server_status" description="set up and run all acceptance tests">
 		<copy file="${test-src.dir}/${selenium.properties}" todir="${bin.dir}"/>
 	 
     	<junit fork="yes" haltonfailure="yes" showoutput="on">
