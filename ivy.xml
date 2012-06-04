@@ -41,7 +41,7 @@
         <dependency org="org.apache.commons" name="commons-email" rev="1.2" conf="*->default"/>
 		
 		<!-- testing: JUnit, emma, mockito  -->
-		<dependency org="junit" name="junit" rev="4.8.2" conf="testing->default"/>
+		<dependency org="junit" name="junit" rev="4.8.2" conf="acceptance,testing->default"/>
 		<dependency org="emma" name="emma_ant" rev="2.1.5320"  conf="testing->default"/>
         <dependency org="emma" name="emma" rev="2.1.5320"  conf="testing->default"/>
         <dependency org="org.mockito" name="mockito-all" rev="1.9.0" conf="testing->default"/>
@@ -53,9 +53,8 @@
 		<dependency org="com.puppycrawl.tools" name="checkstyle" rev="5.4" conf="testing->default" />
 		
 		<!-- Selenium -->
-		<dependency org="org.seleniumhq.selenium" name="selenium-java" rev="2.21.0" conf="acceptance->default"/>
-		<dependency org="org.seleniumhq.selenium" name="selenium-server" rev="2.21.0" conf="acceptance->default"/>
-		<dependency org="junit" name="junit" rev="4.8.2" conf="acceptance->default"/>
+		<dependency org="org.seleniumhq.selenium" name="selenium-java" rev="2.21.0" conf="acceptance,testing->default"/>
+		<dependency org="org.seleniumhq.selenium" name="selenium-server" rev="2.21.0" conf="acceptance,testing->default"/>
 	
 		<!-- Winstone -->
 		<dependency org="org.jvnet.hudson.winstone" name="winstone" rev="0.9.10-hudson-24" conf="*->default" />
