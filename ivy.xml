@@ -7,9 +7,10 @@
 	<info organisation="org.timadorus" module="webapp" revision="0.1"/>
     
     <configurations>
-    	<conf name="compile"  visibility="private"/>
-    	<conf name="testing"  visibility="private" extends="compile"/>
-    	<conf name="runtime"  visibility="public"/>
+    	<conf name="compile"  	visibility="private"/>
+    	<conf name="testing"  	visibility="private" extends="compile"/>
+    	<conf name="runtime"  	visibility="public"/>
+    	<conf name="acceptance"	visibility="private"/>
     </configurations>
 	<!-- Hier beschreiben wir die Abhängigkeiten -->
 	<dependencies>
@@ -52,8 +53,9 @@
 		<dependency org="com.puppycrawl.tools" name="checkstyle" rev="5.4" conf="testing->default" />
 		
 		<!-- Selenium -->
-		<dependency org="org.seleniumhq.selenium" name="selenium-java" rev="2.21.0"/>
-		<dependency org="org.seleniumhq.selenium" name="selenium-server" rev="2.21.0"/>
+		<dependency org="org.seleniumhq.selenium" name="selenium-java" rev="2.21.0" conf="acceptance->default"/>
+		<dependency org="org.seleniumhq.selenium" name="selenium-server" rev="2.21.0" conf="acceptance->default"/>
+		<dependency org="junit" name="junit" rev="4.8.2" conf="acceptance->default"/>
 	
 		<!-- Winstone -->
 		<dependency org="org.jvnet.hudson.winstone" name="winstone" rev="0.9.10-hudson-24" conf="*->default" />

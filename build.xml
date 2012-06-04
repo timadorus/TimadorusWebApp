@@ -96,7 +96,7 @@
 			<include name="**/*.zip"/>
 		</fileset>
 	</path>
-
+	
 	<path id="enhance.classpath">
 
 		<!-- Quell und Ziel Java-Dateien -->
@@ -115,7 +115,7 @@
 		<ivy:retrieve  pattern="${lib.dir}/[conf]/[artifact]-[revision](-[classifier]).[ext]" sync="true"/>
 	    <ivy:report todir="${ivy.dir}/reports"/>
 	</target>
-
+	
     <target name="_def_tasks">
 		<!-- after (hopefully) retrieving all dependencies, add the tasks -->
 
@@ -178,7 +178,7 @@
 			</fileset>
 		</copy>
 	</target>
-
+	
     <!--  Target: prep-dirs for testing -->
     <target name="prep-dirs">
         <mkdir dir="${build.dir}"/>
@@ -304,80 +304,6 @@
     			<xml outfile="${coverage.dir}/coverage.xml" />
     		</report>
     	</emma>
-    </target>
-
-	<!-- Target: compile the test code -->
-	<target name="acceptance-test-compile" depends="clean,init">
-
-		<!-- run the compilation -->
-		<javac debug="true" debuglevel="${debuglevel}" destdir="${bin.dir}" source="${source}" target="${target}">
-
-			<!-- source folder -->
-			<src path="test-src" />
-			<include name="org/timadorus/webapp/tests/acceptance/**"/>
-
-			<!-- appropriate classpath from above  -->
-			<classpath refid="testing.classpath" />
-		</javac>
-	</target>
-	
-	<property name="selenium.properties" value="selenium.properties"/>
-   	<property file="${test-src.dir}/${selenium.properties}"/>
-
-	<target name="_do_test_selenium_server_status">
-		<!-- Is the web-app-server running? -->
-    	<fail message="No Web-App-Server running">
-   			<condition>
-   				<not>
-					<socket port="${Selenium.WebApp.Port}" server="${Selenium.WebApp.Host}" />
- 				</not>
-  			</condition>
-		</fail>
-		
-		<!-- Is the site availbale? -->
-		<fail message="Site not availbale">
-   			<condition>
-			 	<not>
-	 				<http url="${Selenium.WebApp.Root}" />
-	 			</not>
- 			</condition>
-		</fail>
-		
-		<!-- Is the selenium grid server running? -->
-		<fail message="No selenium grid server running">
-   			<condition>
-   				<not>
-   					<socket port="${Selenium.GridServer.Port}" server="${Selenium.GridServer.Host}" />
- 				</not>
-  			</condition>
-		</fail>
-		
-		<!-- Is a grid node launched? -->
-		<fail message="No selenium grid node launched">
-   			<condition>
-   				<not>
-   					<socket port="${Selenium.GridNode.Port}" server="${Selenium.GridNode.Host}" />
- 				</not>
-  			</condition>
-		</fail>
-	</target>
-
-    <!-- ================================= 
-          target: test-acceptance             
-         ================================= -->
-    <target name="test-acceptance" depends="resolve,acceptance-test-compile,_do_test_selenium_server_status" description="set up and run all acceptance tests">
-		<copy file="${test-src.dir}/${selenium.properties}" todir="${bin.dir}"/>
-	 
-    	<junit fork="yes" haltonfailure="yes" showoutput="on">
-    		<classpath>
-    			<pathelement path="${instrumented.bindir}"/>
-    			<path refid="testing.classpath"/>
-    		</classpath>
-    		<formatter type="xml"/>
-    		<formatter type="plain" usefile="false"/>
-    		<test name="org.timadorus.webapp.tests.acceptance.TimadorusWebAppAcceptanceTest"
-    			todir="${test-report.dir}"/>
-   		</junit>
     </target>
 
 	<!-- Target:enhance | run the byte enhancement of the required java classes 
@@ -534,7 +460,127 @@
 
 	<!-- Target:build | define the order of the targets run to fullfill the build -->
 	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java, embeddedServer" />
-	<!-- Old build with embeddedServer:
-	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java,embeddedServer" /> 
 	-->
+
+	<!-- 
+		The following targets are for the acceptance-tests	
+	 -->	
+	<path id="acceptance.classpath">
+		<pathelement path="${java.class.path}/" />
+		
+		<!-- source and compiled java files -->
+		<pathelement location="${bin.dir}" />
+
+		<fileset dir="${lib.dir}/acceptance">
+			<include name="**/*.jar"/>
+			<include name="**/*.zip"/>
+		</fileset>
+
+		<fileset dir="${basedir}/static_lib">
+			<include name="**/*.jar"/>
+			<include name="**/*.zip"/>
+		</fileset>
+	</path>	
+	
+	<target name="resolve.acceptance" depends="_do_ivy_resolve.acceptance,_def_tasks.acceptance" description="resolve and download acceptance dependencies with ivy"/>
+	
+	<target name="_do_ivy_resolve.acceptance">
+		<!-- Ivy Einstellungen einbinden -->
+		<ivy:settings file="${ivy.settings.file}" />
+	    <ivy:resolve conf="acceptance"/>
+		<ivy:retrieve  pattern="${lib.dir}/[conf]/[artifact]-[revision](-[classifier]).[ext]" sync="true"/>
+	    <ivy:report todir="${ivy.dir}/reports"/>
+	</target>
+
+	<target name="_def_tasks.acceptance">
+		<!-- after (hopefully) retrieving all dependencies, add the tasks -->
+
+	    <!-- JUnit -->
+		<taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"
+				 classpathref="acceptance.classpath" />
+    </target>
+    
+   	<target name="init.acceptance">
+
+		<!-- folder for all other derived/compiled files -->
+		<mkdir dir="${bin.dir}"/>
+		
+		<copy file="${test-src.dir}/${selenium.properties}" todir="${bin.dir}"/>
+		
+	</target>
+
+	<!-- Target: compile the test code -->
+	<target name="acceptance-test-compile" depends="clean,init.acceptance">
+
+		<!-- run the compilation -->
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${bin.dir}" source="${source}" target="${target}">
+
+			<!-- source folder -->
+			<src path="test-src" />
+			<include name="org/timadorus/webapp/tests/acceptance/**"/>
+
+			<!-- appropriate classpath from above  -->
+			<classpath refid="acceptance.classpath" />
+		</javac>
+	</target>
+	
+	
+	<property name="selenium.properties" value="selenium.properties"/>
+   	<property file="${test-src.dir}/${selenium.properties}"/>
+
+	<target name="_do_test_selenium_server_status">
+		<!-- Is the web-app-server running? -->
+    	<fail message="No Web-App-Server running">
+   			<condition>
+   				<not>
+					<socket port="${Selenium.WebApp.Port}" server="${Selenium.WebApp.Host}" />
+ 				</not>
+  			</condition>
+		</fail>
+		
+		<!-- Is the site availbale? -->
+		<fail message="Site not availbale">
+   			<condition>
+			 	<not>
+	 				<http url="${Selenium.WebApp.Root}" />
+	 			</not>
+ 			</condition>
+		</fail>
+		
+		<!-- Is the selenium grid server running? -->
+		<fail message="No selenium grid server running">
+   			<condition>
+   				<not>
+   					<socket port="${Selenium.GridServer.Port}" server="${Selenium.GridServer.Host}" />
+ 				</not>
+  			</condition>
+		</fail>
+		
+		<!-- Is a grid node launched? -->
+		<fail message="No selenium grid node launched">
+   			<condition>
+   				<not>
+   					<socket port="${Selenium.GridNode.Port}" server="${Selenium.GridNode.Host}" />
+ 				</not>
+  			</condition>
+		</fail>
+	</target>
+
+    <!-- ================================= 
+          target: test-acceptance             
+         ================================= -->
+    <target name="test-acceptance" depends="resolve.acceptance,acceptance-test-compile,_do_test_selenium_server_status" description="set up and run all acceptance tests">
+    	<junit fork="yes" haltonfailure="yes" showoutput="on">
+    		<classpath>
+    			<pathelement path="${instrumented.bindir}"/>
+    			<path refid="testing.classpath"/>
+    		</classpath>
+    		<formatter type="xml"/>
+    		<formatter type="plain" usefile="false"/>
+    		<test name="org.timadorus.webapp.tests.acceptance.TimadorusWebAppAcceptanceTest"
+    			todir="${test-report.dir}"/>
+   		</junit>
+    </target>
+    
+	
 </project>
