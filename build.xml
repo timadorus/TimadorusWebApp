@@ -460,7 +460,6 @@
 
 	<!-- Target:build | define the order of the targets run to fullfill the build -->
 	<target name="build" depends="resolve,test-checkstyle,enhance,gwt-compile,test-java, embeddedServer" />
-	-->
 
 	<!-- 
 		The following targets are for the acceptance-tests	
