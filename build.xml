@@ -350,7 +350,7 @@
     <!-- ================================= 
           target: test-acceptance             
          ================================= -->
-    <target name="test-acceptance" depends="resolve,test-compile,_do_test_selenium_server_status" description="set up and run all acceptance tests">
+    <target name="test-acceptance" depends="resolve,java-compile,test-compile,_do_test_selenium_server_status" description="set up and run all acceptance tests">
 		<copy file="${test-src.dir}/${selenium.properties}" todir="${bin.dir}"/>
 	 
     	<junit fork="yes" haltonfailure="yes" showoutput="on">
