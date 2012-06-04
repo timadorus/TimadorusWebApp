@@ -572,7 +572,7 @@
     	<junit fork="yes" haltonfailure="yes" showoutput="on">
     		<classpath>
     			<pathelement path="${instrumented.bindir}"/>
-    			<path refid="testing.classpath"/>
+    			<path refid="acceptance.classpath"/>
     		</classpath>
     		<formatter type="xml"/>
     		<formatter type="plain" usefile="false"/>
