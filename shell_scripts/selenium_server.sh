@@ -9,7 +9,7 @@ NODE_PID_FILE="./node.pid"
 
 SELENIUM_LOG="./selenium.log"
 
-SELENIUM_JAR="selenium-server-standalone-2.21.0.jar"
+SELENIUM_JAR="selenium-server-standalone-2.22.0.jar"
 
 case "$1" in 
 	"start")
