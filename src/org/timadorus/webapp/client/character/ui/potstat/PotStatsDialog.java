@@ -13,7 +13,7 @@ import org.timadorus.webapp.client.eventhandling.events.ShowSelectSkill0Event;
 import org.timadorus.webapp.client.eventhandling.events.ShowSelectTempStatsEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.FormPanel;
 
 public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implements ShowDialogHandler {
   public interface Display extends DefaultDisplay {
@@ -40,6 +40,8 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
      * @param character
      */
     public void setCharacter(Character character);
+    
+    public void addToRootPanel(FormPanel aFormPanel);
 
   }
 
@@ -85,11 +87,6 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
     return user;
   }
 
-//  public static PotStatsDialog getDialog(DefaultTimadorusWebApp entry) {
-//    PotStatsDialog dialog = new PotStatsDialog(null, entry);
-//    return dialog;
-//  }
-
   @Override
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
     
@@ -101,8 +98,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
     potStats = getDisplay().calculatePotStats(character.getTempStat());
     this.character.setPotStats(potStats);
 
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(getFormPanel());
+    getDisplay().addToRootPanel(getFormPanel());
   }
 
 }

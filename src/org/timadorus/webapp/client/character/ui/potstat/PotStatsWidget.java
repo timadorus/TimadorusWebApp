@@ -254,4 +254,11 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
       fillPotStats(character);
     }
   }
+
+  @Override
+  public void addToRootPanel(FormPanel aFormPanel) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(aFormPanel); 
+    
+  }
 }
