@@ -1,12 +1,15 @@
 #!/bin/sh
 XVFB_DISPLAY=":1"
 XVFB_EXEC=`which Xvfb`
+
 JAVA_EXEC=`which java`
 
 HUB_PID_FILE="./hub.pid"
 NODE_PID_FILE="./node.pid"
 
 SELENIUM_LOG="./selenium.log"
+
+SELENIUM_JAR="selenium-server-standalone-2.21.0.jar"
 
 case "$1" in 
 	"start")
@@ -23,7 +26,7 @@ case "$1" in
 		
 		# Starting the Hub
 		echo "Starting Selenium Hub"
-		$JAVA_EXEC -jar selenium-server-standalone-2.21.0.jar -role hub $SELENIUM_LOG &
+		$JAVA_EXEC -jar $SELENIUM_JAR -role hub $SELENIUM_LOG &
 		HUB_PID=$!
 		echo $HUB_PID > $HUB_PID_FILE
 		echo "Selenium Hub started with PID $HUB_PID"
@@ -33,7 +36,7 @@ case "$1" in
 
 		# Starting the Node
 		echo "Starting Selenium Node"
-		$JAVA_EXEC -jar selenium-server-standalone-2.21.0.jar -role node -hub http://localhost:4444/grid/register > $SELENIUM_LOG &
+		$JAVA_EXEC -jar $SELENIUM_JAR -role node -hub http://localhost:4444/grid/register > $SELENIUM_LOG &
 		NODE_PID=$!
 		echo $NODE_PID > $NODE_PID_FILE
 		echo "Selenium Node started with PID $NODE_PID"
