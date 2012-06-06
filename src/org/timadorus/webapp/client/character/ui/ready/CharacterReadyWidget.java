@@ -46,4 +46,11 @@ public class CharacterReadyWidget extends FormPanel implements ReadyDialog.Displ
     RootPanel.get("information").clear();
     RootPanel.get("information").add(information);
   }
+
+  @Override
+  public void addToRootPanel(FormPanel aFormPanel) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(this.getFormPanel());
+  }
+  
 }

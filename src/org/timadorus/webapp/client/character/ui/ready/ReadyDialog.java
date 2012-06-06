@@ -3,12 +3,12 @@ package org.timadorus.webapp.client.character.ui.ready;
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
-import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.character.ui.DefaultDialog;
+import org.timadorus.webapp.client.character.ui.DefaultDisplay;
 import org.timadorus.webapp.client.eventhandling.events.ShowReadyDialogEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.FormPanel;
 
 public class ReadyDialog extends DefaultDialog<ReadyDialog.Display> implements ShowDialogHandler {
   public interface Display extends DefaultDisplay {
@@ -16,6 +16,8 @@ public class ReadyDialog extends DefaultDialog<ReadyDialog.Display> implements S
     public void setContragulationMessage(String msg);
 
     public void setInformationMessage(String msg);
+    
+    public void addToRootPanel(FormPanel aFormPanel);
   }
 
   private final String congratulationMsg = "<p>Herzlichen Glückwunsch.</p><p>Ihr Charakter "
@@ -33,8 +35,7 @@ public class ReadyDialog extends DefaultDialog<ReadyDialog.Display> implements S
 
   @Override
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(this.getFormPanel());
+    getDisplay().addToRootPanel(getFormPanel());
   }
 
 }
