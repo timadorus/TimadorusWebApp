@@ -26,7 +26,7 @@ case "$1" in
 		
 		# Starting the Hub
 		echo "Starting Selenium Hub"
-		$JAVA_EXEC -jar $SELENIUM_JAR -role hub $SELENIUM_LOG &
+		$JAVA_EXEC -jar $SELENIUM_JAR -role hub > $SELENIUM_LOG &
 		HUB_PID=$!
 		echo $HUB_PID > $HUB_PID_FILE
 		echo "Selenium Hub started with PID $HUB_PID"
@@ -40,6 +40,8 @@ case "$1" in
 		NODE_PID=$!
 		echo $NODE_PID > $NODE_PID_FILE
 		echo "Selenium Node started with PID $NODE_PID"
+
+		exit 0
 
 		;;
 
@@ -60,6 +62,8 @@ case "$1" in
 		echo "Stopping XVFB and X sessions"
 		kill -9 `pgrep -f "$XVFB_EXEC $XVFB_DISPLAY"` 2>&1 >/dev/null
 		echo "XVFB and X sessions stopped"
+	
+		exit 0
 	
 		;;	
 
