@@ -109,9 +109,10 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
   
   // returns and hols current panel information
   private static final HTML getInformation() {
-    HTML information = new HTML("<h1>Fraktionen wählen</h1><p>Wählen sie hier die Fraktionen ihres Charakteres. "
+    HTML information = new HTML("<h1>Fraktionen w&auml;hlen</h1>"
+        + "<p>W&auml;hlen sie hier die Fraktionen ihres Charakteres. "
         + "Beachten sie, dass bestimmte Fraktionen nur von bestimmten Rassen sowie Klassen "
-        + "gewählt werden können.</p>");
+        + "gew&auml;hlt werden k&ouml;nnen.</p>");
     return information;
   }
 
