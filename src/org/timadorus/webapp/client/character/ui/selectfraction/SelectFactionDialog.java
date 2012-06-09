@@ -1,5 +1,8 @@
 package org.timadorus.webapp.client.character.ui.selectfraction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Faction;
 import org.timadorus.webapp.beans.User;
@@ -36,37 +39,47 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
      * @param msg
      */
     public void setInformation(String msg);
+
+    public void setCharacter(Character character);
+
+    public void setNextButtonEnable(boolean b);
+
+    public void setFactions(List<String> factions);
   }
 
   private Character character;
 
   private User user;
 
-  public SelectFactionDialog(Display display, DefaultTimadorusWebApp entry, Character character, User user) {
+  public SelectFactionDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);
-    this.character = character;
-    this.user = user;
+    
+    initDisplay();
+    
     entry.addHandler(ShowSelectFractionEvent.SHOWDIALOG, this);
   }
-
-  private void intiDisplay(Display display) {
-    setDisplay(display);
-    display.addPrevButtonHandler(new DefaultActionHandler() {
+  
+  private void initDisplay() {
+    getDisplay().setNextButtonEnable(false);
+  
+    getDisplay().addPrevButtonHandler(new DefaultActionHandler() {
 
       @Override
       public void onAction() {
-        loadSelectClassPanel();
+        getEntry().fireEvent(new ShowSelectClassEvent(user, character));
       }
     });
-    display.addNextButtonHandler(new DefaultActionHandler() {
+    
+    getDisplay().addNextButtonHandler(new DefaultActionHandler() {
 
       @Override
       public void onAction() {
         saveSelectedFaction();
-        loadSelectTempStatsPanel();
+        getEntry().fireEvent(new ShowSelectTempStatsEvent(user, character));
       }
     });
-    display.addSelectFactionGridHandler(new DefaultActionHandler() {
+    
+    getDisplay().addSelectFactionGridHandler(new DefaultActionHandler() {
 
       @Override
       public void onAction() {
@@ -81,6 +94,10 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
       }
     });
   }
+  
+  public void saveSelectedFaction() {
+    character.setFaction(null);
+  }
 
   // returns currently select faction from the listbox
   public Faction getSelectedFaction() {
@@ -89,34 +106,29 @@ public class SelectFactionDialog extends DefaultDialog<SelectFactionDialog.Displ
     }
     return null;
   }
-
-  // save selected factions
-  public void saveSelectedFaction() {
-    character.setFaction(getSelectedFaction());
+  
+  public void setFactions() {
+    List<String> factions = new ArrayList<String>();
+    
+    for (Faction faction : getEntry().getTestValues().getFactions()) {
+      if (character.getCharClass().containsFaction(faction)) {
+        if (character.getRace().containsFaction(faction)) {
+          factions.add(faction.getName());
+        }
+      }
+    }
+    
+    getDisplay().setFactions(factions);
   }
-
-  // clear "content" #div and add Class SelectClassPanel to it
-  public void loadSelectClassPanel() {
-    getEntry().fireEvent(new ShowSelectClassEvent(user, character));
-  }
-
-  // clear "content" #div and add Class SelectTempStats to it
-  public void loadSelectTempStatsPanel() {
-    getEntry().fireEvent(new ShowSelectTempStatsEvent(user, character));
-  }
-
-  public static SelectFactionDialog getDialog(DefaultTimadorusWebApp entry, Character character, User user) {
-    SelectFactionDialog.Display display = new SelectFactionWidget(entry, character);
-    SelectFactionDialog dialog = new SelectFactionDialog(display, entry, character, user);
-    return dialog;
-  }
-
+   
   @Override
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
     this.character = character;
     this.user = user;
-    SelectFactionDialog.Display display = new SelectFactionWidget(entry, character);
-    intiDisplay(display);
+    
+    getDisplay().setCharacter(character);
+    setFactions();
+
     RootPanel.get("content").clear();
     RootPanel.get("content").add(getFormPanel());
   }

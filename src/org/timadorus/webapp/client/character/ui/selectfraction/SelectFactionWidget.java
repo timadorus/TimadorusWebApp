@@ -1,8 +1,8 @@
 package org.timadorus.webapp.client.character.ui.selectfraction;
 
+import java.util.List;
+
 import org.timadorus.webapp.beans.Character;
-import org.timadorus.webapp.beans.Faction;
-import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -24,6 +24,10 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
   private Button nextButton;
 
   private Button prevButton;
+  
+  private Label genderLabel;
+  
+  private Label classLabel;
 
   private VerticalPanel panel;
 
@@ -36,19 +40,21 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
   // listbox for available faction
   private ListBox factionListBox;
 
-  public SelectFactionWidget(final DefaultTimadorusWebApp entryIn, Character characterIn) {
+  public SelectFactionWidget() {
     super();
 
     nextButton = new Button("weiter");
-    prevButton = new Button("zur√ºck");
+    prevButton = new Button("zur&uuml;ck");
     panel = new VerticalPanel();
     selectFactionGrid = new FlexTable();
     buttonGrid = new FlexTable();
     factionListBox = new ListBox();
 
+    genderLabel = new Label("Geschlecht:  | Rasse: ");
+    classLabel = new Label("Klasse: ");
+    
     // headline
-    HTML headline = new HTML("<h1>Fraktion w√§hlen</h1>");
-
+    HTML headline = new HTML("<h1>Fraktion w&auml;hlen</h1>");
     // progress bar picture
     Image progressBar = new Image("media/images/progressbar_3.png");
 
@@ -56,15 +62,7 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
     selectFactionGrid.setBorderWidth(0);
     selectFactionGrid.setStylePrimaryName("selectGrid");
 
-    for (Faction faction : entryIn.getTestValues().getFactions()) {
-      if (characterIn.getCharClass().containsFaction(faction)) {
-        if (characterIn.getRace().containsFaction(faction)) {
-          factionListBox.addItem(faction.getName());
-        }
-      }
-    }
-
-    Label factionLabel = new Label("Fraktion w√§hlen: ");
+    Label factionLabel = new Label("Fraktion w&auml;hlen: ");
 
     selectFactionGrid.setWidget(0, 0, factionLabel);
     selectFactionGrid.setWidget(0, 1, factionListBox);
@@ -85,8 +83,8 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
     // adding widgets to the main panel
     panel.add(progressBar);
     panel.add(new Label("Schritt 3 von 9"));
-    panel.add(new Label("Geschlecht: " + characterIn.getGender() + " | Rasse: " + characterIn.getRace().getName()));
-    panel.add(new Label("Klasse: " + characterIn.getCharClass().getName()));
+    panel.add(genderLabel); 
+    panel.add(classLabel); 
 
     panel.add(headline);
     panel.add(selectFactionGrid);
@@ -101,12 +99,19 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
     RootPanel.get("content").add(panel);
 
   }
-
+  
+  @Override
+  public void setFactions(List<String> factions) {
+    for (String faction : factions) {
+     factionListBox.addItem(faction);
+    }
+  }  
+  
   // returns and hols current panel information
   private static final HTML getInformation() {
-    HTML information = new HTML("<h1>Fraktionen w√§hlen</h1><p>W√§hlen sie hier die Fraktionen ihres Charakteres. "
+    HTML information = new HTML("<h1>Fraktionen w‰hlen</h1><p>W‰hlen sie hier die Fraktionen ihres Charakteres. "
         + "Beachten sie, dass bestimmte Fraktionen nur von bestimmten Rassen sowie Klassen "
-        + "gew√§hlt werden k√∂nnen.</p>");
+        + "gew‰hlt werden kˆnnen.</p>");
     return information;
   }
 
@@ -165,4 +170,13 @@ public class SelectFactionWidget extends FormPanel implements SelectFactionDialo
     RootPanel.get("information").add(new HTML(msg));
   }
 
+  @Override
+  public void setCharacter(Character c) {
+    genderLabel.setText("Geschlecht: " + c.getGender() + " | Rasse: " + c.getRace().getName());
+    classLabel.setText("Klasse: " + c.getCharClass().getName());    
+  }
+
+  public void setNextButtonEnable(boolean enabled) {
+    nextButton.setEnabled(enabled);
+  }
 }

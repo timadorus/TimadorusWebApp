@@ -16,6 +16,7 @@ import org.timadorus.webapp.client.character.ui.selectappearance.SelectAppearanc
 import org.timadorus.webapp.client.character.ui.selectclass.SelectClassDialog;
 import org.timadorus.webapp.client.character.ui.selectclass.SelectClassWidget;
 import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionDialog;
+import org.timadorus.webapp.client.character.ui.selectfraction.SelectFactionWidget;
 import org.timadorus.webapp.client.character.ui.selectname.SelectNameDialog;
 import org.timadorus.webapp.client.character.ui.selectname.SelectNameWidget;
 import org.timadorus.webapp.client.character.ui.selectrace.SelectRaceDialog;
@@ -80,7 +81,7 @@ public class CharacterHandler {
     potStatsDialog = new PotStatsDialog(new PotStatsWidget(getEntry()), getEntry());
     characterReadyDialog = new ReadyDialog(new CharacterReadyWidget(), getEntry());
     selectClassDialog = new SelectClassDialog(new SelectClassWidget(), getEntry());
-    selectFactionDialog = new SelectFactionDialog(null, getEntry(), null, null);
+    selectFactionDialog = new SelectFactionDialog(new SelectFactionWidget(), getEntry());
     selectNameDialog = new SelectNameDialog(new SelectNameWidget(), getEntry());
     selectSkillLevel0Dialog = new SelectSkillLevel0Dialog(new DefaultSkillLevelWidget(), getEntry());
     selectSkillLevel1Dialog = new SelectSkillLevel1Dialog(new DefaultSkillLevelWidget(), getEntry());
