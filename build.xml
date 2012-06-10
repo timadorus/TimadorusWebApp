@@ -531,7 +531,7 @@
 
 	<target name="_do_test_selenium_server_status">
 		<!-- Is the web-app-server running? -->
-    	<fail message="No Web-App-Server running">
+    	<fail message="No Web-App-Server running @${Selenium.WebApp.Port}:${Selenium.WebApp.Host}">
    			<condition>
    				<not>
 					<socket port="${Selenium.WebApp.Port}" server="${Selenium.WebApp.Host}" />
@@ -540,7 +540,7 @@
 		</fail>
 		
 		<!-- Is the site availbale? -->
-		<fail message="Site not availbale">
+		<fail message="Site not availbale @${Selenium.WebApp.Root}">
    			<condition>
 			 	<not>
 	 				<http url="${Selenium.WebApp.Root}" />
@@ -549,7 +549,7 @@
 		</fail>
 		
 		<!-- Is the selenium grid server running? -->
-		<fail message="No selenium grid server running">
+		<fail message="No selenium grid server running @${Selenium.GridServer.Port}:${Selenium.GridServer.Host}">
    			<condition>
    				<not>
    					<socket port="${Selenium.GridServer.Port}" server="${Selenium.GridServer.Host}" />
@@ -558,7 +558,7 @@
 		</fail>
 		
 		<!-- Is a grid node launched? -->
-		<fail message="No selenium grid node launched">
+		<fail message="No selenium grid node launched @${Selenium.GridNode.Port}:${Selenium.GridNode.Host}">
    			<condition>
    				<not>
    					<socket port="${Selenium.GridNode.Port}" server="${Selenium.GridNode.Host}" />

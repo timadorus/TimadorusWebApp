@@ -39,6 +39,9 @@ start() {
 	NODE_PID=$!
 	echo $NODE_PID > $NODE_PID_FILE
 	echo "Selenium Node started with PID $NODE_PID"
+	
+	# Sleeping for 5 seconds, just to be sure that the Node is running
+	sleep 5
 }
 
 stop() {
