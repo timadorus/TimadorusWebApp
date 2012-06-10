@@ -14,7 +14,8 @@ SELENIUM_JAR="selenium-server-standalone.jar"
 start() {
 	# Starting a X session
 	echo "Starting a X session"
-	nohup `startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24 2>&1` >/dev/null &
+	# nohup `startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24 2>&1` >/dev/null &
+	nohup `startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24 2>&1` &
 	echo "X session started"		
 
 	# Sleeping for 10 seconds just to be sure, that X is running before setting the display
