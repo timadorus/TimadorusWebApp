@@ -404,4 +404,10 @@ public class SelectAppearanceWidget extends FormPanel implements SelectAppearanc
     mySkillLevel0Lbl.setText(aSkillLevel0);
     mySkillLevel1Lbl.setText(aSkillLevel1);
   }
+
+  @Override
+  public void addToRootPanel(FormPanel aFormPanel) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(aFormPanel);    
+  }
 }

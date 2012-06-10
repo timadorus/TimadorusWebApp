@@ -12,7 +12,7 @@ import org.timadorus.webapp.client.eventhandling.events.ShowSelectNameEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowSelectSkill1Event;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.FormPanel;
 
 public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog.Display> implements ShowDialogHandler {
 
@@ -67,6 +67,8 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
      * @param character
      */
     public void setCharacter(Character character);
+    
+    public void addToRootPanel(FormPanel aFormPanel);
 
   }
 
@@ -265,13 +267,17 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
    */
   private void chooseSkinColor(CharacterColors color) {
     getDisplay().setSkinColorText("Selected skin color: " + color.getName());
-    character.setSkinColor(color);
+    if (character != null) {
+      character.setSkinColor(color);
+    }
     skinColorChosen = true;
   }
 
   private void chooseHairColor(CharacterColors color) {
     getDisplay().setHairColorText("Selected hair color: " + color.getName());
-    character.setHairColor(color);
+    if (character != null) {
+      character.setHairColor(color);
+    }
     hairColorChosen = true;
   }
 
@@ -281,8 +287,7 @@ public class SelectAppearanceDialog extends DefaultDialog<SelectAppearanceDialog
     this.user = user;
 
     getDisplay().setCharacter(character);
-
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(getFormPanel());
+    
+    getDisplay().addToRootPanel(getFormPanel());
   }
 }
