@@ -193,4 +193,10 @@ public class PremadeCharacterWidget extends FormPanel implements PremadeCharacte
     };
     prevButton.addClickHandler(clickHandler);
   }
+
+  @Override
+  public void addToRootPanel(FormPanel aFormPanel) {
+    RootPanel.get("content").clear();
+    RootPanel.get("content").add(aFormPanel);    
+  }
 }

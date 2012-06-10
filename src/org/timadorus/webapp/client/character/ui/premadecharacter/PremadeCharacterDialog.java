@@ -15,7 +15,7 @@ import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.FormPanel;
 
 public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog.Display> implements ShowDialogHandler {
 
@@ -46,6 +46,8 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
     public void addPrevButtonHandler(DefaultActionHandler handler);
 
     public void setInformation(String text);
+    
+    public void addToRootPanel(FormPanel aFormPanel);
   }
 
   private User user;
@@ -160,8 +162,7 @@ public class PremadeCharacterDialog extends DefaultDialog<PremadeCharacterDialog
   @Override
   public void show(DefaultTimadorusWebApp entry, Character character, User user) {
     this.user = user;
-    RootPanel.get("content").clear();
-    RootPanel.get("content").add(getFormPanel());
+    getDisplay().addToRootPanel(getFormPanel());
   }
 
 }

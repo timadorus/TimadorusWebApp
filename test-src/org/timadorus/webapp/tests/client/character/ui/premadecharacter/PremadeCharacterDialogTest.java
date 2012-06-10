@@ -1,20 +1,24 @@
 package org.timadorus.webapp.tests.client.character.ui.premadecharacter;
 
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.TestCharacterValues;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
 import org.timadorus.webapp.client.character.ui.premadecharacter.PremadeCharacterDialog;
+import org.timadorus.webapp.client.eventhandling.events.CreateCharacterEvent;
+
+import com.google.gwt.user.client.ui.FormPanel;
 
 public class PremadeCharacterDialogTest {
   private PremadeCharacterDialog myPremadeCharacterDialog;
@@ -36,6 +40,8 @@ public class PremadeCharacterDialogTest {
     when(myDefaultTimadorusWebAppMock.getTestValues()).thenReturn(new TestCharacterValues());
 
     myPremadeCharacterDialog = new PremadeCharacterDialog(myDisplayMock, myDefaultTimadorusWebAppMock);
+    
+    when(myDisplayMock.getFormPanel()).thenReturn(null);
   }
 
   @Test
@@ -87,16 +93,17 @@ public class PremadeCharacterDialogTest {
 
   @Test
   public void testPrevButtonHandler() {
-    // ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
-    // verify(myDisplayMock).addPrevButtonHandler(theArgumentCaptor.capture());
-    //
-    // theArgumentCaptor.getValue().onAction();
-    //
-    // verify(myDisplayMock).loadCharacterPanel(myDefaultTimadorusWebAppMock, myUser);
+     ArgumentCaptor<DefaultActionHandler> theArgumentCaptor = ArgumentCaptor.forClass(DefaultActionHandler.class);
+     verify(myDisplayMock).addPrevButtonHandler(theArgumentCaptor.capture());
+    
+     theArgumentCaptor.getValue().onAction();
+    
+     verify(myDefaultTimadorusWebAppMock).fireEvent(Mockito.isA(CreateCharacterEvent.class));
   }
-
+  
   @Test
-  public void testTrue() {
-    Assert.assertNotNull(myPremadeCharacterDialog);
+  public void testShow() {
+    myPremadeCharacterDialog.show(myDefaultTimadorusWebAppMock, null, myUser);
+    verify(myDisplayMock).addToRootPanel((FormPanel) eq(null));
   }
 }
