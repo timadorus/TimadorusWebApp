@@ -14,8 +14,7 @@ SELENIUM_JAR="selenium-server-standalone.jar"
 start() {
 	# Starting a X session
 	echo "Starting a X session"
-	# nohup `startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24 2>&1` >/dev/null &
-	nohup `startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24` &
+	nohup `startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24 2>&1` >/dev/null &
 	echo "X session started"		
 
 	# Sleeping for 10 seconds just to be sure, that X is running before setting the display
@@ -48,19 +47,19 @@ start() {
 stop() {
 	# Stopping Selenium Node
 	echo "Stopping Selenium Node"
-	kill -9 `cat $NODE_PID_FILE` 2>&1 >/dev/null
+	start-stop-daemon --stop --pidfile $NODE_PID_FILE
 	rm $NODE_PID_FILE
 	echo "Selenium Node stopped"
 	
 	# Stopping Selenium Hub
 	echo "Stopping Selenium Hub"
-	kill -9 `cat $HUB_PID_FILE` 2>&1 >/dev/null
+	start-stop-daemon --stop --pidfile $HUB_PID_FILE
 	rm $HUB_PID_FILE
 	echo "Selenium Hub stopped"
 	
 	# Stopping XVFB and X sessions
 	echo "Stopping XVFB and X sessions"
-	kill -9 `pgrep -f "$XVFB_EXEC $XVFB_DISPLAY"` 2>&1 >/dev/null
+	start-stop-daemon --stop --name Xvfb
 	echo "XVFB and X sessions stopped"
 }
 
