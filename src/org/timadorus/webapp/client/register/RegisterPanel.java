@@ -280,7 +280,7 @@ public class RegisterPanel extends FormPanel implements HistoryListener, ShowHan
 
   private void handelFailureRegister(Throwable caught) {
     registerInvalid(0);
-    System.out.println(caught);
+    getEntry().showDialogBox("Error", "Could not create user.</br>" + caught.getMessage());
   }
 
   private void handelSuccessRegister(Response<String> response) {
