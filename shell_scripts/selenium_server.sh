@@ -14,7 +14,7 @@ SELENIUM_JAR="selenium-server-standalone.jar"
 start() {
 	# Starting a X session
 	echo "Starting a X session"
-	nohup `startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24 2>&1` >/dev/null &
+	`startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24 2>&1` >/dev/null &
 	echo "X session started"		
 
 	# Sleeping for 10 seconds just to be sure, that X is running before setting the display
@@ -25,7 +25,7 @@ start() {
 	
 	# Starting the Hub
 	echo "Starting Selenium Hub"
-	nohup $JAVA_EXEC -jar $SELENIUM_JAR -role hub > $SELENIUM_LOG &
+	$JAVA_EXEC -jar $SELENIUM_JAR -role hub > $SELENIUM_LOG &
 	HUB_PID=$!
 	echo $HUB_PID > $HUB_PID_FILE
 	echo "Selenium Hub started with PID $HUB_PID"
@@ -35,7 +35,7 @@ start() {
 
 	# Starting the Node
 	echo "Starting Selenium Node"
-	nohup $JAVA_EXEC -jar $SELENIUM_JAR -role node -hub http://localhost:4444/grid/register > $SELENIUM_LOG &
+	$JAVA_EXEC -jar $SELENIUM_JAR -role node -hub http://localhost:4444/grid/register > $SELENIUM_LOG &
 	NODE_PID=$!
 	echo $NODE_PID > $NODE_PID_FILE
 	echo "Selenium Node started with PID $NODE_PID"
