@@ -65,37 +65,9 @@ public class TimadorusWebApp implements EntryPoint, HistoryListener, DefaultTima
 
   private CreateCampaignPanel createCampaignPanel;
 
-//  private CreateDialog createCharacterDialog;
-
-//  private SelectRaceDialog selectRaceDialog;
-
   private ProfilePanel profilePanel;
 
-//  private ShowCharacterListDialog characterListDialog;
-
   private EditCampaignPanel editCampaignPanel;
-
-//  private PremadeCharacterDialog premadeCharacterDialog;
-//
-//  private PotStatsDialog potStatsDialog;
-//
-//  private ReadyDialog characterReadyDialog;
-//
-//  private SelectClassDialog selectClassDialog;
-//
-//  private SelectFactionDialog selectFactionDialog;
-//
-//  private SelectNameDialog selectNameDialog;
-//
-//  private SelectSkillLevel0Dialog selectSkillLevel0Dialog;
-//
-//  private SelectSkillLevel1Dialog selectSkillLevel1Dialog;
-//
-//  private SelectTempStatsDialog selectTempStatsDialog;
-//
-//  private ShowCharacterDialog showCharacterDialog;
-//
-//  private SelectAppearanceDialog selectAppearanceDialog;
   
   private CharacterHandler characterUIHandler;
 
