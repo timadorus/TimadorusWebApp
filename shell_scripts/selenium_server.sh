@@ -13,9 +13,9 @@ SELENIUM_JAR="selenium-server-standalone.jar"
 
 start() {
 	# Starting a X session
-	#echo "Starting a X session"
-	nohup startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24 2>&1 >/dev/null &
-	#echo "X session started"		
+	echo "Starting a X session"
+	nohup startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24 >/dev/null &
+	echo "X session started"		
 
 	# Sleeping for 10 seconds just to be sure, that X is running before setting the display
 	sleep 10
@@ -24,21 +24,21 @@ start() {
 	export DISPLAY=$XVFB_DISPLAY
 	
 	# Starting the Hub
-	#echo "Starting Selenium Hub"
-	nohup $JAVA_EXEC -jar $SELENIUM_JAR -role hub > $SELENIUM_LOG &
-	#HUB_PID=$!
-	#echo $HUB_PID > $HUB_PID_FILE
-	#echo "Selenium Hub started with PID $HUB_PID"
+	echo "Starting Selenium Hub"
+	$JAVA_EXEC -jar $SELENIUM_JAR -role hub > $SELENIUM_LOG &
+	HUB_PID=$!
+	echo $HUB_PID > $HUB_PID_FILE
+	echo "Selenium Hub started with PID $HUB_PID"
 
 	# Sleeping for 5 seconds, just to be sure that the Hub is running
 	sleep 5
 
 	# Starting the Node
-	#echo "Starting Selenium Node"
-	nohup $JAVA_EXEC -jar $SELENIUM_JAR -role node -hub http://localhost:4444/grid/register > $SELENIUM_LOG &
-	#NODE_PID=$!
-	#echo $NODE_PID > $NODE_PID_FILE
-	#echo "Selenium Node started with PID $NODE_PID"
+	echo "Starting Selenium Node"
+	$JAVA_EXEC -jar $SELENIUM_JAR -role node -hub http://localhost:4444/grid/register > $SELENIUM_LOG &
+	NODE_PID=$!
+	echo $NODE_PID > $NODE_PID_FILE
+	echo "Selenium Node started with PID $NODE_PID"
 	
 	# Sleeping for 5 seconds, just to be sure that the Node is running
 	sleep 5
@@ -65,26 +65,12 @@ stop() {
 
 case "$1" in 
 	"start")
-		#start 
-		
-		nohup startx -- $XVFB_EXEC $XVFB_DISPLAY -screen 0 1024x768x24 2>&1 >/dev/null &
-		sleep 10
-
-		export DISPLAY=$XVFB_DISPLAY
-	
-		nohup $JAVA_EXEC -jar $SELENIUM_JAR -role hub > $SELENIUM_LOG &
-	
-		sleep 5
-
-		nohup $JAVA_EXEC -jar $SELENIUM_JAR -role node -hub http://localhost:4444/grid/register > $SELENIUM_LOG &
-		
-		sleep 5
+		start 
 
 		;;
 
 	"stop")
-		start-stop-daemon --stop --name java
-		start-stop-daemon --stop --name Xvfb
+		stop
 	
 		;;	
 
