@@ -12,9 +12,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
 
@@ -26,19 +23,20 @@ public final class RegisteredUserList {
   public static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
 
   private HashMap<String, User> users = new HashMap<String, User>();
-  
+
   private static RegisteredUserList registeredUserList = null;
 
   /**
    * Constructor has to stay private -> Singleton-Pattern.
    */
-  private RegisteredUserList() { }
+  private RegisteredUserList() {
+  }
 
   /**
    * Returns an instance of the RegisteredUserList. If it was already requested, a cached object will be returned.
    * (Singleton-Pattern).
    * 
-   * @return An instance of the RegisteredUserList 
+   * @return An instance of the RegisteredUserList
    */
   public static RegisteredUserList getInstance() {
     if (registeredUserList == null) {
@@ -50,7 +48,8 @@ public final class RegisteredUserList {
   /**
    * This method checks whether a user is active or not.
    * 
-   * @param tmpUser The user which shall be checked
+   * @param tmpUser
+   *          The user which shall be checked
    * @return True if the user is active, false otherwise
    */
   public boolean isActive(User tmpUser) {
@@ -64,7 +63,7 @@ public final class RegisteredUserList {
         return false;
       }
     } else {
-      PersistenceManager pm = PMF.getPersistenceManager();          
+      PersistenceManager pm = PMF.getPersistenceManager();
       users.put(tmpUser.getUsername(), pm.getObjectById(User.class, users.get(tmpUser.getUsername()).getId()));
       pm.close();
     }
@@ -75,7 +74,8 @@ public final class RegisteredUserList {
   /**
    * This method checks if the supplied username and password is correct.
    * 
-   * @param tmpUser The user containing the username and password
+   * @param tmpUser
+   *          The user containing the username and password
    * @return True if username and password was valid, false otherwise
    */
   public Boolean isValid(User tmpUser) {
@@ -96,7 +96,8 @@ public final class RegisteredUserList {
   /**
    * Checks if a username is available or not.
    * 
-   * @param username The username which shall be checked
+   * @param username
+   *          The username which shall be checked
    * @return True if the username is available, false otherwise
    */
   public Boolean usernameAvailable(String username) {
@@ -110,7 +111,8 @@ public final class RegisteredUserList {
   /**
    * This method finds a user object by name and returns it.
    * 
-   * @param username The username
+   * @param username
+   *          The username
    * @return If the user was found, it will be returned, otherwise an empty user will be returned
    */
   private User getUser(String username) {
@@ -122,79 +124,41 @@ public final class RegisteredUserList {
 
     @SuppressWarnings("unchecked")
     Iterator<User> iterator = ((Collection<User>) query.execute(username)).iterator();
-    
+
     if (iterator.hasNext()) {
       User found = iterator.next();
       System.out.println("Datastore: '" + found.getDisplayname() + "' wurde geladen...");
       return found;
     }
-    
+
     pm.close();
-    
+
     return new User(); // "leerer" User; isValid liefert "false";
   }
 
-  /** sent a registration mail.
+  /**
+   * sent a registration mail.
    * 
    * TODO: all this stuff has to be made configurable in the Admin Pages.
    * 
    * @param user
    */
-  private void sendActivationMail(User user) {   
-    
-    Email email = new SimpleEmail();
-    email.setHostName("mailgate.informatik.haw-hamburg.de");
-    email.setTLS(true);
-    // email.setAuthenticator(new DefaultAuthenticator("username", "password"));
+  private void sendActivationMail(User user) {
 
-    try {
-      email.setFrom("root@informatik.haw-hamburg.de");
-    } catch (EmailException e) {
-      // TODO do some proper handling if the sender mail is invalid.
-      e.printStackTrace();
-    }
-    email.setSubject("Timadorus Registration Mail");
-    
-    // TODO: get this from some template. Also to be set in the admin panel. And i18n'ized
-    try {
-      email.setMsg("Hello " + user.getDisplayname() 
-                   + ",\n\nPlease register your user " + user.getUsername()
-                   + "by visiting the following address: \n\n" 
-                   + "http://www.timadorus.org:8080/TimadorusWebApp.html?activationCode=" 
-                   + user.getActivationCode()
-                   + "\n\nthe Timadorus-Team.");
-      
-    } catch (EmailException e) {
-      // only likely to happen upon a mime error
-      e.printStackTrace();
-    }
-    
-    try {
-      email.addTo(user.getEmail());
-    } catch (EmailException e) {
-      // TODO: handle an invalid to address.
-      e.printStackTrace();
-    }
-    
-    try {
-      email.send();
-    } catch (EmailException e) {
-      // TODO handle a failed mail. 
-      e.printStackTrace();
-    }
+    new EmailSender(user);
 
   }
-  
 
   /**
    * This method adds a new user to the user list and to the database.
    * 
-   * @param user The new user, which shall be added
+   * @param user
+   *          The new user, which shall be added
    * @return ActivationCode as String on success, null otherwise
    */
   public String addUser(User user) {
     String activationCode = Util.generateActivationCode(user);
-    
+
     if (usernameAvailable(user.getUsername()) && !activationCode.equals("")) {
       PersistenceManager pm = PMF.getPersistenceManager();
       user.setActive(false);
@@ -202,25 +166,25 @@ public final class RegisteredUserList {
       pm.makePersistent(user);
       pm.close();
       System.out.println("Datastore: '" + user.getDisplayname() + "' hinzugefügt mit ActivationCode: "
-                         + user.getActivationCode());
+          + user.getActivationCode());
       users.put(user.getUsername(), user);
       sendActivationMail(user);
-      
+
       return user.getActivationCode();
     }
     return null;
   }
-  
+
   @SuppressWarnings("unchecked")
   public Boolean deleteUser(User user) {
-    PersistenceManager pm = PMF.getPersistenceManager();    
+    PersistenceManager pm = PMF.getPersistenceManager();
     Extent<User> extent = pm.getExtent(User.class, true);
     Query query = pm.newQuery(extent, "username == name");
-    query.declareParameters("String name");    
+    query.declareParameters("String name");
     User found = null;
     Iterator<User> iterator = ((Collection<User>) query.execute(user.getUsername())).iterator();
     if (iterator.hasNext()) {
-      found = iterator.next();      
+      found = iterator.next();
     }
     if (found == null) {
       System.out.println("User " + found + " not found in database!");
@@ -233,14 +197,14 @@ public final class RegisteredUserList {
         System.out.println("Character " + character.getName() + " found!");
         pm.retrieve(character);
         pm.deletePersistent(character);
-      }        
+      }
       pm.deletePersistent(found);
       users.remove(user.getUsername());
-      // TODO: Delete user's characters    
+      // TODO: Delete user's characters
       System.out.println(found.getDisplayname() + " has been deleted from database!");
       pm.close();
       return true;
-    }    
+    }
   }
 
   public void addC(User u) {
@@ -248,11 +212,11 @@ public final class RegisteredUserList {
     PersistenceManager pm = PMF.getPersistenceManager();
 
     try {
-       Character c = Character.getInstance(); //
-       c.setName("MyCharacter1");
-       c.setAllAttrInfo();      
+      Character c = Character.getInstance(); //
+      c.setName("MyCharacter1");
+      c.setAllAttrInfo();
 
-       pm.makePersistent(c);
+      pm.makePersistent(c);
       pm.close();
     } catch (Exception e) {
       e.printStackTrace();
@@ -268,7 +232,7 @@ public final class RegisteredUserList {
 
   @SuppressWarnings("unchecked")
   public Character getCharObjectFromAppEngine(String cname) {
-//    cname = cname.toLowerCase();
+    // cname = cname.toLowerCase();
 
     try {
       PersistenceManager pm = PMF.getPersistenceManager();
@@ -279,7 +243,7 @@ public final class RegisteredUserList {
 
       entries = (List<Character>) query.execute();
 
-//      pm.close();
+      // pm.close();
 
       for (Character character : entries) {
         if (character.getName().equals(cname)) {
@@ -297,31 +261,31 @@ public final class RegisteredUserList {
 
   @SuppressWarnings("unchecked")
   public User getC(String cname) {
-      cname = cname.toLowerCase();
-  
-      try {
-        PersistenceManager pm = PMF.getPersistenceManager();
-  
-        // **
-        List<User> entries = new ArrayList<User>();
-  
-        Query query = pm.newQuery("SELECT FROM " + User.class.getName());
-  
-        entries = (List<User>) query.execute();
-  
-  //      pm.close();
-  
-        for (User user : entries) {
-          if (user.getNachname().equals(cname)) {
-            System.out.println("YEAH! " + cname);
-            pm.close();
-            return user;
-          }
+    cname = cname.toLowerCase();
+
+    try {
+      PersistenceManager pm = PMF.getPersistenceManager();
+
+      // **
+      List<User> entries = new ArrayList<User>();
+
+      Query query = pm.newQuery("SELECT FROM " + User.class.getName());
+
+      entries = (List<User>) query.execute();
+
+      // pm.close();
+
+      for (User user : entries) {
+        if (user.getNachname().equals(cname)) {
+          System.out.println("YEAH! " + cname);
+          pm.close();
+          return user;
         }
-      } catch (Exception e) {
-        e.printStackTrace();
       }
-  
-      return null;
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+
+    return null;
+  }
 }
