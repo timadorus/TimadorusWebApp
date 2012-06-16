@@ -41,7 +41,7 @@ start() {
 	echo "Selenium Node started with PID $NODE_PID"
 	
 	# Sleeping for 5 seconds, just to be sure that the Node is running
-	sleep 5
+	sleep 15
 }
 
 stop() {
