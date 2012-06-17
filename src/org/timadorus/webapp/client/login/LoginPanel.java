@@ -143,7 +143,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
         getUser().setPassword(passBox.getText());
         
         if (getUser().getUsername().equals("") || user.getPassword().equals("")) {
-          loginInvalid("Bitte Felder ausfüllen!");
+          loginInvalid("Bitte Felder ausf&uuml;llen!");
           History.newItem("login");
         } else {
           sendToServer();
@@ -290,8 +290,8 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
   @Override
   public void showLogout() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die Möglichkeit, sich wieder "
-                                     + "einzuloggen:"));
+    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die M&ouml;glichkeit, "
+                                           + "sich wieder einzuloggen:"));
 
     RootPanel.get("content").add(this);
     RootPanel.get("information").clear();
