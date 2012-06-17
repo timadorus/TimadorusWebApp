@@ -6,8 +6,12 @@ import java.util.List;
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
-import org.timadorus.webapp.client.rpc.service.CreateCharacterServiceAsync;
+
+import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.client.service.ServiceAsync;
+import org.timadorus.webapp.client.service.ServiceType;
+import org.timadorus.webapp.shared.Action;
+import org.timadorus.webapp.shared.Response;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -61,6 +65,9 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
   private Label myClassFactionLbl;
 
   private final DefaultTimadorusWebApp entry;
+  
+  private final ServiceAsync<Integer, Integer> crtService = GWT.create(Service.class);
+  
 
   public PotStatsWidget(DefaultTimadorusWebApp entry) {
     super();
@@ -197,7 +204,8 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
    * @author sage
    * 
    */
-  private class PotFieldCallback implements AsyncCallback<Integer> {
+  //TODO
+  private class PotFieldCallback implements AsyncCallback<Response<Integer>> {
 
     private int fieldNum;
 
@@ -221,24 +229,28 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
     }
 
     @Override
-    public void onSuccess(Integer result) {
-      potStats.add(fieldNum, result);
-      addGridEntry(fieldNum + 1, 2, result.toString());
+    public void onSuccess(Response<Integer> result) {
+      potStats.add(fieldNum, result.getResult());
+      addGridEntry(fieldNum + 1, 2, result.getResult().toString());
     }
   };
 
   @Override
   public List<Integer> calculatePotStats(List<Integer> tempStat) {
-    CreateCharacterServiceAsync createServiceAsync = GWT.create(CreateCharacterService.class);
-
-    AsyncCallback<Integer> asyncCallback;
+  
+    Action<Integer> action;
+    AsyncCallback<Response<Integer>> response;
 
     List<Integer> potStats = new ArrayList<Integer>();
 
     for (int i = 0; i < tempStat.size(); i++) {
-      asyncCallback = new PotFieldCallback(i, potStats);
+     
       int temp = tempStat.get(i);
-      createServiceAsync.makePotStat(temp, asyncCallback);
+      
+      action = new Action<Integer>(ServiceType.MKPOTSTAT , temp);
+      response = new PotFieldCallback(i, potStats);
+      
+      crtService.execute(action, response);
     }
 
     return potStats;
