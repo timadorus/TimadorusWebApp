@@ -7,8 +7,12 @@ import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.eventhandling.events.ShowLoginEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowVerifyMailEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowHandler;
-import org.timadorus.webapp.client.rpc.service.UserService;
-import org.timadorus.webapp.client.rpc.service.UserServiceAsync;
+import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.client.service.ServiceAsync;
+import org.timadorus.webapp.client.service.ServiceType;
+import org.timadorus.webapp.shared.Action;
+import org.timadorus.webapp.shared.Response;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -70,6 +74,9 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener,
   private String activationCode;
 
   private static final long TWO_MIN = 1000 * 60 * 2;
+  
+  private final ServiceAsync<User, String> myService = GWT.create(Service.class);
+
 
   /**
    * Private constructor.
@@ -146,23 +153,23 @@ public final class VerifyMailPanel extends FormPanel implements HistoryListener,
        * Send username, password and activation code to the server to verify the users e-mail address.
        */
       private void sendToServer() {
-
-        // TODO Command-Pattern
-
-        UserServiceAsync userServiceAsync = GWT.create(UserService.class);
-
-        AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-          public void onSuccess(String result) {
-            onSuccessCallback(result);
+       
+        user.setActivationCode(activationCode);
+        Action<User> action = new Action<User>(ServiceType.VERFMAIL, user);
+        AsyncCallback<Response<String>> response = new AsyncCallback<Response<String>>() {
+          
+          @Override
+          public void onSuccess(Response<String> result) {
+            onSuccessCallback(result.getResult());
           }
 
+          @Override
           public void onFailure(Throwable caught) {
             onFailureCallback(caught);
           }
         };
-
-        userServiceAsync.verifyMail(activationCode, user, asyncCallback);
-
+        
+        myService.execute(action, response);
       }
     }
 
