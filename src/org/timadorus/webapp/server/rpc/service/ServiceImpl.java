@@ -12,9 +12,11 @@ import org.timadorus.webapp.server.rpc.service.campaign.CampaignProvider;
 import org.timadorus.webapp.server.rpc.service.character.CharacterProvider;
 import org.timadorus.webapp.server.rpc.service.fraction.FractionProvider;
 import org.timadorus.webapp.server.rpc.service.register.RegisterProvider;
+import org.timadorus.webapp.server.rpc.service.login.LoginProvider;
 import org.timadorus.webapp.server.rpc.service.user.UserProvider;
 import org.timadorus.webapp.shared.Action;
 import org.timadorus.webapp.shared.Response;
+import javax.servlet.http.HttpSession;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -31,6 +33,14 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
     String errorCode;
     User actionUser;
     switch (action.getType()) {
+    case LOGIN:
+      String state = LoginProvider.login((User) action.getContent());
+      if (state.equals(User.USER_VERIFIED)) {
+        HttpSession httpSession = getThreadLocalRequest().getSession();
+        state = httpSession.getId();
+      }
+      response = new Response<String>(state);
+      break;
     case REGISTER:
       errorCode = RegisterProvider.register((User) action.getContent());
       response = new Response<String>(errorCode);

@@ -9,10 +9,11 @@ import org.timadorus.webapp.client.eventhandling.events.ShowLoginEvent;
 import org.timadorus.webapp.client.eventhandling.events.ShowLogoutEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowLoginHandler;
 import org.timadorus.webapp.client.eventhandling.handler.ShowLogoutHandler;
-import org.timadorus.webapp.client.rpc.service.LoginService;
-import org.timadorus.webapp.client.rpc.service.LoginServiceAsync;
 import org.timadorus.webapp.client.service.Service;
 import org.timadorus.webapp.client.service.ServiceAsync;
+import org.timadorus.webapp.client.service.ServiceType;
+import org.timadorus.webapp.shared.Action;
+import org.timadorus.webapp.shared.Response;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -71,7 +72,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
 
   private static LoginPanel loginPanel;
   
-  private final ServiceAsync<String, String> loginService = GWT.create(Service.class);
+  private final ServiceAsync<User, String> loginService = GWT.create(Service.class);
 
   public LoginPanel(SessionId session, DefaultTimadorusWebApp entryIn) {
     super();
@@ -142,7 +143,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
         getUser().setPassword(passBox.getText());
         
         if (getUser().getUsername().equals("") || user.getPassword().equals("")) {
-          loginInvalid("Bitte Felder ausfÃ¼llen!");
+          loginInvalid("Bitte Felder ausfüllen!");
           History.newItem("login");
         } else {
           sendToServer();
@@ -156,18 +157,25 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
        * Username und Passwort an Server senden
        */
       private void sendToServer() {
-        LoginServiceAsync loginServiceAsync = GWT.create(LoginService.class);
         
         //TODO Command-Pattern
         
-        
-        
-        
-        AsyncCallback<String> asyncCallback = new AsyncCallback<String>() {
-          public void onSuccess(String result) {
+        Action<User> action = new Action<User>(ServiceType.LOGIN , user);
+        AsyncCallback<Response<String>> response = new AsyncCallback<Response<String>>() {
+
+          @Override
+          public void onFailure(Throwable caught) {
+            gettimadorus().showDialogBox("Fehlermeldung", "Fehler bei der Anmeldung");
+            loginInvalid("Fehler bei der Anmeldung!");
+            History.newItem("login");
+            System.out.println(caught);
+          }
+
+          @Override
+          public void onSuccess(Response<String> result) {
             final int maxAttempts = 4;
-            if (result != null) {
-              if (result.equals(User.USER_INACTIVE)) {
+            if (result.getResult() != null) {
+              if (result.getResult().equals(User.USER_INACTIVE)) {
                 loginInvalid("User ist deaktiviert!");
                 History.newItem("welcome");
                 RootPanel.get("content").add(
@@ -179,7 +187,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
                 submit.setEnabled(true);
                 gettimadorus().setLoggedin(false);
                 
-              } else if (result.equals(User.USER_INVALID)) {
+              } else if (result.getResult().equals(User.USER_INVALID)) {
                 loginInvalid("Username und/oder Passwort falsch!");
                 submit.setEnabled(true);
                 logincounter++;
@@ -192,26 +200,19 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
                   History.newItem("welcome");
                 }
               } else {
-                gettimadorus().setLoggedin(true);
                 getUser().setActive(true);
+                gettimadorus().setLoggedin(true);                
 
-                Cookies.setCookie("session", result, new Date(System.currentTimeMillis() + TWO_MIN));
-                sessionId.setSessionId(result);
-                System.out.println("Login session => " + result);
+                Cookies.setCookie("session", result.getResult(), new Date(System.currentTimeMillis() + TWO_MIN));
+                sessionId.setSessionId(result.getResult());
+                System.out.println("Login session => " + result.getResult());
                 History.newItem("welcome");
               }
             }
           }
-
-          public void onFailure(Throwable caught) {
-            gettimadorus().showDialogBox("Fehlermeldung", "Fehler bei der Anmeldung");
-            loginInvalid("Fehler bei der Anmeldung!");
-            History.newItem("login");
-            System.out.println(caught);
-          }
         };
-
-        loginServiceAsync.login(user, asyncCallback);
+        
+        loginService.execute(action, response);
       }
     }
     
@@ -289,7 +290,7 @@ public class LoginPanel extends FormPanel implements HistoryListener, ShowLoginH
   @Override
   public void showLogout() {
     RootPanel.get("content").clear();
-    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die MÃ¶glichkeit, sich wieder "
+    RootPanel.get("content").add(new Label("Sie haben sich ausgeloggt. Unten haben sie die Möglichkeit, sich wieder "
                                      + "einzuloggen:"));
 
     RootPanel.get("content").add(this);
