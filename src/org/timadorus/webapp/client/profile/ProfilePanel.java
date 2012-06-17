@@ -8,6 +8,11 @@ import org.timadorus.webapp.client.eventhandling.events.ShowProfileEvent;
 import org.timadorus.webapp.client.eventhandling.handler.ShowDialogHandler;
 import org.timadorus.webapp.client.rpc.service.UserService;
 import org.timadorus.webapp.client.rpc.service.UserServiceAsync;
+import org.timadorus.webapp.client.service.ServiceAsync;
+import org.timadorus.webapp.client.service.ServiceType;
+import org.timadorus.webapp.client.service.Service;
+import org.timadorus.webapp.shared.Action;
+import org.timadorus.webapp.shared.Response;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -52,7 +57,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener, ShowDial
   
   // Profile section elements
   HTML profileHL  = new HTML("<h1>Profil</h1>");
-  Button submit   = new Button("Ändern");
+  Button submit   = new Button("&Auml;ndern");
   
   private TextBox vornameTextBox                = new TextBox();
   private TextBox nachnameTextBox               = new TextBox();
@@ -71,13 +76,17 @@ public class ProfilePanel extends FormPanel implements HistoryListener, ShowDial
   private HTML passwordHTML                     = new HTML();
   private HTML passwordRepeatHTML               = new HTML();
   
+
+  private final ServiceAsync<User, User> getService = GWT.create(Service.class);
+  
+  
   // Delete section elements
-  HTML deleteHL = new HTML("<h1>Profil löschen</h1>");
+  HTML deleteHL = new HTML("<h1>Profil l&ouml;schen</h1>");
   
-  Button delete     = new Button("Account löschen");
-  Button confirm    = new Button("Löschung bestätigen");
+  Button delete     = new Button("Account l&ouml;schen");
+  Button confirm    = new Button("L&ouml;schung best&auml;tigen");
   
-  Button back       = new Button("Zurück");
+  Button back       = new Button("Zur&uuml;ck");
   
   PasswordTextBox passBox = new PasswordTextBox();
   
@@ -130,22 +139,24 @@ public class ProfilePanel extends FormPanel implements HistoryListener, ShowDial
     
     //TODO Command-Pattern
     
-    UserServiceAsync userServiceAsync = GWT.create(UserService.class);
+    Action<User> action = new Action<User>(ServiceType.GETUSER, user);
+    AsyncCallback<Response<User>> response = new AsyncCallback<Response<User>>() {
 
-    AsyncCallback<User> asyncCallback = new AsyncCallback<User>() {
-      public void onSuccess(User result) {
-        if (result != null) {
-          updateProfilePanel(result);
-        }
-      }
-
+      @Override
       public void onFailure(Throwable caught) {
         getTimadorus().showDialogBox("Fehlermeldung", "Fehler bei der Abfrage der Profildaten");
         System.out.println(caught);
       }
+
+      @Override
+      public void onSuccess(Response<User> result) {
+        if (result.getResult() != null) {
+          updateProfilePanel(result.getResult());
+        }
+      }
     };
     
-    userServiceAsync.getUser(user, asyncCallback);
+    getService.execute(action, response);
   }
   
   /**
@@ -317,7 +328,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener, ShowDial
             if (result != null) {
               if (result == User.OK) {
                 RootPanel.get("content").clear();
-                getTimadorus().showDialogBox("Erfolg", "Ihre Daten wurden erfolgreich geändert");
+                getTimadorus().showDialogBox("Erfolg", "Ihre Daten wurden erfolgreich ge&auml;ndert");
                 ProfilePanel.getProfilePanel(getTimadorus(), user);
               } else {
                 profileHandleErrors(result);
@@ -398,50 +409,50 @@ public class ProfilePanel extends FormPanel implements HistoryListener, ShowDial
   public void registerInvalid(int error) {
     switch (error) {
     case User.VORNAME_NACHNAME_EMPTY:
-      setText(vornameHTML, "Bitte ausfüllen!");
-      setText(nachnameHTML, "Bitte ausfüllen!");
+      setText(vornameHTML, "Bitte ausf&uuml;llen!");
+      setText(nachnameHTML, "Bitte ausf&uuml;llen!");
       break;
     case User.GEBURTSTAG_EMPTY:
-      setText(geburtstagHTML, "Bitte ausfüllen!");
+      setText(geburtstagHTML, "Bitte ausf&uuml;llen!");
       break;
     case User.GEBURTSTAG_AGE:
       setText(geburtstagHTML, "Du bist leider zu jung!");
       break;
     case User.GEBURTSTAG_FORMAT:
-      setText(geburtstagHTML, "Das Format ist ungültig!");
+      setText(geburtstagHTML, "Das Format ist ung&uuml;ltig!");
       break;
     case User.GEBURTSTAG_FAULT:
-      setText(geburtstagHTML, "Das Datum ist ungültig");
+      setText(geburtstagHTML, "Das Datum ist ung&uuml;ltig");
       break;
     case User.EMAIL_EMPTY:
-      setText(emailHTML, "Bitte ausfüllen!");
+      setText(emailHTML, "Bitte ausf&uuml;llen!");
       break;
     case User.EMAILREPEAT_EMPTY:
-      setText(emailRepeatHTML, "Bitte ausfüllen!");
+      setText(emailRepeatHTML, "Bitte ausf&uuml;llen!");
       break;
     case User.EMAIL_FAULT:
-      setText(emailHTML, "Stimmen nicht überein!");
-      setText(emailRepeatHTML, "Stimmen nicht überein!");
+      setText(emailHTML, "Stimmen nicht &uuml;berein!");
+      setText(emailRepeatHTML, "Stimmen nicht &uuml;berein!");
       break;
     case User.EMAIL_FORMAT:
-      setText(emailHTML, "Das Format ist ungültig!");
-      setText(emailRepeatHTML, "Das Format ist ungültig!");
+      setText(emailHTML, "Das Format ist ung&uuml;ltig!");
+      setText(emailRepeatHTML, "Das Format ist ung&uuml;ltig!");
       break;
     case User.USERNAME_EMPTY:
-      setText(usernameHTML, "Bitte ausfüllen!");
+      setText(usernameHTML, "Bitte ausf&uuml;llen!");
       break;
     case User.USERNAME_FAULT:
       setText(usernameHTML, "Benutzername bereits vergeben!");
       break;
     case User.PASSWORD_EMPTY:
-      setText(passwordHTML, "Bitte ausfüllen!");
+      setText(passwordHTML, "Bitte ausf&uuml;llen!");
       break;
     case User.PASSWORDREPEAT_EMPTY:
-      setText(passwordRepeatHTML, "Bitte ausfüllen!");
+      setText(passwordRepeatHTML, "Bitte ausf&uuml;llen!");
       break;
     case User.PASSWORD_FAULT:
-      setText(passwordHTML, "Stimmen nicht überein!");
-      setText(passwordRepeatHTML, "Stimmen nicht überein!");
+      setText(passwordHTML, "Stimmen nicht &uuml;berein!");
+      setText(passwordRepeatHTML, "Stimmen nicht &uuml;berein!");
       break;
     default:
       break;
@@ -474,7 +485,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener, ShowDial
        * @param event The ClickEvent object
        */
       public void onClick(ClickEvent event) {
-        System.out.println("Account löschen Button geklickt");
+        System.out.println("Account l&ouml;schen Button geklickt");
         handleEvent();
       }
 
@@ -495,7 +506,7 @@ public class ProfilePanel extends FormPanel implements HistoryListener, ShowDial
        */
       private void handleEvent() {
         deleteGrid.remove(delete);
-        deleteGrid.setWidget(0, 0, new Label("Sind Sie sich sicher? Geben Sie Ihr Passwort zur Bestätigung ein."));
+        deleteGrid.setWidget(0, 0, new Label("Sind Sie sich sicher? Geben Sie Ihr Passwort zur Best&auml;tigung ein."));
         deleteGrid.setWidget(1, 0, passBox);
         deleteGrid.setWidget(2, 0, confirm);
         final int row = 3;
