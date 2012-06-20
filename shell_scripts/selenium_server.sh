@@ -4,9 +4,6 @@ XVFB_EXEC=`which Xvfb`
 
 JAVA_EXEC=`which java`
 
-HUB_PID_FILE="./hub.pid"
-NODE_PID_FILE="./node.pid"
-
 SELENIUM_LOG="./selenium.log"
 
 SELENIUM_JAR="selenium-server-standalone.jar"
@@ -27,7 +24,6 @@ start() {
 	echo "Starting Selenium Hub"
 	$JAVA_EXEC -jar $SELENIUM_JAR -role hub > $SELENIUM_LOG &
 	HUB_PID=$!
-	echo $HUB_PID > $HUB_PID_FILE
 	echo "Selenium Hub started with PID $HUB_PID"
 
 	# Sleeping for 5 seconds, just to be sure that the Hub is running
@@ -37,7 +33,6 @@ start() {
 	echo "Starting Selenium Node"
 	$JAVA_EXEC -jar $SELENIUM_JAR -role node -hub http://localhost:4444/grid/register > $SELENIUM_LOG &
 	NODE_PID=$!
-	echo $NODE_PID > $NODE_PID_FILE
 	echo "Selenium Node started with PID $NODE_PID"
 	
 	# Sleeping for 5 seconds, just to be sure that the Node is running
@@ -45,17 +40,10 @@ start() {
 }
 
 stop() {
-	# Stopping Selenium Node
-	echo "Stopping Selenium Node"
-	start-stop-daemon --stop --pidfile $NODE_PID_FILE
-	rm $NODE_PID_FILE
-	echo "Selenium Node stopped"
-	
-	# Stopping Selenium Hub
-	echo "Stopping Selenium Hub"
-	start-stop-daemon --stop --pidfile $HUB_PID_FILE
-	rm $HUB_PID_FILE
-	echo "Selenium Hub stopped"
+	# Stopping Selenium Node and Hub
+	echo "Stopping Selenium Node and Hub"
+	start-stop-daemon --stop --name java
+	echo "Selenium Node and Hub stopped"
 	
 	# Stopping XVFB and X sessions
 	echo "Stopping XVFB and X sessions"
