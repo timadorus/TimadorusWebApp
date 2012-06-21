@@ -19,16 +19,17 @@
 		<dependency org="de.harper-hall" name="bookkeeper" rev="0.1+" />
 
 		<!-- GWT -->
-		<dependency org="com.google.gwt" name="gwt-user" rev="2.4.0" />
-		<dependency org="com.google.gwt" name="gwt-dev" rev="2.4.0" />
-		<dependency org="com.google.gwt" name="gwt-servlet" rev="2.4.0" />
+		<dependency org="com.google.gwt" name="gwt-user" rev="2.4.0" conf="runtime,compile->default"/>
+		<dependency org="com.google.gwt" name="gwt-dev" rev="2.4.0" conf="compile->default"/>
+		<dependency org="com.google.gwt" name="gwt-servlet" rev="2.4.0" conf="runtime,compile->default"/>
 		<dependency org="javax.validation" name="validation-api" rev="1.0.0.GA" conf="runtime->*">
         	<artifact name="validation-api" type="jar"/>
         </dependency>
 		
 
 		<!-- DataNucleus -->
-		<dependency org="org.datanucleus" name="datanucleus-enhancer" rev="[3.0.1,3.1[" conf="compile->default" />
+		<!-- Warning: the availaible scopes are not stated explicitly in the POM file, but are maven convention -->
+		<dependency org="org.datanucleus" name="datanucleus-enhancer" rev="3.0.1" conf="compile->default" />
 		<dependency org="org.datanucleus" name="datanucleus-rdbms" rev="[3.0.1,3.1[" conf="*->default,provided" />
 
 		<!-- Apache Derby -->
@@ -62,6 +63,10 @@
 		<!-- SVNKit -->
 		<dependency org="org.tmatesoft.svnkit" name="svnkit" rev="1.3.5" conf="compile->default"/>
 		
+		<!-- override statements must come last, since the XML scheme is written such, that dependency and override
+		     cannot be mixed. B-(
+		  -->
+		<!-- internally they already use the 3.1 version, but do not do clean release management -->
 		<override org="org.datanucleus" module="datanucleus-api-jdo" rev="[3.0.1,3.1[" />
 		
 	</dependencies>

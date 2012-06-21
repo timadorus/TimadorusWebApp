@@ -28,6 +28,7 @@
 	<!-- control of the java language version  -->
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
+	<property name="java.encoding" value="UTF-8" />  <!-- this must allways be utf-8. Change the code, not this setting!!!-->
 
 	<!--EMMA testing sources -->
 	<property name="coverage.dir" value="${basedir}/coverage" />
@@ -65,6 +66,23 @@
 		</fileset>
 
 	</path>
+	<path id="gwt-compile.classpath">
+		<pathelement path="${java.class.path}/" />
+		
+		<!-- source and compiled java files -->
+		<pathelement location="${war.classes}" />
+		<pathelement location="${src.dir}" />
+
+		<fileset dir="${lib.dir}/compile">
+			<include name="**/*.jar"/>
+			<include name="**/*.zip"/>
+		</fileset>
+
+		<fileset dir="${basedir}/static_lib">
+			<include name="**/*.jar"/>
+			<include name="**/*.zip"/>
+		</fileset>
+	</path>	
 
 	<path id="compile.classpath">
 		<pathelement path="${java.class.path}/" />
@@ -217,7 +235,9 @@
     <target name="_do_java-compile">
 
 		<!-- Aufruf zum Kompilieren -->
-		<javac debug="true" debuglevel="${debuglevel}" destdir="${war.classes}" source="${source}" target="${target}">
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${war.classes}" 
+			source="${source}" target="${target}" encoding="${java.encoding}"
+			includeAntRuntime="false">
 
 			<!-- Quellordner -->
 			<src path="src" />
@@ -261,7 +281,9 @@
 	<target name="test-compile" depends="clean,init">
 
 		<!-- run the compilation -->
-		<javac debug="true" debuglevel="${debuglevel}" destdir="${bin.dir}" source="${source}" target="${target}">
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${bin.dir}" 
+			source="${source}" target="${target}"  encoding="${java.encoding}"
+			includeAntRuntime="false">
 
 			<!-- source folder -->
 			<src path="test-src" />
@@ -335,7 +357,7 @@
 	<target name="gwt-compile">
 
 		<!-- run compilation macro -->
-		<gwtCompile module="org.timadorus.webapp.TimadorusWebApp" classpathref="TimadorusWebApp.classpath"/>
+		<gwtCompile module="org.timadorus.webapp.TimadorusWebApp" classpathref="gwt-compile.classpath"/>
 	</target>
 
 	<!-- Makro:gwtCompile | create macro for creating  -->
@@ -514,7 +536,9 @@
 	<target name="acceptance-test-compile" depends="clean,init.acceptance">
 
 		<!-- run the compilation -->
-		<javac debug="true" debuglevel="${debuglevel}" destdir="${bin.dir}" source="${source}" target="${target}">
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${bin.dir}" 
+			source="${source}" target="${target}" encoding="${java.encoding}"
+			includeAntRuntime="false">
 
 			<!-- source folder -->
 			<src path="test-src" />
