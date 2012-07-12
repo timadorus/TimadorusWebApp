@@ -76,7 +76,7 @@ public class TestCharacterValues {
     factions.add(fac8);
 
     // create testclasses
-    CClass class1 = new CClass();
+    CClass class1 = new CClass(null, null);
     class1.setName("Gärtner");
     class1
         .setDescription("Der Garten ist dein Leben. Keine Straßen, keine Autos, kein Lärm. Nur Bäume und "
@@ -87,7 +87,7 @@ public class TestCharacterValues {
     class1.addFaction(fac4);
     classes.add(class1);
 
-    CClass class2 = new CClass();
+    CClass class2 = new CClass(null, null);
     class2.setName("Hühnerdieb");
     class2
         .setDescription("Hühnerdiebe sind enorm schnelle Viecher, die vorwiegen in Hühnerstellen rumhängen "
@@ -97,7 +97,7 @@ public class TestCharacterValues {
     class2.addFaction(fac4);
     classes.add(class2);
 
-    CClass class3 = new CClass();
+    CClass class3 = new CClass(null, null);
     class3.setName("Söldner");
     class3.setDescription("Geld, Blut, das wars");
     class3.addFaction(fac7);
@@ -105,7 +105,7 @@ public class TestCharacterValues {
     class3.addFaction(fac4);
     classes.add(class3);
 
-    CClass class4 = new CClass();
+    CClass class4 = new CClass(null, null);
     class4.setName("Abmahnungsanwalt");
     class4.setDescription("ROFLROFLPWNED");
     class4.addFaction(fac7);
@@ -113,7 +113,7 @@ public class TestCharacterValues {
     class4.addFaction(fac4);
     classes.add(class4);
 
-    CClass class5 = new CClass();
+    CClass class5 = new CClass(null, null);
     class5.setName("Pilot");
     class5.setDescription("Über den wolken, blablubb.");
     class5.addFaction(fac7);
@@ -121,7 +121,7 @@ public class TestCharacterValues {
     class5.addFaction(fac4);
     classes.add(class5);
 
-    CClass class6 = new CClass();
+    CClass class6 = new CClass(null, null);
     class6.setName("Informatiker");
     class6.setDescription("Du schreibst Stundenlang testtexte für ne webapp.");
     class6.addFaction(fac7);
@@ -129,7 +129,7 @@ public class TestCharacterValues {
     class6.addFaction(fac4);
     classes.add(class6);
 
-    CClass class7 = new CClass();
+    CClass class7 = new CClass(null, null);
     class7.setName("Drücker");
     class7.setDescription("Ja, du hörst richtig. Und nun ab zur nächsten Tür - Geld ranschaffen!");
     class7.addFaction(fac7);

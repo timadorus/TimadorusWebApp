@@ -30,6 +30,11 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * 
+ * @author sage
+ *
+ */
 public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler {
 
   private static final int CELL_SPACING = 8;
@@ -59,6 +64,11 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
   private final ServiceAsync<String, String> exsService = GWT.create(Service.class);
   
 
+  /**
+   * 
+   * @param entryIn application
+   * @param user user of the new campaign
+   */
   public CreateCampaignPanel(DefaultTimadorusWebApp entryIn, final User user) {
     super();
     this.entry = entryIn;
@@ -66,14 +76,20 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
 
     entry.addHandler(CreateCampaineEvent.SHOWDIALOG, this);
 
-    // Create a key-up handler for the nameField
+    /** 
+     * Create a key-up handler for the nameField.
+     */
     class MyKeyUpHandler implements KeyUpHandler {
 
       @Override
       public void onKeyUp(KeyUpEvent event) {
         checkCampaign(campaignNameTextBox.getText());
       }
-
+      
+      /**
+       * 
+       * @param campaignName potential name of the campaign
+       */
       private void checkCampaign(String campaignName) {
        
         Action<String> action = new Action<String>(ServiceType.EXSCAMPAIGN, campaignName);
@@ -113,12 +129,19 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
             System.out.println(caught);
           }
         };
-        createCampaignServiceAsync.existsCampaign(campaignName, asyncCallback);*/
+        createCampaignServiceAsync.existsCampaign(campaignName, asyncCallback);
+        */
       }
     }
 
-    // Create a handler for the saveButton and nameField
+    /**
+     * Create a handler for the saveButton and nameField.
+     */
     class MyHandler implements ClickHandler {
+      
+      /**
+       * @param event event to catch 
+       */
       public void onClick(ClickEvent event) {
 
         if (event.getSource().equals(saveButton)) {
@@ -172,6 +195,9 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
     campaignNameTextBox.addKeyUpHandler(keyUpHandler);
   }
 
+  /**
+   * 
+   */
   public void onSaveButtonClick() {
     // TODO User auf null checken
     Campaign campaign = new Campaign();
@@ -182,6 +208,10 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
     loadSavedCampaignPanel(user);
   }
 
+  /**
+   * 
+   * @param campaign the campaign to send
+   */
   private void sendToServer(Campaign campaign) {
   
     Action<Campaign> action = new Action<Campaign>(ServiceType.CRTCAMPAIGN, campaign);
@@ -223,6 +253,10 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
     */
   }
 
+  /**
+   * 
+   * @param userIn user to load campaigns for
+   */
   public void loadSavedCampaignPanel(User userIn) {
     RootPanel.get("information").clear();
     RootPanel.get("content").clear();
@@ -232,16 +266,30 @@ public class CreateCampaignPanel extends FormPanel implements ShowDialogHandler 
     RootPanel.get("content").add(panel);
   }
 
+  /**
+   * 
+   * @param entry application
+   * @param user user to get the panel for
+   * @return a panel to show the campaigns
+   */
   public static CreateCampaignPanel getCampaignPanel(DefaultTimadorusWebApp entry, User user) {
     return new CreateCampaignPanel(entry, user);
   }
 
+  /**
+   * 
+   * @return the information string to show for user help
+   */
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Kampagne anlegen</h1><p>Hier kannst du eine neue Kampagne anlegen. "
         + "Wähle einen Namen für deine Kampagne und gebe eine Kurzbeschreibung an.</p>");
     return information;
   }
 
+  /**
+   * 
+   * @return the entry
+   */
   public DefaultTimadorusWebApp getEntry() {
     return entry;
   }

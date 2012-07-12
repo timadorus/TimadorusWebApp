@@ -9,7 +9,9 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.annotations.Unique;
 
-//This class represents a Campaign, which can be created by the Game Master or Admin
+/** a Campaign, which can be created by the Game Master or Admin.
+ * 
+ */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Campaign implements Serializable {
   
@@ -29,44 +31,81 @@ public class Campaign implements Serializable {
   @Persistent
   private String username = "--";
   
-  public Campaign() {
-    
-  }
-  
+  /**
+   * @return the campaignID
+   */
   public Long getCampaignID() {
     return campaignID;
   }
 
+
+
+  /**
+   * @param campaignID the campaignID to set
+   */
   public void setCampaignID(Long campaignID) {
     this.campaignID = campaignID;
   }
 
+
+
+  /**
+   * @return the name
+   */
   public String getName() {
     return name;
   }
 
+
+
+  /**
+   * @param name the name to set
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+
+
+  /**
+   * @return the beschreibung
+   */
   public String getBeschreibung() {
     return beschreibung;
   }
 
+
+
+  /**
+   * @param beschreibung the beschreibung to set
+   */
   public void setBeschreibung(String beschreibung) {
     this.beschreibung = beschreibung;
   }
-  
+
+
+
+  /**
+   * @return the username
+   */
+  public String getUsername() {
+    return username;
+  }
+
+
+
+  /**
+   * @param username the username to set
+   */
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+
+
   @Override
   public String toString() {
     return "Campaign-Name: " + name;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getUsername() {
-    return username;
-  }
 }

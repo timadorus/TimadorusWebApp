@@ -26,6 +26,9 @@
         	<artifact name="validation-api" type="jar"/>
         </dependency>
 		
+		<!-- injection -->
+		<dependency org="com.google.inject" name="guice" rev="3.0" conf="runtime,compile->default"/>		
+        <dependency org="com.google.inject.extensions" name="guice-servlet" rev="3.0" conf="runtime,compile->default"/>
 
 		<!-- DataNucleus -->
 		<!-- Warning: the availaible scopes are not stated explicitly in the POM file, but are maven convention -->

@@ -1,9 +1,5 @@
 package org.timadorus.webapp.tests.server;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
-import org.timadorus.webapp.server.RegisteredUserList;
 
 /**
  * Test-Class for RegisteredUserList
@@ -13,13 +9,6 @@ import org.timadorus.webapp.server.RegisteredUserList;
  */
 
 public class RegisteredUserListTest {
-
-  @Test
-  public void testgetInstance() {
-    Assert.assertNotNull(RegisteredUserList.getInstance());
-    Assert.assertTrue(RegisteredUserList.getInstance() instanceof RegisteredUserList);
-
-  }
 
  
   // @Test

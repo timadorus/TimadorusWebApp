@@ -13,30 +13,49 @@ import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Faction;
 import org.timadorus.webapp.beans.Race;
 import org.timadorus.webapp.beans.User;
-import org.timadorus.webapp.server.RegisteredUserList;
 
 import de.harper_hall.keeper.tables.PotStatResolve;
 
+/**
+ * 
+ * @author sage
+ *
+ */
 public final class CharacterProvider {
   
-  private CharacterProvider() {
-    
+  
+  private final PersistenceManagerFactory pmf;
+
+  /**
+   * 
+   * @param factory the factory to use.
+   */
+  public CharacterProvider(PersistenceManagerFactory factory) {
+    this.pmf = factory;
   }
 
-  private static final PersistenceManagerFactory PMF = RegisteredUserList.PMF;
-
-  public static List<Character> getCharacterList(User user) {
+  /**
+   * 
+   * @param user the user the get character list for
+   * @return a list of characters
+   */
+  public List<Character> getCharacterList(User user) {
     // Get character objects from db
     List<Character> chars = getCharacters(user);
     
     return chars;
   }
   
+  /**
+   * 
+   * @param user the user the get character list for
+   * @return a list of characters
+   */
   @SuppressWarnings("unchecked")
-  public static List<Character> getCharacters(User user) {
+  public List<Character> getCharacters(User user) {
 
     try {
-      PersistenceManager pm = PMF.getPersistenceManager();
+      PersistenceManager pm = pmf.getPersistenceManager();
 
       Extent<Character> extent = pm.getExtent(Character.class, true);
       Query query = pm.newQuery(extent, "username == '" + user.getUsername() + "'");
@@ -54,9 +73,14 @@ public final class CharacterProvider {
     return null;
   }
   
+  /**
+   * 
+   * @param character character to delete
+   * @return OK if the deletion was successfull, FAIL otherwise
+   */
   @SuppressWarnings("unchecked")
-  public static String deleteCharacter(Character character) {
-    PersistenceManager pm = PMF.getPersistenceManager();
+  public String deleteCharacter(Character character) {
+    PersistenceManager pm = pmf.getPersistenceManager();
     Extent<Character> extent = pm.getExtent(Character.class, true);
     Query query = pm.newQuery(extent, "name == '" + character.getName() + "'");
     List<Character> characters = (List<Character>) query.execute();
@@ -69,7 +93,12 @@ public final class CharacterProvider {
     return "FAIL";
   }
   
-  public static String createCharacter(Character character) {
+  /**
+   * 
+   * @param character character template to use for creation
+   * @return SUCCESS if the creation was successful, FAILURE otherwise
+   */
+  public String createCharacter(Character character) {
     if (character != null) {
       System.out.println("\n\n**********" + character.toString() + "\n" + character.toStringPart2()
                          + "\n****************\n\n");
@@ -80,9 +109,14 @@ public final class CharacterProvider {
     
   }
 
+  /**
+   * 
+   * @param character write characte data to database
+   * @return  SUCCESS if the writing was successful, FAILURE otherwise
+   */
   @SuppressWarnings("unchecked")
-  public static String saveCharacterToDB(Character character) {
-    PersistenceManager pm = PMF.getPersistenceManager();
+  public String saveCharacterToDB(Character character) {
+    PersistenceManager pm = pmf.getPersistenceManager();
     
     // check if character name already exists
     Extent<Character> characterExtent = pm.getExtent(Character.class, true);
@@ -144,11 +178,16 @@ public final class CharacterProvider {
     return "SUCCESS";
   }
 
+  /**
+   * 
+   * @param cname name of the character to retrieve
+   * @return the character by that name or <code>null</code>
+   */
   @SuppressWarnings("unchecked")
   public Character getCharacterFromDB(String cname) {
 
     try {
-      PersistenceManager pm = PMF.getPersistenceManager();
+      PersistenceManager pm = pmf.getPersistenceManager();
   
       List<Character> entries = new ArrayList<Character>();
   
@@ -175,7 +214,12 @@ public final class CharacterProvider {
     return null;
   }
 
-  public static int makePotStat(int temp) {
+  /** make a pot roll.
+   * 
+   * @param temp value of the temp stat
+   * @return the pot value
+   */
+  public int makePotStat(int temp) {
     final int maxPotRoll = 100;
     int potRoll = (int) Math.floor((Math.random() * maxPotRoll) + 1);
     System.out.println("makePotStat called");

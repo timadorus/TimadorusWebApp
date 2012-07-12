@@ -13,7 +13,6 @@ import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.Faction;
 import org.timadorus.webapp.beans.Race;
 import org.timadorus.webapp.client.rpc.service.CreateCharacterService;
-import org.timadorus.webapp.server.RegisteredUserList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -25,9 +24,16 @@ import de.harper_hall.keeper.tables.PotStatResolve;
  */
 public class CreateCharacterServiceImpl extends RemoteServiceServlet implements CreateCharacterService {
 
-  private static final PersistenceManagerFactory PMF = RegisteredUserList.PMF;
+  private final PersistenceManagerFactory pmf;
 
   
+  /**
+   * @param pmf the factory to use
+   */
+  public CreateCharacterServiceImpl(PersistenceManagerFactory pmf) {
+    this.pmf = pmf;
+  }
+
   private static final long serialVersionUID = 2463839761006931303L;
   @Override
   public String createCharacter(Character character) {
@@ -41,9 +47,14 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
     
   }
 
+  /**
+   * 
+   * @param character the character to save
+   * @return SUCCESS or FAILURE
+   */
   @SuppressWarnings("unchecked")
   public String saveCharacterToDB(Character character) {
-    PersistenceManager pm = PMF.getPersistenceManager();
+    PersistenceManager pm = pmf.getPersistenceManager();
     
     // check if character name already exists
     Extent<Character> characterExtent = pm.getExtent(Character.class, true);
@@ -105,11 +116,16 @@ public class CreateCharacterServiceImpl extends RemoteServiceServlet implements 
     return "SUCCESS";
   }
 
+  /**
+   * 
+   * @param cname name of the character to retrieve
+   * @return a character or null
+   */
   @SuppressWarnings("unchecked")
   public Character getCharacterFromDB(String cname) {
 
     try {
-      PersistenceManager pm = PMF.getPersistenceManager();
+      PersistenceManager pm = pmf.getPersistenceManager();
   
       List<Character> entries = new ArrayList<Character>();
   

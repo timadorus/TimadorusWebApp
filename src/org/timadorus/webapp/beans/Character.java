@@ -90,10 +90,10 @@ public class Character implements Serializable {
   @Persistent
   List<Integer> potStats = new LinkedList<Integer>();
 
-  public Character() {
-  }
-
-  void fillStats() {
+  /**
+   * 
+   */
+  private void fillStats() {
     statList = new LinkedList<Stat>();
 
     Stat s1 = new Stat("Konstitution", "Konsti");
@@ -126,6 +126,10 @@ public class Character implements Serializable {
     statList.add(s12);
   }
 
+  /**
+   * 
+   * @return a pre-configured instance of the class.
+   */
   public static Character getInstance() {
     Character character = new Character();
     character.fillStats();
@@ -134,151 +138,174 @@ public class Character implements Serializable {
     return character;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String nameIn) {
-    this.name = nameIn;
-  }
-
-  public String getGender() {
-    return gender;
-  }
-
-  public void setGender(String genderIn) {
-    this.gender = genderIn;
-  }
-
   /**
-   * Returns the {@link CharacterColors} of the character, or <code>null</code> if the saved value is invalid.
+   * Returns the {@link CharacterColors} of the character, or <code>null</code>
+   * if the saved value is invalid.
    * 
-   * @return
+   * @return the skin color of the character
    */
   public CharacterColors getSkinColor() {
     return CharacterColors.getByValue(skinColor);
   }
 
+  /**
+   * 
+   * @param skinColorIn the skin color to set
+   */
   public void setSkinColor(CharacterColors skinColorIn) {
     this.skinColor = skinColorIn.getValue();
   }
 
+  /**
+   * @param skinColor the skinColor to set
+   */
+  public void setSkinColor(String skinColor) {
+    this.skinColor = skinColor;
+  }
+
+  /**
+   * 
+   * @return the hair color of the character
+   */
   public CharacterColors getHairColor() {
     return CharacterColors.getByValue(hairColor);
   }
 
+  /**
+   * 
+   * @param hairColorIn the hair color to set
+   */
   public void setHairColor(CharacterColors hairColorIn) {
     this.hairColor = hairColorIn.getValue();
   }
 
-  public Race getRace() {
-    return race;
+
+  /**
+   * @param hairColor the hairColor to set
+   */
+  public void setHairColor(String hairColor) {
+    this.hairColor = hairColor;
   }
 
-  public void setRace(Race raceIn) {
-    this.race = raceIn;
-  }
-
-  public Long getKey() {
-    return key;
-  }
-
-  public void setKey(Long keyIn) {
-    this.key = keyIn;
-  }
-
-  public String getCharacterID() {
-    return characterID;
-  }
-
-  public void setCharacterID(String characterIDIn) {
-    this.characterID = characterIDIn;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String usernameIn) {
-    this.username = usernameIn;
-  }
-
-  public boolean isComplete() {
-    return complete;
-  }
-
-  public void setComplete(boolean completeIn) {
-    this.complete = completeIn;
-  }
-
+  /**
+   * 
+   * @return attribute information part 1
+   */
   public String getAllAttrInfo_Part1() {
     return allAttrInfoPart1;
   }
 
+  /**
+   * 
+   * @return attribute information part 2
+   */
+  public String getAllAttrInfo_Part2() {
+    return allAttrInfoPart2;
+  }
+
+  /**
+   * 
+   */
   public void setAllAttrInfo_Part1() {
     allAttrInfoPart1 = this.toString();
   }
 
-  // split Information-String in two Parts, because com.google.appengine.api.datastore.Text don't works on client side
+ 
+
+  /**
+   * split Information-String in two Parts, because com.google.appengine.api.datastore.Text 
+   * don't works on client side.
+   */
   public void setAllAttrInfo() {
     setAllAttrInfo_Part1();
     setAllAttrInfo_Part2();
   }
 
-  public String getAllAttrInfo_Part2() {
-    return allAttrInfoPart2;
-  }
-
+  /**
+   * 
+   */
   public void setAllAttrInfo_Part2() {
     allAttrInfoPart2 = this.toStringPart2();
   }
 
   /* Save Character-Relevance Info's as one-String-Object, for later saving as one-String-Object in AppEngine-JDO */
 
+
+  /**
+   * 
+   */
   public List<Integer> getTempStat() {
     return tempStats;
   }
 
+  /**
+   * 
+   * @param tempStat list of temp stats to set
+   */
   public void setTempStat(List<Integer> tempStat) {
     this.tempStats = tempStat;
   }
 
-  public void setStatList(List<Stat> statList2) {
-    this.statList = statList2;
+  /**
+   * 
+   * @param statList the stat list to set
+   */
+  public void setStatList(List<Stat> statList) {
+    this.statList = statList;
   }
 
+  /**
+   * 
+   * @return the character class
+   */
   public CClass getCharClass() {
     return charClass;
   }
 
+  /**
+   * 
+   * @param charClassIn character class to set
+   */
   public void setCharClass(CClass charClassIn) {
     this.charClass = charClassIn;
   }
 
+  /**
+   * 
+   * @return the list of stats
+   */
   public List<Stat> getStatList() {
     return statList;
   }
 
+  /**
+   * 
+   * @param stat the stat to add
+   */
   public void addStat(Stat stat) {
     statList.add(stat);
   }
 
-  public Faction getFaction() {
-    return faction;
-  }
-
-  public void setFaction(Faction factionIn) {
-    this.faction = factionIn;
-  }
-
+  /**
+   * 
+   * @return the list of skills 
+   */
   public List<Skill> getSkillList() {
     return skillList;
   }
 
+  /**
+   * 
+   * @param skillListIn the list of skills to set
+   */
   public void setSkillList(List<Skill> skillListIn) {
     this.skillList = skillListIn;
   }
 
+  /**
+   * 
+   * @return the list of skill names as comma separated list
+   */
   public String getSkillListNames() {
     String s = "";
     for (Skill skill : skillList) {
@@ -292,6 +319,10 @@ public class Character implements Serializable {
     return s;
   }
 
+  /**
+   * 
+   * @return get comma separated list of skill levels
+   */
   public String getSkillLevel1ListNames() {
     String s = "";
     for (Skill skill : skillListLevel1) {
@@ -305,6 +336,10 @@ public class Character implements Serializable {
     return s;
   }
 
+  /**
+   * 
+   * @return pot stat list werte
+   */
   public String getPotStatListWerte() {
     String s = "";
     for (Integer i : potStats) {
@@ -318,6 +353,10 @@ public class Character implements Serializable {
     return s;
   }
 
+  /**
+   * 
+   * @return get temp stat werte
+   */
   public String getTempStatListWerte() {
     String s = "";
     for (Integer i : tempStats) {
@@ -331,10 +370,18 @@ public class Character implements Serializable {
     return s;
   }
 
+  /**
+   * 
+   * @return the skill level list
+   */
   public List<Skill> getSkillListLevel1() {
     return skillListLevel1;
   }
 
+  /**
+   * 
+   * @param skillListLevel1In
+   */
   public void setSkillListLevel1(List<Skill> skillListLevel1In) {
     this.skillListLevel1 = skillListLevel1In;
   }
@@ -346,22 +393,6 @@ public class Character implements Serializable {
     }
 
     return s;
-  }
-
-  public List<Integer> getTempStats() {
-    return tempStats;
-  }
-
-  public void setTempStats(List<Integer> tempStatsIn) {
-    this.tempStats = tempStatsIn;
-  }
-
-  public List<Integer> getPotStats() {
-    return potStats;
-  }
-
-  public void setPotStats(List<Integer> potStats2) {
-    this.potStats = potStats2;
   }
 
   @Override
@@ -407,4 +438,174 @@ public class Character implements Serializable {
 
     return s;
   }
+
+  /**
+   * @return the key
+   */
+  public Long getKey() {
+    return key;
+  }
+
+  /**
+   * @param key the key to set
+   */
+  public void setKey(Long key) {
+    this.key = key;
+  }
+
+  /**
+   * @return the characterID
+   */
+  public String getCharacterID() {
+    return characterID;
+  }
+
+  /**
+   * @param characterID the characterID to set
+   */
+  public void setCharacterID(String characterID) {
+    this.characterID = characterID;
+  }
+
+  /**
+   * @return the username
+   */
+  public String getUsername() {
+    return username;
+  }
+
+  /**
+   * @param username the username to set
+   */
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * @return the gender
+   */
+  public String getGender() {
+    return gender;
+  }
+
+  /**
+   * @param gender the gender to set
+   */
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+
+  /**
+   * @return the race
+   */
+  public Race getRace() {
+    return race;
+  }
+
+  /**
+   * @param race the race to set
+   */
+  public void setRace(Race race) {
+    this.race = race;
+  }
+
+  /**
+   * @return the faction
+   */
+  public Faction getFaction() {
+    return faction;
+  }
+
+  /**
+   * @param faction the faction to set
+   */
+  public void setFaction(Faction faction) {
+    this.faction = faction;
+  }
+
+  /**
+   * @return the complete
+   */
+  public boolean isComplete() {
+    return complete;
+  }
+
+  /**
+   * @param complete the complete to set
+   */
+  public void setComplete(boolean complete) {
+    this.complete = complete;
+  }
+
+  /**
+   * @return the allAttrInfoPart1
+   */
+  public String getAllAttrInfoPart1() {
+    return allAttrInfoPart1;
+  }
+
+  /**
+   * @param allAttrInfoPart1 the allAttrInfoPart1 to set
+   */
+  public void setAllAttrInfoPart1(String allAttrInfoPart1) {
+    this.allAttrInfoPart1 = allAttrInfoPart1;
+  }
+
+  /**
+   * @return the allAttrInfoPart2
+   */
+  public String getAllAttrInfoPart2() {
+    return allAttrInfoPart2;
+  }
+
+  /**
+   * @param allAttrInfoPart2 the allAttrInfoPart2 to set
+   */
+  public void setAllAttrInfoPart2(String allAttrInfoPart2) {
+    this.allAttrInfoPart2 = allAttrInfoPart2;
+  }
+
+  /**
+   * @return the tempStats
+   */
+  public List<Integer> getTempStats() {
+    return tempStats;
+  }
+
+  /**
+   * @param tempStats the tempStats to set
+   */
+  public void setTempStats(List<Integer> tempStats) {
+    this.tempStats = tempStats;
+  }
+
+  /**
+   * @return the potStats
+   */
+  public List<Integer> getPotStats() {
+    return potStats;
+  }
+
+  /**
+   * @param potStats the potStats to set
+   */
+  public void setPotStats(List<Integer> potStats) {
+    this.potStats = potStats;
+  }
+  
+  
 }

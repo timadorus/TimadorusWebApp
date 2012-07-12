@@ -42,20 +42,6 @@ public final class Util {
   }
 
   /**
-   * Checks if the username is available or not.
-   * 
-   * @param username The username which shall be checked
-   * @return 0 if the username is available, User.USERNAME_FAULT otherwise
-   */
-  public static int checkUsernameFree(String username) {
-    RegisteredUserList userList = RegisteredUserList.getInstance();
-    if (!userList.usernameAvailable(username)) { 
-      return User.USERNAME_FAULT; 
-    }
-    return 0;
-  }
-
-  /**
    * Checks if the birthday is valid or not.
    * 
    * @param birthday The birthday which shall be checked as string
@@ -110,7 +96,7 @@ public final class Util {
    * @param user The user object
    * @return A string containing an 32byte MD5-Hash as activation code for the supplied user object.
    */
-  public static String generateActivationCode(User user) {
+  public String generateActivationCode(User user) {
     String pass = user.getVorname() + user.getNachname() + user.getEmail() + user.getPassword() 
                   + user.getGeburtstag() + System.currentTimeMillis();
     

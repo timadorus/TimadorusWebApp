@@ -9,20 +9,31 @@ import javax.jdo.Query;
 
 import org.timadorus.webapp.beans.Campaign;
 import org.timadorus.webapp.beans.Fraction;
-import org.timadorus.webapp.server.RegisteredUserList;
 
+/**
+ * 
+ * @author sage
+ *
+ */
 public final class FractionProvider {
+
+  private final PersistenceManagerFactory pmf;
+
   
-  private FractionProvider() {
-    
+  /**
+   * 
+   * @param pmf factory to use
+   */
+  public FractionProvider(PersistenceManagerFactory pmf) {
+    this.pmf = pmf;
   }
 
- private static final long serialVersionUID = 8010756267869833209L;
-  
-  private static final PersistenceManagerFactory PMF = RegisteredUserList.PMF;
-
-  
-  public static String createFraction(Fraction fraction) {
+  /** create a fraction.
+   * 
+   * @param fraction bean containing information on the fraction to create.
+   * @return SUCCESS if the creation succeeded, FAILURE otherwise.
+   */
+  public String createFraction(Fraction fraction) {
     if (fraction != null) {
       System.out.println("\n\n" + fraction.toString() + "\n\n");
       return saveFractionToDB(fraction);
@@ -31,8 +42,13 @@ public final class FractionProvider {
     }
   }
 
-  private static String saveFractionToDB(Fraction fraction) {
-    PersistenceManager pm = PMF.getPersistenceManager();
+  /** write fraction to database.
+   * 
+   * @param fraction the bean containing information on the fraction to write.
+   * @return SUCCESS if the writing succeeded, FAILURE otherwise.
+   */
+  private String saveFractionToDB(Fraction fraction) {
+    PersistenceManager pm = pmf.getPersistenceManager();
 
     try {        
       //campaign.setAllAttrInfo();
@@ -46,10 +62,15 @@ public final class FractionProvider {
    return "SUCCESS";
   }
 
+  /** Check if fraction name already exists and if it belongs to a certain campaign.
+   * 
+   * @param fractionName name of the fraction to check
+   * @param campaignName name of the campaign that fraction belongs to.
+   * @return SUCCESS if the fraction by that name belongs to that campaign. FAILURE otherwise
+   */
   @SuppressWarnings("unchecked")
-  //Checks if fraction name already exists and if it belongs to a certain campaign
-  public static String existsFraction(String fractionName, String campaignName) {
-    PersistenceManager pm = PMF.getPersistenceManager();
+  public String existsFraction(String fractionName, String campaignName) {
+    PersistenceManager pm = pmf.getPersistenceManager();
 
     Extent<Fraction> fractionExtent = pm.getExtent(Fraction.class, true);
     Query fractionQuery = pm.newQuery(fractionExtent, "name == '" + fractionName + "'");

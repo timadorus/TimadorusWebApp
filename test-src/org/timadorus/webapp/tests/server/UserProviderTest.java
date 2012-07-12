@@ -32,7 +32,7 @@ public class UserProviderTest {
   
   @Before
   public void setUp() throws Exception {
-    userService = new UserServiceImpl();
+    userService = new UserServiceImpl(null, null);
    
        
     user1 = new User("vorname", "nachname", "1.1.1970", "test@mail.org", "testuser01", "password");

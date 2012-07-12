@@ -28,6 +28,11 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * 
+ * @author sage
+ *
+ */
 public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
 
   DefaultTimadorusWebApp entry;
@@ -46,6 +51,11 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
   
   private final ServiceAsync<User, List<Campaign>> getService = GWT.create(Service.class);
 
+  /**
+   * 
+   * @param entryIn application
+   * @param user user controlling the application
+   */
   public EditCampaignPanel(DefaultTimadorusWebApp entryIn, final User user) {
     super();
     this.entry = entryIn;
@@ -67,6 +77,10 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
 
   }
 
+  /** retrieve the campaigns for a user.
+   * 
+   * @param user users to get campaigns for
+   */
   private void getCampaigns(User user) {
     
     
@@ -124,7 +138,16 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
       for (final Campaign campaign : result) {
         final Button edit = new Button("Bearbeiten");
 
+        /**
+         * 
+         * @author sage
+         *
+         */
         class MyHandler implements ClickHandler {
+          
+          /**
+           * @param event the event to catch
+           */
           public void onClick(ClickEvent event) {
             if (event.getSource().equals(edit)) {
               getEntry().fireEvent(new ShowCreateFractionEvent(user, campaign));
@@ -152,16 +175,30 @@ public class EditCampaignPanel extends FormPanel implements ShowDialogHandler {
     getEntry().fireEvent(new ShowEditCampaignEvent(user));
   }
 
+  /**
+   * 
+   * @param entry application
+   * @param user the user to run as
+   * @return a new panel instance
+   */
   public static EditCampaignPanel getCampaignPanel(DefaultTimadorusWebApp entry, User user) {
     return new EditCampaignPanel(entry, user);
   }
 
+  /**
+   * 
+   * @return user information as html encoded string
+   */
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Kampagne verwalten</h1><p>Hier kannst du deine Kampagne verwalten. "
         + "Wähle eine Kampagne um eine Fraktion dafür anzulegen.</p>");
     return information;
   }
 
+  /**
+   * 
+   * @return the application
+   */
   public DefaultTimadorusWebApp getEntry() {
     return entry;
   }

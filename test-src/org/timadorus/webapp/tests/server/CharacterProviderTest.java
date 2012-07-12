@@ -40,7 +40,7 @@ public class CharacterProviderTest {
     System.err.println("TEST");
     user = new User("Vorname", "Nachname", "01.01.1970", "example@example.org", "Username", "password");
     // Chars erstellen
-    service = new CreateCharacterServiceImpl();
+    service = new CreateCharacterServiceImpl(null);
 
     Character character = new Character();
 
@@ -52,7 +52,7 @@ public class CharacterProviderTest {
     race.setName("Gnom");
     character.setRace(race);
 
-    CClass charClass = new CClass();
+    CClass charClass = new CClass(null, null);
     charClass.setName("Bankier");
     character.setCharClass(charClass);
 

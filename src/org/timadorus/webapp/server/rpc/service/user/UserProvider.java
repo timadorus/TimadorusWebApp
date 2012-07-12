@@ -10,17 +10,28 @@ import org.timadorus.webapp.beans.User;
 import org.timadorus.webapp.server.RegisteredUserList;
 import org.timadorus.webapp.server.Util;
 
+/**
+ * 
+ * @author sage
+ *
+ */
 public final class UserProvider {
-  
-  private UserProvider() {
-    
-  }
   
   private static final long serialVersionUID = -2215579735797066083L;
   
-  public static final PersistenceManagerFactory PMF = RegisteredUserList.PMF;
-  private static RegisteredUserList userList = RegisteredUserList.getInstance();
+  private final PersistenceManagerFactory pmf;
+  private final RegisteredUserList userList;
+
   
+  /**
+   * @param pmf the factory to use
+   * @param userList the user list to use
+   */
+  public UserProvider(PersistenceManagerFactory pmf, RegisteredUserList userList) {
+    this.pmf = pmf;
+    this.userList = userList;
+  }
+
   /**
    * Returns a User object containing the current available informations of this user.
    * 
@@ -28,9 +39,9 @@ public final class UserProvider {
    * @return The user in current state
    */
   @SuppressWarnings("unchecked")
-  public static User getUser(User user) {
+  public User getUser(User user) {
     try {
-      PersistenceManager pm = PMF.getPersistenceManager();  
+      PersistenceManager pm = pmf.getPersistenceManager();  
       
       Query query = pm.newQuery(User.class, "username == '" + user.getUsername() + "'");
       
@@ -56,8 +67,8 @@ public final class UserProvider {
    * @param user The user which shall be deleted
    * @return The status of delete-process User.OK on success, User.USER_INVALID otherwise
    */
-  public static String delete(User user) {
-    boolean status = RegisteredUserList.getInstance().deleteUser(user);
+  public String delete(User user) {
+    boolean status = userList.deleteUser(user);
     if (status) {
       return String.valueOf(User.OK);
     }
@@ -71,14 +82,14 @@ public final class UserProvider {
    * @param user The supplied user data
    * @return An integer value representing the state of the update attempt
    */
-  public static int update(long id, User user) {
-    PersistenceManager pm = PMF.getPersistenceManager();
+  public int update(long id, User user) {
+    PersistenceManager pm = pmf.getPersistenceManager();
     
     int value       = isValid(user);
     User origUser   = pm.getObjectById(User.class, id);
     
     if (!origUser.getUsername().equals(user.getUsername())) {
-      value += Util.checkUsernameFree(user.getUsername());
+      value += checkUsernameFree(user.getUsername());
     }
     
     if (value == User.OK) {
@@ -97,6 +108,19 @@ public final class UserProvider {
   }
   
   /**
+   * Checks if the username is available or not.
+   * 
+   * @param username The username which shall be checked
+   * @return 0 if the username is available, User.USERNAME_FAULT otherwise
+   */
+  public int checkUsernameFree(String username) {
+    if (!userList.usernameAvailable(username)) { 
+      return User.USERNAME_FAULT; 
+    }
+    return 0;
+  }
+
+  /**
    * Activates a user using the activation code, which was send as link to the users e-mail address.
    * 
    * @param activationCode The activation code which was send as link to the users e-mail address
@@ -106,7 +130,7 @@ public final class UserProvider {
    *         User.USER_INVALID              if the username and password was wrong and
    *         User.USER_VERIFIED             if the user has been successfully verified.  
    */
-  public static String verifyMail(String activationCode, User user) {
+  public String verifyMail(String activationCode, User user) {
     if (user == null) { return null; }
     if (userList.isValid(user)) {
       if (userList.isActive(user)) {
@@ -114,7 +138,7 @@ public final class UserProvider {
       } else {
         user = getUser(user);
         if (activationCode.equals(user.getActivationCode())) {
-          PersistenceManager pm = PMF.getPersistenceManager();          
+          PersistenceManager pm = pmf.getPersistenceManager();          
           User origUser         = pm.getObjectById(User.class, user.getId());
           origUser.setActive(true);
           pm.makePersistent(origUser);
@@ -129,7 +153,7 @@ public final class UserProvider {
   }
   
   /**
-   * Checks if the supplied user data is valid for update.-
+   * Checks if the supplied user data is valid for update.
    * 
    * @param user The supplied user data as User object
    * @return User.OK or other integer values in case of error

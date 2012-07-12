@@ -10,8 +10,9 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
-//This Class represents a Character-Class-Object, which is related to a
-//Character-Object
+/** a Character-Class object, which is related to a Character object.
+ * 
+ */
 @PersistenceCapable
 public class CClass implements Serializable {
 
@@ -33,63 +34,101 @@ public class CClass implements Serializable {
   @NotPersistent
   private List<Faction> availableFactions1 = new ArrayList<Faction>();
 
-  public CClass() {
-  }
-
+  /**
+   * 
+   * @param nameIn the name of the character class
+   * @param descriptionIn a short description of the character class
+   */
   public CClass(final String nameIn, final String descriptionIn) {
     this.name = nameIn;
     this.description = descriptionIn;
   }
 
-  public final String getName() {
-    return name;
-  }
+  
 
-  public final void setName(final String nameIn) {
-    this.name = nameIn;
-  }
-
-  public final String getDescription() {
-    return description;
-  }
-
-  public final void setDescription(final String descriptionIn) {
-    this.description = descriptionIn;
-  }
-
-  public final Long getClassID() {
+  /**
+   * @return the cclassID
+   */
+  public Long getCclassID() {
     return cclassID;
   }
 
-  public final void setClassID(final Long classIDIn) {
-    this.cclassID = classIDIn;
+
+
+  /**
+   * @param cclassID the cclassID to set
+   */
+  public void setCclassID(Long cclassID) {
+    this.cclassID = cclassID;
   }
 
+
+
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+
+
+  /**
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+
+  /**
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+
+
+  /**
+   * @param description the description to set
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+
+  /**
+   * 
+   * @return the availiable factions
+   */
   public final List<Faction> getAvailableFactions() {
     return availableFactions1;
   }
 
+  /**
+   * 
+   * @param faction the faction to add
+   */
   public final void addFaction(final Faction faction) {
     this.availableFactions1.add(faction);
   }
 
+  /**
+   * 
+   * @param availableFactions the list of factions to set
+   */
   public final void setAvailableFactions(final List<Faction> availableFactions) {
     this.availableFactions1 = availableFactions;
   }
 
-  public final List<Faction> getAvailableFactions1() {
-    return availableFactions1;
-  }
-
-  public final void setAvailableFactions1(final List<Faction> availableFactions1In) {
-    this.availableFactions1 = availableFactions1In;
-  }
 
   /**
-   * Checks if the given {@link Faction} is in the available for this class.
+   * Checks if the given {@link Faction} is in the factions available for this class.
    * 
-   * @param cClass
-   * @return <code>true</code> if the class is allowed, otherwise <code>false</code>.
+   * @param faction the faction to check
+   * @return <code>true</code> if the faction is allowed for this class, <code>false</code> otherwise.
    */
   public boolean containsFaction(Faction faction) {
     return availableFactions1.contains(faction);

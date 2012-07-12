@@ -43,11 +43,11 @@ public class UtilTest {
     testEMail(theUser, "admin@timadorus.org", 0);
   }
   
-  /**
-   * just a little helper method
-   * @param anUser
-   * @param anEmail
-   * @param aReturn
+  /** ust a little helper method.
+   * 
+   * @param anUser user to send mail to
+   * @param anEmail email address to send to.
+   * @param aReturn expected return value
    */
   private void testEMail(User anUser, String anEmail, int aReturn) {
     anUser.setEmail(anEmail);
@@ -56,8 +56,7 @@ public class UtilTest {
                         + anEmail + " but returned " + checkEmailAdresse, aReturn, checkEmailAdresse);
   }
   
-  /**
-   * Test for the method checkBirthday
+  /** Test for the method checkBirthday.
    */
   @Test
   public void testCheckBirthday() {
@@ -82,8 +81,8 @@ public class UtilTest {
   
   /**
    * just a little helper method.
-   * @param aDate
-   * @param aReturn
+   * @param aDate birthday as a string
+   * @param aReturn expected return value
    */
   private void testBirthdayFormat(String aDate, int aReturn) {
     int checkBirthday = Util.checkBirthday(aDate);
@@ -91,8 +90,8 @@ public class UtilTest {
                         + aDate + " but returned " + checkBirthday, aReturn, checkBirthday);
   }
   
-  /**
-   * Test for the method checkUsernameFree 
+  /** Test for the method checkUsernameFree.
+   *  
    * TODO - make RegisteredUserList.getInstance() mockable for a better testing
    */
   @Test
@@ -100,6 +99,9 @@ public class UtilTest {
     Assert.assertTrue(true);
   }
   
+  /** test the age check.
+   * 
+   */
   @Test
   public void testAge() {
     GregorianCalendar theGregorianCalendarNow = new GregorianCalendar();
@@ -124,18 +126,4 @@ public class UtilTest {
     Assert.assertEquals(theAge18 - 1, Util.age(theGregorianCalendarBirthday.getTime()));
   }
   
-  @Test
-  public void testGenerateActivationCode() {
-    User theUser = new User();
-    theUser.setVorname("vorname");
-    theUser.setNachname("nachname");
-    theUser.setEmail("some@body.de");
-    theUser.setPassword("geheim");
-    theUser.setGeburtstag("01.01.1970");
-    
-    String theGenerateActivationCode = Util.generateActivationCode(theUser);
-    
-    Assert.assertNotNull("The generated activation key shouldn't be null", theGenerateActivationCode);
-    Assert.assertTrue("The generated activattion key shouldn't be empty", !theGenerateActivationCode.equals(""));
-  }
 }

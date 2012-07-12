@@ -10,7 +10,35 @@
     <welcome-file>TimadorusWebApp.html</welcome-file>
   </welcome-file-list>
   
+     <!-- run all requests through the Guice filter. Eventually this should be 
+        the only statement in the file.
+    -->
+  <filter>
+    <filter-name>guiceFilter</filter-name>
+    <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>guiceFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- set config on app start to create a Guice injector -->
+  <listener>
+     <listener-class>de.haw_hamburg.informatik.webting.server.TimadorusGuiceServletConfig</listener-class>
+  </listener>
+  
   <!-- Servlets -->
+  <servlet>
+    <servlet-name>actionService</servlet-name>
+    <servlet-class>org.timadorus.webapp.server.rpc.service.ServiceImpl</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>actionService</servlet-name>
+    <url-pattern>/timadoruswebapp/actionService</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <servlet-name>session</servlet-name>
     <servlet-class>org.timadorus.webapp.server.rpc.service.SessionServiceImpl</servlet-class>
@@ -19,26 +47,6 @@
   <servlet-mapping>
     <servlet-name>session</servlet-name>
     <url-pattern>/timadoruswebapp/session</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>login</servlet-name>
-    <servlet-class>org.timadorus.webapp.server.rpc.service.LoginServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>login</servlet-name>
-    <url-pattern>/timadoruswebapp/login</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>register</servlet-name>
-    <servlet-class>org.timadorus.webapp.server.rpc.service.ServiceImpl</servlet-class>
-  </servlet>
- 
-  <servlet-mapping>
-    <servlet-name>register</servlet-name>
-    <url-pattern>/timadoruswebapp/register</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -52,16 +60,6 @@
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>character</servlet-name>
-    <servlet-class>org.timadorus.webapp.server.rpc.service.CharacterServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>character</servlet-name>
-    <url-pattern>/timadoruswebapp/character</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
     <servlet-name>user</servlet-name>
     <servlet-class>org.timadorus.webapp.server.rpc.service.UserServiceImpl</servlet-class>
   </servlet>
@@ -71,23 +69,4 @@
     <url-pattern>/timadoruswebapp/user</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-    <servlet-name>createCampaign</servlet-name>
-    <servlet-class>org.timadorus.webapp.server.rpc.service.CreateCampaignServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>createCampaign</servlet-name>
-    <url-pattern>/timadoruswebapp/createCampaign</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>createFraction</servlet-name>
-    <servlet-class>org.timadorus.webapp.server.rpc.service.CreateFractionServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>createFraction</servlet-name>
-    <url-pattern>/timadoruswebapp/createFraction</url-pattern>
-  </servlet-mapping>
 </web-app>

@@ -9,17 +9,34 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
 import org.timadorus.webapp.beans.Campaign;
-import org.timadorus.webapp.server.RegisteredUserList;
 
+/** handle the management of campaigns.
+ * 
+ * This class should be used in a singleton pattern. The class does not enforce this
+ * by itself, but relies on guice for that. 
+ * 
+ * @author sage
+ *
+ */
 public final class CampaignProvider {
-  
-  private CampaignProvider() {
-    
+
+  private final PersistenceManagerFactory pmf;
+
+  /**
+   * 
+   * @param pmf factory to use for this object
+   */
+  public  CampaignProvider(PersistenceManagerFactory pmf) {
+    this.pmf = pmf;
   }
     
-  private static final PersistenceManagerFactory PMF = RegisteredUserList.PMF;
   
-  public static String createCampaign(Campaign campaign) {
+  /** create a new campaign from a bean.
+   * 
+   * @param campaign the campaign to create.
+   * @return SUCCESS in the case the writign was successfull, FAILURE otherwise.
+   */
+  public String createCampaign(Campaign campaign) {
     if (campaign != null) {
       System.out.println("\n\n" + campaign.toString() + "\n\n");
       return saveCampaignToDB(campaign);
@@ -28,10 +45,14 @@ public final class CampaignProvider {
     }
   }
 
-  //@SuppressWarnings("unchecked")
-  private static String saveCampaignToDB(Campaign campaign) {
+  /** actually write the new campaign to the database.
+   * 
+   * @param campaign the campaign to write
+   * @return SUCCESS in the case the writign was successfull, FAILURE otherwise.
+   */
+  private String saveCampaignToDB(Campaign campaign) {
     
-    PersistenceManager pm = PMF.getPersistenceManager();
+    PersistenceManager pm = pmf.getPersistenceManager();
     
     // check if campaign name already exists
     //Extent<Campaign> campaignExtent = pm.getExtent(Campaign.class, true);
@@ -52,13 +73,17 @@ public final class CampaignProvider {
    return "SUCCESS";
   }
 
-  @SuppressWarnings("unchecked")
-  //Checks if campaign name already exists
-  public static String existsCampaign(String campaignName) {
-    PersistenceManager pm = PMF.getPersistenceManager();
+  /** Checks if campaign name already exists.
+   * 
+   * @param campaignName the name candidate to check
+   * @return FAILURE if the name exists in the database, SUCCESS otherwise
+   */
+  public String existsCampaign(String campaignName) {
+    PersistenceManager pm = pmf.getPersistenceManager();
 
     Extent<Campaign> campaignExtent = pm.getExtent(Campaign.class, true);
     Query campaignQuery = pm.newQuery(campaignExtent, "name == '" + campaignName + "'");
+    @SuppressWarnings("unchecked")
     List<Campaign> chars = (List<Campaign>) campaignQuery.execute();
     if (!chars.isEmpty()) {
       return "FAILURE";
@@ -66,10 +91,14 @@ public final class CampaignProvider {
     return "SUCCESS";
   }
 
-  @SuppressWarnings("unchecked")
-  public static List<Campaign> getCampaigns(String username) {
+  /** the campaigns for a user.
+   * 
+   * @param username name of the user to retrieve the campaigns for.
+   * @return a list of campaigns that the user is involved in
+   */
+  public List<Campaign> getCampaigns(String username) {
     try {
-      PersistenceManager pm = PMF.getPersistenceManager();
+      PersistenceManager pm = pmf.getPersistenceManager();
 
       Extent<Campaign> extent = pm.getExtent(Campaign.class, true);
       Query query = pm.newQuery(extent, "username == '" + username + "'");

@@ -38,7 +38,7 @@ public class CreateCharacterServiceTest {
    */
   @Test
   public void testCreateCharacter() {
-    CreateCharacterServiceImpl service = new CreateCharacterServiceImpl();
+    CreateCharacterServiceImpl service = new CreateCharacterServiceImpl(null);
     
     Character character = new Character();
     
@@ -50,8 +50,7 @@ public class CreateCharacterServiceTest {
     race.setName("Gnom");
     character.setRace(race);
     
-    CClass charClass = new CClass();
-    charClass.setName("Bankier");    
+    CClass charClass = new CClass("Bankier", "Money, Money, Money");
     character.setCharClass(charClass);
     
 //    service.createCharacter(character);

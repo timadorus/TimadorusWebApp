@@ -33,9 +33,16 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * 
+ * @author sage
+ *
+ */
 public class CreateFractionPanel extends FormPanel implements ShowCreateFractionHandler {
 
-  // Create a key-up handler for the nameField
+  /** Create a key-up handler for the nameField.
+   * 
+   */
   class MyKeyUpHandler implements KeyUpHandler {
 
     @Override
@@ -43,9 +50,12 @@ public class CreateFractionPanel extends FormPanel implements ShowCreateFraction
       checkFraction(fractionNameTextBox.getText(), campaign.getName());
     }
 
+    /**
+     * 
+     * @param fractionName the name to check for validity
+     * @param campaignName campaign in which the fraction shall exist
+     */
     private void checkFraction(String fractionName, String campaignName) {
-      
-      
       
       Action<ExsFractionTransporttype> action = new Action<ExsFractionTransporttype>(ServiceType.EXSFRACTION, 
           new ExsFractionTransporttype(fractionName, campaignName));
@@ -91,8 +101,14 @@ public class CreateFractionPanel extends FormPanel implements ShowCreateFraction
     
   }
 
-  // Create a handler for the saveButton and nameField
+  /** Create a handler for the saveButton and nameField.
+   * 
+   */
   class MyHandler implements ClickHandler {
+    
+    /**
+     * @param event event
+     */
     public void onClick(ClickEvent event) {
 
       if (event.getSource().equals(saveButton)) {
@@ -109,6 +125,10 @@ public class CreateFractionPanel extends FormPanel implements ShowCreateFraction
       }
     }
 
+    /**
+     * 
+     * @param fraction the fraction to sent
+     */
     private void sendToServer(Fraction fraction) {
       
       Action<Fraction> action = new Action<Fraction>(ServiceType.CRTFRACTION, fraction);
@@ -180,6 +200,10 @@ public class CreateFractionPanel extends FormPanel implements ShowCreateFraction
 
   CheckBox setTemplateCheckBox = new CheckBox();
 
+  /**
+   * 
+   * @param entryIn application
+   */
   public CreateFractionPanel(DefaultTimadorusWebApp entryIn) {
     super();
     this.entry = entryIn;
@@ -235,21 +259,38 @@ public class CreateFractionPanel extends FormPanel implements ShowCreateFraction
     fractionNameTextBox.addKeyUpHandler(keyUpHandler);
   }
 
+  /**
+   * 
+   * @param userIn user for which to save
+   */
   public void loadSavedFractionPanel(User userIn) {
     getEntry().fireEvent(new ShowCreateFractionEvent(userIn, campaign, "<h1>Fraktion gespeichert</h1><p>Die Fraktion "
                              + "wurde erfolgreich hinzugefügt</p>"));
   }
 
+  /**
+   * 
+   * @param entry application
+   * @return a faction creation panel
+   */
   public static CreateFractionPanel getCreateFractionPanel(DefaultTimadorusWebApp entry) {
     return new CreateFractionPanel(entry);
   }
 
+  /**
+   * 
+   * @return informational text as html code
+   */
   private static final HTML getInformation() {
     HTML information = new HTML("<h1>Fraktion anlegen</h1><p>Hier kannst du deiner Kampagne eine Fraktion hinzufügen."
         + "</p>");
     return information;
   }
 
+  /**
+   * 
+   * @return the application
+   */
   public DefaultTimadorusWebApp getEntry() {
     return entry;
   }

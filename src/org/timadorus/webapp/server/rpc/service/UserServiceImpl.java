@@ -20,9 +20,19 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
 
   private static final long serialVersionUID = -2215579735797066083L;
   
-  public static final PersistenceManagerFactory PMF = RegisteredUserList.PMF;
-  private static RegisteredUserList userList = RegisteredUserList.getInstance();
+  private final PersistenceManagerFactory pmf;
+  private final RegisteredUserList userList;
   
+  
+  /**
+   * @param pmf the factory to use
+   * @param userList the user list to use
+   */
+  public UserServiceImpl(PersistenceManagerFactory pmf, RegisteredUserList userList) {
+    this.pmf = pmf;
+    this.userList = userList;
+  }
+
   /**
    * Returns a User object containing the current available informations of this user.
    * 
@@ -32,7 +42,7 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
   @SuppressWarnings("unchecked")
   public User getUser(User user) {
     try {
-      PersistenceManager pm = PMF.getPersistenceManager();  
+      PersistenceManager pm = pmf.getPersistenceManager();  
       
       Query query = pm.newQuery(User.class, "username == '" + user.getUsername() + "'");
       
@@ -59,7 +69,7 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
    * @return The status of delete-process User.OK on success, User.USER_INVALID otherwise
    */
   public String delete(User user) {
-    boolean status = RegisteredUserList.getInstance().deleteUser(user);
+    boolean status = userList.deleteUser(user);
     if (status) {
       return String.valueOf(User.OK);
     }
@@ -74,13 +84,13 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
    * @return An integer value representing the state of the update attempt
    */
   public int update(long id, User user) {
-    PersistenceManager pm = PMF.getPersistenceManager();
+    PersistenceManager pm = pmf.getPersistenceManager();
     
     int value       = isValid(user);
     User origUser   = pm.getObjectById(User.class, id);
     
     if (!origUser.getUsername().equals(user.getUsername())) {
-      value += Util.checkUsernameFree(user.getUsername());
+      value += checkUsernameFree(user.getUsername());
     }
     
     if (value == User.OK) {
@@ -116,7 +126,7 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
       } else {
         user = getUser(user);
         if (activationCode.equals(user.getActivationCode())) {
-          PersistenceManager pm = PMF.getPersistenceManager();          
+          PersistenceManager pm = pmf.getPersistenceManager();          
           User origUser         = pm.getObjectById(User.class, user.getId());
           origUser.setActive(true);
           pm.makePersistent(origUser);
@@ -144,7 +154,21 @@ public class UserServiceImpl  extends RemoteServiceServlet implements UserServic
   }
   
   /**
-   * this method adds a new user to the user list and to the database, by delegating it to the RegisteredUserList
+   * Checks if the username is available or not.
+   * 
+   * @param username The username which shall be checked
+   * @return 0 if the username is available, User.USERNAME_FAULT otherwise
+   */
+  public int checkUsernameFree(String username) {
+    if (!userList.usernameAvailable(username)) { 
+      return User.USERNAME_FAULT; 
+    }
+    return 0;
+  }
+
+  /**
+   * this method adds a new user to the user list and to the database, by delegating it to the RegisteredUserList.
+   * 
    * @param user user The new user, which shall be added
    * @return  ActivationCode as String on success, null otherwise
    */

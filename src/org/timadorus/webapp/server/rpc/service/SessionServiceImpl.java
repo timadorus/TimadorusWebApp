@@ -13,6 +13,7 @@ public class SessionServiceImpl extends RemoteServiceServlet implements SessionS
 
   private static final long serialVersionUID = -6274876845484737659L;
 
+  @Override
   public SessionId session(SessionId sessionId) {
     HttpSession httpSession = getThreadLocalRequest().getSession(false);
     if (httpSession != null) {

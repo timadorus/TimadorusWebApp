@@ -1,5 +1,8 @@
 package org.timadorus.webapp.server;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.jdo.Extent;
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
@@ -20,29 +22,19 @@ import org.timadorus.webapp.beans.User;
  */
 public final class RegisteredUserList {
 
-  public static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
+  // MD5
+  private static final String MD5_ALGORITHM = "MD5";
+  
+
+  private final PersistenceManagerFactory pmf; 
 
   private HashMap<String, User> users = new HashMap<String, User>();
 
-  private static RegisteredUserList registeredUserList = null;
-
   /**
-   * Constructor has to stay private -> Singleton-Pattern.
+   * @param pmf the factory to use
    */
-  private RegisteredUserList() {
-  }
-
-  /**
-   * Returns an instance of the RegisteredUserList. If it was already requested, a cached object will be returned.
-   * (Singleton-Pattern).
-   * 
-   * @return An instance of the RegisteredUserList
-   */
-  public static RegisteredUserList getInstance() {
-    if (registeredUserList == null) {
-      registeredUserList = new RegisteredUserList();
-    }
-    return registeredUserList;
+  public RegisteredUserList(PersistenceManagerFactory pmf) {
+    this.pmf = pmf;
   }
 
   /**
@@ -63,7 +55,7 @@ public final class RegisteredUserList {
         return false;
       }
     } else {
-      PersistenceManager pm = PMF.getPersistenceManager();
+      PersistenceManager pm = pmf.getPersistenceManager();
       users.put(tmpUser.getUsername(), pm.getObjectById(User.class, users.get(tmpUser.getUsername()).getId()));
       pm.close();
     }
@@ -117,7 +109,7 @@ public final class RegisteredUserList {
    */
   private User getUser(String username) {
     username = username.toLowerCase();
-    PersistenceManager pm = PMF.getPersistenceManager();
+    PersistenceManager pm = pmf.getPersistenceManager();
 
     Query query = pm.newQuery(User.class, "username == name");
     query.declareParameters("String name");
@@ -141,7 +133,7 @@ public final class RegisteredUserList {
    * 
    * TODO: all this stuff has to be made configurable in the Admin Pages.
    * 
-   * @param user
+   * @param user the user to send to
    */
   private void sendActivationMail(User user) {
 
@@ -157,10 +149,10 @@ public final class RegisteredUserList {
    * @return ActivationCode as String on success, null otherwise
    */
   public String addUser(User user) {
-    String activationCode = Util.generateActivationCode(user);
+    String activationCode = generateActivationCode(user);
 
     if (usernameAvailable(user.getUsername()) && !activationCode.equals("")) {
-      PersistenceManager pm = PMF.getPersistenceManager();
+      PersistenceManager pm = pmf.getPersistenceManager();
       user.setActive(false);
       user.setActivationCode(activationCode);
       pm.makePersistent(user);
@@ -175,9 +167,36 @@ public final class RegisteredUserList {
     return null;
   }
 
+  /**
+   * Generates an activation code for a supplied user, including the current system time stamp.
+   * 
+   * @param user The user object
+   * @return A string containing an 32byte MD5-Hash as activation code for the supplied user object.
+   */
+  public static String generateActivationCode(User user) {
+    String pass = user.getVorname() + user.getNachname() + user.getEmail() + user.getPassword() 
+                  + user.getGeburtstag() + System.currentTimeMillis();
+    
+    try {
+      MessageDigest m = MessageDigest.getInstance(MD5_ALGORITHM);
+      byte[] data = pass.getBytes(); 
+      m.update(data, 0, data.length);
+      BigInteger i = new BigInteger(1, m.digest());
+      return String.format("%1$032X", i);
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+      return "";
+    }
+  }
+
+  /** delete a user.
+   * 
+   * @param user the user to delete
+   * @return true if the user was deleted successfully, false otherwise
+   */
   @SuppressWarnings("unchecked")
   public Boolean deleteUser(User user) {
-    PersistenceManager pm = PMF.getPersistenceManager();
+    PersistenceManager pm = pmf.getPersistenceManager();
     Extent<User> extent = pm.getExtent(User.class, true);
     Query query = pm.newQuery(extent, "username == name");
     query.declareParameters("String name");
@@ -207,9 +226,13 @@ public final class RegisteredUserList {
     }
   }
 
+  /**
+   * 
+   * @param u user
+   */
   public void addC(User u) {
 
-    PersistenceManager pm = PMF.getPersistenceManager();
+    PersistenceManager pm = pmf.getPersistenceManager();
 
     try {
       Character c = Character.getInstance(); //
@@ -223,6 +246,9 @@ public final class RegisteredUserList {
     }
   }
 
+  /** print the curren users for debug purposes.
+   * 
+   */
   public void print() {
     System.out.println("Derzeit geladene User:");
     for (String user : users.keySet()) {
@@ -230,12 +256,17 @@ public final class RegisteredUserList {
     }
   }
 
+  /**
+   * 
+   * @param cname name of the character
+   * @return the character bean or null
+   */
   @SuppressWarnings("unchecked")
   public Character getCharObjectFromAppEngine(String cname) {
     // cname = cname.toLowerCase();
 
     try {
-      PersistenceManager pm = PMF.getPersistenceManager();
+      PersistenceManager pm = pmf.getPersistenceManager();
 
       List<Character> entries = new ArrayList<Character>();
 
@@ -259,12 +290,17 @@ public final class RegisteredUserList {
     return null;
   }
 
+  /**
+   * 
+   * @param userName name of the user 
+   * @return user object or null
+   */
   @SuppressWarnings("unchecked")
-  public User getC(String cname) {
-    cname = cname.toLowerCase();
+  public User getC(String userName) {
+    userName = userName.toLowerCase();
 
     try {
-      PersistenceManager pm = PMF.getPersistenceManager();
+      PersistenceManager pm = pmf.getPersistenceManager();
 
       // **
       List<User> entries = new ArrayList<User>();
@@ -276,8 +312,8 @@ public final class RegisteredUserList {
       // pm.close();
 
       for (User user : entries) {
-        if (user.getNachname().equals(cname)) {
-          System.out.println("YEAH! " + cname);
+        if (user.getNachname().equals(userName)) {
+          System.out.println("YEAH! " + userName);
           pm.close();
           return user;
         }
