@@ -1,2 +1,8 @@
+/bin
+/coverage
+/instrumented.bin
 /lib
 /test-results
+/TimadorusDB
+/timadorusWebapp.war
+/gwt-unitCache
