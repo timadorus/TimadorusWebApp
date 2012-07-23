@@ -14,7 +14,7 @@ public class HelloWorldTest extends SeleniumTest {
   @Test
   public void testFoo() throws Exception {
     getSelenium().open("TimadorusWebApp.html");
-    getSelenium().waitForPageToLoad("30000");
+    getSelenium().waitForPageToLoad("40000");
     assertEquals("Timadorus WebApplication", getSelenium().getTitle());
   }
 }
