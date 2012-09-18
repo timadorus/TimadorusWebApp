@@ -6,7 +6,6 @@ import java.util.List;
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.client.DefaultTimadorusWebApp;
 import org.timadorus.webapp.client.character.ui.DefaultActionHandler;
-
 import org.timadorus.webapp.client.service.Service;
 import org.timadorus.webapp.client.service.ServiceAsync;
 import org.timadorus.webapp.client.service.ServiceType;
@@ -236,12 +235,12 @@ public class PotStatsWidget extends FormPanel implements PotStatsDialog.Display 
   };
 
   @Override
-  public List<Integer> calculatePotStats(List<Integer> tempStat) {
+  public ArrayList<Integer> calculatePotStats(ArrayList<Integer> tempStat) {
   
     Action<Integer> action;
     AsyncCallback<Response<Integer>> response;
 
-    List<Integer> potStats = new ArrayList<Integer>();
+    ArrayList<Integer> potStats = new ArrayList<Integer>();
 
     for (int i = 0; i < tempStat.size(); i++) {
      

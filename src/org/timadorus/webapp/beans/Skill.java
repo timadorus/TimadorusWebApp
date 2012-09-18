@@ -300,9 +300,6 @@ public class Skill implements Serializable, Cloneable {
     return overallInformation;
   }
 
-  public final void setGesamtInfo(final String[] gesamtInfoIn) {
-    this.overallInformation = gesamtInfoIn;
-  }
 
 //  @Override
 //  public Skill clone(){

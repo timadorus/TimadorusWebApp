@@ -1,6 +1,6 @@
 package org.timadorus.webapp.client.character.ui.potstat;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.timadorus.webapp.beans.Character;
 import org.timadorus.webapp.beans.User;
@@ -33,7 +33,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
 
     public void addPrevButtonHandler(DefaultActionHandler handler);
 
-    public List<Integer> calculatePotStats(List<Integer> tempStat);
+    public ArrayList<Integer> calculatePotStats(ArrayList<Integer> tempStat);
     
     /**
      * Adds the {@link Character} information to the display.
@@ -52,7 +52,7 @@ public class PotStatsDialog extends DefaultDialog<PotStatsDialog.Display> implem
   /**
    * list holding characters potstats
    */
-  private List<Integer> potStats;
+  private ArrayList<Integer> potStats;
 
   public PotStatsDialog(Display display, DefaultTimadorusWebApp entry) {
     super(display, entry);

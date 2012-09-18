@@ -55,7 +55,7 @@ public class SelectTempStatsDialog extends DefaultDialog<SelectTempStatsDialog.D
   private Character character;
 
   // list for handling tempstats
-  private List<Integer> tempStats;
+  private ArrayList<Integer> tempStats;
 
   private int statPoints;
 

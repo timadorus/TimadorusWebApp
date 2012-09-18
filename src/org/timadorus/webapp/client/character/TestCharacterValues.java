@@ -1,7 +1,6 @@
 package org.timadorus.webapp.client.character;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.timadorus.webapp.beans.CClass;
@@ -538,11 +537,11 @@ public class TestCharacterValues {
     character.setGender("Male");
     final long key = (long) 333;
     character.setKey(key);
-    List<Integer> potStats = new LinkedList<Integer>();
+    ArrayList<Integer> potStats = new ArrayList<Integer>();
     final Integer potStat = 123;
     potStats.add(potStat);
     character.setPotStats(potStats);
-    List<Skill> skillList = new LinkedList<Skill>();
+    ArrayList<Skill> skillList = new ArrayList<Skill>();
     final int cost = 1;
     final int rank = 2;
     final int rkBn = 3;
@@ -555,11 +554,11 @@ public class TestCharacterValues {
     skillList.add(skill);
     character.setSkillList(skillList);
     character.setSkillListLevel1(skillList);
-    List<Stat> statList = new LinkedList<Stat>();
+    ArrayList<Stat> statList = new ArrayList<Stat>();
     Stat stat = new Stat("Stat", "A stat");
     statList.add(stat);
     character.setStatList(statList);
-    List<Integer> tempStat = new LinkedList<Integer>();
+    ArrayList<Integer> tempStat = new ArrayList<Integer>();
     tempStat.add(new Integer(1));
     character.setTempStat(tempStat);
     character.setTempStats(tempStat);

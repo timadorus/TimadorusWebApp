@@ -4,7 +4,7 @@
 package org.timadorus.webapp.beans;
 
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.Element;
@@ -65,7 +65,7 @@ public class Character implements Serializable {
 
   @Persistent
   @Element(dependent = "true")
-  List<Stat> statList = new LinkedList<Stat>();
+  ArrayList<Stat> statList = new ArrayList<Stat>();
 
   @Persistent
   boolean complete = false;
@@ -78,23 +78,23 @@ public class Character implements Serializable {
 
   @Persistent
   @Element(dependent = "true")
-  List<Skill> skillList = new LinkedList<Skill>();
+  ArrayList<Skill> skillList = new ArrayList<Skill>();
 
   @Persistent
   @Element(dependent = "true")
-  List<Skill> skillListLevel1 = new LinkedList<Skill>();
+  ArrayList<Skill> skillListLevel1 = new ArrayList<Skill>();
 
   @Persistent
-  List<Integer> tempStats = new LinkedList<Integer>();
+  ArrayList<Integer> tempStats = new ArrayList<Integer>();
 
   @Persistent
-  List<Integer> potStats = new LinkedList<Integer>();
+  ArrayList<Integer> potStats = new ArrayList<Integer>();
 
   /**
    * 
    */
   private void fillStats() {
-    statList = new LinkedList<Stat>();
+    statList = new ArrayList<Stat>();
 
     Stat s1 = new Stat("Konstitution", "Konsti");
     statList.add(s1);
@@ -234,7 +234,7 @@ public class Character implements Serializable {
   /**
    * 
    */
-  public List<Integer> getTempStat() {
+  public ArrayList<Integer> getTempStat() {
     return tempStats;
   }
 
@@ -242,7 +242,7 @@ public class Character implements Serializable {
    * 
    * @param tempStat list of temp stats to set
    */
-  public void setTempStat(List<Integer> tempStat) {
+  public void setTempStat(ArrayList<Integer> tempStat) {
     this.tempStats = tempStat;
   }
 
@@ -250,7 +250,7 @@ public class Character implements Serializable {
    * 
    * @param statList the stat list to set
    */
-  public void setStatList(List<Stat> statList) {
+  public void setStatList(ArrayList<Stat> statList) {
     this.statList = statList;
   }
 
@@ -290,7 +290,7 @@ public class Character implements Serializable {
    * 
    * @return the list of skills 
    */
-  public List<Skill> getSkillList() {
+  public ArrayList<Skill> getSkillList() {
     return skillList;
   }
 
@@ -298,7 +298,7 @@ public class Character implements Serializable {
    * 
    * @param skillListIn the list of skills to set
    */
-  public void setSkillList(List<Skill> skillListIn) {
+  public void setSkillList(ArrayList<Skill> skillListIn) {
     this.skillList = skillListIn;
   }
 
@@ -382,7 +382,7 @@ public class Character implements Serializable {
    * 
    * @param skillListLevel1In
    */
-  public void setSkillListLevel1(List<Skill> skillListLevel1In) {
+  public void setSkillListLevel1(ArrayList<Skill> skillListLevel1In) {
     this.skillListLevel1 = skillListLevel1In;
   }
 
@@ -589,7 +589,7 @@ public class Character implements Serializable {
   /**
    * @param tempStats the tempStats to set
    */
-  public void setTempStats(List<Integer> tempStats) {
+  public void setTempStats(ArrayList<Integer> tempStats) {
     this.tempStats = tempStats;
   }
 
@@ -603,7 +603,7 @@ public class Character implements Serializable {
   /**
    * @param potStats the potStats to set
    */
-  public void setPotStats(List<Integer> potStats) {
+  public void setPotStats(ArrayList<Integer> potStats) {
     this.potStats = potStats;
   }
   

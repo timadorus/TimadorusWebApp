@@ -42,7 +42,7 @@ public class PotStatsDialogTest {
     
     myCharacter.setTempStat(new ArrayList<Integer>());
     
-    when(myDisplayMock.calculatePotStats(Mockito.anyListOf(Integer.class))).
+    when(myDisplayMock.calculatePotStats((ArrayList<Integer>) Mockito.anyListOf(Integer.class))).
                           thenReturn(new ArrayList<Integer>());
     
     when(myDisplayMock.getFormPanel()).thenReturn(null);

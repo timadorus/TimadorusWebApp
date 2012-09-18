@@ -4,6 +4,6 @@
               private RevisionInfo() {
               }
               public static final String REVISION_NUMBER = "${revisionVersion}";
-              public static final String TIME_STAMP = "Thu, 12-July-2012 22:25:58 CEST";
+              public static final String TIME_STAMP = "Mon, 23-July-2012 14:57:43 CEST";
             }
         
